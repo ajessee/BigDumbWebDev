@@ -7,19 +7,20 @@ end
 
 gem 'rails'                   
 gem 'bcrypt'                  
-gem 'faker'                  
-gem 'carrierwave'            
-gem 'mini_magick'            
-gem 'will_paginate'          
-gem 'bootstrap-will_paginate'
-gem 'bootstrap-sass'         
-gem 'puma'                   
-gem 'sass-rails'             
-gem 'uglifier'               
-gem 'jquery-rails'           
-gem 'jbuilder'               
+gem 'faker'                   
+gem 'carrierwave'             
+gem 'mini_magick'             
+gem 'will_paginate'           
+gem 'bootstrap-will_paginate' 
+gem 'bootstrap-sass'          
+gem 'puma'                    
+gem 'sass-rails'              
+gem 'uglifier'                
+gem 'jquery-rails'            
+gem 'jbuilder'                
 
 group :development, :test do
+  
   gem 'byebug',  '9.0.6', platform: :mri
 end
 
@@ -39,5 +40,5 @@ end
 
 group :production do
   gem 'pg'  
-  gem 'fog' 
+  gem 'fog'
 end
