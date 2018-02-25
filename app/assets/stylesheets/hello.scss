@@ -1,3 +1,203 @@
 // Place all the styles related to the Hello controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+a:link {
+    color: black;
+    text-decoration: none
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    color: #8D8D8C;
+}
+
+a:focus {
+    color: #8D8D8C;
+}
+
+a:active {
+    color: maroon;
+}
+
+.container {
+    display: flex;
+}
+
+#main_page_container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#blog_page_container {
+    flex-direction: column;
+    align-items: center;
+
+}
+
+ul {
+    list-style-type: none;
+    font-family: arial;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: black;
+    position: relative;
+    padding: 0 0 0 0;
+}
+
+.nav_menu ul li {
+    display: inline-block;
+    font-family: 'Inconsolata', monospace;
+    text-align: center;
+}
+
+.nav_menu ul li:nth-child(-n+3) a::after {
+    content: "|";
+    color: black;
+    margin-left: 0.2em;
+}
+
+h1,
+h2 {
+    color: black;
+    display: block;
+    position: relative;
+}
+
+.background_image {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: auto;
+    min-height: 100%;
+    min-width: 1em;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    left: 0em;
+    top: 0em;
+}
+
+#main_page_background {
+    background-image: url('background.jpg');
+}
+
+#blog_page_background {
+    background-image: url('notebook-page.jpg');
+}
+
+.header {
+    font-family: 'Cabin', sans-serif;
+    font-size: 7em;
+    text-align: center;
+    margin: 0em 0em 0em 0em;
+}
+
+.subhead {
+    font-family: 'Cabin', sans-serif;
+    font-size: 4.5em;
+    text-align: center;
+    margin: 0em 0em 0em 0em;
+}
+
+.blog_links {
+display: flex;
+}
+
+.blog_links > ul > li {
+    margin: 1em 1em 1em 1em;
+}
+
+#blog_links_1 {
+    width: 50%;
+    height: 50%;
+    margin-left: 5em;
+}
+
+#blog_links_2 {
+    width: 50%;
+    height: 50%;
+}
+
+
+
+@media screen and (max-width: 1200px) and (min-width: 800px) {
+
+    #main_page_background {
+        background-image: url('background_small.jpg');
+    }
+
+    .header {
+        font-size: 6em;
+    }
+
+    .subhead {
+        font-size: 4em;
+    }
+
+    ul {
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    #main_page_background {
+        background-image: url('background_vertical.jpg');
+    }
+
+    .header {
+        font-size: 4em;
+    }
+
+    .subhead {
+        font-size: 3em;
+    }
+
+    ul {
+        font-size: 1em;
+    }
+}
+
+#Header {
+  font-size: 3em;
+  font-family: Arial;
+  color: #000;
+  text-align: center;
+  display: block;
+  padding-bottom: 1em;
+}
+
+#Body {
+  font-size: 1.5em;
+  font-family: Arial;
+  color: #000;
+  position: relative;
+  display: block;
+
+}
+#Subheader {
+  font-size: 1.5em;
+  font-family: Arial;
+  color: #000;
+  position: relative;
+  display: block;
+
+}
+
+.Links {
+font-family: arial;
+  font-size: 2em;
+  font-weight: bold;
+  position: fixed;
+  margin: 11em 1em 1em 35em;
+}
+
+
+
