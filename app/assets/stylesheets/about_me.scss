@@ -1,0 +1,47 @@
+#about-me-container {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  min-height: 100vh; 
+  min-width: 100vw;
+}
+
+#about-me-content {
+  color: white;
+}
+
+#fade-in-name {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 7em;
+  margin: 0em 0em 0em 0em;
+  opacity: 0;
+  transition: opacity 5s; 
+}
+
+#fade-in-title {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 4.5em;
+  margin: 0em 0em 0em 0em;
+  opacity: 0;
+  transition: opacity 5s; 
+}
+
+@media screen and (max-width: 1200px) and (min-width: 800px) {
+  #fade-in-name {
+      font-size: 8em;
+  }
+  #fade-in-title {
+      font-size: 5em;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #fade-in-name {
+      font-size: 8em;
+  }
+  #fade-in-title {
+      font-size: 5em;
+  }
+}

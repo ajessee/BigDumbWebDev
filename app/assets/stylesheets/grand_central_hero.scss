@@ -1,0 +1,102 @@
+@import "font-awesome";
+
+#background-image-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; 
+  min-width: 100vw;
+}
+
+.arrow {
+  position: relative;
+  color: white;
+  cursor: pointer;
+}
+
+.drop {
+  -moz-animation: drop 3.5s ease both;
+  -webkit-animation: drop 3.5s ease both;
+  animation: drop 3.5s ease 1s both;
+}
+
+// Responsively adjust background image
+@media screen and (max-width: 1200px) and (min-width: 800px) {
+  #background-image-container {
+      background-image: url('background_small.jpg');
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #background-image-container {
+      background-image: url('background_vertical.jpg');
+  }
+}
+
+// Arrow drop animation
+@keyframes drop {
+  from {
+    -moz-transform: translateY(-350px);
+    -ms-transform: translateY(-350px);
+    -webkit-transform: translateY(-350px);
+    transform: translateY(-350px) scale(0.3);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: #dadadc;
+  }
+  to {
+    -moz-transform: translateY(350px);
+    -ms-transform: translateY(350px);
+    -webkit-transform: translateY(350px);
+    transform: translateY(350px) scale(1.2);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: white;
+  }
+}
+@-moz-keyframes drop {
+  from {
+    -moz-transform: translateY(-350px);
+    -ms-transform: translateY(-350px);
+    -webkit-transform: translateY(-350px);
+    transform: translateY(-350px) scale(0.3);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: #dadadc;
+  }
+  to {
+    -moz-transform: translateY(350px);
+    -ms-transform: translateY(350px);
+    -webkit-transform: translateY(350px);
+    transform: translateY(350px) scale(1.2);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: white;
+  }
+}
+@-webkit-keyframes drop {
+  from {
+    -moz-transform: translateY(-350px);
+    -ms-transform: translateY(-350px);
+    -webkit-transform: translateY(-350px);
+    transform: translateY(-350px) scale(0.3);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: #dadadc;
+  }
+  to {
+    -moz-transform: translateY(350px);
+    -ms-transform: translateY(350px);
+    -webkit-transform: translateY(350px);
+    transform: translateY(350px) scale(1.2);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: white;
+  }
+}
+
+
