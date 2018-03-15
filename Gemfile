@@ -18,7 +18,8 @@ gem 'puma'
 gem 'sass-rails'              
 gem 'uglifier'                
 gem 'jquery-rails'            
-gem 'jbuilder'                
+gem 'jbuilder'       
+gem 'bundler', '1.15.2'         
 
 group :development, :test do
   
