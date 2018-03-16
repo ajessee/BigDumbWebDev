@@ -3,7 +3,7 @@
 
 const scrollDown = (e) => {
   console.log(e.target);
-  document.querySelector('#about-me-content').scrollIntoView({ behavior: 'smooth' })
+  document.querySelector('#about-me-container').scrollIntoView({ behavior: 'smooth' })
 }
 const fadeInHeaders = () => {
 

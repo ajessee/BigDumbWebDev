@@ -4,89 +4,10 @@
 
 
 
-// Main page
-
-#blog-page-container {
-    flex-direction: column;
-    align-items: center;
-}
-
-#blog-page-background {
-    background-image: url('notebook-page.jpg');
-}
-
-// Links
-a:link {
-    color: black;
-    text-decoration: none
-}
-
-a:visited {
-    color: black;
-}
-
-a:hover {
-    color: #8D8D8C;
-}
-
-a:focus {
-    color: #8D8D8C;
-}
-
-a:active {
-    color: maroon;
-}
-
-ul {
-    list-style-type: none;
-    font-family: arial;
-    font-size: 2.5em;
-    font-weight: bold;
-    color: black;
-    position: relative;
-    padding: 0 0 0 0;
-}
-
-.nav-menu ul li {
-    display: inline-block;
-    font-family: 'Inconsolata', monospace;
-    text-align: center;
-}
-
-.nav-menu ul li:nth-child(-n+3) a::after {
-    content: "|";
-    color: black;
-    margin-left: 0.2em;
-}
 
 
 
-.blog-links {
-display: flex;
-}
 
-.blog-links > ul > li {
-    margin: 1em 1em 1em 1em;
-}
-
-#blog-links-1 {
-    width: 50%;
-    height: 50%;
-    margin-left: 5em;
-}
-
-#blog-links-2 {
-    width: 50%;
-    height: 50%;
-}
-
-.Links {
-font-family: arial;
-  font-size: 2em;
-  font-weight: bold;
-  position: fixed;
-  margin: 11em 1em 1em 35em;
-}
 
 
 
