@@ -1,34 +1,56 @@
 <section id="about-me-container">
 
   <nav id="about-me-nav">
-    <a href="#background-image-container">Home</a> 
-    <a href="#background-image-container">About Me</a> 
-    <a href="#background-image-container">Projects</a> 
-    <a href="#background-image-container">Blog</a> 
-    <a href="#background-image-container">Login</a> 
+    <a class="nav-links" href="#background-image-container">Home</a>
+    <a class="nav-links" href="#about-me-container">About Me</a>
+    <a class="nav-links" href="#background-image-container">Projects</a>
   </nav>
 
-  <figure id="about-me-figure">
+  <div id="about-me-image">
     <%= image_tag("andre_profile.jpg", id: "about-me-profile-picture") %>"
-    <figcaption>Me</figcaption> 
-  </figure>
-
-  <section id="about-me-content">
-    <header>
-      <h1 id="fade-in-name">André Jessee</h1>
-      <h2 id="fade-in-title">Web Developer</h2>
-    </header>
-  </section>
+  </div>
 
   <section id="about-me-blurb">
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    <p>Hi, my name is André, and I live in Washington D.C. I work as a software engineer for the American Institutes for Research,
+      a non-profit. In my spare time I like to code and build web applications like this one.</p>
 
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    <p>I started on my journey to learn how to code a few years ago. At the time I was working as a project manager for a small
+      international development company. The projects I managed were climate change related monitoring and evaluation contracts
+      with the U.S. Department of State. I got the opportunity to travel and do some field work. I realized that I wanted
+      to develop a robust technical skill set around data collection, storage, analysis, and visualization. </p>
+
+    <p>I moved up to NYC and enrolled in Dev Bootcamp, an intensive technical training program where we learned a number of
+      different technologies. After graduating, I stayed in NYC and worked for Kaplan for a couple years before moving back
+      to DC.</p>
   </section>
 
+  <section id="about-me-blurb2">
+    <p>I've been continuing my learning since, focusing on coding in Ruby and Javascript, and building web applications in Rails.
+      I'm building this site as a place where I can exhibit projects that I have been working on, and share my knowledge
+      and thoughts through a blog. This site is currently under construction, so please excuse my dust! I plan on continuing
+      to add more projects that I am working on, while at the same time getting my blog up and running. So keep coming back
+      to check for new content. In the meantime, feel free to checkout my GitHub, LinkedIn, or Creddle pages below. Also,
+      keep scrolling to checkout my projects.</p>
+
+    <p>Thanks for stopping by, and feel free to drop me a line at any time!</p>
+  </section>
 
   <footer id="about-me-footer">
-    <p>Lets put icons in here</p>
+    <div class="github icon">
+      <a href="https://github.com/ajessee" target="_blank">
+        <i class="fa fa-github-square fa-4x"></i>
+      </a>
+    </div>
+    <div class="linkedin icon">
+      <a href="https://www.linkedin.com/in/andrejessee/" target="_blank">
+        <i class="fa fa-linkedin fa-4x"></i>
+      </a>
+    </div>
+    <div class="creddle icon">
+      <a href="https://resume.creddle.io/resume/bkvlgd5k80h" target="_blank">
+        <i class="fa fa-file-text fa-4x" aria-hidden="true"></i>
+      </a>
+    </div>
   </footer>
 
 </section>

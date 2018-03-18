@@ -1,102 +1,77 @@
 #about-me-container {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 50px 270px 410px 50px;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: 10% auto auto 20%;
   background-color: black;
   min-height: 100vh; 
   min-width: 100vw;
 }
 
-#about-me-content {
-  color: white;
-  grid-column: 5 / span 7;
-  display: flex;
-  flex-flow: row nowrap;  
-  align-items: center;
-  justify-content: center;
-}
-
 #about-me-nav {
+  grid-column: span 20;
   display: flex;
   flex-flow: row nowrap;  
   justify-content: center;
-  grid-column: span 12;
+  align-items: center;
   border-bottom: 2px solid white;
 }
 
-a {  color: white;}
-
-// Links
-a:link {
+.nav-links {
+  color: white;
   font-family: 'Oxygen', sans-serif;
   font-size: 1.6em;
-  text-decoration: none
+  text-decoration: none;
+  margin: 0em 0.6em 0em 0.6em;
 }
 
-a:hover {
-  color: #8D8D8C;
+a.nav-links:hover {
+  border-bottom: 1px solid white;
 }
 
-#about-me-nav nav:nth-child(-n+3) a::after {
-  content: "|";
-  color: white;
-  margin-left: 0.2em;
+#about-me-image {
+  margin: 1em 1em 1em 1em;
+  grid-column: 2 / 6;
+  grid-row: 2;
+  align-self: flex-end;
 }
-
-#about-me-figure {
-  grid-column: 2 / span 3;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
-}
-
 #about-me-profile-picture {
   width: 100%;
   height: auto;
-  border-radius: 135px;
-  border: 8px solid white;
+  border-radius: 250px;
+  border: 3px solid white;
 }
 
-#about-me-blurb {
+#about-me-blurb{
+  grid-column: 7 / 20;
+  grid-row: 2;
   color: white;
-  grid-column: 2 / span 10;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
   font-family: 'Oxygen', sans-serif;
-  font-size: 1.4em;
-  margin: 0em 0em 0em 0em;
+  font-size: 1.3em;
+  align-self: flex-end;
 }
+
+#about-me-blurb2{
+  grid-column: 2 / 20;
+  grid-row: 3;
+  color: white;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 1.3em;
+}
+
 
 #about-me-footer {
+  grid-row: 4;
   color: white;
-  grid-column: span 12;
+  grid-column: span 20;
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
   justify-content: center;
+
 }
 
-#fade-in-name {
-  font-family: 'Oxygen', sans-serif;
-  font-size: 7em;
-  margin: 0em 0em 0em 0em;
-  opacity: 0;
-  transition: opacity 5s; 
+div.icon {
+  margin: 0em 4em 0em 4em;
   align-items: center;
-  justify-content: center;
-}
-
-#fade-in-title {
-  font-family: 'Oxygen', sans-serif;
-  font-size: 4.5em;
-  margin: 0em 0em 0em 0em;
-  opacity: 0;
-  transition: opacity 5s; 
-  align-items: center;
-  justify-content: center;
 }
 
 @media screen and (max-width: 1200px) and (min-width: 800px) {

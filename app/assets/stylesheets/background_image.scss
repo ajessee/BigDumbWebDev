@@ -2,7 +2,7 @@
 
 #background-image-container {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
   background-image: image-url('background.jpg');
@@ -12,16 +12,38 @@
   min-width: 100vw;
 }
 
+#background-image-content {
+  margin-bottom: 300px;
+  text-align: center;
+  z-index: 2;
+}
+
+#fade-in-name {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 7em;
+  margin: 0em 0em 0em 0em;
+  opacity: 0;
+  transition: opacity 5s; 
+}
+
+#fade-in-title {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 4.5em;
+  margin: 0em 0em 0em 0em;
+  opacity: 0;
+  transition: opacity 5s; 
+}
+
 .arrow {
-  position: relative;
   color: white;
   cursor: pointer;
+  z-index: 1;
 }
 
 .drop {
   -moz-animation: drop 3.5s ease both;
   -webkit-animation: drop 3.5s ease both;
-  animation: drop 3.5s ease 1s both;
+  animation: drop 3.5s ease 3s both;
 }
 
 // Responsively adjust background image
@@ -40,19 +62,19 @@
 // Arrow drop animation
 @keyframes drop {
   from {
-    -moz-transform: translateY(-350px);
-    -ms-transform: translateY(-350px);
-    -webkit-transform: translateY(-350px);
-    transform: translateY(-350px) scale(0.3);
+    -moz-transform: translateY(-700px);
+    -ms-transform: translateY(-700px);
+    -webkit-transform: translateY(-700px);
+    transform: translateY(-700px) scale(0.3);
     transition: transform 300ms linear;
     will-change: transform;
     color: #dadadc;
   }
   to {
-    -moz-transform: translateY(350px);
-    -ms-transform: translateY(350px);
-    -webkit-transform: translateY(350px);
-    transform: translateY(350px) scale(1.2);
+    -moz-transform: translateY(80px);
+    -ms-transform: translateY(80px);
+    -webkit-transform: translateY(80px);
+    transform: translateY(80px) scale(1.2);
     transition: transform 300ms linear;
     will-change: transform;
     color: white;
