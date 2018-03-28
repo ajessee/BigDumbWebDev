@@ -2,7 +2,6 @@
   display: grid;
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: 10% auto auto 20%;
-  background-color: black;
   min-height: 100vh; 
   min-width: 100vw;
 }
@@ -13,7 +12,7 @@
   flex-flow: row nowrap;  
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid white;
+  background-color: black;
 }
 
 .nav-links {
@@ -38,13 +37,13 @@ a.nav-links:hover {
   width: 100%;
   height: auto;
   border-radius: 250px;
-  border: 3px solid white;
+  border: 3px solid black;
 }
 
 #about-me-blurb{
   grid-column: 7 / 20;
   grid-row: 2;
-  color: white;
+  color: black;
   font-family: 'Oxygen', sans-serif;
   font-size: 1.3em;
   align-self: flex-end;
@@ -53,7 +52,7 @@ a.nav-links:hover {
 #about-me-blurb2{
   grid-column: 2 / 20;
   grid-row: 3;
-  color: white;
+  color: black;
   font-family: 'Oxygen', sans-serif;
   font-size: 1.3em;
 }
@@ -61,7 +60,7 @@ a.nav-links:hover {
 
 #about-me-footer {
   grid-row: 4;
-  color: white;
+  color: black;
   grid-column: span 20;
   display: flex;
   flex-flow: row nowrap;
