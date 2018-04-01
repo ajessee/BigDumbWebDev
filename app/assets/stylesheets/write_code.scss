@@ -1,0 +1,12 @@
+#write-code-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  background-image: image-url('write-code.gif');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh; 
+  min-width: 100vw;
+}

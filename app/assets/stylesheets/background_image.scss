@@ -3,48 +3,36 @@
 #background-image-container {
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
   background-image: image-url('background.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   min-height: 100vh; 
   min-width: 100vw;
 }
 
 #background-image-content {
-  margin-bottom: 300px;
-  text-align: center;
+  align-self: center;
   z-index: 2;
 }
 
-#fade-in-name {
+#fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
+  opacity: 0;
   font-family: 'Oxygen', sans-serif;
   font-size: 7em;
-  margin: 0em 0em 0em 0em;
-  opacity: 0;
-  transition: opacity 5s; 
-}
-
-#fade-in-title {
-  font-family: 'Oxygen', sans-serif;
-  font-size: 4.5em;
-  margin: 0em 0em 0em 0em;
-  opacity: 0;
-  transition: opacity 5s; 
+  transition: opacity 1s; 
 }
 
 .arrow {
   color: white;
   cursor: pointer;
   z-index: 1;
+  align-self: center;
 }
 
 .drop {
   -moz-animation: drop 3.5s ease both;
   -webkit-animation: drop 3.5s ease both;
-  animation: drop 3.5s ease 3s both;
+  animation: drop 3.5s ease 4s both;
 }
 
 // Responsively adjust background image
@@ -63,19 +51,19 @@
 // Arrow drop animation
 @keyframes drop {
   from {
-    -moz-transform: translateY(-700px);
-    -ms-transform: translateY(-700px);
-    -webkit-transform: translateY(-700px);
-    transform: translateY(-700px) scale(0.3);
+    -moz-transform: translateY(-50vh);
+    -ms-transform: translateY(-50vh);
+    -webkit-transform: translateY(-50vh);
+    transform: translateY(-50vh) scale(0.3);
     transition: transform 300ms linear;
     will-change: transform;
     color: #dadadc;
   }
   to {
-    -moz-transform: translateY(80px);
-    -ms-transform: translateY(80px);
-    -webkit-transform: translateY(80px);
-    transform: translateY(80px) scale(1.2);
+    -moz-transform: translateY(45vh);
+    -ms-transform: translateY(45vh);
+    -webkit-transform: translateY(45vh);
+    transform: translateY(45vh) scale(1.2);
     transition: transform 300ms linear;
     will-change: transform;
     color: white;
