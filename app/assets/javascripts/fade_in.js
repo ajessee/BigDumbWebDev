@@ -1,19 +1,22 @@
-const fadeInHeaders = () => {
+const fadeIn = (array) => {
   console.log("DOM loaded and parsed");
-  const fadeElementsArray = ['big', 'dumb', 'web', 'dev'];
 
-  fadeElementsArray.forEach((element, index, array) => {
-    let htmlEl = document.querySelector('#fade-in-' + element);
+  const fadeElements = [['fade-in-big', 'bigDumbWebDev'], ['fade-in-dumb', 'questionMark'], ['fade-in-web', 'computer'], ['fade-in-dev', 'redX']];
+  
+  fadeElements.forEach((element, index, array) => {
+    let titleEl = document.querySelector('#' + element[0]);
+    let imageEl = document.querySelector('#' + element[1]);
     let interv = (index + 1) * 1000;
-    console.log(htmlEl);
-    console.log(interv)
     setTimeout(function () {
-      htmlEl.style.opacity = 1;
+      titleEl.style.opacity = 1;
+      imageEl.style.visibility = 'visible';
     }, interv);
+    
   })
 };
 
-document.addEventListener("DOMContentLoaded", fadeInHeaders);
+
+document.addEventListener("DOMContentLoaded", fadeIn);
 
 let tempScrollY = 0;
 

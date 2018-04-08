@@ -1,32 +1,40 @@
 @import "font-awesome";
 
-#background-image-container {
-  display: flex;
-  flex-flow: column nowrap;
-  background-image: image-url('background.jpg');
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh; 
-  min-width: 100vw;
+#landing-page-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 20% 70%;
+  background-color: aliceblue;
 }
 
-#background-image-content {
-  align-self: center;
-  z-index: 2;
+#landing-page-title {
+  grid-column: span 6;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
+
+#landing-page-image {
+  grid-row: 2; 
+  grid-column: 2 / span 4;
+}
+
+#bigDumbWebDevSVG {
+  visibility: hidden;
+}
+
 
 #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
   opacity: 0;
   font-family: 'Oxygen', sans-serif;
-  font-size: 7em;
+  font-size: 5em;
   transition: opacity 1s; 
 }
 
 .arrow {
-  color: white;
+  color: black;
   cursor: pointer;
   z-index: 1;
-  align-self: center;
 }
 
 .drop {
@@ -36,15 +44,27 @@
 }
 
 // Responsively adjust background image
+@media screen and (min-width: 1200px) {
+  #landing-page-container {
+    height: 100vh; 
+    width: 100vw;
+  }
+
+  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
+    font-size: 5.8em;
+  }
+}
+
 @media screen and (max-width: 1200px) and (min-width: 800px) {
-  #background-image-container {
-      background-image: url('background_small.jpg');
+  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
+    font-size: 4em;
   }
 }
 
 @media screen and (max-width: 800px) {
-  #background-image-container {
-      background-image: url('background_vertical.jpg');
+  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
+    font-size: 1.9em;
+    min-height: none;
   }
 }
 
