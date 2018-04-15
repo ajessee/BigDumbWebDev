@@ -26,11 +26,6 @@
   visibility: hidden;
 }
 
-#redX {
-
-}
-
-
 #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
   opacity: 0;
   font-family: 'Oxygen', sans-serif;
@@ -38,20 +33,35 @@
   transition: opacity 1s; 
 }
 
-.arrow {
+#arrow {
+  grid-row: 3; 
+  grid-column: 2 / span 4;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   color: black;
   cursor: pointer;
-  z-index: 1;
-}
-
-.drop {
-  -moz-animation: drop 3.5s ease both;
-  -webkit-animation: drop 3.5s ease both;
-  animation: drop 3.5s ease 4s both;
+  opacity: 0;
 }
 
 // Responsively adjust background image
-@media screen and (min-width: 1500px) {
+@media only screen and (min-device-width : 1201px) {
+  #landing-page-container {
+    height: 100vh; 
+    width: 100vw;
+  }
+
+  #bigDumbWebDevSVG {
+    width: 830px;
+    height: 675px;
+  }
+
+  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
+    font-size: 5.7em;
+  }
+}
+
+@media only screen and (min-device-width : 1025px) and (max-device-width : 1200px) {
   #landing-page-container {
     height: 100vh; 
     width: 100vw;
@@ -63,11 +73,11 @@
   }
 
   #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
-    font-size: 5.8em;
+    font-size: 5em;
   }
 }
 
-@media screen and (max-width: 1500px) and (min-width: 800px) {
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
 
   #landing-page-container {
     height: 100vh; 
@@ -84,10 +94,15 @@
   }
 }
 
-@media screen and (max-width: 800px) {
+@media only screen and (max-device-width : 767px) {
   #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
-    font-size: 1.9em;
+    font-size: 4em;
     min-height: none;
+  }
+
+  #bigDumbWebDevSVG {
+    width: 575px;
+    height: 600px;
   }
 }
 
@@ -108,23 +123,6 @@
 	100% { opacity: 0; }
 }
 
-// Pulse Animation
-@keyframes pulse {
-	0% { transform: scale(1.0);} 
-	50% { transform: scale(2.0);} 
-	100% { transform: scale(1.0); }
-}
-@-moz-keyframes greenCheckFlash {
-	0% { transform: scale(1.0);} 
-	50% { transform: scale(2.0);} 
-	100% { transform: scale(1.0); }
-}
-@-webkit-keyframes greenCheckFlash {
-	0% { transform: scale(1.0);} 
-	50% { transform: scale(2.0);} 
-	100% { transform: scale(1.0); }
-}
-
 // Arrow drop animation
 @keyframes drop {
   from {
@@ -134,56 +132,56 @@
     transform: translateY(-50vh) scale(0.3);
     transition: transform 300ms linear;
     will-change: transform;
-    color: #dadadc;
+    color: transparent;
   }
   to {
-    -moz-transform: translateY(45vh);
-    -ms-transform: translateY(45vh);
-    -webkit-transform: translateY(45vh);
-    transform: translateY(45vh) scale(1.2);
+    -moz-transform: translateY(0vh);
+    -ms-transform: translateY(0vh);
+    -webkit-transform: translateY(0vh);
+    transform: translateY(0vh) scale(1.5);
     transition: transform 300ms linear;
     will-change: transform;
-    color: white;
+    color: black;
   }
 }
 @-moz-keyframes drop {
   from {
-    -moz-transform: translateY(-350px);
-    -ms-transform: translateY(-350px);
-    -webkit-transform: translateY(-350px);
-    transform: translateY(-350px) scale(0.3);
+    -moz-transform: translateY(-50vh);
+    -ms-transform: translateY(-50vh);
+    -webkit-transform: translateY(-50vh);
+    transform: translateY(-50vh) scale(0.3);
     transition: transform 300ms linear;
     will-change: transform;
-    color: #dadadc;
+    color: transparent;
   }
   to {
-    -moz-transform: translateY(350px);
-    -ms-transform: translateY(350px);
-    -webkit-transform: translateY(350px);
-    transform: translateY(350px) scale(1.2);
+    -moz-transform: translateY(0vh);
+    -ms-transform: translateY(0vh);
+    -webkit-transform: translateY(0vh);
+    transform: translateY(0vh) scale(1.5);
     transition: transform 300ms linear;
     will-change: transform;
-    color: white;
+    color: black;
   }
 }
 @-webkit-keyframes drop {
   from {
-    -moz-transform: translateY(-350px);
-    -ms-transform: translateY(-350px);
-    -webkit-transform: translateY(-350px);
-    transform: translateY(-350px) scale(0.3);
+    -moz-transform: translateY(-50vh);
+    -ms-transform: translateY(-50vh);
+    -webkit-transform: translateY(-50vh);
+    transform: translateY(-50vh) scale(0.3);
     transition: transform 300ms linear;
     will-change: transform;
-    color: #dadadc;
+    color: transparent;
   }
   to {
-    -moz-transform: translateY(350px);
-    -ms-transform: translateY(350px);
-    -webkit-transform: translateY(350px);
-    transform: translateY(350px) scale(1.2);
+    -moz-transform: translateY(0vh);
+    -ms-transform: translateY(0vh);
+    -webkit-transform: translateY(0vh);
+    transform: translateY(0vh) scale(1.5);
     transition: transform 300ms linear;
     will-change: transform;
-    color: white;
+    color: black;
   }
 }
 

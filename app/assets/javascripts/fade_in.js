@@ -22,6 +22,27 @@ const fadeIn = (array) => {
 
   const questionMark = document.querySelector('#questionMark');
 
+  const dropArrow = document.querySelector('#arrow');
+
+  const fadeInAnimationPromise = new Promise((resolve, reject) => {
+    introElements.forEach((element, index, array) => {
+      let titleEl = document.querySelector('#' + element[0]);
+      let imageEl = document.querySelector('#' + element[1]);
+      let interv = (index + 1) * 1000;
+      setTimeout(() => {
+        titleEl.style.opacity = 1;
+        imageEl.style.visibility = 'visible';
+        if (index === (array.length - 1)) {
+          setTimeout(() => {
+            questionMark.style.visibility = 'hidden';
+            resolve();
+          }, 1000)
+          console.log('index' + index);
+        }
+      }, interv);
+    })
+  })
+
   const flashRedX = () => {
     return new Promise((resolve, reject) => {
       morseCodeChildren.forEach((child) => {
@@ -49,6 +70,27 @@ const fadeIn = (array) => {
     })
   }
 
+  const typeCode = () => {
+    return new Promise((resolve, reject) => {
+      redX.style.visibility = 'hidden';
+      morseCodeChildren.forEach((element, index, array) => {
+        let interv = (index + 1) * 200;
+        let randomKey = keyboardKeys[Math.floor(Math.random() * keyboardKeys.length)]
+        setTimeout(function () {
+          element.style.visibility = 'visible';
+          randomKey.style.fill = 'rgb(155, 155, 155)'
+          if (index === (array.length - 1)) {
+            setTimeout(() => {
+              resolve();
+            }, 500)
+            console.log('index' + index);
+          }
+        }, interv)
+      })
+
+    })
+  }
+
   const flashGreenCheck = () => {
     return new Promise((resolve, reject) => {
       morseCodeChildren.forEach((child) => {
@@ -61,58 +103,33 @@ const fadeIn = (array) => {
       greenCheck.style.animation = 'flash linear 1s 1';
       setTimeout(() => {
         resolve();
-      }, 3000)
+      }, 1000)
     })
   }
 
-  const typeCode = () => {
+  const arrowScrollDown = (e) => {
+    console.log(e.target);
+    document.querySelector('#about-me-container').scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
+  const arrowAnimation = () => {
     return new Promise((resolve, reject) => {
-      redX.style.visibility = 'hidden';
-      morseCodeChildren.forEach((element, index, array) => {
-        let interv = (index + 1) * 200;
-        let randomKey =  keyboardKeys[Math.floor(Math.random() * keyboardKeys.length)]
-        setTimeout(function () {
-          element.style.visibility = 'visible';
-          randomKey.style.fill = 'rgb(155, 155, 155)'
-          if (index === (array.length - 1)) {
-            setTimeout(() => {
-              resolve();
-            }, 500)
-            console.log('index' + index);
-          }
-        }, interv)
-      })
-      
+      dropArrow.addEventListener('click', arrowScrollDown);
+      dropArrow.style.opacity = '1';
+      dropArrow.style.animation = 'drop 1.5s ease-out forwards';
+      resolve();
     })
   }
 
-  const fadeInAnimationPromise = new Promise((resolve, reject) => {
-    introElements.forEach((element, index, array) => {
-      let titleEl = document.querySelector('#' + element[0]);
-      let imageEl = document.querySelector('#' + element[1]);
-      let interv = (index + 1) * 1000;
-      setTimeout(() => {
-        titleEl.style.opacity = 1;
-        imageEl.style.visibility = 'visible';
-        if (index === (array.length - 1)) {
-          setTimeout(() => {
-            questionMark.style.visibility = 'hidden';
-            resolve();
-          }, 1000)
-          console.log('index' + index);
-        }
-      }, interv);
-    })
-
-  })
-
-  fadeInAnimationPromise.then(result => typeCode()).then(result => flashRedX()).then(result => typeCode()).then(result => flashGreenCheck())
+  fadeInAnimationPromise.then(result => typeCode()).then(result => flashRedX()).then(result => typeCode()).then(result => flashGreenCheck()).then(result => arrowAnimation())
 
 };
 
 document.addEventListener("DOMContentLoaded", fadeIn);
 
-let tempScrollY = 0;
+// let tempScrollY = 0;
 
 // window.onscroll = () => {
 //   const fadeName = document.querySelector("#fade-in-name");
