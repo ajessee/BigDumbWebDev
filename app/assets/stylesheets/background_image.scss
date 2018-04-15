@@ -95,6 +95,11 @@
 }
 
 @media only screen and (max-device-width : 767px) {
+  #landing-page-container {
+    height: 100vh; 
+    width: 100vw;
+  }
+
   #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
     font-size: 4em;
     min-height: none;
