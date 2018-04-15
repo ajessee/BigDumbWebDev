@@ -17,10 +17,17 @@
 #landing-page-image {
   grid-row: 2; 
   grid-column: 2 / span 4;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 #bigDumbWebDevSVG {
   visibility: hidden;
+}
+
+#redX {
+
 }
 
 
@@ -44,10 +51,15 @@
 }
 
 // Responsively adjust background image
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1500px) {
   #landing-page-container {
     height: 100vh; 
     width: 100vw;
+  }
+
+  #bigDumbWebDevSVG {
+    width: 830px;
+    height: 715px;
   }
 
   #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
@@ -55,9 +67,20 @@
   }
 }
 
-@media screen and (max-width: 1200px) and (min-width: 800px) {
+@media screen and (max-width: 1500px) and (min-width: 800px) {
+
+  #landing-page-container {
+    height: 100vh; 
+    width: 100vw;
+  }
+
   #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
     font-size: 4em;
+  }
+
+  #bigDumbWebDevSVG {
+    width: 700px;
+    height: 600px;
   }
 }
 
@@ -66,6 +89,40 @@
     font-size: 1.9em;
     min-height: none;
   }
+}
+
+// Flash Animation
+@keyframes flash {
+	0% { opacity: 0; } 
+	50% { opacity: 1; } 
+	100% { opacity: 0; }
+}
+@-moz-keyframes redXFlash {
+	0% { opacity: 0; } 
+	50% { opacity: 1; } 
+	100% { opacity: 0; }
+}
+@-webkit-keyframes redXFlash {
+	0% { opacity: 0; } 
+	50% { opacity: 1; } 
+	100% { opacity: 0; }
+}
+
+// Pulse Animation
+@keyframes pulse {
+	0% { transform: scale(1.0);} 
+	50% { transform: scale(2.0);} 
+	100% { transform: scale(1.0); }
+}
+@-moz-keyframes greenCheckFlash {
+	0% { transform: scale(1.0);} 
+	50% { transform: scale(2.0);} 
+	100% { transform: scale(1.0); }
+}
+@-webkit-keyframes greenCheckFlash {
+	0% { transform: scale(1.0);} 
+	50% { transform: scale(2.0);} 
+	100% { transform: scale(1.0); }
 }
 
 // Arrow drop animation

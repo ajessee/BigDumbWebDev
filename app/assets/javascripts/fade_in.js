@@ -1,20 +1,114 @@
 const fadeIn = (array) => {
   console.log("DOM loaded and parsed");
 
-  const fadeElements = [['fade-in-big', 'bigDumbWebDev'], ['fade-in-dumb', 'questionMark'], ['fade-in-web', 'computer'], ['fade-in-dev', 'redX']];
-  
-  fadeElements.forEach((element, index, array) => {
-    let titleEl = document.querySelector('#' + element[0]);
-    let imageEl = document.querySelector('#' + element[1]);
-    let interv = (index + 1) * 1000;
-    setTimeout(function () {
-      titleEl.style.opacity = 1;
-      imageEl.style.visibility = 'visible';
-    }, interv);
-    
-  })
-};
+  const introElements = [
+    ['fade-in-big', 'bigDumbWebDev'],
+    ['fade-in-dumb', 'questionMark'],
+    ['fade-in-web', 'computer'],
+    ['fade-in-dev', 'redX']
+  ];
 
+  const angerElements = ['radioactive', 'bomb', 'fire', 'fist', 'angryFace']
+
+  const morseCode = document.querySelector('#morseCode');
+
+  const morseCodeChildren = [].slice.call(morseCode.children);
+
+  const keyboard = document.querySelector('#keyboardKeys');
+
+  const keyboardKeys = [].slice.call(keyboard.children);
+
+  const greenCheck = document.querySelector('#greenCheck');
+
+  const questionMark = document.querySelector('#questionMark');
+
+  const flashRedX = () => {
+    return new Promise((resolve, reject) => {
+      morseCodeChildren.forEach((child) => {
+        child.style.visibility = 'hidden';
+      })
+      keyboardKeys.forEach((child) => {
+        child.style.fill = 'rgb(216, 216, 216)';
+      })
+      redX.style.visibility = 'visible';
+      redX.style.animation = 'redXFlash linear 1s 3';
+      angerElements.forEach((element, index, array) => {
+        let angerEl = document.querySelector('#' + element);
+        let interv = (index + 1) * 500;
+        setTimeout(function () {
+          angerEl.style.visibility = 'visible';
+        }, interv)
+      })
+      setTimeout(() => {
+        angerElements.forEach((element) => {
+          let angerEl = document.querySelector('#' + element);
+          angerEl.style.visibility = 'hidden';
+        })
+        resolve();
+      }, 3000)
+    })
+  }
+
+  const flashGreenCheck = () => {
+    return new Promise((resolve, reject) => {
+      morseCodeChildren.forEach((child) => {
+        child.style.visibility = 'hidden';
+      })
+      keyboardKeys.forEach((child) => {
+        child.style.fill = 'rgb(216, 216, 216)';
+      })
+      greenCheck.style.visibility = 'visible';
+      greenCheck.style.animation = 'flash linear 1s 1';
+      setTimeout(() => {
+        resolve();
+      }, 3000)
+    })
+  }
+
+  const typeCode = () => {
+    return new Promise((resolve, reject) => {
+      redX.style.visibility = 'hidden';
+      morseCodeChildren.forEach((element, index, array) => {
+        let interv = (index + 1) * 200;
+        let randomKey =  keyboardKeys[Math.floor(Math.random() * keyboardKeys.length)]
+        setTimeout(function () {
+          element.style.visibility = 'visible';
+          randomKey.style.fill = 'rgb(155, 155, 155)'
+          if (index === (array.length - 1)) {
+            setTimeout(() => {
+              resolve();
+            }, 500)
+            console.log('index' + index);
+          }
+        }, interv)
+      })
+      
+    })
+  }
+
+  const fadeInAnimationPromise = new Promise((resolve, reject) => {
+    introElements.forEach((element, index, array) => {
+      let titleEl = document.querySelector('#' + element[0]);
+      let imageEl = document.querySelector('#' + element[1]);
+      let interv = (index + 1) * 1000;
+      setTimeout(() => {
+        titleEl.style.opacity = 1;
+        imageEl.style.visibility = 'visible';
+        if (index === (array.length - 1)) {
+          setTimeout(() => {
+            questionMark.style.visibility = 'hidden';
+            resolve();
+          }, 1000)
+          console.log('index' + index);
+        }
+      }, interv);
+    })
+
+  })
+
+  fadeInAnimationPromise.then(result => typeCode()).then(result => flashRedX()).then(result => typeCode()).then(result => flashGreenCheck())
+
+};
 
 document.addEventListener("DOMContentLoaded", fadeIn);
 
