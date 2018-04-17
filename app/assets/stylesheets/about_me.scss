@@ -1,14 +1,20 @@
 #about-me-container {
   display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  grid-template-rows: 10% auto auto 20%;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 10vh 80vh 10vh;
   background-color: aliceblue;
-  min-height: 100vh; 
-  min-width: 100vw;
+}
+
+#about-me-blurb{
+  grid-column: 2 / 10;
+  grid-row: 2;
+  color: black;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 1.3em;
 }
 
 #about-me-nav {
-  grid-column: span 20;
+  grid-column: span 3;
   display: flex;
   flex-flow: row nowrap;  
   justify-content: center;
@@ -28,66 +34,53 @@ a.nav-links:hover {
   border-bottom: 1px solid white;
 }
 
-#about-me-image {
-  margin: 1em 1em 1em 1em;
-  grid-column: 2 / 6;
-  grid-row: 2;
-  align-self: flex-end;
-}
-#about-me-profile-picture {
-  width: 100%;
-  height: auto;
-  border-radius: 250px;
-  border: 3px solid black;
-}
 
-#about-me-blurb{
-  grid-column: 7 / 20;
-  grid-row: 2;
-  color: black;
-  font-family: 'Oxygen', sans-serif;
-  font-size: 1.3em;
-  align-self: flex-end;
-}
+@media only screen and (min-width : 1501px) {
 
-#about-me-blurb2{
-  grid-column: 2 / 20;
-  grid-row: 3;
-  color: black;
-  font-family: 'Oxygen', sans-serif;
-  font-size: 1.3em;
-}
-
-
-#about-me-footer {
-  grid-row: 4;
-  color: black;
-  grid-column: span 20;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-
-}
-
-div.icon {
-  margin: 0em 4em 0em 4em;
-  align-items: center;
-}
-
-@media screen and (max-width: 1200px) and (min-width: 800px) {
-  #fade-in-name {
-      font-size: 8em;
+  #about-me-container {
+    height: 100vh; 
+    width: 100vw;
   }
-  #fade-in-title {
-      font-size: 5em;
+
+  #about-me-blurb{
+    font-size: 1.6em;
+    height: 80vh; 
   }
 }
 
-@media screen and (max-width: 800px) {
-  #fade-in-name {
-      font-size: 8em;
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+
+  #about-me-container {
+    height: 100vh; 
+    width: 100vw;
   }
-  #fade-in-title {
-      font-size: 5em;
+
+  #about-me-blurb{
+    font-size: 1.3em;
+    height: 80vh; 
+  }
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+
+  #about-me-container {
+    grid-template-rows: auto auto;
+  }
+
+  #about-me-blurb{
+    font-size: 2em;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-device-width : 767px) {
+
+  #about-me-container {
+    grid-template-rows: auto auto;
+  }
+
+  #about-me-blurb{
+    font-size: 2em;
+    text-align: center;
   }
 }

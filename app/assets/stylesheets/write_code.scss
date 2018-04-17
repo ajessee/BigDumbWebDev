@@ -7,6 +7,31 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  min-height: 100vh; 
-  min-width: 100vw;
+}
+
+@media only screen and (min-width : 1501px) {
+  #write-code-container {
+    min-height: 100vh; 
+    min-width: 100vw;
+  }
+}
+
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+  #write-code-container {
+    min-height: 100vh; 
+    min-width: 100vw;
+  }
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
+    font-size: 4em;
+  }
+}
+
+@media only screen and (max-width : 767px) {
+  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
+    font-size: 4em;
+    min-height: none;
+  }
 }
