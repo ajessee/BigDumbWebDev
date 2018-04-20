@@ -78,7 +78,7 @@ const fadeIn = (array) => {
         let randomKey = keyboardKeys[Math.floor(Math.random() * keyboardKeys.length)]
         setTimeout(function () {
           element.style.visibility = 'visible';
-          randomKey.style.fill = 'rgb(155, 155, 155)'
+          randomKey.style.fill = 'rgb(155, 155, 155)';
           if (index === (array.length - 1)) {
             setTimeout(() => {
               resolve();

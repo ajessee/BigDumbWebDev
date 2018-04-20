@@ -1,26 +1,32 @@
 #about-me-container {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: 10vh 80vh 10vh;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: auto auto auto auto;
   background-color: aliceblue;
 }
 
 #about-me-blurb{
-  grid-column: 2 / 10;
-  grid-row: 2;
+  grid-column: 3 / 19;
+  grid-row: 1;
   color: black;
   font-family: 'Oxygen', sans-serif;
   font-size: 1.3em;
 }
 
 #about-me-nav {
-  grid-column: span 3;
   display: flex;
-  flex-flow: row nowrap;  
+  flex-flow: row;
   justify-content: center;
-  align-items: center;
-  background-color: black;
+  grid-column: 1 / 20;
+
 }
+
+
+
+.main-icons, #contacts {
+
+}
+
 
 .nav-links {
   color: white;
@@ -37,23 +43,22 @@ a.nav-links:hover {
 
 @media only screen and (min-width : 1501px) {
 
-  #about-me-container {
-    height: 100vh; 
-    width: 100vw;
-  }
+  // #about-me-container {
+  //   height: 100vh; 
+  //   width: 100vw;
+  // }
 
   #about-me-blurb{
     font-size: 1.6em;
-    height: 80vh; 
   }
 }
 
 @media only screen and (min-width : 1025px) and (max-width : 1500px) {
 
-  #about-me-container {
-    height: 100vh; 
-    width: 100vw;
-  }
+  // #about-me-container {
+  //   height: 100vh; 
+  //   width: 100vw;
+  // }
 
   #about-me-blurb{
     font-size: 1.3em;
