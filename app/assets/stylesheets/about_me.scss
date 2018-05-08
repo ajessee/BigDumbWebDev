@@ -1,30 +1,69 @@
 #about-me-container {
   display: grid;
   grid-template-columns: repeat(20, 1fr);
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto;
   background-color: aliceblue;
 }
 
 #about-me-blurb{
   grid-column: 3 / 19;
-  grid-row: 1;
+  grid-row: 1 / 2;
   color: black;
   font-family: 'Oxygen', sans-serif;
   font-size: 1.3em;
 }
 
 #about-me-nav {
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
-  grid-column: 1 / 20;
+  grid-column: 1 / 21;
+  grid-row: 2 / 3;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto auto;
+  margin-bottom: 3%;
+}
 
+#projects-icon {
+  grid-column: 2;
+  grid-row: 1 / 2;
+
+}
+
+#resources-icon {
+  grid-column: 3;
+  grid-row: 1 / 2;
+}
+
+#blog-icon {
+  grid-column: 4;
+  grid-row: 1 / 2;
+}
+
+#github-icon {
+  grid-column: 5;
+  grid-row: 1 / 2;
+}
+
+#twitter-icon {
+  grid-column: 6;
+  grid-row: 1 / 2;
+}
+
+#linkedin-icon {
+  grid-column: 7;
+  grid-row: 1 / 2;
+}
+
+.icon-image {
+  justify-self: center;
 }
 
 
 
-.main-icons, #contacts {
-
+.icon-label {
+  text-align: center;
+  font-size: 1.3em;
+  font-family: 'Oxygen', sans-serif;
+  font-weight: 700;
 }
 
 
