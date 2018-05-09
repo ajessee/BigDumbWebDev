@@ -55,9 +55,8 @@
 
 .icon-image {
   justify-self: center;
+  cursor: pointer;
 }
-
-
 
 .icon-label {
   text-align: center;
@@ -101,7 +100,7 @@ a.nav-links:hover {
 
   #about-me-blurb{
     font-size: 1.3em;
-    height: 80vh; 
+    // height: 80vh; 
   }
 }
 
