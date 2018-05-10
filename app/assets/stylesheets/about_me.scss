@@ -13,6 +13,14 @@
   font-size: 1.3em;
 }
 
+.p-about {
+  margin: 0.6em 0 0.6em 0;
+}
+
+.no-link-color {
+  color: inherit;
+}
+
 #about-me-nav {
   grid-column: 1 / 21;
   grid-row: 2 / 3;
@@ -25,7 +33,6 @@
 #projects-icon {
   grid-column: 2;
   grid-row: 1 / 2;
-
 }
 
 #resources-icon {

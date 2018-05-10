@@ -37,7 +37,6 @@ const fadeIn = (array) => {
             questionMark.style.visibility = 'hidden';
             resolve();
           }, 1000)
-          console.log('index' + index);
         }
       }, interv);
     })
@@ -83,7 +82,6 @@ const fadeIn = (array) => {
             setTimeout(() => {
               resolve();
             }, 500)
-            console.log('index' + index);
           }
         }, interv)
       })
@@ -108,7 +106,6 @@ const fadeIn = (array) => {
   }
 
   const arrowScrollDown = (e) => {
-    console.log(e.target);
     document.querySelector('#about-me-container').scrollIntoView({
       behavior: 'smooth'
     });

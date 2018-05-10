@@ -1,6 +1,60 @@
 #projects-container {
-  display: flex;
-  flex-flow: column nowrap;
-  min-height: 100vh; 
-  min-width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  background-color: aliceblue;
+  place-items: center;
+  height: 100vh; 
+  width: 100vw;
+}
+
+.header {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 5em;
+  text-align: center;
+  grid-column: 1 / 4;
+}
+
+.project-image {
+  width: 80%;
+  height: auto;
+  object-fit: scale-down;
+}
+
+#rdj-logo {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#nycycle-logo {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#water-logo {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+#rdj-caption {
+  grid-column: 1;
+  grid-row: 3;
+  text-align: center;
+}
+
+#nycycle-caption {
+  grid-column: 2;
+  grid-row: 3;
+  text-align: center;
+}
+
+#water-caption {
+  grid-column: 3;
+  grid-row: 3;
+  text-align: center;
+}
+
+.image-label {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 1.3em;
 }
