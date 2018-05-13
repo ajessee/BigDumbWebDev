@@ -126,11 +126,68 @@ a.nav-links:hover {
 @media only screen and (max-device-width : 767px) {
 
   #about-me-container {
+    grid-template-columns: auto;
     grid-template-rows: auto auto;
   }
 
   #about-me-blurb{
     font-size: 2em;
     text-align: center;
+    grid-column: 1;
+    margin: 0em 2em 0em 2em;
+    line-height: 2em;
   }
+
+  .p-about {
+    margin: 2em 0 2em 0;
+  }
+
+  #about-me-nav {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  #projects-icon {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  
+  #resources-icon {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  
+  #blog-icon {
+    grid-column: 3;
+    grid-row: 2;
+  }
+  
+  #github-icon {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  
+  #twitter-icon {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  
+  #linkedin-icon {
+    grid-column: 3;
+    grid-row: 3;
+  }
+
+  .fa-5x {
+    font-size: 10em;
+  }
+
+  .icon-grow {
+    height: 2em;
+}
+
+
+
 }

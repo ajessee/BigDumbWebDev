@@ -1,5 +1,5 @@
 const fadeIn = (array) => {
-  console.log("DOM loaded and parsed");
+  console.log("fade_in.js");
 
   const introElements = [
     ['fade-in-big', 'bigDumbWebDev'],
@@ -107,7 +107,8 @@ const fadeIn = (array) => {
 
   const arrowScrollDown = (e) => {
     document.querySelector('#about-me-container').scrollIntoView({
-      behavior: 'smooth'
+      behavior: 'smooth',
+      block: 'start'
     });
   }
 
