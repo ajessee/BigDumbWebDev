@@ -23,7 +23,7 @@ const getIcons = () => {
   
   iconNames.forEach((name) => {
     let element = document.querySelector('#' + name + '-icon');
-    let mobileView = window.matchMedia('(max-device-width : 767px)').matches;
+    let mobileView = window.matchMedia('(max-width : 767px)').matches;
     if (!mobileView) {
       element.addEventListener('mouseenter', grow);
       element.addEventListener('mouseleave', shrink);

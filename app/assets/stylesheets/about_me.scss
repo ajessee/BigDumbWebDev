@@ -123,7 +123,7 @@ a.nav-links:hover {
   }
 }
 
-@media only screen and (max-device-width : 767px) {
+@media only screen and (max-width : 767px) {
 
   #about-me-container {
     grid-template-columns: auto;

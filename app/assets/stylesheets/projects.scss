@@ -1,11 +1,10 @@
 #projects-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: 20% auto auto 20%;
   background-color: aliceblue;
+  grid-row-gap: 1em;
   place-items: center;
-  height: 100vh; 
-  width: 100vw;
 }
 
 .header {
@@ -16,46 +15,47 @@
 }
 
 .project-image {
-  width: 80%;
+  width: 100%;
   height: auto;
-  object-fit: scale-down;
+  grid-row: 1;
 }
 
-#rdj-logo {
-  grid-column: 1;
-  grid-row: 2;
+.link-image {
+  place-self: center;
 }
 
-#nycycle-logo {
-  grid-column: 2;
-  grid-row: 2;
+.project-card {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto auto;
+  background-color: white;
+  // border: 1px solid black;
+  height: 100%;
+  width: 90%;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  transition: all 0.2s ease-in-out;
 }
 
-#water-logo {
-  grid-column: 3;
-  grid-row: 2;
-}
-
-#rdj-caption {
-  grid-column: 1;
-  grid-row: 3;
-  text-align: center;
-}
-
-#nycycle-caption {
-  grid-column: 2;
-  grid-row: 3;
-  text-align: center;
-}
-
-#water-caption {
-  grid-column: 3;
-  grid-row: 3;
-  text-align: center;
+.project-card:hover {
+  transform: scale(1.05, 1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .image-label {
   font-family: 'Oxygen', sans-serif;
   font-size: 1.3em;
+  grid-row: 2;
+  text-align: center;
+  align-self: center;
+  margin: 0em 0.5em 0em 0.5em;
 }
 
+@media only screen and (max-width : 767px) {
+  #projects-container {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    place-items: center;
+  }
+}
