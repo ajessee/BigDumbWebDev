@@ -87,36 +87,21 @@ a.nav-links:hover {
 
 
 @media only screen and (min-width : 1501px) {
-
-  // #about-me-container {
-  //   height: 100vh; 
-  //   width: 100vw;
-  // }
-
   #about-me-blurb{
     font-size: 1.6em;
   }
 }
 
 @media only screen and (min-width : 1025px) and (max-width : 1500px) {
-
-  // #about-me-container {
-  //   height: 100vh; 
-  //   width: 100vw;
-  // }
-
   #about-me-blurb{
     font-size: 1.3em;
-    // height: 80vh; 
   }
 }
 
 @media only screen and (min-width : 768px) and (max-width : 1024px) {
-
   #about-me-container {
     grid-template-rows: auto auto;
   }
-
   #about-me-blurb{
     font-size: 2em;
     text-align: center;
@@ -126,28 +111,24 @@ a.nav-links:hover {
 @media only screen and (max-width : 767px) {
 
   #about-me-container {
-    grid-template-columns: auto;
+    grid-template-columns: 5% auto 5%;
     grid-template-rows: auto auto;
   }
 
   #about-me-blurb{
-    font-size: 2em;
+    font-size: 1em;
     text-align: center;
-    grid-column: 1;
-    margin: 0em 2em 0em 2em;
+    grid-column: 2;
+    grid-row: 1;
     line-height: 2em;
   }
 
-  .p-about {
-    margin: 2em 0 2em 0;
-  }
-
   #about-me-nav {
+    grid-column: 1 / 3;
+    grid-row: 2;
     display: grid;
     grid-template-columns: auto auto auto;
     grid-template-rows: auto auto;
-    grid-column: 1;
-    grid-row: 2;
   }
 
   #projects-icon {
@@ -178,10 +159,6 @@ a.nav-links:hover {
   #linkedin-icon {
     grid-column: 3;
     grid-row: 3;
-  }
-
-  .fa-5x {
-    font-size: 10em;
   }
 
   .icon-grow {

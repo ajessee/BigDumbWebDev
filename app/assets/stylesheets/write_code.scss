@@ -29,13 +29,9 @@
 }
 
 @media only screen and (max-width : 767px) {
-  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
-    font-size: 4em;
-    min-height: none;
-  }
   #write-code-container {
     background-image: image-url('write-code-mobile.png');
-    min-height: 100vh; 
+    min-height: 50vh; 
     min-width: 100vw;
     }
 }
