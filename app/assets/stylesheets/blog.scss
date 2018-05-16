@@ -18,5 +18,22 @@
 }
 
 @media only screen and (max-width: 767px) {
- 
+  #blog-container {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+    place-items: center;
+  }
+
+  .header {
+    font-size: 3em;
+    grid-column: 1;
+  }
+
+  .construction-image {
+    grid-column: 1;
+  }
+
+  .under-construction {
+    grid-column: 1;
+  }
 }
