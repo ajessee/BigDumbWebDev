@@ -1,0 +1,22 @@
+#blog-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto auto 20px;
+  background-color: aliceblue;
+  grid-row-gap: 1em;
+  place-items: center;
+  min-height: 100vh; 
+  min-width: 100vw;
+}
+
+.header {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 5em;
+  text-align: center;
+  grid-column: 1 / 4;
+  grid-row: 1;
+}
+
+@media only screen and (max-width: 767px) {
+ 
+}
