@@ -1,6 +1,7 @@
 const iconNames = ['projects', 'resources', 'blog', 'github', 'twitter', 'linkedin'];
 
 const getIcons = () => {
+  if (document.querySelector('#about-me-container')) {
   console.log("icons.js");
   const grow = (e) => {
     let parentHeight = e.target.closest('#about-me-nav').offsetHeight;
@@ -32,7 +33,7 @@ const getIcons = () => {
       element.addEventListener('click', scrollTo);
     }
   });
-
+  }
 }
 
 document.addEventListener("DOMContentLoaded", getIcons);
