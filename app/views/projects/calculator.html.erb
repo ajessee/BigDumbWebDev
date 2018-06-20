@@ -1,0 +1,44 @@
+<section id="lc-project-container">
+  <div id="lc-card">
+    <span id="lc-project-title">Loan Calculator</span>
+      <form id="lc-input-form">
+        <div id="lc-amount-input">
+            <label for="lc-amount"><i class="fas fa-dollar-sign"></i></label>
+            <input type="number" id="lc-amount" class="lc-input-area" placeholder="Loan Amount">
+        </div>
+        <div id="lc-interest-input">
+            <label for="lc-interest"><i class="fas fa-percent"></i></label>
+            <input type="number" id="lc-interest" class="lc-input-area" placeholder="Interest Rate">
+        </div>
+        <div id="lc-years-input">
+            <label for="lc-years"><i class="far fa-clock"></i></label>
+            <input type="number" id="lc-years" class="lc-input-area" placeholder="Years">
+        </div>
+        <div>
+            <input type="submit" id="lc-submit-input" value="Calculate">
+        </div>
+      </form>
+      <div id="lc-loader"></div>
+    <div id="lc-results">
+      <span id="lc-results-title">Results</span>
+      <div id="lc-results-monthly-label" class="lc-input-div">
+          <label for="lc-monthly-payment">Monthly Payment</label>
+      </div>
+      <div id="lc-results-monthly-input" class="lc-input-div">
+          <input type="number" class="lc-input-area" id="lc-monthly-payment" disabled>
+      </div>
+      <div id="lc-results-total-label" class="lc-input-div">
+          <label for="lc-total-payment">Total Payment</label>
+      </div>
+      <div id="lc-results-total-input" class="lc-input-div">
+          <input type="number" class="lc-input-area" id="lc-total-payment" disabled>
+      </div>
+      <div id="lc-results-interest-label" class="lc-input-div">
+          <label for="lc-total-interest">Total Interest</label>
+      </div>
+      <div id="lc-results-interest-input" class="lc-input-div">
+          <input type="number" class="lc-input-area" id="lc-total-interest" disabled>
+      </div>
+    </div>
+  </div>
+</section>
