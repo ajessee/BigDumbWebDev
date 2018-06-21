@@ -12,9 +12,10 @@
   grid-row: 2;
   display: grid;
   grid-template-columns: 10% 80% 10%;
-  grid-template-rows: 10% auto auto 10%;
+  grid-template-rows: 20% auto 10%;
   background-color: white;
   align-self: stretch;
+  height: 70%;
   border-radius: 4px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
@@ -22,7 +23,7 @@
 #lc-project-title {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 400;
-  font-size: 2em;
+  font-size: 2.3em;
   justify-self: center;
   grid-column: 2;
   grid-row: 1;
@@ -56,6 +57,11 @@
   text-align: center;
 }
 
+input:disabled{ 
+  text-align: center;
+  color: black;
+}
+
 .lc-input-area {
   margin-top: 1%;
   border-bottom: 2px solid #d2d5e0;
@@ -87,6 +93,9 @@
   grid-row: 4;
 }
 
+div #lc-results {
+  display: none;
+}
 #lc-results {
   grid-row: 3;
   grid-column: 2;
@@ -134,10 +143,25 @@
   font-size: 1.2em;
 }
 
+#lc-errors {
+  grid-row: 3;
+  grid-column: 2;
+  border: 1px solid red;
+  background-color: #f083a6;
+  display: none;
+  place-self: center;
+  text-align: center;
+  padding: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
 #lc-loader {
   grid-row: 3;
   grid-column: 2;
   display: none;
+  align-self: center;
   border: 16px solid #f3f3f3;
   border-top: 16px solid #d2d5e0;
   border-radius: 50%;
@@ -146,7 +170,6 @@
   animation: spin 2s linear infinite;
   margin-left: auto ;
   margin-right: auto ;
-  margin-top: 11em;
 }
 
 @keyframes spin {
