@@ -1,16 +1,19 @@
 <section id="todo-project-container">
 
   <div id="todo-add-task">
-    <span id="todo-title">Andre's To-Do List App (Now with highlighting!)</span>
-      <form id="todo-task-form">
-        <div id="todo-inputs">
-          <label for="task" id="todo-task-label">New Item</label>
-          <input name="task" id="todo-task-input" type="text">
-        </div>
-        <div id="todo-submit">
-          <input type="submit" value="Add Task" id="todo-project-submit">
-        </div>
-      </form>
+    <div id="todo-title">Andre's To-Do List App</div>
+    <figure id="todo-highlight-star">
+      <%= show_svg('highlight_star.svg') %>
+    </figure>
+    <form id="todo-task-form">
+      <div id="todo-inputs">
+        <label for="task" id="todo-task-label">New Item</label>
+        <input name="task" id="todo-task-input" type="text">
+      </div>
+      <div id="todo-submit">
+        <input type="submit" value="Add Task" id="todo-project-submit">
+      </div>
+    </form>
   </div>
 
   <div id="todo-list-tasks">
@@ -20,7 +23,7 @@
       <input type="text" name="filter" id="todo-filter">
     </div>
     <div id="todo-clear-tasks">
-      <a href="#" id="todo-clear-tasks-button">Clear All</a>
+      <input type="submit" value="Clear All" id="todo-clear-tasks-button">
     </div>
     <ul id="tasks-collection"></ul>
   </div>
