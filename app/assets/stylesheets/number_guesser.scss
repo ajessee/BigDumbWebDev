@@ -1,0 +1,120 @@
+#ng-project-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: 10% 80% 10%;
+  background-color: #f2f2f2;
+  height: 100vh;
+  width: 100vw;
+}
+
+#ng-card {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 10% 80% 10%;
+  background-color: white;
+  align-self: stretch;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+#ng-project-title {
+  grid-column: 2;
+  grid-row: 1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 2.3em;
+  justify-self: center;
+  margin-top: 2%;
+  text-align: center;
+}
+
+#ng-container {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  grid-template-rows: repeat(7, auto);
+  grid-template-columns: repeat(3, auto);
+}
+
+#ng-prompt {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  text-align: center;
+  grid-row: 1;
+  grid-column: 1/4;
+}
+
+#ng-guess-input {
+  grid-row: 2;
+  grid-column: 2;
+  justify-self: center;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+  text-align: center;
+  height: 30px;
+  width: 150px;
+}
+
+#ng-guess-btn, #ng-hint-btn, #ng-settings-btn {
+  background: none;
+  font-size: 1em;
+  text-align: center;
+  background-color: #f0f1f5;
+  margin: 1% 0 2% 0;
+  justify-self: center;
+  align-self: center;
+}
+
+#ng-guess-btn {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+#ng-hint-btn{
+  grid-column: 1;
+  grid-row: 5;
+  justify-self: right;
+  width: 85px;
+}
+
+#ng-settings-btn {
+  grid-column: 3;
+  grid-row: 5;
+  justify-self: left;
+  width: 85px;
+}
+
+#ng-yoda-start, #ng-yoda-try-again, #ng-yoda-lose, #ng-yoda-win {
+  grid-row: 4;
+  grid-column: 1/4;
+  justify-self: center;
+  min-height: 250px;
+}
+
+#ng-yoda-try-again, #ng-yoda-lose, #ng-yoda-win {
+  display: none;
+}
+
+#ng-message {
+  grid-row: 6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+  min-height: 20px;
+  grid-column: 1/4;
+}
+
+#ng-min-num {
+
+}
+
+#ng-max-num {
+  
+}
+

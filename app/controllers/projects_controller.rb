@@ -5,5 +5,8 @@ class ProjectsController < ApplicationController
 
   def calculator
   end
+
+  def number_guesser
+  end
   
 end

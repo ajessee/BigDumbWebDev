@@ -1,0 +1,25 @@
+<section id="ng-project-container">
+  <div id="ng-card">
+    <span id="ng-project-title">Yoda Number Guesser</span>
+    <div id="ng-container">
+      <p id="ng-prompt">Guess a number between <span id="ng-min-num"></span> and <span id="ng-max-num"></span></p>
+      <input type="number" id="ng-guess-input" placeholder="Try, you must">
+      <input type="submit" value="Submit" id="ng-guess-btn">
+      <input type="submit" value="Hint" id="ng-hint-btn">
+      <input type="submit" value="Settings" id="ng-settings-btn">
+      <p id="ng-message"></p>
+      <figure id="ng-yoda-start" class="ng-yoda-images">
+        <%= image_tag('yodaStart.gif') %>
+      </figure>
+      <figure id="ng-yoda-try-again" class="ng-yoda-images">
+        <%= image_tag('yodaTryAgain.gif') %>
+      </figure>
+      <figure id="ng-yoda-lose" class="ng-yoda-images">
+        <%= image_tag('yodaLose.gif') %>
+      </figure>
+      <figure id="ng-yoda-win" class="ng-yoda-images">
+        <%= image_tag('yodaWin.gif') %>
+      </figure>
+    </div>
+  </div>
+</section>

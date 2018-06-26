@@ -8,5 +8,7 @@ Rails.application.routes.draw do
 
   get 'projects/loan-calculator' => 'projects#calculator'
 
+  get 'projects/number-guesser' => 'projects#number_guesser'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
