@@ -5,9 +5,13 @@
       <p id="ng-prompt">Guess a number between <span id="ng-min-num"></span> and <span id="ng-max-num"></span></p>
       <input type="number" id="ng-guess-input" placeholder="Try, you must">
       <input type="submit" value="Submit" id="ng-guess-btn">
-      <input type="submit" value="Hint" id="ng-hint-btn">
-      <input type="submit" value="Settings" id="ng-settings-btn">
-      <p id="ng-message"></p>
+      <input type="submit" value="Settings" id="ng-settings-btn" class='ng-settings-set'>
+      <div id="ng-settings">
+        <input type="number" id="ng-set-min" placeholder="Min Number">
+        <input type="number" id="ng-set-max" placeholder="Max Number">
+        <input type="number" id="ng-set-guesses" placeholder="Number of Guesses">
+        <input type="submit" value="Save" id="ng-settings-save-btn">
+      </div>
       <figure id="ng-yoda-start" class="ng-yoda-images">
         <%= image_tag('yodaStart.gif') %>
       </figure>
@@ -20,6 +24,8 @@
       <figure id="ng-yoda-win" class="ng-yoda-images">
         <%= image_tag('yodaWin.gif') %>
       </figure>
+      <p id="ng-message"></p>
+      <input type="submit" value="Hint" id="ng-hint-btn">
     </div>
   </div>
 </section>
