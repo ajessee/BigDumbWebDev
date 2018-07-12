@@ -8,5 +8,8 @@ class ProjectsController < ApplicationController
 
   def number_guesser
   end
+
+  def contacts
+  end
   
 end

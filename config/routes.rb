@@ -10,5 +10,7 @@ Rails.application.routes.draw do
 
   get 'projects/number-guesser' => 'projects#number_guesser'
 
+  get 'projects/contacts' => 'projects#contacts'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,0 +1,115 @@
+#contacts-project-container {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 5% 40% 50% 5%;
+  background-color: #f2f2f2;
+  height: 100vh;
+  width: 100vw;
+}
+
+#contact-add-contact {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: 5% repeat(6, 1fr) 5%;
+  background-color: white;
+  align-self: center;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+#contact-title {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 2em;
+  justify-self: center;
+  text-align: center;
+  grid-column: 2/8;
+  grid-row: 1;
+  margin-top: 2%;
+  z-index: 1;
+}
+
+#contact-add-form {
+  grid-column: 2 / 8;
+  grid-row: 2 / 3;
+}
+
+#contact-inputs {
+  grid-column: 2 / 8;
+  display: flex;
+  flex-flow: column;
+}
+
+#contact-first-name-label,
+#contact-last-name-label,
+#contact-phone-label,
+#contact-email-label {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
+#contact-first-name-input,
+#contact-last-name-input,
+#contact-phone-input,
+#contact-email-input{
+  margin-top: 1%;
+  border-bottom: 2px solid #d2d5e0;
+  border-left: 0px solid;
+  border-right: 0px solid;
+  border-top: 0px solid;
+  height: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
+#contact-first-name-input:focus,
+#contact-last-name-input:focus,
+#contact-phone-input:focus,
+#contact-email-input:focus{
+  outline: 2px solid rgb(166, 184, 232);
+}
+
+#contact-submit {
+  text-align: end;
+  margin-top: 0.5%;
+}
+
+#contact-project-submit {
+  background: none;
+  font-size: 1em;
+  text-align: center;
+  grid-column: 6/8;
+  background-color: #f0f1f5;
+  margin: 1% 0 2% 0;
+  height: 30px;
+}
+
+#contact-project-submit:hover {
+  background-color: #d2d5e0;
+}
+
+#contact-table-card {
+  grid-column: 2;
+  grid-row: 3;
+  display: grid;
+  grid-template-rows: repeat(4, auto);
+  grid-template-columns: 5% repeat(6, 1fr) 5%;
+  background-color: white;
+  align-self: end;
+  height: 90%;
+  overflow-y: auto;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+#contact-table {
+
+}
+
+#contact-list {
+
+}
