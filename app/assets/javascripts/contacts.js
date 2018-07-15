@@ -19,7 +19,7 @@ const setContactsVariables = () => {
   c.contactList = document.getElementById('contact-list');
   c.modal = document.getElementById('contact-modal');
   c.modalClose = document.getElementById('contact-modal-close');
-  c.modalText = document.getElementById('contact-modal-text');
+  c.modalContent = document.getElementById('contact-modal-content');
 
   c.Contacts = function (firstName, lastName, phone, email) {
     this.firstName = firstName;
@@ -37,7 +37,7 @@ const setContactsVariables = () => {
       <td>${contact.lastName}</td>
       <td>${contact.phone}</td>
       <td>${contact.email}</td>
-      <td><a href="" class="contact-delete">X</a></td>
+      <td><i class="far fa-window-close delete"></i></td>
     `;
 
     c.contactList.appendChild(row);
@@ -50,53 +50,133 @@ const setContactsVariables = () => {
     c.email.value = '';
   }
 
-  c.UI.prototype.showModal = function(message, className){
+  c.UI.prototype.showModal = function(container){
     c.modal.style.display = 'block';
-    c.modalText.className = `alert ${className}`;
-    c.modalText.innerHTML = message;
+    c.modalContent.appendChild(container);
   }
 
   c.UI.prototype.closeModal = function(){
     c.modal.style.display = 'none';
+    c.modalErrors = document.getElementById('content-error-list');
+      c.modalErrors.remove();
+  }
+
+  c.UI.prototype.deleteContact = function(target){
+    if(target.classList.contains('delete')){
+      target.parentElement.parentElement.remove();
+    }
   }
 
   window.addEventListener('click', function(e){
     if (document.querySelector('#contacts-project-container') && e.target === c.modal) {
       c.modal.style.display = 'none';
+      c.modalErrors = document.getElementById('content-error-list');
+      c.modalErrors.remove();
     };
+  })
+
+  c.contactList.addEventListener('click', function(e){
+    e.preventDefault();
+    const ui = new c.UI;
+    ui.deleteContact(e.target);
   })
 
   c.modalClose.addEventListener('click', function(e){
     e.preventDefault();
     const ui = new c.UI;
-    ui.closeModal;
+    ui.closeModal();
   });
 
   c.contactForm.addEventListener('submit', function(e){
     e.preventDefault();
     const contact = new c.Contacts(c.firstName.value, c.lastName.value, c.phone.value, c.email.value);
     const ui = new c.UI;
+    let emptyErrors = [];
     let validationErrors = [];
 
     for (prop in contact) {
       if (contact[prop] === '') {
         let label = prop + 'Label';
         let labelTitle = c[label].textContent;
-        validationErrors.push(`Please fill out the ${labelTitle} field`)
+        emptyErrors.push(labelTitle)
+      }
+      else if (prop === 'phone') {
+        const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+        if (!phoneRegex.test(contact[prop])) {
+          validationErrors.push('Please make sure you are using a 10 digit phone number');
+        }
+      }
+      else if (prop === 'email') {
+        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!emailRegex.test(contact[prop])) {
+          validationErrors.push('Please make sure you are using a valid email address');
+        }
       }
     }
 
-    if (validationErrors.length > 0) {
-      let message = validationErrors.join(',');
-      ui.showModal(message, 'contact-error');
+    if (emptyErrors.length > 0) {
+      let field, need;
+      if (emptyErrors.length === 1) {
+        field = 'field';
+        need = 'needs';
+      }
+      else {
+        field = 'fields';
+        need = 'need';
+      }
+      let message = `The following ${field} ${need} to be filled out.`;
+      const container = document.createElement('div');
+      const messageContainer = document.createElement('p');
+      const errorList = document.createElement('ul');
+
+      messageContainer.textContent = message;
+      messageContainer.className = 'contact-error';
+      emptyErrors.forEach(function(error){
+        let errorLi = document.createElement('li');
+        errorLi.textContent = error;
+        errorLi.className = 'contact-error';
+        errorList.appendChild(errorLi);
+      })
+      container.id = 'content-error-list';
+      container.appendChild(messageContainer);
+      container.appendChild(errorList);
+
+      ui.showModal(container);
     }
-    else {
+    if (validationErrors.length > 0) {
+      let errorPlural
+      if (validationErrors.length === 1) {
+        errorPlural = 'error';
+      }
+      else {
+        errorPlural = 'errors';
+      }
+      let container = document.getElementById('content-error-list');
+      if (!container) {
+        container = document.createElement('div');
+      }
+      let message = `Please review the following ${errorPlural}:`;
+      const messageContainer = document.createElement('p');
+      const errorList = document.createElement('ul');
+
+      messageContainer.textContent = message;
+      messageContainer.className = 'contact-error';
+      validationErrors.forEach(function(error){
+        let errorLi = document.createElement('li');
+        errorLi.textContent = error;
+        errorLi.className = 'contact-error';
+        errorList.appendChild(errorLi);
+      })
+      container.id = 'content-error-list';
+      container.appendChild(messageContainer);
+      container.appendChild(errorList);
+
+      ui.showModal(container);
+    }
+    else if (emptyErrors.length === 0 && validationErrors.length === 0){
       ui.addContactToList(contact);
       ui.clearFields();
     }
-
-
-
     
   });
 

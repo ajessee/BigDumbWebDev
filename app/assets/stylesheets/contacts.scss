@@ -100,6 +100,7 @@
   align-self: end;
   height: 90%;
   overflow-y: auto;
+  overflow-x: auto;
   border-radius: 4px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
@@ -137,6 +138,9 @@
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
 }
 
 #contact-modal-close {
@@ -153,20 +157,16 @@
   cursor: pointer;
 }
 
-#contact-modal-text {
-
-}
-
 .contact-success, .contact-error {
   color: white;
   padding: 5px;
-  margin: 5px 0 15px 0;
+  margin: 5px 0 5px 0;
 }
 
 .contact-success {
-  background: green;
+  color: green;
 }
 
 .contact-error {
-  background: red;
+  color: red;
 }
