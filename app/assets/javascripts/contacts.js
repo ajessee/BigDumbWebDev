@@ -23,10 +23,10 @@ const setContactsVariables = () => {
 
   c.Contacts = class {
     constructor(firstName, lastName, phone, email) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.phone = phone;
-    this.email = email;
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.phone = phone;
+      this.email = email;
     }
   }
 
@@ -58,17 +58,22 @@ const setContactsVariables = () => {
     closeModal() {
       c.modal.style.display = 'none';
       c.modalErrors = document.getElementById('content-error-list');
-        c.modalErrors.remove();
+      c.modalErrors.remove();
     }
 
     deleteContact(target) {
-      if(target.classList.contains('delete')){
-        target.parentElement.parentElement.remove();
+      if (target.classList.contains('delete') || target.parentElement.classList.contains('delete')) {
+        let sure = confirm('Are you sure you want to delete this contact?');
+        if (sure) {
+          target.parentElement.parentElement.remove()
+        } else {
+          return;
+        }
       }
     }
   };
 
-  window.addEventListener('click', function(e){
+  window.addEventListener('click', function (e) {
     if (document.querySelector('#contacts-project-container') && e.target === c.modal) {
       c.modal.style.display = 'none';
       c.modalErrors = document.getElementById('content-error-list');
@@ -76,19 +81,19 @@ const setContactsVariables = () => {
     };
   })
 
-  c.contactList.addEventListener('click', function(e){
+  c.contactList.addEventListener('click', function (e) {
     e.preventDefault();
     const ui = new c.UI;
     ui.deleteContact(e.target);
   })
 
-  c.modalClose.addEventListener('click', function(e){
+  c.modalClose.addEventListener('click', function (e) {
     e.preventDefault();
     const ui = new c.UI;
     ui.closeModal();
   });
 
-  c.contactForm.addEventListener('submit', function(e){
+  c.contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
     const contact = new c.Contacts(c.firstName.value, c.lastName.value, c.phone.value, c.email.value);
     const ui = new c.UI;
@@ -100,14 +105,12 @@ const setContactsVariables = () => {
         let label = prop + 'Label';
         let labelTitle = c[label].textContent;
         emptyErrors.push(labelTitle)
-      }
-      else if (prop === 'phone') {
+      } else if (prop === 'phone') {
         const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
         if (!phoneRegex.test(contact[prop])) {
           validationErrors.push('Please make sure you are using a 10 digit phone number');
         }
-      }
-      else if (prop === 'email') {
+      } else if (prop === 'email') {
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!emailRegex.test(contact[prop])) {
           validationErrors.push('Please make sure you are using a valid email address');
@@ -120,8 +123,7 @@ const setContactsVariables = () => {
       if (emptyErrors.length === 1) {
         field = 'field';
         need = 'needs';
-      }
-      else {
+      } else {
         field = 'fields';
         need = 'need';
       }
@@ -132,7 +134,7 @@ const setContactsVariables = () => {
 
       messageContainer.textContent = message;
       messageContainer.className = 'contact-error';
-      emptyErrors.forEach(function(error){
+      emptyErrors.forEach(function (error) {
         let errorLi = document.createElement('li');
         errorLi.textContent = error;
         errorLi.className = 'contact-error';
@@ -148,8 +150,7 @@ const setContactsVariables = () => {
       let errorPlural
       if (validationErrors.length === 1) {
         errorPlural = 'error';
-      }
-      else {
+      } else {
         errorPlural = 'errors';
       }
       let container = document.getElementById('content-error-list');
@@ -162,7 +163,7 @@ const setContactsVariables = () => {
 
       messageContainer.textContent = message;
       messageContainer.className = 'contact-error';
-      validationErrors.forEach(function(error){
+      validationErrors.forEach(function (error) {
         let errorLi = document.createElement('li');
         errorLi.textContent = error;
         errorLi.className = 'contact-error';
@@ -173,16 +174,14 @@ const setContactsVariables = () => {
       container.appendChild(errorList);
 
       ui.showModal(container);
-    }
-    else if (emptyErrors.length === 0 && validationErrors.length === 0){
+    } else if (emptyErrors.length === 0 && validationErrors.length === 0) {
       ui.addContactToList(contact);
       ui.clearFields();
     }
-    
+
   });
 
   window.projects.contacts = c;
 }
 
 document.addEventListener("DOMContentLoaded", loadContacts);
-
