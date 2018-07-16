@@ -1,7 +1,7 @@
 #contacts-project-container {
   display: grid;
   grid-template-columns: 10% 80% 10%;
-  grid-template-rows: 5% 40% 50% 5%;
+  grid-template-rows: 5% 20% 70% 5%;
   background-color: #f2f2f2;
   height: 100vh;
   width: 100vw;
@@ -15,6 +15,8 @@
   grid-template-columns: 5% repeat(6, 1fr) 5%;
   background-color: white;
   align-self: center;
+  justify-self: center;
+  width: 50%;
   border-radius: 4px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
@@ -110,10 +112,27 @@
   font-weight: 400;
   font-size: 1.2em;
   text-align: center;
+  border-collapse: collapse; 
+}
+
+#table-border-bottom {
+  border-bottom: 2px solid black;
+  
+}
+
+label {
+  display: none;
 }
 
 #table-border-bottom > th {
+  padding: 8px 0px 8px 0px;
+}
 
+#contact-table > tbody:before {
+  content: "-";
+  display: block;
+  line-height: 1em;
+  color: transparent;
 }
 
 #contact-list {
@@ -137,7 +156,7 @@
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 35%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 400;
   font-size: 1.2em;

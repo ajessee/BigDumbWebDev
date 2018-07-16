@@ -21,51 +21,52 @@ const setContactsVariables = () => {
   c.modalClose = document.getElementById('contact-modal-close');
   c.modalContent = document.getElementById('contact-modal-content');
 
-  c.Contacts = function (firstName, lastName, phone, email) {
+  c.Contacts = class {
+    constructor(firstName, lastName, phone, email) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.phone = phone;
     this.email = email;
-  }
-
-  c.UI = function() {};
-
-  c.UI.prototype.addContactToList = function(contact) {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${contact.firstName}</td>
-      <td>${contact.lastName}</td>
-      <td>${contact.phone}</td>
-      <td>${contact.email}</td>
-      <td><i class="far fa-window-close delete"></i></td>
-    `;
-
-    c.contactList.appendChild(row);
-  }
-
-  c.UI.prototype.clearFields = function(){
-    c.firstName.value = '';
-    c.lastName.value = '';
-    c.phone.value = '';
-    c.email.value = '';
-  }
-
-  c.UI.prototype.showModal = function(container){
-    c.modal.style.display = 'block';
-    c.modalContent.appendChild(container);
-  }
-
-  c.UI.prototype.closeModal = function(){
-    c.modal.style.display = 'none';
-    c.modalErrors = document.getElementById('content-error-list');
-      c.modalErrors.remove();
-  }
-
-  c.UI.prototype.deleteContact = function(target){
-    if(target.classList.contains('delete')){
-      target.parentElement.parentElement.remove();
     }
   }
+
+  c.UI = class {
+    addContactToList(contact) {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${contact.firstName}</td>
+        <td>${contact.lastName}</td>
+        <td>${contact.phone}</td>
+        <td>${contact.email}</td>
+        <td><i class="far fa-window-close delete"></i></td>
+      `;
+      c.contactList.appendChild(row);
+    }
+
+    clearFields() {
+      c.firstName.value = '';
+      c.lastName.value = '';
+      c.phone.value = '';
+      c.email.value = '';
+    }
+
+    showModal(container) {
+      c.modal.style.display = 'block';
+      c.modalContent.appendChild(container);
+    }
+
+    closeModal() {
+      c.modal.style.display = 'none';
+      c.modalErrors = document.getElementById('content-error-list');
+        c.modalErrors.remove();
+    }
+
+    deleteContact(target) {
+      if(target.classList.contains('delete')){
+        target.parentElement.parentElement.remove();
+      }
+    }
+  };
 
   window.addEventListener('click', function(e){
     if (document.querySelector('#contacts-project-container') && e.target === c.modal) {
