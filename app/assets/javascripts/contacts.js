@@ -27,6 +27,13 @@ const setContactsVariables = () => {
       this.lastName = lastName;
       this.phone = phone;
       this.email = email;
+      this.uuid = c.Contacts.uuidv4();
+    }
+
+    static uuidv4() {
+      return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+      )
     }
   }
 
@@ -40,6 +47,7 @@ const setContactsVariables = () => {
         <td>${contact.email}</td>
         <td><i class="far fa-window-close delete"></i></td>
       `;
+      row.setAttribute('data-uuid', contact.uuid);
       c.contactList.appendChild(row);
     }
 
@@ -65,13 +73,56 @@ const setContactsVariables = () => {
       if (target.classList.contains('delete') || target.parentElement.classList.contains('delete')) {
         let sure = confirm('Are you sure you want to delete this contact?');
         if (sure) {
-          target.parentElement.parentElement.remove()
+          c.Store.removeContact(target);
+          target.closest('tr').remove()
         } else {
           return;
         }
       }
     }
   };
+
+  c.Store = class {
+
+    static getContacts(){
+      let contacts;
+      if (localStorage.getItem('contacts') === null) {
+        contacts = []
+      }
+      else {
+        contacts = JSON.parse(localStorage.getItem('contacts'));
+      }
+      return contacts;
+    }
+
+    static displayContacts(){
+      const contacts = c.Store.getContacts();
+      const ui = new c.UI;
+      contacts.forEach(function(contact){
+        ui.addContactToList(contact);
+      })
+    }
+
+    static addContact(contact){
+      const contacts = c.Store.getContacts();
+      contacts.push(contact);
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
+
+    static removeContact(target){
+      const uuid = target.closest('tr[data-uuid]').getAttribute('data-uuid');
+
+      const contacts = this.getContacts();
+
+      contacts.forEach(function(contact, index) {
+        if (contact.uuid === uuid) {
+          contacts.splice(index, 1);
+        }
+      })
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
+
+  }
 
   window.addEventListener('click', function (e) {
     if (document.querySelector('#contacts-project-container') && e.target === c.modal) {
@@ -176,11 +227,12 @@ const setContactsVariables = () => {
       ui.showModal(container);
     } else if (emptyErrors.length === 0 && validationErrors.length === 0) {
       ui.addContactToList(contact);
+      c.Store.addContact(contact);
       ui.clearFields();
     }
 
   });
-
+  c.Store.displayContacts();
   window.projects.contacts = c;
 }
 
