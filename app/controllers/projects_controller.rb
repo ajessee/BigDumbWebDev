@@ -1,5 +1,8 @@
 class ProjectsController < ApplicationController
 
+  def projects
+  end
+  
   def todo
   end
 

@@ -1,10 +1,16 @@
-#projects-container {
+#all-projects-container {
+  padding-bottom: 5%;
+  grid-row-gap: 3em;
+}
+
+.projects-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto auto auto 20px;
   background-color: aliceblue;
   grid-row-gap: 1em;
   place-items: center;
+  align-content: space-evenly;
 }
 
 .header {
@@ -56,7 +62,7 @@
 }
 
 @media only screen and (max-width: 767px) {
-  #projects-container {
+  .projects-container {
     grid-template-columns: auto;
     grid-template-rows: repeat(7, 1fr) 20px;
     place-items: center;

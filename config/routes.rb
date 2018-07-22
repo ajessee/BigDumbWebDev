@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   
   get 'hello/home'
 
+  get 'projects' => 'projects#projects'
+
   get 'projects/todo' => 'projects#todo'
 
   get 'projects/loan-calculator' => 'projects#calculator'
