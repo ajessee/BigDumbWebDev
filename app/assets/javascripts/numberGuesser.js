@@ -1,12 +1,25 @@
-const loadnumberGuesser = () => {
-  if (document.querySelector('#ng-project-container')) {
-    setNGVariables();
-  };
-}
+/* 
+  On DOM content loaded, check if number guesser project section is on page
+  I do this so that I can reduce memory usage and only load parts of project JS that I need.
+  I add numberGuesser object to window.projects namespace, and then all properties and
+  methods to that object. I store DOM elements in the object and add event listeners to elements
+  the user will interact with.
 
-const setNGVariables = () => {
+  Note - I am using arrow functions. I started because I wanted to be fancy and use them everywhere,
+  until I realized that I shouldn't just do something because it is cool. One issue that arises is that arrow functions are not hoisted, so I have to put the event listener at the bottom of the page. Also, arrow functions don't have a 'this' object (unless you pass it one), so 'this' === window for all these functions. This isn't a 
+  problem, because I am creating an object per each project, and attaching properties and methods to that. Need to think about whether I want to refactor to use regular ol' functions, or if I can keep like this. 7/22/18, don't see the need to refactor now.
+
+  Todo:
+    1. Set object to null on page reload to wipe from memory - is this needed?
+    2. Refactor to ES6 classes
+    3. Change from arrow functions to regular functions?
+    4. Make images responsive for mobile
+*/
+
+const loadNumberGuesserProject = () => {
   ng = {};
 
+  // Get stored data, UI elements
   ng.storedMin = sessionStorage.getItem('ng-min');
   ng.storedMax = sessionStorage.getItem('ng-max');
   ng.storedGuess = sessionStorage.getItem('ng-guess');
@@ -57,12 +70,14 @@ const setNGVariables = () => {
 
   ng.winningNum = ng.getRandomNum(ng.min, ng.max);
 
+  // On mousedown for play again button, reload page
   ng.UIcontainer.addEventListener('mousedown', function (e) {
     if (e.target.className === 'ng-play-again') {
       window.location.reload();
     }
   })
 
+  // Event listener for settings button. Toggle show/hide of settings
   ng.UIsettingsBtn.addEventListener('click', function (e) {
     if (this.className === 'ng-settings-cancel') {
       this.classList.replace('ng-settings-cancel', 'ng-settings-set');
@@ -80,6 +95,7 @@ const setNGVariables = () => {
     return;
   })
 
+  // Allow user to set parameters for game
   ng.UIsettingsSave.addEventListener('click', function (e) {
     sessionStorage.setItem('ng-min', ng.UIsetMin.value);
     sessionStorage.setItem('ng-max', ng.UIsetMax.value);
@@ -87,6 +103,7 @@ const setNGVariables = () => {
     window.location.reload();
   })
 
+  // Give user hint. Cache and display relative position of current guess with all past guesses
   ng.UIhint.addEventListener('click', function (e) {
     let hint;
     let lessThanGuesses = ng.allGuesses.filter((g)=>{return g < ng.winningNum}).sort((a,b) => {return a - b }).join(', ');
@@ -96,6 +113,7 @@ const setNGVariables = () => {
     this.style.display = 'none';
   })
 
+  // Event listener for 'Submit button', logic for testing if guess if correct/incorrect, display different Yoda GIFs based on outcome 
   ng.UIguessBtn.addEventListener('click', function () {
     let guess = parseInt(ng.UIguessInput.value);
     ng.allGuesses.push(guess);
@@ -133,7 +151,12 @@ const setNGVariables = () => {
       }
     }
   })
+  // Add number guesser object to project namespace
   window.projects.numberGuesser = ng;
 }
 
-document.addEventListener("DOMContentLoaded", loadnumberGuesser);
+document.addEventListener("DOMContentLoaded", function(){
+  if (document.querySelector('#ng-project-container')) {
+    loadNumberGuesserProject();
+  };
+});

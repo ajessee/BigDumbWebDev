@@ -1,14 +1,21 @@
-const loadTodo = () => {
-  if (document.querySelector('#todo-project-container')) {
-    setTodoVariables();
-    let todo = window.projects.todo;
-    //load tasks if they exist in local storage
-    todo.setGetDeleteTask(null, 'get');
-    todo.loadEventListeners();
-  };
-}
+/* 
+  On DOM content loaded, check if todo project section is on page
+  I do this so that I can reduce memory usage and only load parts of project JS that I need.
+  I add todo object to window.projects namespace, and then all properties and
+  methods to that object. I store DOM elements in the object and add event listeners to elements
+  the user will interact with.
 
-const setTodoVariables = () => {
+  Note - I am using arrow functions. I started because I wanted to be fancy and use them everywhere,
+  until I realized that I shouldn't just do something because it is cool. One issue that arises is that arrow functions are not hoisted, so I have to put the event listener at the bottom of the page. Also, arrow functions don't have a 'this' object (unless you pass it one), so 'this' === window for all these functions. This isn't a 
+  problem, because I am creating an object per each project, and attaching properties and methods to that. Need to think about whether I want to refactor to use regular ol' functions, or if I can keep like this. 7/22/18, don't see the need to refactor now.
+
+  Todo:
+  1. Set object to null on page reload to wipe from memory - is this needed?
+  2. Refactor to ES6 classes
+  3. Change from arrow functions to regular functions?
+*/
+
+const loadTodoProject = () => {
   // Declare UI element variables to be able to do cool stuff to them!
   todo = {}
   console.log('set todo project variables');
@@ -145,15 +152,15 @@ const setTodoVariables = () => {
       }
     })
   }
-
+  //load tasks if they exist in local storage
+  todo.setGetDeleteTask(null, 'get');
+  todo.loadEventListeners();
+  // Add todo object to project namespace
   window.projects.todo = todo;
 }
 
-// This is down here because since I'm using arrow functions, they aren't hoisted and therefore need to be declared before they are called.
-
-// For some reason DOMContentLoaded is firing early.
-document.onreadystatechange = function () {
-  if (document.readyState === "complete") {
-    loadTodo();
-  }
-}
+document.addEventListener("DOMContentLoaded", function() {
+  if (document.querySelector('#todo-project-container')) {
+    loadTodoProject();
+  };
+});

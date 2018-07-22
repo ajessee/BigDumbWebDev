@@ -1,12 +1,24 @@
-const loadContacts = () => {
-  if (document.querySelector('#contacts-project-container')) {
-    setContactsVariables();
-  };
-}
+/* 
+  On DOM content loaded, check if contacts project section is on page
+  Do this so that I can reduce memory usage and only load parts of project JS that I need.
+  I add contacts object to window.projects namespace, and then all properties and
+  methods to that object. I store DOM elements in the object and add event listeners to elements
+  the user will interact with.
 
-const setContactsVariables = () => {
+  Note - I am using arrow functions. I started because I wanted to be fancy and use them everywhere,
+  until I realized that I shouldn't just do something because it is cool. One issue that arises is that arrow functions are not hoisted, so I have to put the event listener at the bottom of the page. Also, arrow functions don't have a 'this' object (unless you pass it one), so 'this' === window for all these functions. This isn't a 
+  problem, because I am creating an object per each project, and attaching properties and methods to that. Need to think about whether I want to refactor to use regular ol' functions, or if I can keep like this. 7/22/18, don't see the need to refactor now.
+
+  Todo: 
+    1. Set object to null on page reload to wipe from memory - is this needed?
+    2. Change from arrow functions to regular functions?
+*/
+
+const loadContactsProject = () => {
+  // Create object
   c = {};
 
+  // Grab DOM elements I need
   c.firstNameLabel = document.getElementById('contact-first-name-label');
   c.lastNameLabel = document.getElementById('contact-last-name-label');
   c.phoneLabel = document.getElementById('contact-phone-label');
@@ -21,6 +33,7 @@ const setContactsVariables = () => {
   c.modalClose = document.getElementById('contact-modal-close');
   c.modalContent = document.getElementById('contact-modal-content');
 
+  // ES6 class for contacts
   c.Contacts = class {
     constructor(firstName, lastName, phone, email) {
       this.firstName = firstName;
@@ -30,6 +43,7 @@ const setContactsVariables = () => {
       this.uuid = c.Contacts.uuidv4();
     }
 
+    // Static method to generate UUID
     static uuidv4() {
       return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -37,7 +51,12 @@ const setContactsVariables = () => {
     }
   }
 
+  /*
+  ES6 Class for UI. Class with methods to interact with DOM - add contacts, delete contacts, clear fields,
+  do modal stuff.
+  */ 
   c.UI = class {
+
     addContactToList(contact) {
       const row = document.createElement('tr');
       row.innerHTML = `
@@ -47,6 +66,7 @@ const setContactsVariables = () => {
         <td>${contact.email}</td>
         <td><i class="far fa-window-close delete"></i></td>
       `;
+      // Set data-uuid attribute to have unique identifier that can then be used to delete contacts
       row.setAttribute('data-uuid', contact.uuid);
       c.contactList.appendChild(row);
     }
@@ -82,6 +102,15 @@ const setContactsVariables = () => {
     }
   };
 
+  /* 
+  ES6 Class to interact with getLocalStorage object to persist data. All methods are static so we don't ever
+  have to instatiate object.
+
+  Todo: 
+  1. Should I make all UI class methods static too? What is the value in instatating UI object vs static methods?
+  2. Create database table and persist to DB on a per user basis. When user signs in, they will have
+  their own personalized contacts app.
+  */
   c.Store = class {
 
     static getContacts(){
@@ -97,6 +126,7 @@ const setContactsVariables = () => {
 
     static displayContacts(){
       const contacts = c.Store.getContacts();
+      // Instantiate new UI object
       const ui = new c.UI;
       contacts.forEach(function(contact){
         ui.addContactToList(contact);
@@ -115,6 +145,7 @@ const setContactsVariables = () => {
       const contacts = this.getContacts();
 
       contacts.forEach(function(contact, index) {
+        // Check if we have the right contact to delete
         if (contact.uuid === uuid) {
           contacts.splice(index, 1);
         }
@@ -124,7 +155,9 @@ const setContactsVariables = () => {
 
   }
 
+  // If user clicks outside the modal dialog, close modal.
   window.addEventListener('click', function (e) {
+    // If contacts project is on page, and a user clicks anywhere that isn't the dialog window (modal covers everything else)
     if (document.querySelector('#contacts-project-container') && e.target === c.modal) {
       c.modal.style.display = 'none';
       c.modalErrors = document.getElementById('content-error-list');
@@ -132,25 +165,30 @@ const setContactsVariables = () => {
     };
   })
 
+  // Event listener on contact list element. Use event bubbling to see if they clicked on delete X
   c.contactList.addEventListener('click', function (e) {
     e.preventDefault();
     const ui = new c.UI;
     ui.deleteContact(e.target);
   })
 
+  // When user clicks on modal close X, close modal
   c.modalClose.addEventListener('click', function (e) {
     e.preventDefault();
     const ui = new c.UI;
     ui.closeModal();
   });
 
+  // On submit, validate all user entries, and then create contact and display
   c.contactForm.addEventListener('submit', function (e) {
     e.preventDefault();
+    // Instatiate new contacts object
     const contact = new c.Contacts(c.firstName.value, c.lastName.value, c.phone.value, c.email.value);
     const ui = new c.UI;
     let emptyErrors = [];
     let validationErrors = [];
 
+    // Validate that fields are not empty, and that phone and email are in valid formats with regex
     for (prop in contact) {
       if (contact[prop] === '') {
         let label = prop + 'Label';
@@ -169,8 +207,10 @@ const setContactsVariables = () => {
       }
     }
 
+    // If there are any empty fields, display errors in modal dialog for user
     if (emptyErrors.length > 0) {
       let field, need;
+      // Pluralize words
       if (emptyErrors.length === 1) {
         field = 'field';
         need = 'needs';
@@ -197,6 +237,8 @@ const setContactsVariables = () => {
 
       ui.showModal(container);
     }
+
+    // If there are validation errors, display errors in modal dialog for user
     if (validationErrors.length > 0) {
       let errorPlural
       if (validationErrors.length === 1) {
@@ -225,15 +267,23 @@ const setContactsVariables = () => {
       container.appendChild(errorList);
 
       ui.showModal(container);
-    } else if (emptyErrors.length === 0 && validationErrors.length === 0) {
+    } 
+    // If all fields valid, create contact, update UI, and store in localStorage
+    else if (emptyErrors.length === 0 && validationErrors.length === 0) {
       ui.addContactToList(contact);
       c.Store.addContact(contact);
       ui.clearFields();
     }
 
   });
+  // On DOM content loaded, check to see if there are any saved contacts and display them
   c.Store.displayContacts();
+  // Add contacts object to projects namespace
   window.projects.contacts = c;
 }
 
-document.addEventListener("DOMContentLoaded", loadContacts);
+document.addEventListener("DOMContentLoaded", function(){
+  if (document.querySelector('#contacts-project-container')) {
+    loadContactsProject();
+  };
+});
