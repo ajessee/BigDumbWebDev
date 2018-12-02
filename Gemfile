@@ -5,7 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails'                   
+ruby '2.5.3'
+
+gem 'rails', '~> 5.2.1'             
 gem 'bcrypt'                  
 gem 'faker'                   
 gem 'carrierwave'             
@@ -18,7 +20,7 @@ gem 'sass-rails'
 gem 'uglifier'                
 gem 'jquery-rails'            
 gem 'jbuilder'       
-gem 'bundler', '1.15.2'         
+gem 'bundler'  
 
 group :development, :test do
   

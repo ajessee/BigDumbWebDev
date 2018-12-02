@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Big Dumb Web Dev</title>
+    <title><%= yield(:title) %><% if yield(:title) != "" %> | BDWD<% else %>Big Dumb Web Dev<% end %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
     <%= render 'layouts/fonts' %>
