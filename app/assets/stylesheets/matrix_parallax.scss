@@ -1,14 +1,23 @@
 #matrix-parallax-container {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  background-image: image-url('matrix.gif');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  min-height: 75vh; 
-  min-width: 100vw;
+  // display: flex;
+  // flex-flow: column nowrap;
+  // align-items: center;
+  // justify-content: center;
+  // background-image: image-url('matrix.gif');
+  // background-size: cover;
+  // background-position: center;
+  // background-attachment: fixed;
+  // min-height: 75vh; 
+  // min-width: 100vw;
+
+  display: block;
+  margin-before: 0.5em;
+  margin-after: 0.5em;
+  margin-start: auto;
+  margin-end: auto;
+  overflow: hidden;
+  border-style: inset;
+  border-width: 1px;
 }
 
 @media only screen and (min-width : 1501px) {
