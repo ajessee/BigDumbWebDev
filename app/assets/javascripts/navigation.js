@@ -1,12 +1,18 @@
-const iconNames = ['projects', 'resources', 'blog', 'github', 'twitter', 'linkedin'];
+const setUpNav = () => {
 
-const getIcons = () => {
+  const iconNames = ['projects', 'resources', 'blog', 'github', 'twitter', 'linkedin'];
+
+  // make sure we are on main page, so we don't run unneccesary javascript on any subpages
   if (document.querySelector('#about-me-container')) {
-  console.log("icons.js");
+
+  console.log("navigation.js");
+
+  const navbar = document.querySelector("#main-nav");
+  const navbarOffsetTop = navbar.offsetTop;
+  const navbarOffsetHeight = navbar.offsetHeight;
+
   const grow = (e) => {
-    let parentHeight = e.target.closest('#about-me-nav').offsetHeight;
     e.target.children[1].children[0].setAttribute("transform", "scale(1.3)");
-    e.target.closest('#about-me-nav').style.height = parentHeight + 'px';
   }
 
   const shrink = (e) => {
@@ -20,6 +26,23 @@ const getIcons = () => {
       behavior: 'smooth',
       block: 'start'
     });
+  }
+
+
+
+  window.onscroll = () => {
+
+    let scrollingDown;
+    let tempScrollY = 0;
+
+    (window.scrollY > tempScrollY) ? scrollingDown = true : scrollingDown = false;
+
+    if (window.scrollY >= navbarOffsetTop) {
+      navbar.classList.add("navbar-fixed");
+    }
+    else if (window.scrollY <= navbarOffsetTop) {
+      navbar.classList.remove("navbar-fixed");
+    }
   }
   
   iconNames.forEach((name) => {
@@ -36,4 +59,4 @@ const getIcons = () => {
   }
 }
 
-document.addEventListener("DOMContentLoaded", getIcons);
+document.addEventListener("DOMContentLoaded", setUpNav);

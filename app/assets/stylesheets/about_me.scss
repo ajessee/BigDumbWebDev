@@ -22,7 +22,7 @@
   text-decoration: none;
 }
 
-#about-me-nav {
+#main-nav {
   grid-column: 1 / 21;
   grid-row: 2 / 3;
   display: grid;
@@ -124,7 +124,7 @@ a.nav-links:hover {
     line-height: 1.5em;
   }
 
-  #about-me-nav {
+  #main-nav {
     grid-column: 1 / 4;
     grid-row: 2;
     display: grid;
