@@ -9,6 +9,7 @@ const setUpNav = () => {
 
   const navbar = document.querySelector("#main-nav");
   const navbarOffsetTop = navbar.offsetTop;
+  const navbarOffsetHeight = navbar.offsetHeight;
 
   const iconScale = (event, element, scale, translate) => {
     if (event) {
@@ -79,13 +80,13 @@ const setUpNav = () => {
     })
     }
 
-    if (window.scrollY >= navbarOffsetTop) {
+    if (window.scrollY > navbarOffsetTop) {
       navbar.classList.add("navbar-fixed");
       scaleNavbar("0.5", "50");
       toggleIconLabels("none");
       bdwdIcon.style.display = "block";
     }
-    else if (window.scrollY <= navbarOffsetTop) {
+    else if (window.scrollY < (navbarOffsetTop - navbarOffsetHeight)) {
       navbar.classList.remove("navbar-fixed");
       scaleNavbar("1", "0");
       toggleIconLabels("block");
