@@ -1,47 +1,58 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
+ruby '2.6.0'
 
-ruby '2.5.3'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 6.0.0.beta1'
+# Use postgresql as the database for Active Record
+gem 'pg', '>= 0.18', '< 2.0'
+# Use Puma as the app server
+gem 'puma', '~> 3.11'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+gem 'webpacker', '>= 4.0.0.rc.3'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
+# Use Redis adapter to run Action Cable in production
+# gem 'redis', '~> 4.0'
+# Use Active Model has_secure_password
+gem 'bcrypt', '~> 3.1.7'
 
-gem 'rails', '~> 5.2.1'             
-gem 'bcrypt'                  
-gem 'faker'                   
-gem 'carrierwave'             
-gem 'mini_magick'             
-gem 'will_paginate'           
-gem 'bootstrap-will_paginate' 
-gem 'bootstrap-sass'
-gem 'puma'                    
-gem 'sass-rails'              
-gem 'uglifier'                
-gem 'jquery-rails'            
-gem 'jbuilder'       
-gem 'bundler'  
+# Use Active Storage variant
+# gem 'image_processing', '~> 1.2'
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
-  
-  gem 'byebug',  '9.0.6', platform: :mri
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
-  gem 'web-console'           
-  gem 'listen'                
-  gem 'spring'                
-  gem 'spring-watcher-listen' 
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
+  # Easy installation and use of chromedriver to run system tests with Chrome
+  gem 'chromedriver-helper'
+
+  # adding gems from Rails 5 build for testing 1/21/19
   gem 'rails-controller-testing' 
   gem 'minitest-reporters'       
   gem 'guard'                    
-  gem 'guard-minitest'           
+  gem 'guard-minitest'   
 end
 
-group :production do
-  gem 'pg'  
-  gem 'fog'
-end
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

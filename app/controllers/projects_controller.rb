@@ -1,8 +1,7 @@
 class ProjectsController < ApplicationController
-
   def projects
   end
-  
+
   def todo
   end
 
@@ -14,5 +13,4 @@ class ProjectsController < ApplicationController
 
   def contacts
   end
-  
 end
