@@ -1,17 +1,20 @@
 Rails.application.routes.draw do
+  get 'users/new'
   root 'hello#home'
   
   get 'hello/home'
 
-  get 'projects' => 'projects#projects'
+  get 'projects', to: 'projects#projects'
 
-  get 'projects/todo' => 'projects#todo'
+  get 'projects/todo', to: 'projects#todo'
 
-  get 'projects/loan-calculator' => 'projects#calculator'
+  get 'projects/loan-calculator', to: 'projects#calculator'
 
-  get 'projects/number-guesser' => 'projects#number_guesser'
+  get 'projects/number-guesser', to: 'projects#number_guesser'
 
-  get 'projects/contacts' => 'projects#contacts'
-  
+  get 'projects/contacts', to: 'projects#contacts'
+
+  get  '/signup',  to: 'users#new'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
