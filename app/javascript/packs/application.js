@@ -6,5 +6,6 @@
 require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
+require("application")
 require("trix")
 require("@rails/actiontext")
