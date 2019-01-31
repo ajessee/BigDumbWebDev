@@ -1,0 +1,86 @@
+.modal {
+  display: none;
+  position: fixed; 
+  z-index: 200;
+  height: 100%;
+  width: 100%;
+  top: 0; 
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.overlay {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  height: 100%;
+  width: 100%;
+}
+
+.modal-content {
+  display: none;
+  grid-row: 2 / span 4; 
+  grid-column: 2 / span 4;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10%;
+}
+
+.grow {
+  animation-name: grow;
+  animation-duration: 0.5s; 
+  animation-timing-function: ease-out; 
+  animation-delay: 0s;
+  animation-direction: normal;
+  animation-iteration-count: 1;
+  animation-fill-mode: none;
+  animation-play-state: running; 
+}
+
+.shrink {
+  animation-name: shrink;
+  animation-duration: 0.5s; 
+  animation-timing-function: ease-out; 
+  animation-delay: 0s;
+  animation-direction: normal;
+  animation-iteration-count: 1;
+  animation-fill-mode: none;
+  animation-play-state: running; 
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+    border-radius: 100%;
+  }
+  100% {
+    transform: scale(1);
+    border-radius: 10%;
+  }
+}
+
+@keyframes shrink {
+  0% {
+    border-radius: 10%;
+  }
+  100% {
+    transform: scale(0);
+    border-radius: 100%;
+  }
+}
+
+
+.modalBlur>*:not(.modal) {
+  -webkit-filter: blur(3px) brightness(50%);
+  // -webkit-filter: grayscale(20%);
+  -webkit-transition: 0.5s -webkit-filter linear;
+}
+
+.modalUnblur>*:not(.modal)  {
+  -webkit-filter: none;
+  // -webkit-filter: grayscale(20%);
+  -webkit-transition: 0.5s -webkit-filter linear;
+}
+
+.close-modal {}
