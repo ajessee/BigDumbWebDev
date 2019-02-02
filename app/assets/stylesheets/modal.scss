@@ -1,4 +1,4 @@
-.modal {
+#modal {
   display: none;
   position: fixed; 
   z-index: 200;
@@ -10,21 +10,23 @@
   bottom: 0;
 }
 
-.overlay {
+#overlay {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
   height: 100%;
   width: 100%;
 }
 
-.modal-content {
+#modal-content {
   display: none;
-  grid-row: 2 / span 4; 
-  grid-column: 2 / span 4;
+  grid-row: 2 / span 6; 
+  grid-column: 3 / span 4;
   justify-content: center;
   background-color: white;
-  border-radius: 10%;
+  position: relative;
+  border-radius: 2%;
+  box-shadow: 15px 16px 12px rgba(0, 0, 0, 0.3);
 }
 
 .grow {
@@ -56,13 +58,13 @@
   }
   100% {
     transform: scale(1);
-    border-radius: 10%;
+    border-radius: 2%;
   }
 }
 
 @keyframes shrink {
   0% {
-    border-radius: 10%;
+    border-radius: 2%;
   }
   100% {
     transform: scale(0);
@@ -71,16 +73,40 @@
 }
 
 
-.modalBlur>*:not(.modal) {
+.modalBlur>*:not(#modal) {
   -webkit-filter: blur(3px) brightness(50%);
-  // -webkit-filter: grayscale(20%);
+  -moz-filter: blur(3px) brightness(50%);
+  -o-filter: blur(3px) brightness(50%);
+  -ms-filter: blur(3px) brightness(50%);
+
   -webkit-transition: 0.5s -webkit-filter linear;
+  -moz-transition: 0.5s -moz-filter linear;
+  -o-transition: 0.5s -o-filter linear;
+  -ms-transition: 0.5s -ms-filter linear;
 }
 
-.modalUnblur>*:not(.modal)  {
+.modalUnblur>*:not(#modal)  {
   -webkit-filter: none;
-  // -webkit-filter: grayscale(20%);
+  -moz-filter: none;
+  -o-filter: none;
+  -ms-filter: none;
+
   -webkit-transition: 0.5s -webkit-filter linear;
+  -moz-transition: 0.5s -moz-filter linear;
+  -o-transition: 0.5s -o-filter linear;
+  -ms-transition: 0.5s -ms-filter linear;
 }
 
-.close-modal {}
+#close-modal {
+  display: none;
+  position: absolute;
+  right: 0;
+  border-style: none;
+  background-color: transparent;
+  color: darkgrey;
+}
+
+#close-modal:hover {
+  cursor: pointer;
+  color: black;
+}

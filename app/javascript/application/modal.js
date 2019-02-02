@@ -4,43 +4,64 @@ const setUpModal = () => {
 
   console.log("modal.js");
 
-  const mainBody = document.querySelector("#main-body-section");
-  const modal = document.querySelector(".modal");
-  const modalContent = document.querySelector(".modal-content");
+  const modal = {};
+
+  modal.mainBody = document.querySelector("#main-body-section");
+  modal.modalDiv = document.querySelector("#modal");
+  modal.modalContent = document.querySelector("#modal-content");
+  modal.modalCloseButton = document.querySelector("#close-modal");
+  modal.overlay = document.querySelector("#overlay");
   
-
-  const modalOn = () => {
-    modal.style.display = "block";
-    modalContent.style.display = "block";
-    mainBody.classList.remove("modalUnblur");
-    mainBody.classList.add("modalBlur");
-    mainBody.style.overflow = "hidden";
-    mainBody.style.position = "absolute";
-    modalContent.classList.add("grow");
-    if (modalContent.classList.contains("shrink")) {
-      modalContent.classList.remove("shrink");
+  // The overlay, which is the modalContent's parent, has 8 rows and 8 columns
+  modal.modalOn = (display, borderRadius, rowStart, columnStart, rowSpan, columnSpan, subRows, subColumns) => {
+    modal.modalDiv.style.display = "block";
+    modal.mainBody.classList.contains("modalUnblur") ? modal.mainBody.classList.remove("modalUnblur") : null;
+    modal.mainBody.classList.add("modalBlur");
+    modal.mainBody.style.overflow = "hidden";
+    modal.mainBody.style.position = "absolute";
+    modal.modalContent.classList.contains("shrink") ? modal.modalContent.classList.remove("shrink") : null;
+    modal.modalContent.classList.add("grow");
+    modal.modalContent.style.display = `${display}`;
+    modal.modalContent.style.borderRadius = `${borderRadius}`;
+    modal.modalContent.style.gridArea = `${rowStart} / ${columnStart} / span ${rowSpan} / span ${columnSpan}`;
+    if (display === "grid" && subRows && subColumns) {
+      modal.modalContent.style.gridTemplateRows = `repeat(${subRows}, 1fr);`;
+      modal.modalContent.style.gridTemplateColumns = `repeat(${subColumns}, 1fr);`;
     }
   }
 
-  const modalOff = () => {
-    let closeModal = (e) => {
-      if (e.animationName === "shrink") {
-        mainBody.classList.remove("modalBlur");
-        
-        mainBody.style.overflow = "";
-        mainBody.style.position = "";
-        modal.style.display = "none";
-        modalContent.style.display = "none";
-      }
-    }
-    modalContent.classList.remove("grow");
-    modalContent.addEventListener("webkitAnimationEnd", closeModal);
-    mainBody.classList.add("modalUnblur");
-    modalContent.classList.add("shrink");
+  modal.modalOff = () => {
+    modal.modalContent.classList.remove("grow");
+    modal.mainBody.classList.add("modalUnblur");
+    modal.modalContent.classList.add("shrink");
   }
 
-  window.modalOn = modalOn;
-  window.modalOff = modalOff;
+  modal.animationDone = (e) => {
+    if (e.animationName === "shrink") {
+      modal.mainBody.classList.remove("modalBlur");
+      modal.mainBody.style.overflow = "";
+      modal.mainBody.style.position = "";
+      modal.modalDiv.style.display = "none";
+      modal.modalContent.style.display = "none";
+      modal.modalCloseButton.style.display = "none";
+    }
+    else if (e.animationName === "grow") {
+      modal.modalCloseButton.style.display = "block";
+    }
+  }
+
+  modal.clickOverlay = (e) => {
+    if (e.target === overlay) {
+      modal.modalOff();
+    }
+  }
+
+  modal.modalContent.addEventListener("webkitAnimationEnd", modal.animationDone);
+  modal.modalCloseButton.addEventListener("click", modal.modalOff);
+  modal.overlay.addEventListener("click", modal.clickOverlay);
+
+  window.modal = modal;
+
 }
 
 document.addEventListener("DOMContentLoaded", setUpModal);

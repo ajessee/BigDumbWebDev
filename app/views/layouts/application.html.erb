@@ -13,5 +13,6 @@
   <body id="main-body-section">
     <%= render 'layouts/modal' %>
     <%= yield %>
+    <%= render 'layouts/debug-button' if Rails.env.development? %>
   </body>
 </html>
