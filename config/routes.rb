@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'users/new'
+
   root 'hello#home'
   
   get 'hello/home'
@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get 'projects/contacts', to: 'projects#contacts'
 
   get  '/signup',  to: 'users#new'
+
+  resources :users
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

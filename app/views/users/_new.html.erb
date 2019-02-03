@@ -1,0 +1,28 @@
+<div id="user-signup-form">
+  <h1 id="user-signup-header">Sign up</h1>
+  <%= form_for(@user) do |f| %>
+  <div id="new_user_name" class="float-container">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div id="new_user_email" class="float-container">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div id="new_user_password" class="float-container">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div id="new_user_password_confirmation" class="float-container">
+    <%= f.label :password_confirmation, "Confirmation" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div id="new_user_submit">
+    <%= f.submit "Create my account" %>
+    <% end %>
+  </div>
+</div>

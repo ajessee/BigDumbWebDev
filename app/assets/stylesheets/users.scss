@@ -1,3 +1,68 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+//TODO: remove this
+#signin-icon {
+  display: none;
+}
+#user-signup-form {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  height: 100%;
+}
+
+#user-signup-header{
+  align-self: center;
+}
+
+form#new_user {
+  flex-basis: 80%;
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(1, 1fr);
+}
+
+#new_user_submit {
+  justify-self: center;
+  align-self: center;
+}
+
+
+/** float container */
+.float-container {
+  border: solid 1px #ccc;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 0 8px;
+  position: relative;
+  width: 80%;
+  justify-self: center;
+  
+  input {
+    border: none;
+    font-size: 16px;
+    outline: 0;
+    padding: 16px 0 10px;    
+    width: 100%;
+  }
+
+  label {
+    font-size: 16px;
+    position: absolute;
+    transform-origin: top left;
+    transform: translate(0, 16px) scale(1); 
+    transition: all .1s ease-in-out;  //speed
+  }
+  
+  /** active label */
+  &.active {
+    label {
+      //move the x coordinate and reduce size
+      transform: translate(0, 4px) scale(.75);
+    }
+  }
+}
+

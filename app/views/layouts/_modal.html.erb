@@ -1,10 +1,18 @@
 <div id="modal">
   <div id="overlay">
     <div id="modal-content">
-      <button title="Close" id="close-modal">
-        <i class="fas fa-times fa-3x" aria-hidden="true"></i>
-      </button>
     </div>
   </div>
+  <button title="Close" id="close-modal">
+      <i class="fas fa-times fa-3x" aria-hidden="true"></i>
+    </button>
 </div>
+
+<!-- TODO remove this -->
+<div class="icon-image" id="signin-icon">
+    <%= link_to 'Add user', new_user_path,  {:remote => true}  %>
+    <p class="icon-label">SignIn</p>
+  </div>
+
+
 

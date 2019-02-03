@@ -31,7 +31,7 @@
 
 .grow {
   animation-name: grow;
-  animation-duration: 0.5s; 
+  animation-duration: 0.3s; 
   animation-timing-function: ease-out; 
   animation-delay: 0s;
   animation-direction: normal;
@@ -42,7 +42,7 @@
 
 .shrink {
   animation-name: shrink;
-  animation-duration: 0.5s; 
+  animation-duration: 0.3s; 
   animation-timing-function: ease-out; 
   animation-delay: 0s;
   animation-direction: normal;
@@ -79,10 +79,10 @@
   -o-filter: blur(3px) brightness(50%);
   -ms-filter: blur(3px) brightness(50%);
 
-  -webkit-transition: 0.5s -webkit-filter linear;
-  -moz-transition: 0.5s -moz-filter linear;
-  -o-transition: 0.5s -o-filter linear;
-  -ms-transition: 0.5s -ms-filter linear;
+  -webkit-transition: 0.3s -webkit-filter linear;
+  -moz-transition: 0.3s -moz-filter linear;
+  -o-transition: 0.3s -o-filter linear;
+  -ms-transition: 0.3s -ms-filter linear;
 }
 
 .modalUnblur>*:not(#modal)  {
@@ -91,10 +91,10 @@
   -o-filter: none;
   -ms-filter: none;
 
-  -webkit-transition: 0.5s -webkit-filter linear;
-  -moz-transition: 0.5s -moz-filter linear;
-  -o-transition: 0.5s -o-filter linear;
-  -ms-transition: 0.5s -ms-filter linear;
+  -webkit-transition: 0.3s -webkit-filter linear;
+  -moz-transition: 0.3s -moz-filter linear;
+  -o-transition: 0.3s -o-filter linear;
+  -ms-transition: 0.3s -ms-filter linear;
 }
 
 #close-modal {
