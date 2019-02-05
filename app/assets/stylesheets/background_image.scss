@@ -62,7 +62,7 @@
 
 @media only screen and (max-width: 767px) {
 
-  #landing-page-container {
+  #landing-page-container, #about-me-container, #projects-container, #modal {
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
   }

@@ -9,7 +9,7 @@ const setUpDebug = () => {
   if (debugButton && debugPanel) {
   
     const openDebugPanel = () => {
-      window.utils.modal.modalOn('block', '0%', 7, 3, 1, 4);
+      window.utils.modal.modalOn('block', '0%', 7, 3, 1, 4, null, null, true);
       window.utils.modal.modalContent.appendChild(debugPanel);
       debugPanel.style.display = 'block';
     }

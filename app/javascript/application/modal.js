@@ -15,7 +15,7 @@ const setUpModal = () => {
     overlay: document.querySelector("#overlay"),
 
     // The overlay, which is the modalContent's parent, has 8 rows and 8 columns
-    modalOn: (display, borderRadius, rowStart, columnStart, rowSpan, columnSpan, subRows, subColumns) => {
+    modalOn: (display, borderRadius, rowStart, columnStart, rowSpan, columnSpan, subRows, subColumns, closeButton) => {
       modal.modalDiv.style.display = "block";
       modal.mainBody.classList.contains("modalUnblur") ? modal.mainBody.classList.remove("modalUnblur") : null;
       modal.mainBody.classList.add("modalBlur");
@@ -30,7 +30,7 @@ const setUpModal = () => {
         modal.modalContent.style.gridTemplateRows = `repeat(${subRows}, 1fr)`;
         modal.modalContent.style.gridTemplateColumns = `repeat(${subColumns}, 1fr)`;
       }
-      modal.modalContent.appendChild(modal.modalCloseButton);
+      closeButton ? modal.modalContent.appendChild(modal.modalCloseButton) : null;
     },
 
     modalOff: () => {

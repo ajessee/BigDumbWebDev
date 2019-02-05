@@ -1,4 +1,10 @@
-window.utils.modal.modalOn('block', '2%', 3, 3, 4, 4);
+
+window.utils.modal.modalOn('block', '2%', 2, 2, 6, 6, false);
 window.utils.modal.modalContent.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
+window.utils.modal.newUserCloseButton = document.querySelector("#new-user-close-button");
+window.utils.modal.newUserCloseButton.addEventListener('click', function(e) {
+  e.preventDefault();
+  window.utils.modal.modalOff();
+})
 window.utils.labels.init();
 
