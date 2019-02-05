@@ -1,4 +1,5 @@
 var map = {}; // You could also use an array
+// TODO: Finish this up
 onkeydown = onkeyup = function(e){
     e = e || event; // to deal with IE
     map[e.keyCode] = e.type == 'keydown';

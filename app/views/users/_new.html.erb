@@ -1,25 +1,26 @@
 <div id="user-signup-form">
   <h1 id="user-signup-header">Sign up</h1>
-  <%= form_for(@user) do |f| %>
+  <%= form_with model: @user, id: "new_user" do |f| %>
   <div id="new_user_name" class="float-container">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "input-error" %>
   </div>
 
   <div id="new_user_email" class="float-container">
     <%= f.label :email %>
-    <%= f.email_field :email %>
+    <%= f.email_field :email, class: "input-error" %>
   </div>
 
   <div id="new_user_password" class="float-container">
     <%= f.label :password %>
-    <%= f.password_field :password %>
+    <%= f.password_field :password, class: "input-error" %>
   </div>
 
   <div id="new_user_password_confirmation" class="float-container">
     <%= f.label :password_confirmation, "Confirmation" %>
-    <%= f.password_field :password_confirmation %>
+    <%= f.password_field :password_confirmation, class: "input-error" %>
   </div>
+  <%= render  "shared/error_messages" %>
 
   <div id="new_user_submit">
     <%= f.submit "Create Account", id: "new-user-submit-button" %>

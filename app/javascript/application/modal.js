@@ -40,6 +40,10 @@ const setUpModal = () => {
       modal.modalContent.innerHTML = "";
     },
 
+    clearModal: () => {
+      modal.modalContent.innerHTML = "";
+    },
+
     animationDone: (e) => {
       if (e.animationName === "shrink") {
         modal.mainBody.classList.remove("modalBlur");

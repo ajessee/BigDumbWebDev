@@ -1,0 +1,11 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <%= pluralize(@user.errors.count, "error") %>:
+    <% @user.errors.full_messages.each do |msg| %>
+    <span>
+      <%= msg %>
+      <% if msg != @user.errors.full_messages.last%>,<% end %>
+    </span>
+    <% end %>
+  </div>
+<% end %>
