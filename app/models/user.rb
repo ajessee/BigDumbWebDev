@@ -11,7 +11,7 @@ class User < ApplicationRecord
   # Model validation constraints that are run on save
   validates :name, presence: true, length: {maximum: 50}
   validates :email, presence: true, length: {maximum: 255}, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
-  validates :password, presence: true, length: {minimum: 8}
+  validates :password, length: {minimum: 8}
 
   # The has_secure_password method adds the following functionality to the user model:
   # The ability to save a securely hashed password_digest attribute to the database

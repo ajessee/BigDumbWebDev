@@ -1,0 +1,3 @@
+<% if @user.errors.any? %>
+<span id="error_explanation"><%= returnUserError(@user, attr)%></span>
+<% end %>
