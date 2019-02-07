@@ -1,6 +1,6 @@
 <div id="user-signup-form">
   <h1 id="user-signup-header">Sign up</h1>
-  <%= form_with model: @user, id: "new_user" do |f| %>
+  <%= form_with model: @user, url: signup_path, id: "new_user" do |f| %>
   <div id="new_user_name" class="float-container">
     <%= f.label :name %>
     <%= f.text_field :name, class: "input-error" %>

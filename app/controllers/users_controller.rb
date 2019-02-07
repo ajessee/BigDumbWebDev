@@ -2,12 +2,15 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    respond_to do |format|
+      format.js {render js: "window.utils.modal.closeModal();"}
+      format.html
+     end
+    
   end
 
   def new
-    # debugger
     @user = User.new
-
     respond_to do |format|
       format.html
       format.js
@@ -22,9 +25,9 @@ class UsersController < ApplicationController
      end
 
     if @user.save
-      #show login
+      redirect_to @user
     else
-      render 'create'
+      render 'new'
     end
   end
 

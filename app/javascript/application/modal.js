@@ -15,7 +15,7 @@ const setUpModal = () => {
     overlay: document.querySelector("#overlay"),
 
     // The overlay, which is the modalContent's parent, has 8 rows and 8 columns
-    modalOn: (display, borderRadius, rowStart, columnStart, rowSpan, columnSpan, subRows, subColumns, closeButton) => {
+    openModal: (display, borderRadius, rowStart, columnStart, rowSpan, columnSpan, subRows, subColumns, closeButton) => {
       modal.modalContent.innerHTML = "";
       modal.modalDiv.style.display = "block";
       modal.mainBody.classList.contains("modalUnblur") ? modal.mainBody.classList.remove("modalUnblur") : null;
@@ -34,7 +34,7 @@ const setUpModal = () => {
       closeButton ? modal.modalContent.appendChild(modal.modalCloseButton) : null;
     },
 
-    modalOff: () => {
+    closeModal: () => {
       modal.modalContent.classList.remove("grow");
       modal.mainBody.classList.add("modalUnblur");
       modal.modalContent.classList.add("shrink");
@@ -56,13 +56,13 @@ const setUpModal = () => {
 
     clickOverlay: (e) => {
       if (e.target === overlay) {
-        modal.modalOff();
+        modal.closeModal();
       }
     }
   }
 
   modal.modalContent.addEventListener("webkitAnimationEnd", modal.animationDone);
-  modal.modalCloseButton.addEventListener("click", modal.modalOff);
+  modal.modalCloseButton.addEventListener("click", modal.closeModal);
   modal.overlay.addEventListener("click", modal.clickOverlay);
 
   window.utils.modal = modal;
