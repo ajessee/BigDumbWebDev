@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= full_title(yield(:title)) %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= render 'layouts/fonts' %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_pack_tag 'application' %>
-  </head>
 
-  <body id="main-body-section">
-    <%= render 'layouts/modal' %>
-    <%= yield %>
-    <%= render 'layouts/debug' if Rails.env.development? %>
-  </body>
+<head>
+  <title>
+    <%= full_title(yield(:title)) %>
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= render 'layouts/fonts' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+</head>
+
+<body id="main-body-section">
+  <%= render 'layouts/modal' %>
+  <%= yield %>
+  <%= render 'layouts/debug' if Rails.env.development? %>
+</body>
+
 </html>

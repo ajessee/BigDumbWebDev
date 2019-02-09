@@ -1,0 +1,12 @@
+// Setup modal window
+window.utils.modal.openModal('grid', '2%', 3, 4, 4, 2, null, null, false);
+// Insert new user signup partial
+window.utils.modal.modalContent.insertAdjacentHTML('beforeend', "<%= j (render 'show') %>");
+// Get close button and attach close modal function
+window.utils.modal.newUserCloseButton = document.querySelector("#user-show-close-button");
+window.utils.modal.newUserCloseButton.addEventListener('click', function(e) {
+  e.preventDefault();
+  window.utils.modal.closeModal();
+})
+// Initialize labels component
+window.utils.labels.init();

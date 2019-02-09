@@ -49,7 +49,7 @@ form#new_user {
   margin: 2% 1% 3% 1%;
 }
 
-#new-user-close-button, #new-user-submit-button  {
+#new-user-close-button, #new-user-submit-button, #user-show-close-button  {
   font-family: 'Oxygen', sans-serif;
   border: none;
   color: white;
@@ -69,7 +69,7 @@ form#new_user {
   }
 }
 
-#new-user-close-button {
+#new-user-close-button, #user-show-close-button {
   background-color: #F04747;
 }
 
@@ -127,4 +127,18 @@ form#new_user {
 
 .field_with_errors {
   color: red;
+}
+
+#user-show-partial {
+  display: grid;
+  font-family: 'Oxygen', sans-serif;
+  background-color: aliceblue;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(1, 1fr);
+  text-align: center;
+}
+
+.user-info {
+  font-size: 1.5em;
+  align-self: center;
 }

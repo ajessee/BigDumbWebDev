@@ -1,28 +1,16 @@
 class UsersController < ApplicationController
+
+  def new
+    # In keystrokes.js, we grab a hidden div with a link_to new_user_path with remote true
+    @user = User.new
+  end
   
   def show
     @user = User.find(params[:id])
-    respond_to do |format|
-      format.js {render js: "window.utils.modal.closeModal();"}
-      format.html
-     end
-    
-  end
-
-  def new
-    @user = User.new
-    respond_to do |format|
-      format.html
-      format.js
-     end
   end
 
   def create
     @user = User.new(user_params)
-    respond_to do |format|
-      format.html
-      format.js
-     end
 
     if @user.save
       redirect_to @user
@@ -36,6 +24,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-
 
 end
