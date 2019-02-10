@@ -126,6 +126,33 @@ const setUpNav = () => {
 
   });
 
+  const atBottomOfPage = () => {
+    return (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
+  }
+
+  const showNav = (mainPage) => {
+    if (!mainPage) {
+      navbar.style.display = "grid";
+    }
+    navbar.classList.add("navbar-fixed");
+    scaleNavbar("0.5", "0");
+    toggleIconLabels("none");
+    bdwdIcon.style.display = "block";
+    navbarShrunk = true;
+  }
+
+  const hideNav = (mainPage) => {
+    if (!mainPage) {
+      navbar.style.display = "none";
+    }
+    navbar.classList.remove("navbar-fixed");
+    scaleNavbar("1", "0");
+    toggleIconLabels("block");
+    bdwdIcon.style.display = "none";
+    navbarShrunk = false;
+  }
+
+
   const onScroll = (mainPage) => {
 
     let marker,
@@ -140,23 +167,9 @@ const setUpNav = () => {
     }
 
     if (window.scrollY > marker && !navbarShrunk && !mobileView) {
-      if (!mainPage) {
-        navbar.style.display = "grid";
-      }
-      navbar.classList.add("navbar-fixed");
-      scaleNavbar("0.5", "0");
-      toggleIconLabels("none");
-      bdwdIcon.style.display = "block";
-      navbarShrunk = true;
+      showNav(mainPage);
     } else if (window.scrollY < delta && navbarShrunk && !mobileView) {
-      if (!mainPage) {
-        navbar.style.display = "none";
-      }
-      navbar.classList.remove("navbar-fixed");
-      scaleNavbar("1", "0");
-      toggleIconLabels("block");
-      bdwdIcon.style.display = "none";
-      navbarShrunk = false;
+      hideNav(mainPage);
     }
   }
 
@@ -169,6 +182,12 @@ const setUpNav = () => {
     document.addEventListener("scroll", function () {
       onScroll(false);
     });
+  } else if (document.querySelector('#users-container')) {
+    // TODO: Fix this so that the icons scale correctly
+    setupHrefsForIcons();
+    if (atBottomOfPage) {
+      showNav(false);
+    }
   }
 }
 

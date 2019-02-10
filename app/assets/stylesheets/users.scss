@@ -129,13 +129,21 @@ form#new_user {
   color: red;
 }
 
-#user-show-partial {
+#users-container {
   display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 20vh 70vh 10vh;
+  background-color: aliceblue;
+  height: 100vh; 
+  width: 100vw;
+}
+
+#user-show-partial {
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
-  grid-template-rows: repeat(5, 1fr);
-  grid-template-columns: repeat(1, 1fr);
   text-align: center;
+  grid-column: 2 / 6;
+  grid-row: 2;
 }
 
 .user-info {

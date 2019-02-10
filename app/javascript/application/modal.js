@@ -1,7 +1,3 @@
-import {
-  isAbsolute
-} from "path";
-
 const setUpModal = () => {
 
   console.log("modal.js");
