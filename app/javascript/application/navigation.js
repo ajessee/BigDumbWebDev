@@ -4,14 +4,15 @@ const setUpNav = () => {
 
   const navbar = document.querySelector("#main-nav");
   const htmlDoc = document.querySelector('html');
+  const iconNames = ['projects', 'resources', 'blog', 'github', 'twitter', 'linkedin', 'home'];
+  const iconImageContainers = document.querySelectorAll(".icon-image");
+  const bdwdIcon = document.querySelector("#home-icon");
   let navbarOffsetTop = navbar.offsetTop;
   let navbarOffsetHeight = navbar.offsetHeight;
   let navbarShrunk = false;
-  const iconNames = ['projects', 'resources', 'blog', 'github', 'twitter', 'linkedin', 'home'];
-  const allIconLabels = document.querySelectorAll(".icon-label");
-  const bdwdIcon = document.querySelector("#home-icon");
   let mobileView = window.matchMedia('(max-width : 767px)').matches;
 
+  // Used for scaling down the icons in the navbar when we make it fixed, or for pulsing the icons on hover.
   const iconScale = (event, element, scale, translate) => {
     if (event) {
 
@@ -57,6 +58,7 @@ const setUpNav = () => {
     }
   }
 
+  // Scroll to part of main page
   const scrollTo = (e) => {
     let strSpliceIndex = e.target.closest('div').id.search('-');
     let name = e.target.closest('div').id.slice(0, strSpliceIndex);
@@ -66,6 +68,7 @@ const setUpNav = () => {
     });
   }
 
+  // Scale up or down the icons in the navbar
   const scaleNavbar = (scale, translate) => {
     const allIcons = document.querySelectorAll(".icon-grow");
     allIcons.forEach(function (icon) {
@@ -73,12 +76,21 @@ const setUpNav = () => {
     })
   }
 
-  const toggleIconLabels = (display) => {
-    allIconLabels.forEach(function (label) {
-      label.style.display = display;
+  // Turn on/off icon labels. TODO: Add tooltips on hover.
+  const toggleIconLabels = (isOn) => {
+    iconImageContainers.forEach(function (container) {
+      let label = container.querySelector('p');
+      if (isOn) {
+        label.classList.contains('tooltip-text') ? label.classList.remove('tooltip-text') : null;
+        label.classList.add('icon-label');
+      } else {
+        label.classList.contains('icon-label') ? label.classList.remove('icon-label') : null;
+        label.classList.add('tooltip-text');
+      }
     })
   }
 
+  // If we are on the main page, we use scrollIntoView API. If not, we add matching href to controller.
   const setupHrefsForIcons = (mainPage) => {
     iconNames.forEach((name) => {
     let element = document.querySelector('#' + name + '-icon');
@@ -108,7 +120,7 @@ const setUpNav = () => {
     });
   }
 
-  // add event listeners to pulse icon sizes on hover;
+  // Add event listeners to pulse icon sizes on hover;
   iconNames.forEach((name) => {
     let element = document.querySelector('#' + name + '-icon');
 
@@ -127,6 +139,7 @@ const setUpNav = () => {
 
   });
 
+  // Check if the page innerHeight + scroll Y is greater than the document body offsetHeight (if true, means there is not enough content to scroll).
   const atBottomOfPage = () => {
     return (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
   }
@@ -137,7 +150,7 @@ const setUpNav = () => {
     }
     navbar.classList.add("navbar-fixed");
     scaleNavbar("0.5", "0");
-    toggleIconLabels("none");
+    toggleIconLabels(false);
     bdwdIcon.style.display = "block";
     navbarShrunk = true;
   }
@@ -148,17 +161,17 @@ const setUpNav = () => {
     }
     navbar.classList.remove("navbar-fixed");
     scaleNavbar("1", "0");
-    toggleIconLabels("block");
+    toggleIconLabels(true);
     bdwdIcon.style.display = "none";
     navbarShrunk = false;
   }
 
 
   const onScroll = (mainPage) => {
-
     let marker,
       delta;
 
+    // This determines at what scrollY coordinate the nav will show / shrink. Conditional on main page or nah.
     if (mainPage) {
       marker = navbarOffsetTop;
       delta = navbarOffsetTop - navbarOffsetHeight;
@@ -174,16 +187,16 @@ const setUpNav = () => {
     }
   }
 
+  /* This is the entry point to establishing navigation behavior. On the main page, the nav is embedded in the 'about me' section; once a user scrolls past that point then the nav will be fixed to the top of the screen and the icons will be scaled down. On all other pages, we check to see if there is enough content to scroll. If so, we show the nav shortly after the user starts scrolling. Otherwise, we show the nav right away.
+  */
   if (document.querySelector('#about-me-container')) {
     setupHrefsForIcons(true);
     document.addEventListener("scroll", function(e){
       onScroll(true);
     });
-    
   } else {
-
-    setupHrefsForIcons();
-
+    /* Fontawesome loads it's icons asyncronously, and aren't ready when DOMContentLoaded. They don't provide an event system to hook into, but they do change the class on the HTML document based on the current status of load. I'm using a mutation observer to 'listen' to when the complete class gets added, and at that point I check if we need to show the nav or add the scroll event listener.
+    */
     const mutationCallback = (mutationsList, observer) => {
       for (let mutation of mutationsList) {
         if (mutation.type === 'attributes' && mutation.attributeName === 'class' && mutation.target.classList.contains('fontawesome-i2svg-complete')) {
@@ -201,9 +214,8 @@ const setUpNav = () => {
     }
 
     const observer = new MutationObserver(mutationCallback);
-
     observer.observe(htmlDoc, {attributes: true})
-
+    setupHrefsForIcons();
   }
 }
 

@@ -4,15 +4,11 @@
     </div>
   </div>
   <button title="Close" id="close-modal">
-      <i class="fas fa-times fa-3x" aria-hidden="true"></i>
-    </button>
+    <i class="fas fa-times fa-3x" aria-hidden="true"></i>
+  </button>
 </div>
 
-<!-- TODO remove this -->
-<div class="icon-image" id="signin-icon">
-    <%= link_to 'Add user', new_user_path,  {:remote => true}  %>
-    <p class="icon-label">SignIn</p>
-  </div>
-
-
-
+<!-- TODO: Figure out a better way to do this. -->
+<div id="signin-icon">
+  <%= link_to 'Add user', new_user_path,  {:remote => true}  %>
+</div>

@@ -30,18 +30,12 @@ const setUpNotifications = () => {
     },
 
     animationDone: (e) => {
-      if (e.animationName === "slidein") {
-
-      } else if (e.animationName === "slideout") {
+      if (e.animationName === "slideout") {
         utils.notifications.notificationsContainer.style.display = 'none';
-      }
+      } 
     }
-
   }
-
   notifications.notificationsContainer.addEventListener("webkitAnimationEnd", notifications.animationDone);
-
   window.utils.notifications = notifications;
 }
-
 document.addEventListener("DOMContentLoaded", setUpNotifications);

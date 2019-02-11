@@ -2,8 +2,8 @@
 // All this logic will automatically be available in application.js.
 
 
-// function to get number of current projects and adjust grid css accordingly to have right number of rows
-// todo: load projects dynamically from database
+// Function to get number of current projects and adjust grid css accordingly to have right number of rows
+// TODO: load projects dynamically from database
 
 function setProjectsGrid() {
 
