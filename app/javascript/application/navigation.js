@@ -3,6 +3,7 @@ const setUpNav = () => {
   console.log("navigation.js");
 
   const navbar = document.querySelector("#main-nav");
+  const htmlDoc = document.querySelector('html');
   let navbarOffsetTop = navbar.offsetTop;
   let navbarOffsetHeight = navbar.offsetHeight;
   let navbarShrunk = false;
@@ -174,20 +175,35 @@ const setUpNav = () => {
   }
 
   if (document.querySelector('#about-me-container')) {
-    document.addEventListener("scroll", onScroll);
     setupHrefsForIcons(true);
-  } else if (document.querySelector('#all-projects-container')) {
-    setupHrefsForIcons();
-    navbar.style.display = "none";
-    document.addEventListener("scroll", function () {
-      onScroll(false);
+    document.addEventListener("scroll", function(e){
+      onScroll(true);
     });
-  } else if (document.querySelector('#users-container')) {
-    // TODO: Fix this so that the icons scale correctly
+    
+  } else {
+
     setupHrefsForIcons();
-    if (atBottomOfPage) {
-      showNav(false);
+
+    const mutationCallback = (mutationsList, observer) => {
+      for (let mutation of mutationsList) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class' && mutation.target.classList.contains('fontawesome-i2svg-complete')) {
+          if (atBottomOfPage()) {
+            showNav(false);
+          }
+          else {
+            navbar.style.display = "none";
+            document.addEventListener("scroll", function (e) {
+              onScroll(false);
+            });
+          }
+        }
+      }
     }
+
+    const observer = new MutationObserver(mutationCallback);
+
+    observer.observe(htmlDoc, {attributes: true})
+
   }
 }
 
