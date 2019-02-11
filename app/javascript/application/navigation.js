@@ -150,7 +150,9 @@ const setUpNav = () => {
     if (!mainPage) {
       navbar.style.display = "grid";
     }
-    mainBodyContainer.append(navbar);
+    else {
+      mainBodyContainer.append(navbar);
+    }
     navbar.classList.add("navbar-fixed");
     scaleNavbar("0.5", "0");
     toggleIconLabels(false);
@@ -162,7 +164,9 @@ const setUpNav = () => {
     if (!mainPage) {
       navbar.style.display = "none";
     }
-    aboutMeContainer.append(navbar);
+    else {
+      aboutMeContainer.append(navbar);
+    }
     navbar.classList.remove("navbar-fixed");
     scaleNavbar("1", "0");
     toggleIconLabels(true);
