@@ -2,6 +2,8 @@ const setUpNav = () => {
 
   console.log("navigation.js");
 
+  const mainBodyContainer = document.querySelector("#main-body-container");
+  const aboutMeContainer = document.querySelector("#about-me-container") ? document.querySelector("#about-me-container") : null;
   const navbar = document.querySelector("#main-nav");
   const htmlDoc = document.querySelector('html');
   const iconNames = ['projects', 'resources', 'blog', 'github', 'twitter', 'linkedin', 'home'];
@@ -107,7 +109,7 @@ const setUpNav = () => {
     else if (name === "home") {
       if (mainPage) {
         element.addEventListener('click', function(){
-          document.querySelector('#main-body-section').scrollIntoView({
+          document.querySelector('#main-body-container').scrollIntoView({
             behavior: 'smooth',
             block: 'start'
           });
@@ -148,6 +150,7 @@ const setUpNav = () => {
     if (!mainPage) {
       navbar.style.display = "grid";
     }
+    mainBodyContainer.append(navbar);
     navbar.classList.add("navbar-fixed");
     scaleNavbar("0.5", "0");
     toggleIconLabels(false);
@@ -159,6 +162,7 @@ const setUpNav = () => {
     if (!mainPage) {
       navbar.style.display = "none";
     }
+    aboutMeContainer.append(navbar);
     navbar.classList.remove("navbar-fixed");
     scaleNavbar("1", "0");
     toggleIconLabels(true);

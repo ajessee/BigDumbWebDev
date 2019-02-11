@@ -4,7 +4,7 @@ const setUpModal = () => {
 
   const modal = {
 
-    mainBody: document.querySelector("#main-body-section"),
+    mainBody: document.querySelector("#main-body-container"),
     modalDiv: document.querySelector("#modal"),
     modalContent: document.querySelector("#modal-content"),
     modalCloseButton: document.querySelector("#close-modal"),

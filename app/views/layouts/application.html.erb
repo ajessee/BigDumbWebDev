@@ -13,7 +13,7 @@
   <%= javascript_pack_tag 'application' %>
 </head>
 
-<body id="main-body-section">
+<body id="main-body-container">
   <%= render 'layouts/modal' %>
   <%= yield %>
   <%= render 'layouts/debug' if Rails.env.development? %>
