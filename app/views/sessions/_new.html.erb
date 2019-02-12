@@ -1,0 +1,17 @@
+<div id="user-login-form">
+  <h1 id="user-login-header">Log In</h1>
+  <%= form_with url: login_path, id: "login_user" do |f| %>
+  <div id="login_user_email" class="float-container">
+    <%= f.label :email %>
+    <%= f.email_field :email, id: "session_email", name: "session[email]"%>
+  </div>
+  <div id="login_user_password" class="float-container">
+    <%= f.label :password %>
+    <%= f.password_field :password, id: "session_password", name: "session[password]"%> 
+  </div>
+  <div id="login_user_submit">
+    <%= f.submit "Log In", id: "login-user-submit-button" %>
+    <button id="login-user-close-button">Cancel</button>
+    <% end %>
+  </div>
+</div>

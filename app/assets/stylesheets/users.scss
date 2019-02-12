@@ -17,11 +17,11 @@
 }
 
 //TODO: remove this
-#signin-icon {
+#signin-icon, #login-icon {
   display: none;
 }
 
-#user-signup-form {
+#user-signup-form, #user-login-form {
   display: flex;
   flex-direction: column;
   align-self: center;
@@ -30,12 +30,12 @@
   font-family: 'Oxygen', sans-serif;
 }
 
-#user-signup-header {
+#user-signup-header, #user-login-header {
   align-self: center;
   margin: 3%;
 }
 
-form#new_user {
+form#new_user, form#login_user {
   flex-basis: 80%;
   display: grid;
   grid-template-rows: repeat(5, 1fr);
@@ -43,13 +43,13 @@ form#new_user {
   background-color: aliceblue;
 }
 
-#new_user_submit {
+#new_user_submit, #login_user_submit {
   justify-self: center;
   align-self: center;
   margin: 2% 1% 3% 1%;
 }
 
-#new-user-close-button, #new-user-submit-button, #user-show-close-button  {
+#new-user-close-button, #new-user-submit-button, #user-show-close-button, #login-user-close-button, #login-user-submit-button  {
   font-family: 'Oxygen', sans-serif;
   border: none;
   color: white;
@@ -69,11 +69,11 @@ form#new_user {
   }
 }
 
-#new-user-close-button, #user-show-close-button {
+#new-user-close-button, #user-show-close-button, #login-user-close-button {
   background-color: #F04747;
 }
 
-#new-user-submit-button {
+#new-user-submit-button, #login-user-submit-button {
   background-color: #4CAF50;
 }
 

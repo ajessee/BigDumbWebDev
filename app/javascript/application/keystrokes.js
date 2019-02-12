@@ -9,5 +9,11 @@ onkeydown = onkeyup = function(e){
       document.getElementById("signin-icon").children[0].click();
 
     }
+
+    if (map[16] && map[76]) {
+      console.log("shift + l");
+      document.getElementById("login-icon").children[0].click();
+
+    }
     /* insert conditional here */
 }

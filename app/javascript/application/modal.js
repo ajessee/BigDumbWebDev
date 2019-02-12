@@ -9,6 +9,7 @@ const setUpModal = () => {
     modalContent: document.querySelector("#modal-content"),
     modalCloseButton: document.querySelector("#close-modal"),
     overlay: document.querySelector("#overlay"),
+    // TODO: Setup method to indicate whether modal is open so that you can gracefully close that modal and open another one.
 
     // The overlay, which is the modalContent's parent, has 8 rows and 8 columns
     openModal: (display, borderRadius, rowStart, columnStart, rowSpan, columnSpan, subRows, subColumns, closeButton) => {

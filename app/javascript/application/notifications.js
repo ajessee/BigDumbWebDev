@@ -13,6 +13,7 @@ const setUpNotifications = () => {
       let titleContainer = utils.notifications.notificationsTitle;
       let messageContainer = utils.notifications.notificationsMessage;
       container.style.display = 'block';
+      container.style.webkitFilter = "blur(0)";
       container.style.backgroundColor = success ? '#6cbf28' : '#fe3b19';
       titleContainer.innerHTML = title;
       messageContainer.innerHTML = message;
