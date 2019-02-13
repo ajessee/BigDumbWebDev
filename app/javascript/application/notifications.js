@@ -4,39 +4,79 @@ const setUpNotifications = () => {
 
   const notifications = {
 
-    notificationsContainer: document.querySelector("#notifications-container"),
-    notificationsTitle: document.querySelector("#notifications-title"),
-    notificationsMessage: document.querySelector("#notifications-message"),
+    mainBody: document.querySelector('#main-body-container'),
 
-    openNotification: (success, title, message, closeTime) => {
-      let container = utils.notifications.notificationsContainer;
-      let titleContainer = utils.notifications.notificationsTitle;
-      let messageContainer = utils.notifications.notificationsMessage;
-      container.style.display = 'block';
-      container.style.webkitFilter = "blur(0)";
-      container.style.backgroundColor = success ? '#6cbf28' : '#fe3b19';
-      titleContainer.innerHTML = title;
-      messageContainer.innerHTML = message;
-      container.classList.add('slide-in');
-      container.classList.contains('slide-out') ? container.classList.remove('slide-out') : null;
-      if (closeTime) {
-        setTimeout(utils.notifications.closeNotification, closeTime);
+    notificationsArray: [],
+
+    totalHeight: 0,
+
+    updateExistingNotificationsY: function () {
+      let self = this;
+      if (this.notificationsArray.length > 1) {
+        this.notificationsArray.forEach(function(notificationEl, index){
+          if (index > 0) {
+            let elOffsetHeight = notificationEl.offsetHeight;
+            self.totalHeight += elOffsetHeight;
+            notificationEl.style.transform = `translateY(-${self.totalHeight}px)`
+          }
+        })
       }
     },
 
-    closeNotification: () => {
-      let container = utils.notifications.notificationsContainer;
+    createNotificationElements: () => {
+      let container = document.createElement('div');
+      let title = document.createElement('h3');
+      let message = document.createElement('p');
+      container.setAttribute('class', 'notifications-container');
+      title.setAttribute('class', 'notifications-title');
+      message.setAttribute('class', 'notifications-message');
+      container.appendChild(title);
+      container.appendChild(message)
+      let elementsObject = {
+        container: container,
+        title: title,
+        message: message
+      }
+      return elementsObject;
+    },
+
+    openNotification: function (success, title, message, closeTime) {
+      let elementsObject = this.createNotificationElements();
+      let self = this;
+      elementsObject.container.style.backgroundColor = success ? '#6cbf28' : '#fe3b19';
+      elementsObject.title.innerHTML = title;
+      elementsObject.message.innerHTML = message;
+      this.notificationsArray.push(elementsObject.container);
+      this.mainBody.appendChild(elementsObject.container);
+      this.updateExistingNotificationsY();
+      elementsObject.container.addEventListener("webkitAnimationEnd", function (e){
+        self.animationDone(e, elementsObject.container)
+      });
+      elementsObject.container.style.webkitFilter = "blur(0)";
+      elementsObject.container.classList.add('slide-in');
+      elementsObject.container.classList.contains('slide-out') ? elementsObject.container.classList.remove('slide-out') : null;
+      if (closeTime) {
+        setTimeout(function() {
+          self.closeNotification(elementsObject.container);
+        }, closeTime);
+      }
+    },
+
+    closeNotification: function(container) {
       container.classList.add('slide-out');
       container.classList.contains('slide-in') ? container.classList.remove('slide-in') : null;
     },
 
-    animationDone: (e) => {
+    animationDone: function(e, container) {
+      let self = this;
+      let elOffsetHeight = container.offsetHeight;
       if (e.animationName === "slideout") {
-        utils.notifications.notificationsContainer.style.display = 'none';
+        container.remove();
+        self.totalHeight -= elOffsetHeight;
       } 
     }
   }
-  notifications.notificationsContainer.addEventListener("webkitAnimationEnd", notifications.animationDone);
+
   window.utils.notifications = notifications;
 }
 document.addEventListener("DOMContentLoaded", setUpNotifications);
