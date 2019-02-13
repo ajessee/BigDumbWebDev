@@ -8,18 +8,37 @@ const setUpNotifications = () => {
 
     notificationsArray: [],
 
-    totalHeight: 0,
+    getNotificationArrayHeight: function () {
+      let accumulator = 0;
+      this.notificationsArray.forEach(function(el, index){
+        accumulator += el.offsetHeight;
+      })
+      return accumulator;
+    },
 
-    updateExistingNotificationsY: function () {
+    updateExistingNotificationsY: function (remove) {
       let self = this;
       if (this.notificationsArray.length > 1) {
-        this.notificationsArray.forEach(function(notificationEl, index){
-          if (index > 0) {
-            let elOffsetHeight = notificationEl.offsetHeight;
-            self.totalHeight += elOffsetHeight;
-            notificationEl.style.transform = `translateY(-${self.totalHeight}px)`
+        this.notificationsArray.forEach(function(el, index, arr){
+          let elOffsetHeight = el.offsetHeight;
+          let totalHeight = self.getNotificationArrayHeight();
+          let amount = (totalHeight - elOffsetHeight);
+          let operator = remove ? '' : '-' 
+          if (index > 0 && !el.style.transform) {
+            el.style.transform = `translateY(${operator}${amount}px)`
+          }
+          else if (remove) {
+            let transY = parseInt(el.style.transform.match(/^.*?\([^\d]*(\d+)[^\d]*\).*$/)[1]);
+            el.style.transform = `translateY(${operator}${(amount - transY)}px)`
+
           }
         })
+      }
+      else if (this.notificationsArray.length > 0 && remove) {
+        let notificationEl = this.notificationsArray[0];
+        if (!notificationEl.classList.contains('slide-out')) {
+          notificationEl.style.transform = `translateY(0px)`
+        }
       }
     },
 
@@ -68,11 +87,14 @@ const setUpNotifications = () => {
     },
 
     animationDone: function(e, container) {
-      let self = this;
-      let elOffsetHeight = container.offsetHeight;
       if (e.animationName === "slideout") {
         container.remove();
-        self.totalHeight -= elOffsetHeight;
+        this.notificationsArray.forEach(function (el, index, arr) {
+          if (el === container) {
+            arr.splice(index, 1)
+          }
+        })
+        this.updateExistingNotificationsY(true);
       } 
     }
   }
