@@ -12,6 +12,7 @@ const setUpNotifications = () => {
       let accumulator = 0;
       this.notificationsArray.forEach(function(el, index){
         accumulator += el.offsetHeight;
+        index > 0 ? accumulator += 10 : null;
       })
       return accumulator;
     },
@@ -29,7 +30,7 @@ const setUpNotifications = () => {
           }
           else if (remove) {
             let transY = parseInt(el.style.transform.match(/^.*?\([^\d]*(\d+)[^\d]*\).*$/)[1]);
-            el.style.transform = `translateY(${operator}${(amount - transY)}px)`
+            el.style.transform = `translateY(${operator}${(amount - transY - 10)}px)`
 
           }
         })
