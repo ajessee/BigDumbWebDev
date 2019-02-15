@@ -1,3 +1,4 @@
+// Notifications module that allows for disappearing onscreen notifications
 const setUpNotifications = () => {
 
   console.log("notifications.js");
@@ -17,29 +18,37 @@ const setUpNotifications = () => {
       return accumulator;
     },
 
-    updateExistingNotificationsY: function (remove) {
+    updateNotificationsY: function (remove) {
       let self = this;
-      if (this.notificationsArray.length > 1) {
+      if (this.notificationsArray.length === 1 ) {
+        let el = this.notificationsArray[0];
+        let elOffsetHeight = el.offsetHeight;
+        let totalHeight = self.getNotificationArrayHeight();
+        // removing last notification on screen, check to see element has been Y adjusted and that slide-out animation hasn't happened yet (if its in progress, no need to adjust Y position)
+        // no op if it is the only notification on screen, we don't have to adjust the Y position
+        if (remove && el.style.transform && !el.classList.contains('slide-out')) {
+          // get existing Y adjustment, this number will always be negative
+          let transY = parseInt(el.style.transform.match(/^.*?\([^\d]*(\d+)[^\d]*\).*$/)[1]);
+          let amount = (elOffsetHeight - transY);
+          el.style.transition = `transform 0.2s ease`
+          el.style.transform = `translateY(${(amount)}px)`
+        }
+      } else if (this.notificationsArray.length > 1) {
         this.notificationsArray.forEach(function(el, index, arr){
           let elOffsetHeight = el.offsetHeight;
           let totalHeight = self.getNotificationArrayHeight();
-          let amount = (totalHeight - elOffsetHeight);
-          let operator = remove ? '' : '-' 
-          if (index > 0 && !el.style.transform) {
-            el.style.transform = `translateY(${operator}${amount}px)`
-          }
-          else if (remove) {
-            let transY = parseInt(el.style.transform.match(/^.*?\([^\d]*(\d+)[^\d]*\).*$/)[1]);
-            el.style.transform = `translateY(${operator}${(amount - transY - 10)}px)`
-
+          let amount;
+          // we are adding a notification and it hasn't been Y adjusted yet
+          if (!remove && !el.style.transform && index !== 0) {
+            el.style.transform = `translateY(-${totalHeight - elOffsetHeight}px)`
+          } 
+          else if (remove && el.style.transform) {
+            // deleting a notification that has been Y adjusted
+            let transY2 = parseInt(el.style.transform.match(/^.*?\([^\d]*(\d+)[^\d]*\).*$/)[1]);
+            el.style.transition = `transform 0.2s ease`
+            el.style.transform = `translateY(-${(transY2 - elOffsetHeight)}px)`
           }
         })
-      }
-      else if (this.notificationsArray.length > 0 && remove) {
-        let notificationEl = this.notificationsArray[0];
-        if (!notificationEl.classList.contains('slide-out')) {
-          notificationEl.style.transform = `translateY(0px)`
-        }
       }
     },
 
@@ -61,20 +70,29 @@ const setUpNotifications = () => {
     },
 
     openNotification: function (success, title, message, closeTime) {
+      // create notification element
       let elementsObject = this.createNotificationElements();
       let self = this;
+      // set color, title, message
       elementsObject.container.style.backgroundColor = success ? '#6cbf28' : '#fe3b19';
       elementsObject.title.innerHTML = title;
       elementsObject.message.innerHTML = message;
+      // add to notifications array
       this.notificationsArray.push(elementsObject.container);
+      // add to main body
       this.mainBody.appendChild(elementsObject.container);
-      this.updateExistingNotificationsY();
+      // remove blur
+      elementsObject.container.style.webkitFilter = "blur(0)";
+      // update position
+      this.updateNotificationsY();
+      // add event listener
       elementsObject.container.addEventListener("webkitAnimationEnd", function (e){
         self.animationDone(e, elementsObject.container)
       });
-      elementsObject.container.style.webkitFilter = "blur(0)";
+      // add slide-in class to bring notification into view and remove slide-out class if its still there.
       elementsObject.container.classList.add('slide-in');
       elementsObject.container.classList.contains('slide-out') ? elementsObject.container.classList.remove('slide-out') : null;
+      // if we want to close it automatically, set timer for that
       if (closeTime) {
         setTimeout(function() {
           self.closeNotification(elementsObject.container);
@@ -82,20 +100,25 @@ const setUpNotifications = () => {
       }
     },
 
-    closeNotification: function(container) {
+    closeNotification: function (container) {
+      // add slide-out class to start animation to dismiss notification
       container.classList.add('slide-out');
       container.classList.contains('slide-in') ? container.classList.remove('slide-in') : null;
     },
 
-    animationDone: function(e, container) {
+    animationDone: function (e, container) {
+      // callback for the slideout animation done event listener
       if (e.animationName === "slideout") {
+        // remove the container from the DOM
         container.remove();
+        // remove the notification from the notification array
         this.notificationsArray.forEach(function (el, index, arr) {
           if (el === container) {
             arr.splice(index, 1)
           }
         })
-        this.updateExistingNotificationsY(true);
+        // update the position of all the notifications on screen
+        this.updateNotificationsY(true);
       } 
     }
   }
