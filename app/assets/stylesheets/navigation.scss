@@ -60,6 +60,12 @@
   grid-row: 1 / 2;
 }
 
+#login-icon, #logout-icon {
+  grid-column: 8;
+  grid-row: 1 / 2;
+  display: none;
+}
+
 .icon-image {
   justify-self: center;
   cursor: pointer;

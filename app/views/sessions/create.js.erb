@@ -1,2 +1,15 @@
 window.utils.modal.closeModal();
+let o = {
+  oldNav: document.querySelector('#main-nav'),
+  newNav: document.createElement('nav')
+}
+
+o.newNav.innerHTML = "<%= j (render 'shared/nav') %>";
+o.newNav = o.newNav.children[0];
+o.oldIcon = o.oldNav.querySelector('.icon-grab').remove();
+o.newIcon = o.newNav.querySelector('.icon-grab');
+o.oldNav.appendChild(o.newIcon);
+o = null;
+window.utils.navigation.init();
+window.utils.navigation.showNav();
 window.utils.notifications.openNotification(true, 'Congrats!', 'You\'ve successfully logged in. Click <%= j (link_to "here", user_path(@user)) %> to see your user profile.', 6000);

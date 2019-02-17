@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
       respond_to do |format|
         format.js
       end
+      log_in @user
     else
       @error = true
       @error_title = 'Oops'
@@ -19,5 +20,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    log_out
+    redirect_to root_url
   end
 end
