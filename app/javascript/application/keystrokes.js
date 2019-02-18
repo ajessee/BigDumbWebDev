@@ -8,7 +8,7 @@ onkeydown = onkeyup = function(e){
     if (map[16] && map[91] && map[83]) {
       console.log("shift + command + s");
       document.getElementById("signin-icon").children[0].click();
-
+      map = {}
     }
 
     // if (map[16] && map[91] && map[76]) {
