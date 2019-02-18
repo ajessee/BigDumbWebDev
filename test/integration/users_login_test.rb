@@ -2,7 +2,30 @@ require 'test_helper'
 
 class UsersLoginTest < ActionDispatch::IntegrationTest
 
-  test "Login with invalid credentials" do
+  # This setup method will be called at the beginning of each test run
+  def setup
+    # This uses the 'users' hash setup in the users.yml file
+    @david = users(:david)
+  end
+
+  test "Log in with valid credentials and then log out" do
+    get login_path, xhr:true
+    # check that we get javascript back
+    assert_equal "text/javascript", @response.content_type
+    post login_path, xhr:true, params: {session: {email: @david.email, password: "password"}}
+    assert_select "a"
+    assert is_logged_in?
+    # TODO: Figure out how to test for elements on the larger page. Assert select can only access the response
+    delete logout_path
+    # Since the delete HTTP request is not XHR, I get all the HTML back and can test it for elements
+    assert_not is_logged_in?
+    assert_redirected_to root_url
+    follow_redirect!
+    assert_select "a[href=?]", login_path
+    assert_select "a[href=?]", logout_path, count: 0
+  end
+
+  test "Log in with invalid credentials" do
     get login_path, xhr:true
     # check that we get javascript back
     assert_equal "text/javascript", @response.content_type
@@ -14,7 +37,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_template 'sessions/new'
     # which renders the html template
     assert_template 'sessions/_new'
-    # TODO: Figure out how to test for elements on the larger page. Assert select can only see whats in the modal?
+    # TODO: Figure out how to test for elements on the larger page. Assert select can only access the response
   end
 
 end

@@ -1,7 +1,7 @@
 // Notifications module that allows for disappearing onscreen notifications
 const setUpNotifications = () => {
 
-  console.log("notifications.js");
+  console.log("Loading Notifications Module");
 
   const notifications = {
 

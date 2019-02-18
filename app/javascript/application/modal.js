@@ -1,6 +1,6 @@
 const setUpModal = () => {
 
-  console.log("modal.js");
+  console.log("Loading Modal Module");
 
   const modal = {
 
@@ -12,23 +12,23 @@ const setUpModal = () => {
     // TODO: Setup method to indicate whether modal is open so that you can gracefully close that modal and open another one.
 
     // The overlay, which is the modalContent's parent, has 8 rows and 8 columns
-    openModal: (display, borderRadius, rowStart, columnStart, rowSpan, columnSpan, subRows, subColumns, closeButton) => {
-      modal.modalContent.innerHTML = "";
-      modal.modalDiv.style.display = "block";
-      modal.mainBody.classList.contains("modalUnblur") ? modal.mainBody.classList.remove("modalUnblur") : null;
-      modal.mainBody.classList.add("modalBlur");
-      modal.mainBody.style.overflow = "hidden";
-      modal.mainBody.style.position = "absolute";
-      modal.modalContent.classList.contains("shrink") ? modal.modalContent.classList.remove("shrink") : null;
-      modal.modalContent.classList.add("grow");
-      modal.modalContent.style.display = `${display}`;
-      modal.modalContent.style.borderRadius = `${borderRadius}`;
-      modal.modalContent.style.gridArea = `${rowStart} / ${columnStart} / span ${rowSpan} / span ${columnSpan}`;
+    openModal: function (display, borderRadius, rowStart, columnStart, rowSpan, columnSpan, subRows, subColumns, closeButton) {
+      this.modalContent.innerHTML = "";
+      this.modalDiv.style.display = "block";
+      this.mainBody.classList.contains("modalUnblur") ? this.mainBody.classList.remove("modalUnblur") : null;
+      this.mainBody.classList.add("modalBlur");
+      this.mainBody.style.overflow = "hidden";
+      this.mainBody.style.position = "absolute";
+      this.modalContent.classList.contains("shrink") ? this.modalContent.classList.remove("shrink") : null;
+      this.modalContent.classList.add("grow");
+      this.modalContent.style.display = `${display}`;
+      this.modalContent.style.borderRadius = `${borderRadius}`;
+      this.modalContent.style.gridArea = `${rowStart} / ${columnStart} / span ${rowSpan} / span ${columnSpan}`;
       if (display === "grid" && subRows && subColumns) {
-        modal.modalContent.style.gridTemplateRows = `repeat(${subRows}, 1fr)`;
-        modal.modalContent.style.gridTemplateColumns = `repeat(${subColumns}, 1fr)`;
+        this.modalContent.style.gridTemplateRows = `repeat(${subRows}, 1fr)`;
+        this.modalContent.style.gridTemplateColumns = `repeat(${subColumns}, 1fr)`;
       }
-      closeButton ? modal.modalContent.appendChild(modal.modalCloseButton) : null;
+      closeButton ? this.modalContent.appendChild(this.modalCloseButton) : null;
     },
 
     closeModal: () => {

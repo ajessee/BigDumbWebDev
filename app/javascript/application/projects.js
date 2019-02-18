@@ -6,6 +6,7 @@
 // TODO: load projects dynamically from database
 
 function setProjectsGrid() {
+  console.log("Setup Projects Grid");
 
   const container = document.getElementById('all-projects-container');
 

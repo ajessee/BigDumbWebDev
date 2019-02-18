@@ -17,6 +17,7 @@
 
 // Grab UI elements, store in object properties, add methods for calculating monthly and total payments and total interest
 const loadLoanCalculatorProject = () => {
+  console.log("Loading Loan Calculator Project");
   const lc = {};
   lc.loader = document.getElementById('lc-loader');
   lc.mainCard = document.getElementById('lc-card');

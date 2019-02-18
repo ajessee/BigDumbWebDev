@@ -18,4 +18,10 @@ class User < ApplicationRecord
   # A pair of virtual attributes (password and password_confirmation), including presence validations upon object creation and a validation requiring that they match
   # An authenticate method that returns the user when the password is correct (and false otherwise)
   has_secure_password
+
+  # Class method to return a BCrypt hash of the provided string
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 end

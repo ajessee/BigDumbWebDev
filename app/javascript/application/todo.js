@@ -16,6 +16,7 @@
 */
 
 const loadTodoProject = () => {
+  console.log("Loading Todo Project");
   // Declare UI element variables to be able to do cool stuff to them!
   todo = {}
   console.log('set todo project variables');

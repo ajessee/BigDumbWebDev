@@ -1,6 +1,6 @@
 const setUpNav = () => {
 
-  console.log("navigation.js");
+  console.log("Loading Navigation Module");
 
   const nav = {
 
@@ -177,6 +177,20 @@ const setUpNav = () => {
       let self = this;
       this.logInOutIcon = document.querySelector("#login-icon") ? document.querySelector("#login-icon") : document.querySelector("#logout-icon");
       this.iconImageContainers = document.querySelectorAll(".icon-image");
+      // If we've refreshed the page, and scrollY is below the shrink nav marker, make sure that all of our icons are scaled correctly
+      if (scrollY > this.navbarOffsetTop) {
+        const mutationCallback2 = (mutationsList, observer) => {
+          for (let mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class' && mutation.target.classList.contains('fontawesome-i2svg-complete')) {
+              this.scaleNavbar("0.5", "0");
+            }
+          }
+        }
+        const observer2 = new MutationObserver(mutationCallback2);
+        observer2.observe(this.htmlDoc, {
+          attributes: true
+        })
+      }
       /* This is the entry point to establishing navigation behavior. On the main page, the nav is embedded in the 'about me' section; once a user scrolls past that point then the nav will be fixed to the top of the screen and the icons will be scaled down. On all other pages, we check to see if there is enough content to scroll. If so, we show the nav shortly after the user starts scrolling. Otherwise, we show the nav right away.
       */
       if (this.aboutMeContainer) {

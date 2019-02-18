@@ -2,7 +2,7 @@ const fadeIn = (array) => {
 
   if (document.querySelector('#landing-page-container')) {
 
-    console.log("fade_in.js");
+    console.log("Loading Landing Page Animations");
 
     const introElements = [
       ['fade-in-big', 'bigDumbWebDev'],

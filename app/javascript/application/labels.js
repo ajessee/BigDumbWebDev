@@ -1,4 +1,5 @@
 const setUpLabels = () => {
+  console.log("Loading Floating Labels Module");
 
   const labels = {
 

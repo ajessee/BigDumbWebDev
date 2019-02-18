@@ -1,6 +1,6 @@
 const setUpDebug = () => {
 
-  console.log("debug.js");
+  console.log("Loading Debug Module");
 
   // Check if elements exist, because if we are not in development enviornment (production), these elements will not be created.
   const debugButton = document.querySelector('#debug-button-container') ? document.querySelector('#debug-button-container') : null;

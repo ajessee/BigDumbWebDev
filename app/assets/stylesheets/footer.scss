@@ -1,0 +1,13 @@
+#footer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  background-color: aliceblue;
+  place-items: center;
+  align-content: space-evenly;
+  font-family: 'Oxygen', sans-serif;
+}
+
+.footer-center {
+  grid-column: 2;
+}
