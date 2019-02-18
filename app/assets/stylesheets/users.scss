@@ -47,7 +47,7 @@ form#new-user{
 } 
 
 form#login-user {
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
 } 
 
 .user-submit {
@@ -148,4 +148,81 @@ form#login-user {
 .user-info {
   font-size: 1.5em;
   align-self: center;
+}
+
+#remember-me-container {
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+}
+
+#remember-me-text {
+  text-align: center;
+  margin-right: 1%;
+}
+
+#remember-me-text-content {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+#remember-me-text-link {
+  margin: 0;
+  font-size: 0.8em;
+}
+
+.switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px;
+}
+
+.switch input {
+  display:none;
+}
+
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+}
+
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: .4s;
+  width: 26px;
+}
+
+input:checked + .slider {
+  background-color: #0d43f0;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+body {
+  background-color: #f1f2f3;
 }

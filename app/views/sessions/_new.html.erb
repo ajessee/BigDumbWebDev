@@ -7,11 +7,22 @@
   </div>
   <div id="login-user-password" class="float-container">
     <%= f.label :password %>
-    <%= f.password_field :password, id: "session_password", name: "session[password]"%> 
+    <%= f.password_field :password, id: "session_password", name: "session[password]"%>
+  </div>
+  <div id="remember-me-container">
+    <div id="remember-me-text">
+      <p id="remember-me-text-content">Remember Me?</p>
+      <!-- <p id="remember-me-text-link">What is this?</p> -->
+    </div>
+    <%= f.label "remember-me-checkbox", class: "switch" do %>
+      <%= f.check_box :remember_me, id: "remember-me-checkbox", name: "session[remember_me]" %>
+      <div class="slider round"></div>
+    <% end %>
+
   </div>
   <div id="login-user-submit" class="user-submit">
     <%= f.submit "Log In", id: "login-user-submit-button", class: "submit-close-buttons submit-button" %>
     <button id="login-user-close-button" class="submit-close-buttons close-button">Cancel</button>
-    <% end %>
   </div>
+  <% end %>
 </div>

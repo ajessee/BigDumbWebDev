@@ -20,6 +20,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     # Since the delete HTTP request is not XHR, I get all the HTML back and can test it for elements
     assert_not is_logged_in?
     assert_redirected_to root_url
+    # Simulate a user clicking logout in a second window.
+    delete logout_path
     follow_redirect!
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path, count: 0
@@ -38,6 +40,19 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     # which renders the html template
     assert_template 'sessions/_new'
     # TODO: Figure out how to test for elements on the larger page. Assert select can only access the response
+  end
+
+  test "login with remembering" do
+    log_in_as(@david, remember_me: '1')
+    assert_not_empty cookies[:remember_token]
+  end
+
+  test "login without remembering" do
+    # Log in to set the cookie.
+    log_in_as(@david, remember_me: '1')
+    # Log in again and verify that the cookie is deleted.
+    log_in_as(@david, remember_me: '0')
+    assert_empty cookies[:remember_token]
   end
 
 end
