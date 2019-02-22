@@ -21,34 +21,18 @@
   display: none;
 }
 
-.user-form-container {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  height: 100%;
-  background-color: aliceblue;
-  font-family: 'Oxygen', sans-serif;
-}
-
 .user-form-header {
-  align-self: center;
+  text-align: center;
   margin: 3%;
 }
 
 .user-form {
-  flex-basis: 80%;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
   background-color: aliceblue;
+  height: 100%;
+  font-family: 'Oxygen', sans-serif;
+  align-items: center;
 }
-
-form#new-user{
-  grid-template-rows: repeat(5, 1fr);
-} 
-
-form#login-user {
-  grid-template-rows: repeat(4, 1fr);
-} 
 
 .user-submit {
   justify-self: center;

@@ -1,6 +1,5 @@
-<div id="user-login-form" class="user-form-container">
+<%= form_with url: login_path, id: "login-user", class: "user-form" do |f| %>
   <h1 id="user-login-header" class="user-form-header">Log In</h1>
-  <%= form_with url: login_path, id: "login-user", class: "user-form" do |f| %>
   <div id="login-user-email" class="float-container">
     <%= f.label :email %>
     <%= f.email_field :email, id: "session_email", name: "session[email]"%>
@@ -15,14 +14,12 @@
       <!-- <p id="remember-me-text-link">What is this?</p> -->
     </div>
     <%= f.label "remember-me-checkbox", class: "switch" do %>
-      <%= f.check_box :remember_me, id: "remember-me-checkbox", name: "session[remember_me]" %>
-      <div class="slider round"></div>
+    <%= f.check_box :remember_me, id: "remember-me-checkbox", name: "session[remember_me]" %>
+    <div class="slider round"></div>
     <% end %>
-
   </div>
   <div id="login-user-submit" class="user-submit">
     <%= f.submit "Log In", id: "login-user-submit-button", class: "submit-close-buttons submit-button" %>
     <button id="login-user-close-button" class="submit-close-buttons close-button">Cancel</button>
   </div>
-  <% end %>
-</div>
+<% end %>
