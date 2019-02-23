@@ -20,10 +20,6 @@ const loadContactsProject = () => {
   c = {};
 
   // Grab DOM elements I need
-  c.firstNameLabel = document.getElementById('contact-first-name-label');
-  c.lastNameLabel = document.getElementById('contact-last-name-label');
-  c.phoneLabel = document.getElementById('contact-phone-label');
-  c.emailLabel = document.getElementById('contact-email-label');
   c.firstName = document.getElementById('contact-first-name-input');
   c.lastName = document.getElementById('contact-last-name-input');
   c.phone = document.getElementById('contact-phone-input');
@@ -192,8 +188,7 @@ const loadContactsProject = () => {
     // Validate that fields are not empty, and that phone and email are in valid formats with regex
     for (prop in contact) {
       if (contact[prop] === '') {
-        let label = prop + 'Label';
-        let labelTitle = c[label].textContent;
+        let labelTitle = c[prop].placeholder;
         emptyErrors.push(labelTitle)
       } else if (prop === 'phone') {
         const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
