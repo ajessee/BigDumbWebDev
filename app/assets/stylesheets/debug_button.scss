@@ -1,6 +1,6 @@
 #debug-button-container {
   position: fixed;
-  z-index: 4;
+  z-index: 7;
   bottom: 0;
   right: 0;
   border-radius: 50%;
@@ -20,7 +20,7 @@
   padding: 0;
 }
 
-#debug-panel {
+.debug-panel {
   display: none;
 }
 

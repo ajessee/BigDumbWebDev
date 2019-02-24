@@ -6,60 +6,106 @@ const setUpModal = () => {
 
     mainBody: document.querySelector("#main-body-container"),
     modalDiv: document.querySelector("#modal"),
-    modalContent: document.querySelector("#modal-content"),
-    modalCloseButton: document.querySelector("#close-modal"),
     overlay: document.querySelector("#overlay"),
+    isModalOpen: false,
+    modalArray: [],
+
+    createNewModalElements: () => {
+      let modalContent = document.createElement('div');
+      let closeButton = document.createElement('button');
+      let closeButtonIcon = document.createElement('i');
+      modalContent.setAttribute('class', 'modal-content');
+      modalContent.setAttribute('draggable', 'true');
+      modalContent.addEventListener('dragstart', window.utils.dragAndDrop.drag_start,false);
+      closeButton.setAttribute('title', 'Close');
+      closeButton.setAttribute('class', 'close-modal all-close');
+      closeButtonIcon.setAttribute('class', 'fas fa-times fa-3x');
+      closeButtonIcon.setAttribute('aria-hidden', 'true');
+      closeButton.appendChild(closeButtonIcon);
+      let elementsObject = {
+        modalContent: modalContent,
+        closeButton: closeButton
+      }
+      return elementsObject;
+    },
     // TODO: Setup method to indicate whether modal is open so that you can gracefully close that modal and open another one.
 
     // The overlay, which is the modalContent's parent, has 8 rows and 8 columns
     openModal: function (display, borderRadius, rowStart, columnStart, rowSpan, columnSpan, subRows, subColumns, closeButton) {
-      this.modalContent.innerHTML = "";
-      this.modalDiv.style.display = "block";
-      this.mainBody.classList.contains("modalUnblur") ? this.mainBody.classList.remove("modalUnblur") : null;
-      this.mainBody.classList.add("modalBlur");
-      this.mainBody.style.overflow = "hidden";
-      this.mainBody.style.position = "absolute";
-      this.modalContent.classList.contains("shrink") ? this.modalContent.classList.remove("shrink") : null;
-      this.modalContent.classList.add("grow");
-      this.modalContent.style.display = `${display}`;
-      this.modalContent.style.borderRadius = `${borderRadius}`;
-      this.modalContent.style.gridArea = `${rowStart} / ${columnStart} / span ${rowSpan} / span ${columnSpan}`;
-      if (display === "grid" && subRows && subColumns) {
-        this.modalContent.style.gridTemplateRows = `repeat(${subRows}, 1fr)`;
-        this.modalContent.style.gridTemplateColumns = `repeat(${subColumns}, 1fr)`;
+      let elements = this.createNewModalElements();
+      // this.modalContent.innerHTML = "";
+      if (!this.isModalOpen) {
+        this.modalDiv.style.display = "block";
+        this.mainBody.classList.contains("modalUnblur") ? this.mainBody.classList.remove("modalUnblur") : null;
+        this.mainBody.classList.add("modalBlur");
+        this.mainBody.style.overflow = "hidden";
+        this.mainBody.style.position = "absolute";
       }
-      closeButton ? this.modalContent.appendChild(this.modalCloseButton) : null;
+      elements.modalContent.classList.contains("shrink") ? this.modalContent.classList.remove("shrink") : null;
+      elements.modalContent.classList.add("grow");
+      elements.modalContent.style.display = `${display}`;
+      elements.modalContent.style.borderRadius = `${borderRadius}`;
+      elements.modalContent.style.gridArea = `${rowStart} / ${columnStart} / span ${rowSpan} / span ${columnSpan}`;
+      if (display === "grid" && subRows && subColumns) {
+        elements.modalContent.style.gridTemplateRows = `repeat(${subRows}, 1fr)`;
+        elements.modalContent.style.gridTemplateColumns = `repeat(${subColumns}, 1fr)`;
+      }
+      closeButton ? elements.modalContent.appendChild(elements.closeButton) : null;
+      elements.modalContent.addEventListener("webkitAnimationEnd", this.animationDone);
+      elements.closeButton.addEventListener("click", this.closeModal);
+      this.overlay.appendChild(elements.modalContent);
+      this.modalArray.push(elements.modalContent);
+      this.isModalOpen = true;
+      return elements.modalContent;
     },
 
-    closeModal: () => {
-      modal.modalContent.classList.remove("grow");
-      modal.mainBody.classList.add("modalUnblur");
-      modal.modalContent.classList.add("shrink");
-      modal.modalContent.innerHTML = "";
+    closeModal: (e) => {
+      let modalContent;
+      if (e) {
+        modalContent = e.target.closest('.modal-content');
+      }
+      let modalArray = window.utils.modal.modalArray;
+      if (modalContent) {
+        modalContent.classList.add("shrink");
+      } else {
+        modalArray[modalArray.length-1].querySelector('.all-close').click()
+      }
+      if (modalArray.length < 1) {
+        modal.mainBody.classList.add("modalUnblur");
+      }
     },
 
     animationDone: (e) => {
+      let modalContent = e.target;
+      let modalCloseButton = e.target.querySelector('.close-modal');
+      let modalArray = window.utils.modal.modalArray;
       if (e.animationName === "shrink") {
-        modal.mainBody.classList.remove("modalBlur");
-        modal.mainBody.style.overflow = "";
-        modal.mainBody.style.position = "";
-        modal.modalDiv.style.display = "none";
-        modal.modalContent.style.display = "none";
-        modal.modalCloseButton.style.display = "none";
+        let idx = modalArray.findIndex(function(el){ return el === modalContent});
+        modalArray.splice(idx, 1);
+        modalArray.length > 0 ? window.utils.modal.isModalOpen = true : window.utils.modal.isModalOpen = false;
+        if (modalArray.length < 1) {
+          modal.mainBody.classList.remove("modalBlur");
+          modal.mainBody.style.overflow = "";
+          modal.mainBody.style.position = "";
+          modal.modalDiv.style.display = "none";
+        }
+        modalContent.remove();
       } else if (e.animationName === "grow") {
-        modal.modalCloseButton.style.display = "block";
+        if (modalCloseButton) {
+          modalCloseButton.style.display = "block";
+        }
       }
     },
 
     clickOverlay: (e) => {
       if (e.target === overlay) {
-        modal.closeModal();
+        modal.closeModal(e);
       }
     }
   }
 
-  modal.modalContent.addEventListener("webkitAnimationEnd", modal.animationDone);
-  modal.modalCloseButton.addEventListener("click", modal.closeModal);
+  
+  
   modal.overlay.addEventListener("click", modal.clickOverlay);
 
   window.utils.modal = modal;

@@ -1,12 +1,17 @@
-// Setup modal window
-window.utils.modal.openModal('block', '2%', 2, 2, 6, 6, null, null, false);
-// Insert new user signup partial
-window.utils.modal.modalContent.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
+if (window.utils.modal.signupModal) {
+  window.utils.modal.signupModal.innerHTML = "";
+  window.utils.modal.signupModal.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
+} else {
+  // Setup modal window, insert new user signup partial
+  window.utils.modal.signupModal = window.utils.modal.openModal('block', '2%', 2, 2, 6, 6, null, null, false);
+  window.utils.modal.signupModal.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
+}
 // Get close button and attach close modal function
 window.utils.modal.newUserCloseButton = document.querySelector("#new-user-close-button");
 window.utils.modal.newUserCloseButton.addEventListener('click', function(e) {
   e.preventDefault();
-  window.utils.modal.closeModal();
+  window.utils.modal.closeModal(e);
+  window.utils.modal.signupModal = null;
 })
 // Initialize labels component
 window.utils.labels.init();

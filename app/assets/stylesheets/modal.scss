@@ -18,7 +18,7 @@
   width: 100%;
 }
 
-#modal-content {
+.modal-content {
   display: none;
   grid-row: 2 / span 6; 
   grid-column: 3 / span 4;
@@ -97,7 +97,7 @@
   -ms-transition: 0.3s -ms-filter linear;
 }
 
-#close-modal {
+.close-modal {
   display: none;
   position: absolute;
   right: 0;
@@ -106,7 +106,7 @@
   color: black;
 }
 
-#close-modal:hover {
+.close-modal:hover {
   cursor: pointer;
   color: #F04747;
 }
