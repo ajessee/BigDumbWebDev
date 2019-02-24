@@ -6,17 +6,19 @@ if (window.utils.modal.loginModal) {
   window.utils.modal.loginModal = window.utils.modal.openModal('block', '2%', 3, 3, 4, 4, null, null, false);
   window.utils.modal.loginModal.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
 }
-  // Get close button and attach close modal function
-  window.utils.modal.userLoginCloseButton = document.querySelector("#login-user-close-button");
-  window.utils.modal.userLoginCloseButton.addEventListener('click', function (e) {
-    e.preventDefault();
-    window.utils.modal.closeModal(e);
-    window.utils.modal.loginModal = null;
-  })
-
+// Get close button and attach close modal function
+window.utils.modal.userLoginCloseButton = document.querySelector("#login-user-close-button");
+window.utils.modal.userLoginCloseButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  window.utils.modal.closeModal(e);
+  window.utils.modal.loginModal = null;
+})
+// Get debug information
+window.utils.debug.debugPanel.innerHTML = "";
+window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
 // Initialize labels component
 window.utils.labels.init();
-
+// Show notifications if errors
 <% if @error %>
 window.utils.notifications.openNotification(false, '<%= @error_title %>', '<%= @error_message %>', 5000);
 <% end %>

@@ -73,7 +73,7 @@
 }
 
 
-.modalBlur>*:not(#modal) {
+.modalBlur>*:not(#modal):not(#debug-button-container) {
   -webkit-filter: blur(3px) brightness(50%);
   -moz-filter: blur(3px) brightness(50%);
   -o-filter: blur(3px) brightness(50%);
@@ -85,7 +85,7 @@
   -ms-transition: 0.3s -ms-filter linear;
 }
 
-.modalUnblur>*:not(#modal)  {
+.modalUnblur>*:not(#modal):not(#debug-button-container)  {
   -webkit-filter: none;
   -moz-filter: none;
   -o-filter: none;

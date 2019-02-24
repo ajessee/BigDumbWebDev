@@ -28,12 +28,10 @@ const setUpModal = () => {
       }
       return elementsObject;
     },
-    // TODO: Setup method to indicate whether modal is open so that you can gracefully close that modal and open another one.
 
     // The overlay, which is the modalContent's parent, has 8 rows and 8 columns
     openModal: function (display, borderRadius, rowStart, columnStart, rowSpan, columnSpan, subRows, subColumns, closeButton) {
       let elements = this.createNewModalElements();
-      // this.modalContent.innerHTML = "";
       if (!this.isModalOpen) {
         this.modalDiv.style.display = "block";
         this.mainBody.classList.contains("modalUnblur") ? this.mainBody.classList.remove("modalUnblur") : null;
@@ -83,6 +81,7 @@ const setUpModal = () => {
         let idx = modalArray.findIndex(function(el){ return el === modalContent});
         modalArray.splice(idx, 1);
         modalArray.length > 0 ? window.utils.modal.isModalOpen = true : window.utils.modal.isModalOpen = false;
+        modalContent.querySelector('.debug-panel') ? window.utils.debug.debugPanelOpen = false : null;
         if (modalArray.length < 1) {
           modal.mainBody.classList.remove("modalBlur");
           modal.mainBody.style.overflow = "";
@@ -103,12 +102,7 @@ const setUpModal = () => {
       }
     }
   }
-
-  
-  
   modal.overlay.addEventListener("click", modal.clickOverlay);
-
   window.utils.modal = modal;
 }
-
 document.addEventListener("DOMContentLoaded", setUpModal);

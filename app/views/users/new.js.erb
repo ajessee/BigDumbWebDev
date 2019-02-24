@@ -13,6 +13,9 @@ window.utils.modal.newUserCloseButton.addEventListener('click', function(e) {
   window.utils.modal.closeModal(e);
   window.utils.modal.signupModal = null;
 })
+// Get debug information
+window.utils.debug.debugPanel.innerHTML = "";
+window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
 // Initialize labels component
 window.utils.labels.init();
 

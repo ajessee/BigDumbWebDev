@@ -1,0 +1,16 @@
+if (!window.utils.modal.infoModal) {
+  window.utils.modal.infoModal = window.utils.modal.openModal('grid', '0%', 7, 2, 1, 6, null, null, true);
+  window.utils.modal.infoModal.style.backgroundColor = 'aliceblue';
+  window.utils.modal.infoModal.style.marginTop = '2%';
+  window.utils.modal.infoModal.insertAdjacentHTML('beforeend', "<%= j (render 'info') %>");
+    // Get close button and attach close modal function
+    window.utils.modal.infoModalCloseButton = window.utils.modal.infoModal.querySelector(".all-close");
+    window.utils.modal.infoModalCloseButton.addEventListener('click', function (e) {
+      window.utils.modal.infoModal = null;
+      window.utils.modal.infoModalCloseButton = null;
+    })
+} 
+
+// Get debug information
+window.utils.debug.debugPanel.innerHTML = "";
+window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);

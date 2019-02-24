@@ -11,7 +11,7 @@
   <div id="remember-me-container">
     <div id="remember-me-text">
       <p id="remember-me-text-content">Remember Me?</p>
-      <!-- <p id="remember-me-text-link">What is this?</p> -->
+      <%= link_to 'What is this?', cookie_info_path, id: 'remember-me-text-link', remote: true  %>
     </div>
     <%= f.label "remember-me-checkbox", class: "switch" do %>
     <%= f.check_box :remember_me, id: "remember-me-checkbox", name: "session[remember_me]" %>
