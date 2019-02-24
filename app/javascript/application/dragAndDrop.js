@@ -22,6 +22,10 @@ const setUpDragAndDrop = () => {
     drop: function (event) { 
         var offset = event.dataTransfer.getData("text/plain").split(',');
         var dm = window.utils.dragAndDrop.currentDragElement;
+        if (dm.classList.contains('notifications-container')){
+          dm.style.bottom = 'unset';
+          dm.style.right = 'unset';
+        }
         dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
         dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
         event.preventDefault();

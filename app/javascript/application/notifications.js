@@ -11,7 +11,7 @@ const setUpNotifications = () => {
 
     getNotificationArrayHeight: function () {
       let accumulator = 0;
-      this.notificationsArray.forEach(function(el, index){
+      this.notificationsArray.forEach(function (el, index) {
         accumulator += el.offsetHeight;
         index > 0 ? accumulator += 10 : null;
       })
@@ -20,7 +20,7 @@ const setUpNotifications = () => {
 
     updateNotificationsY: function (remove) {
       let self = this;
-      if (this.notificationsArray.length === 1 ) {
+      if (this.notificationsArray.length === 1) {
         let el = this.notificationsArray[0];
         let elOffsetHeight = el.offsetHeight;
         let totalHeight = self.getNotificationArrayHeight();
@@ -34,15 +34,14 @@ const setUpNotifications = () => {
           el.style.transform = `translateY(${(amount)}px)`
         }
       } else if (this.notificationsArray.length > 1) {
-        this.notificationsArray.forEach(function(el, index, arr){
+        this.notificationsArray.forEach(function (el, index, arr) {
           let elOffsetHeight = el.offsetHeight;
           let totalHeight = self.getNotificationArrayHeight();
           let amount;
           // we are adding a notification and it hasn't been Y adjusted yet
           if (!remove && !el.style.transform && index !== 0) {
             el.style.transform = `translateY(-${totalHeight - elOffsetHeight}px)`
-          } 
-          else if (remove && el.style.transform) {
+          } else if (remove && el.style.transform) {
             // deleting a notification that has been Y adjusted
             let transY2 = parseInt(el.style.transform.match(/^.*?\([^\d]*(\d+)[^\d]*\).*$/)[1]);
             el.style.transition = `transform 0.2s ease`
@@ -52,24 +51,35 @@ const setUpNotifications = () => {
       }
     },
 
-    createNotificationElements: () => {
+    createNotificationElements: function () {
       let container = document.createElement('div');
       let title = document.createElement('h3');
       let message = document.createElement('p');
+      let closeButton = document.createElement('button');
+      let closeButtonIcon = document.createElement('i');
+      let self = this;
       container.setAttribute('class', 'notifications-container');
+      container.setAttribute('draggable', 'true');
+      container.addEventListener('dragstart', window.utils.dragAndDrop.drag_start, false);
       title.setAttribute('class', 'notifications-title');
       message.setAttribute('class', 'notifications-message');
+      closeButton.setAttribute('title', 'Close');
+      closeButton.setAttribute('class', 'close-notification');
+      closeButtonIcon.setAttribute('class', 'fas fa-times fa-2x');
+      closeButtonIcon.setAttribute('aria-hidden', 'true');
+      closeButton.appendChild(closeButtonIcon);
       container.appendChild(title);
-      container.appendChild(message)
+      container.appendChild(message);
       let elementsObject = {
         container: container,
         title: title,
-        message: message
+        message: message,
+        closeButton: closeButton
       }
       return elementsObject;
     },
 
-    openNotification: function (success, title, message, closeTime) {
+    openNotification: function (success, title, message, closeTime, closeButton) {
       // create notification element
       let elementsObject = this.createNotificationElements();
       let self = this;
@@ -77,6 +87,12 @@ const setUpNotifications = () => {
       elementsObject.container.style.backgroundColor = success ? '#6cbf28' : '#fe3b19';
       elementsObject.title.innerHTML = title;
       elementsObject.message.innerHTML = message;
+      if (closeButton) {
+        elementsObject.container.appendChild(elementsObject.closeButton);
+        elementsObject.closeButton.addEventListener("click", function (e) {
+          self.closeNotification(elementsObject.container, true);
+        });
+      }
       // add to notifications array
       this.notificationsArray.push(elementsObject.container);
       // add to main body
@@ -86,7 +102,7 @@ const setUpNotifications = () => {
       // update position
       this.updateNotificationsY();
       // add event listener
-      elementsObject.container.addEventListener("webkitAnimationEnd", function (e){
+      elementsObject.container.addEventListener("webkitAnimationEnd", function (e) {
         self.animationDone(e, elementsObject.container)
       });
       // add slide-in class to bring notification into view and remove slide-out class if its still there.
@@ -94,32 +110,40 @@ const setUpNotifications = () => {
       elementsObject.container.classList.contains('slide-out') ? elementsObject.container.classList.remove('slide-out') : null;
       // if we want to close it automatically, set timer for that
       if (closeTime) {
-        setTimeout(function() {
+        setTimeout(function () {
           self.closeNotification(elementsObject.container);
         }, closeTime);
       }
     },
 
-    closeNotification: function (container) {
-      // add slide-out class to start animation to dismiss notification
-      container.classList.add('slide-out');
-      container.classList.contains('slide-in') ? container.classList.remove('slide-in') : null;
+    closeNotification: function (container, immediate) {
+      if (immediate) {
+        this.removeNotification(container);
+      } else {
+        // add slide-out class to start animation to dismiss notification
+        container.classList.add('slide-out');
+        container.classList.contains('slide-in') ? container.classList.remove('slide-in') : null;
+      }
+    },
+
+    removeNotification: function (container) {
+      container.remove();
+      // remove the notification from the notification array
+      this.notificationsArray.forEach(function (el, index, arr) {
+        if (el === container) {
+          arr.splice(index, 1)
+        }
+      })
     },
 
     animationDone: function (e, container) {
       // callback for the slideout animation done event listener
       if (e.animationName === "slideout") {
         // remove the container from the DOM
-        container.remove();
-        // remove the notification from the notification array
-        this.notificationsArray.forEach(function (el, index, arr) {
-          if (el === container) {
-            arr.splice(index, 1)
-          }
-        })
+        this.removeNotification(container);
         // update the position of all the notifications on screen
         this.updateNotificationsY(true);
-      } 
+      }
     }
   }
 

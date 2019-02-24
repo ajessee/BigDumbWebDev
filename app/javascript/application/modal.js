@@ -19,7 +19,7 @@ const setUpModal = () => {
       modalContent.addEventListener('dragstart', window.utils.dragAndDrop.drag_start,false);
       closeButton.setAttribute('title', 'Close');
       closeButton.setAttribute('class', 'close-modal all-close');
-      closeButtonIcon.setAttribute('class', 'fas fa-times fa-3x');
+      closeButtonIcon.setAttribute('class', 'fas fa-times fa-2x');
       closeButtonIcon.setAttribute('aria-hidden', 'true');
       closeButton.appendChild(closeButtonIcon);
       let elementsObject = {

@@ -24,6 +24,20 @@
   animation-name: slideout;
 }
 
+.close-notification {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-style: none;
+  background-color: transparent;
+  color: black;
+}
+
+.close-notification:hover {
+  cursor: pointer;
+  color: #F04747;
+}
+
 @keyframes slidein {
   from {
     margin-right: -30%;

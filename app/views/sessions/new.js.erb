@@ -20,5 +20,5 @@ window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params)
 window.utils.labels.init();
 // Show notifications if errors
 <% if @error %>
-window.utils.notifications.openNotification(false, '<%= @error_title %>', '<%= @error_message %>', 5000);
+window.utils.notifications.openNotification(false, '<%= @error_title %>', '<%= @error_message %>', 5000, true);
 <% end %>
