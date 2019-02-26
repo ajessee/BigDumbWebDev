@@ -11,6 +11,12 @@ onkeydown = onkeyup = function(e){
       map = {}
     }
 
+    // if (map[16] && map[91] && map[69]) {
+    //   console.log("shift + command + e");
+    //   document.getElementById("edit-profile-icon").children[0].click();
+    //   map = {}
+    // }
+
     // if (map[16] && map[91] && map[76]) {
     //   console.log("shift + command + l");
     //   document.getElementById("login-icon").children[0].click();

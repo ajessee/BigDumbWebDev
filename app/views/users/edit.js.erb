@@ -1,0 +1,21 @@
+if (window.utils.modal.userEditModal) {
+  window.utils.modal.userEditModal.innerHTML = "";
+  window.utils.modal.userEditModal.insertAdjacentHTML('beforeend', "<%= j (render 'edit') %>");
+} else {
+  // Setup modal window, insert new user signup partial
+  window.utils.modal.userEditModal = window.utils.modal.openModal('block', '2%', 2, 2, 6, 6, null, null, false);
+  window.utils.modal.userEditModal.insertAdjacentHTML('beforeend', "<%= j (render 'edit') %>");
+}
+// Get close button and attach close modal function
+window.utils.modal.editUserCloseButton = document.querySelector("#edit-user-close-button");
+window.utils.modal.editUserCloseButton.addEventListener('click', function(e) {
+  e.preventDefault();
+  window.utils.modal.closeModal(e);
+  window.utils.modal.userEditModal = null;
+})
+// Get debug information
+window.utils.debug.debugPanel.innerHTML = "";
+window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
+// Initialize labels component
+window.utils.labels.init();
+
