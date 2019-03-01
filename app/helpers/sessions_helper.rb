@@ -18,6 +18,10 @@ module SessionsHelper
     @current_user = nil
   end
 
+  def current_user?(user)
+    user == current_user
+  end
+
   def current_user
     # Check to see if there is a user_id in the session hash, and if so, assign it to the local user_id variable
     if (user_id = session[:user_id])

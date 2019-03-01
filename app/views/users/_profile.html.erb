@@ -10,7 +10,7 @@
 
   <% if logged_in? %>
   <div id="edit-user-icon">
-      <%= link_to 'Edit Profile', edit_user_path(current_user),  {:remote => true}  %>
+      <%= link_to 'Edit Profile', edit_user_path(@user),  {:remote => true}  %>
     </div>
     <p>Current user name:<%= current_user.name%></p>
   <% end %>
