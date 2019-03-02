@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'errors/bad_request'
-  get 'errors/unauthorized'
-  get 'errors/forbidden'
-  get 'errors/not_found'
-  get 'errors/internal_server_error'
   # Root
 
   root    'hello#home'
@@ -43,15 +38,15 @@ Rails.application.routes.draw do
 
   # Custom HTTP status pages
 
-  get '/400', to: 'errors#bad_request'
+  get 'errors/bad_request'
 
-  get '/401', to: 'errors#unauthorized'
+  get 'errors/unauthorized'
 
-  get '/403', to: 'errors#forbidden'
+  get 'errors/forbidden'
 
-  get '/404', to: 'errors#not_found'
+  get 'errors/not_found'
 
-  get '/500', to: 'errors#internal_server_error'
+  get 'errors/internal_server_error'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
