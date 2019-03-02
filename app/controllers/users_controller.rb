@@ -46,13 +46,14 @@ class UsersController < ApplicationController
 
   def logged_in_user
     unless logged_in?
-      # TODO: Show unauthorized error page
-      head 403
+      flash[:error_message] = 'You need to log in to do that'
+      redirect_to errors_unauthorized_path
     end
 
     def correct_user
       @user = User.find(params[:id])
-      head 403 unless current_user?(@user)
+      flash[:error_message] = 'You definitely shouldn\'t be trying to access another user\'s resources'
+      redirect_to errors_forbidden_path unless current_user?(@user)
     end
   end
 

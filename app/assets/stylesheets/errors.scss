@@ -1,0 +1,34 @@
+// Place all the styles related to the Errors controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.http-error-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  background-color: aliceblue;
+  font-family: 'Oxygen', sans-serif;
+  height: 100vh; 
+  justify-items: center;
+
+  h1 {
+    font-size: 3em;
+    margin: 2%;
+  }
+
+  p {
+    font-size: 2.5em;
+    margin: 0;
+  }
+
+  #HTTP-status-401-svg > svg {
+    height: 60vh;
+  }
+
+  a {
+    font-size: 2em;
+  }
+}
+
+
+
