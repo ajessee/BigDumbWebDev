@@ -1,2 +1,13 @@
-<h1>Errors#bad_request</h1>
-<p>Find me in app/views/errors/bad_request.html.erb</p>
+<section class="http-error-container">
+
+    <h1>Oh my, you're naughty aren't you?</h1>
+    <p>That's a bad, bad HTTP request</p>
+  
+    <figure class="HTTP-status-svg">
+      <%= show_svg('400-Error.svg') %>
+    </figure>
+  
+    <%= link_to "Take Me Home", root_path %>
+    <h3>HTTP Status Code: <%= @error_code %></h3>
+  
+  </section>

@@ -1,2 +1,13 @@
-<h1>Errors#internal_server_error</h1>
-<p>Find me in app/views/errors/internal_server_error.html.erb</p>
+<section class="http-error-container">
+
+    <h1>You nuked our server!</h1>
+    <p>Just kidding...it's not you, it's us. We've got an internal server error.</p>
+  
+    <figure class="HTTP-status-svg">
+      <%= show_svg('500-Error.svg') %>
+    </figure>
+  
+    <%= link_to "Take Me Home", root_path %>
+    <h3>HTTP Status Code: <%= @error_code %></h3>
+  
+  </section>

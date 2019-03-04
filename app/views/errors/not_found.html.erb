@@ -1,2 +1,13 @@
-<h1>Errors#not_found</h1>
-<p>Find me in app/views/errors/not_found.html.erb</p>
+<section class="http-error-container">
+
+    <h1>We warned you we were big dummies</h1>
+    <p>We can't seem to find that page. Please contact us to resolve this issue.</p>
+  
+    <figure class="HTTP-status-svg">
+      <%= show_svg('404-Error.svg') %>
+    </figure>
+  
+    <%= link_to "Take Me Home", root_path %>
+    <h3>HTTP Status Code: <%= @error_code %></h3>
+  
+  </section>
