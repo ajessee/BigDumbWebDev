@@ -26,11 +26,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    # correct_user defines @user that is then passed to the view
   end
 
   def update
-    @user = User.find(params[:id])
+    # correct_user defines @user that is then passed to the view
     if @user.update(user_params)
       #render update.erb.js
     else
@@ -46,6 +46,7 @@ class UsersController < ApplicationController
 
   def logged_in_user
     unless logged_in?
+      store_location
       flash[:error_message] = 'You need to log in to do that'
       redirect_to errors_unauthorized_path
     end

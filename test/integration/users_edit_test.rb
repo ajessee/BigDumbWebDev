@@ -6,6 +6,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "unsuccessful edit" do
+    log_in_as(@david)
     get edit_user_path(@david), xhr: true
     assert_equal "text/javascript", @response.content_type
     assert_template 'users/_edit'
@@ -19,6 +20,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "successful edit" do
+    log_in_as(@david)
     get edit_user_path(@david), xhr: true
     assert_equal "text/javascript", @response.content_type
     assert_template 'users/_edit'

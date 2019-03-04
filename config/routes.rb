@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   
   delete  '/logout', to: 'sessions#destroy'
   
-  get     '/cookie_info', to: 'sessions#info'
+  get     '/cookie_info', to: 'sessions#cookie_info'
+
+  get     '/fowarding_info', to: 'sessions#forwarding_info'
+
+  post     '/fowarding_info', to: 'sessions#forwarding_ready'
 
   # Projects (TODO: Convert to resource?)
 

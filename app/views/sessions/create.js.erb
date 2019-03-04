@@ -1,4 +1,28 @@
 window.utils.modal.closeModal();
+
+/* 
+  Here we check if we've stored a forwarded location
+  This means that the user had tried to access a part of the site they weren't authorized to (they hadn't logged in), but we stored the URL of where they were trying to go.
+  If we have a stored location, we make an AJAX call to the sessions controller and set a forwarding_needed class variable that indicates that we are redirecting the user to that stored location
+  This is called friendly forwarding, which is just a convience for the user. Once we window.location.replace with the stored location, then in notifications.js, on DOMContentLoaded we made a
+  AJAX call to the server and see if that forwarding_needed class variable is true, and if so, we give the user a notification that we've forwarded them to where they initally intented to go.
+  Whew, this is a lot and probably an overcomplication.
+*/
+<% if get_location != nil %>
+  fetch('/fowarding_info', {
+    method: 'POST',
+    // For future reference, this is how you make a POST request to rails and authenticate it.
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRF-Token': '<%= form_authenticity_token %>'
+    },
+    body: "We aren't doing anything with this information - just making an authenticated POST request will set the forwarding_needed variable to true",
+    credentials: 'same-origin'
+  })
+  // This is where we redirect them to the stored location
+  window.location.replace("<%= j (get_location) %>");
+<% end %>
+
 // Grab old nav, create new nav
 let o = {
   oldNav: document.querySelector('#main-nav'),
@@ -19,4 +43,4 @@ o = null;
 window.utils.navigation.init();
 window.utils.navigation.showNav();
 // Show success notification
-window.utils.notifications.openNotification(true, 'Congrats!', 'You\'ve successfully logged in. Click <%= j (link_to "here", user_path(@user)) %> to see your user profile.', 6000, true);
+window.utils.notifications.openNotification('success', 'Congrats!', 'You\'ve successfully logged in. Click <%= j (link_to "here", user_path(@user)) %> to see your user profile.', 6000, true);

@@ -79,12 +79,25 @@ const setUpNotifications = () => {
       return elementsObject;
     },
 
-    openNotification: function (success, title, message, closeTime, closeButton) {
+    openNotification: function (type, title, message, closeTime, closeButton) {
       // create notification element
       let elementsObject = this.createNotificationElements();
       let self = this;
       // set color, title, message
-      elementsObject.container.style.backgroundColor = success ? '#6cbf28' : '#fe3b19';
+      switch (type) {
+        case 'success':
+          elementsObject.container.style.backgroundColor = '#6cbf28';
+          break;
+        case 'failure':
+          elementsObject.container.style.backgroundColor = '#fe3b19';
+          break;
+        case 'alert':
+          elementsObject.container.style.backgroundColor = '#ffff00';
+          break;
+        default:
+          elementsObject.container.style.backgroundColor = '#6cbf28';
+      }
+
       elementsObject.title.innerHTML = title;
       elementsObject.message.innerHTML = message;
       if (closeButton) {
@@ -144,9 +157,26 @@ const setUpNotifications = () => {
         // update the position of all the notifications on screen
         this.updateNotificationsY(true);
       }
+    },
+
+    // We're making an AJAX call to the server to see if we need to display a notification telling you that we redirected you with 'friendly forwarding'
+    checkForwarding: function () {
+      let self = this;
+      fetch('/fowarding_info')
+        .then(function (response) {
+          return response.text();
+        })
+        .then(function(text) {
+          let forwarding = JSON.parse(text);
+          if (forwarding.location) {
+            self.openNotification('alert', 'Friendly Forwarding', 'This is the page you were trying to get to before you logged in. Nifty huh?', 6000, true);
+          }
+        })
     }
   }
 
   window.utils.notifications = notifications;
+  window.utils.notifications.checkForwarding();
+
 }
 document.addEventListener("DOMContentLoaded", setUpNotifications);

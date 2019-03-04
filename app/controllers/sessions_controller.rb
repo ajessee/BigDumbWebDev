@@ -1,6 +1,14 @@
 class SessionsController < ApplicationController
 
+  @@forwarding_needed = false
+
   def new
+    respond_to do |format|
+      format.js
+      # Link on 401 unauthorized error page makes a non-XHR GET request to login_path (here) and we redirect to root_path with login=true params 
+      # which then we check for on load, and if true, we click the login button for the user so they can log in.
+      format.html {redirect_to root_path(login: true)}
+    end
   end
 
   def create
@@ -25,7 +33,20 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
-  def info
+  def cookie_info
+  end
+
+  def forwarding_info
+    if @@forwarding_needed 
+      @@forwarding_needed = false
+      @location = get_location
+      clear_location
+      @location
+    end
+  end
+
+  def forwarding_ready
+    @@forwarding_needed = true
   end
   
 end

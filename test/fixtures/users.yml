@@ -7,3 +7,8 @@ david:
   name: David Jessee
   email: david@tengoodyears.com
   password_digest: <%= User.digest('password') %>
+
+katyna:
+  name: Katyna Jessee
+  email: katyna@fifteengoodyears.com
+  password_digest: <%= User.digest('password') %>

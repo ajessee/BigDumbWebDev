@@ -55,6 +55,21 @@ module SessionsHelper
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
   end
+  
+  # Stores the URL if GET request
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
+
+  # Get stored location if exisits
+  def get_location
+    session[:forwarding_url] if session[:forwarding_url]
+  end
+
+  # Get stored location if exisits
+  def clear_location
+    session.delete(:forwarding_url) if session[:forwarding_url]
+  end
 
 end
 

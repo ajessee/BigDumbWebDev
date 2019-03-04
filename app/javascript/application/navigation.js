@@ -155,7 +155,7 @@ const setUpNav = () => {
 
     onScroll: function (mainPage) {
       let marker,
-          delta;
+        delta;
 
       // This determines at what scrollY coordinate the nav will show / shrink. Conditional on main page or nah.
       if (mainPage) {
@@ -192,7 +192,7 @@ const setUpNav = () => {
         })
       }
       /* This is the entry point to establishing navigation behavior. On the main page, the nav is embedded in the 'about me' section; once a user scrolls past that point then the nav will be fixed to the top of the screen and the icons will be scaled down. On all other pages, we check to see if there is enough content to scroll. If so, we show the nav shortly after the user starts scrolling. Otherwise, we show the nav right away.
-      */
+       */
       if (this.aboutMeContainer) {
         this.setupHrefsForIcons(true);
         document.addEventListener("scroll", function (e) {
@@ -215,15 +215,15 @@ const setUpNav = () => {
             }
           }
         }
-    
+
         const observer = new MutationObserver(mutationCallback);
         observer.observe(this.htmlDoc, {
           attributes: true
         })
         this.setupHrefsForIcons();
       }
-       // Add event listeners to pulse icon sizes on hover;
-       this.iconNames.forEach(function (name) {
+      // Add event listeners to pulse icon sizes on hover;
+      this.iconNames.forEach(function (name) {
         let element = document.querySelector('#' + name + '-icon');
         if (!element) {
           return
@@ -243,9 +243,13 @@ const setUpNav = () => {
         }
       });
 
-    } 
+    }
   }
   nav.init();
+  // If we've redirected a user to the root path with login === true params, click the login link.
+  if (document.querySelector("#login-icon") && window.utils.getUrlVars().login === "true") {
+    document.querySelector("#login-icon a").click();
+  }
 
   window.utils.navigation = nav;
 }
