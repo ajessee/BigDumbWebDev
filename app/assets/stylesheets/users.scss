@@ -134,6 +134,10 @@
   text-align: center;
   grid-column: 2 / 6;
   grid-row: 2;
+
+  li {
+      list-style-type: none;
+  }
 }
 
 .user-info {
