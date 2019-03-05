@@ -159,16 +159,18 @@ const setUpNotifications = () => {
       }
     },
 
-    // We're making an AJAX call to the server to see if we need to display a notification telling you that we redirected you with 'friendly forwarding'
-    checkForwarding: function () {
+    // We're making an AJAX call to the server to see if there are any pending notifications to display. 
+    checkNotifications: function () {
       let self = this;
-      fetch('/fowarding_info')
+      fetch('/notifications')
         .then(function (response) {
           return response.text();
         })
         .then(function(text) {
-          let forwarding = JSON.parse(text);
-          if (forwarding.location) {
+          let notification = JSON.parse(text);
+          if (notification.newMessage.present) {
+            self.openNotification(notification.newMessage.type, notification.newMessage.title, notification.newMessage.message, 6000, true);
+          } else if (notification.location) {
             self.openNotification('alert', 'Friendly Forwarding', 'This is the page you were trying to get to before you logged in. Nifty huh?', 6000, true);
           }
         })
@@ -176,7 +178,7 @@ const setUpNotifications = () => {
   }
 
   window.utils.notifications = notifications;
-  window.utils.notifications.checkForwarding();
+  window.utils.notifications.checkNotifications();
 
 }
 document.addEventListener("DOMContentLoaded", setUpNotifications);

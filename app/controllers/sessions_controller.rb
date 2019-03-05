@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
 
-  @@forwarding_needed = false
-
   def new
     respond_to do |format|
       format.js
@@ -31,22 +29,6 @@ class SessionsController < ApplicationController
   def destroy
     log_out if logged_in?
     redirect_to root_url
-  end
-
-  def cookie_info
-  end
-
-  def forwarding_info
-    if @@forwarding_needed 
-      @@forwarding_needed = false
-      @location = get_location
-      clear_location
-      @location
-    end
-  end
-
-  def forwarding_ready
-    @@forwarding_needed = true
   end
   
 end

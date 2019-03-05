@@ -111,7 +111,7 @@
   color: red;
 }
 
-#users-container {
+.users-container {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 20vh 70vh 10vh;
@@ -121,6 +121,14 @@
 }
 
 #user-show-partial {
+  font-family: 'Oxygen', sans-serif;
+  background-color: aliceblue;
+  text-align: center;
+  grid-column: 2 / 6;
+  grid-row: 2;
+}
+
+#users-show-partial {
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
   text-align: center;

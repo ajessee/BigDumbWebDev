@@ -36,4 +36,34 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to errors_forbidden_path
   end
 
+  test "should redirect index when not logged in" do
+    get users_path
+    assert_redirected_to errors_unauthorized_path
+  end
+
+  test "should not allow the admin attribute to be edited via the web" do
+    log_in_as(@katyna)
+    assert_not @katyna.admin?
+    patch user_path(@katyna), xhr:true, params: {
+      user: { password:              'password',
+              password_confirmation: 'password',
+              admin: true } }
+    assert_not @katyna.admin?
+  end
+
+  test "should redirect destroy when not logged in" do
+    assert_no_difference 'User.count' do
+      delete user_path(@david)
+    end
+    assert_redirected_to errors_unauthorized_path
+  end
+
+  test "should redirect destroy when logged in as a non-admin" do
+    log_in_as(@katyna)
+    assert_no_difference 'User.count' do
+      delete user_path(@david)
+    end
+    assert_redirected_to errors_forbidden_path
+  end
+
 end

@@ -3,6 +3,9 @@ class User < ApplicationRecord
   # Attributes: name, email, password_digest
   # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token
 
+  # Pagination per page
+  self.per_page = 15
+
   # before_save is a callback that gets invoked before the user model is saved to the database, we downcase it here to ensure uniqueness
   before_save { email.downcase! }
 

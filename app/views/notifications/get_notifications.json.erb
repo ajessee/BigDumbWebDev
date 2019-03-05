@@ -1,0 +1,9 @@
+{
+  "location": "<%= @location %>",
+  "newMessage": {
+    "present": <%= @new_message ? true : false %>,
+    "title": "<%= @new_message["title"] if @new_message%>",
+    "message": "<%= @new_message["message"] if @new_message%>",
+    "type": "<%= @new_message["type"] if @new_message%>"
+  }
+}

@@ -7,8 +7,16 @@ david:
   name: David Jessee
   email: david@tengoodyears.com
   password_digest: <%= User.digest('password') %>
+  admin: true
 
 katyna:
   name: Katyna Jessee
   email: katyna@fifteengoodyears.com
   password_digest: <%= User.digest('password') %>
+
+<% 30.times do |n| %>
+user_<%= n %>:
+  name:  <%= "User #{n}" %>
+  email: <%= "user-#{n}@BDWD.com" %>
+  password_digest: <%= User.digest('password') %>
+<% end %>
