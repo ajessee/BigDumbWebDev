@@ -126,6 +126,7 @@ const setUpNav = () => {
 
     showNav: function (mainPage) {
       if (!mainPage) {
+        this.navbar.style.display = "grid";
         this.navbar.style.gridRow = "1";
       } else {
         this.mainBodyContainer.append(this.navbar);
