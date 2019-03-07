@@ -5,13 +5,8 @@ const setUpNav = () => {
   const nav = {
 
     mainBodyContainer: document.querySelector("#main-body-container"),
-    aboutMeContainer: document.querySelector("#about-me-container") ? document.querySelector("#about-me-container") : null,
-    navbar: document.querySelector("#main-nav"),
     htmlDoc: document.querySelector('html'),
     iconNames: ['projects', 'resources', 'blog', 'github', 'twitter', 'linkedin', 'home', 'login', 'logout'],
-    bdwdIcon: document.querySelector("#home-icon"),
-    navbarOffsetTop: document.querySelector("#main-nav").offsetTop,
-    navbarOffsetHeight: document.querySelector("#main-nav").offsetHeight,
     navbarShrunk: false,
     mobileView: window.matchMedia('(max-width : 767px)').matches,
 
@@ -177,8 +172,16 @@ const setUpNav = () => {
 
     init: function () {
       let self = this;
-      this.logInOutIcon = document.querySelector("#login-icon") ? document.querySelector("#login-icon") : document.querySelector("#logout-icon");
-      this.iconImageContainers = document.querySelectorAll(".icon-image");
+      this.aboutMeContainer = document.querySelector("#about-me-container") ? document.querySelector("#about-me-container") : null;
+      this.httpErrorContainer = document.querySelector(".http-error-container") ? document.querySelector(".http-error-container") : null;
+      this.navbar = document.querySelector("#main-nav") ? document.querySelector("#main-nav") : null;
+      if (this.navbar) {
+        this.bdwdIcon = document.querySelector("#home-icon");
+        this.logInOutIcon = document.querySelector("#login-icon") ? document.querySelector("#login-icon") : document.querySelector("#logout-icon");
+        this.iconImageContainers = document.querySelectorAll(".icon-image");
+        this.navbarOffsetTop = this.navbar.offsetTop;
+        this.navbarOffsetHeight = this.navbar.offsetHeight;
+      }
       // If we've refreshed the page, and scrollY is below the shrink nav marker, make sure that all of our icons are scaled correctly
       if (scrollY > this.navbarOffsetTop) {
         const mutationCallback2 = (mutationsList, observer) => {
@@ -200,6 +203,8 @@ const setUpNav = () => {
         document.addEventListener("scroll", function (e) {
           self.onScroll(true);
         });
+      } else if (this.httpErrorContainer) {
+        return;
       } else {
         /* Fontawesome loads it's icons asyncronously, and aren't ready when DOMContentLoaded. They don't provide an event system to hook into, but they do change the class on the HTML document based on the current status of load. I'm using a mutation observer to 'listen' to when the complete class gets added, and at that point I check if we need to show the nav or add the scroll event listener.
          */
