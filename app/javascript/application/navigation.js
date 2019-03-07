@@ -126,7 +126,7 @@ const setUpNav = () => {
 
     showNav: function (mainPage) {
       if (!mainPage) {
-        this.navbar.style.display = "grid";
+        this.navbar.style.gridRow = "1";
       } else {
         this.mainBodyContainer.append(this.navbar);
       }
@@ -142,6 +142,7 @@ const setUpNav = () => {
       if (!mainPage) {
         this.navbar.style.display = "none";
       } else {
+        this.navbar.style.gridRow = "2/3";
         this.aboutMeContainer.append(this.navbar);
       }
       this.navbar.classList.remove("navbar-fixed");

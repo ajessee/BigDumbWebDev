@@ -37,7 +37,6 @@ const setUpModal = () => {
         this.mainBody.classList.contains("modalUnblur") ? this.mainBody.classList.remove("modalUnblur") : null;
         this.mainBody.classList.add("modalBlur");
         this.mainBody.style.overflow = "hidden";
-        this.mainBody.style.position = "absolute";
       }
       elements.modalContent.classList.contains("shrink") ? this.modalContent.classList.remove("shrink") : null;
       elements.modalContent.classList.add("grow");
