@@ -1,20 +1,3 @@
 window.utils.modal.closeModal()
-let o = {
-  oldNav: document.querySelector('#main-nav'),
-  newNav: document.createElement('nav')
-}
-// Get nav from server, will have new icon since we are logged in
-o.newNav.innerHTML = "<%= j (render 'shared/nav') %>";
-o.newNav = o.newNav.children[0];
-// Remove old login icon
-o.oldIcon = o.oldNav.querySelector('.icon-grab').remove();
-// Get new logout icon
-o.newIcon = o.newNav.querySelector('.icon-grab');
-// Append to navbar
-o.oldNav.appendChild(o.newIcon);
-// Remove temp object we create to do this magic
-o = null;
-// Resync navbar
-window.utils.navigation.init();
-window.utils.navigation.showNav();
+
 window.utils.notifications.openNotification('alert', 'One more thing...', 'Thanks for submitting your information. Please check your email to activate your account.', 6000, true);
