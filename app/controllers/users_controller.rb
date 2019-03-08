@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :admin_user, only: [:destroy, :index]
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.paginate(page: params[:page], per_page: 15)
   end
 
   def new
@@ -34,14 +34,14 @@ class UsersController < ApplicationController
         message: "Welcome to Big Dumb Web Dev #{@user.name}!",
         type: 'success'
       })
-      flash.discard
+      flash.clear
     elsif flash[:error_message]
       store_message({
         title: 'Invalid activation link',
         message: "Sorry, that didn't work. Please contact andre@bigdumbwebdev.com.",
         type: 'failure'
       })
-      flash.discard
+      flash.clear
     end
   end
 
@@ -85,13 +85,17 @@ class UsersController < ApplicationController
 
   def correct_user
     @user = User.find(params[:id])
-    flash[:error_message] = 'You definitely shouldn\'t be trying to access another user\'s resources'
-    redirect_to errors_forbidden_path unless current_user?(@user) || current_user.admin?
+    unless current_user?(@user) || current_user.admin?
+      flash[:error_message] = 'You definitely shouldn\'t be trying to access another user\'s resources'
+      redirect_to errors_forbidden_path 
+    end
   end
 
   def admin_user
-    flash[:error_message] = 'Only admin users are allowed to do that'
-    redirect_to errors_forbidden_path unless current_user.admin?
+    unless current_user.admin?
+      flash[:error_message] = 'Only admin users are allowed to do that'
+      redirect_to errors_forbidden_path 
+    end
   end
 
 end

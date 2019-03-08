@@ -8,10 +8,6 @@ class User < ApplicationRecord
   # before_create is a callback that gets invoked before the user model is created
   before_create :create_activation_digest
 
-  # Pagination per page
-  self.per_page = 15
-
-
   # Regex to test email validity
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 

@@ -16,13 +16,9 @@ window.utils.modal.userLoginCloseButton.addEventListener('click', function (e) {
 // Initialize labels component
 window.utils.labels.init();
 
-// <% if Rails.env.development? %>
-//   // Get debug information
-//   window.utils.debug.debugPanel.innerHTML = "";
-//   window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
-// <% end %>
+<% if Rails.env.development? %>
+  // Get debug information
+  window.utils.debug.debugPanel.innerHTML = "";
+  window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
+<% end %>
 
-// // Show notifications if errors
-// <% if @error %>
-//   window.utils.notifications.openNotification('failure', '<%= @error_title %>', '<%= @error_message %>', 5000, true);
-// <% end %>
