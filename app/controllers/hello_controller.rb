@@ -6,6 +6,7 @@ class HelloController < ApplicationController
         message: flash[:warning],
         type: 'alert'
       })
+      flash.discard
     end
   end
 end

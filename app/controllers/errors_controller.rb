@@ -1,6 +1,7 @@
 class ErrorsController < ApplicationController
   def bad_request
     @error_message = flash[:error_message]
+    flash.discard
     @error_code = '400'
     respond_to do |format|
       format.html { render status: 400 }
@@ -10,6 +11,7 @@ class ErrorsController < ApplicationController
 
   def unauthorized
     @error_message = flash[:error_message]
+    flash.discard
     @error_code = '401'
     respond_to do |format|
       format.html { render status: 401 }
@@ -19,6 +21,7 @@ class ErrorsController < ApplicationController
 
   def forbidden
     @error_message = flash[:error_message]
+    flash.discard
     @error_code = '403'
     respond_to do |format|
       format.html { render status: 403 }
@@ -28,6 +31,7 @@ class ErrorsController < ApplicationController
 
   def not_found
     @error_message = flash[:error_message]
+    flash.discard
     @error_code = '404'
     respond_to do |format|
       format.html { render status: 404 }
@@ -37,6 +41,7 @@ class ErrorsController < ApplicationController
 
   def internal_server_error
     @error_message = flash[:error_message]
+    flash.discard
     @error_code = '500'
     respond_to do |format|
       format.html { render status: 500 }

@@ -34,12 +34,14 @@ class UsersController < ApplicationController
         message: "Welcome to Big Dumb Web Dev #{@user.name}!",
         type: 'success'
       })
+      flash.discard
     elsif flash[:error_message]
       store_message({
         title: 'Invalid activation link',
         message: "Sorry, that didn't work. Please contact andre@bigdumbwebdev.com.",
         type: 'failure'
       })
+      flash.discard
     end
   end
 
