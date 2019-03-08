@@ -16,7 +16,9 @@ const setUpDebug = () => {
       }
     }
   };
-  debug.debugButton.addEventListener('click', debug.openDebugPanel)
+  if (debug.debugButton) {
+    debug.debugButton.addEventListener('click', debug.openDebugPanel)
+  }
   window.utils.debug = debug;
 }
 

@@ -7,7 +7,6 @@ class UserMailer < ApplicationMailer
   #
   def account_activation(user)
     @user = user
-    attachments.inline['BDWD_email_icon.svg'] = File.read('app/assets/images/BDWD_email_icon.svg')
     mail to: user.email, subject: "Welcome to Big Dumb Web Dev!"
   end
 
