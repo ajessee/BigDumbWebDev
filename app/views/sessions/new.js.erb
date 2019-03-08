@@ -13,14 +13,16 @@ window.utils.modal.userLoginCloseButton.addEventListener('click', function (e) {
   window.utils.modal.closeModal(e);
   window.utils.modal.loginModal = null;
 })
-<% if Rails.env.development? %>
-// Get debug information
-window.utils.debug.debugPanel.innerHTML = "";
-window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
-<% end %>
 // Initialize labels component
 window.utils.labels.init();
-// Show notifications if errors
-<% if @error %>
-window.utils.notifications.openNotification('failure', '<%= @error_title %>', '<%= @error_message %>', 5000, true);
-<% end %>
+
+// <% if Rails.env.development? %>
+//   // Get debug information
+//   window.utils.debug.debugPanel.innerHTML = "";
+//   window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
+// <% end %>
+
+// // Show notifications if errors
+// <% if @error %>
+//   window.utils.notifications.openNotification('failure', '<%= @error_title %>', '<%= @error_message %>', 5000, true);
+// <% end %>

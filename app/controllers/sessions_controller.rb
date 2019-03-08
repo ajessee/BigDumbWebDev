@@ -19,8 +19,7 @@ class SessionsController < ApplicationController
           format.js
         end
       else
-        flash[:warning] = "Check your email for the activation link."
-        redirect_to root_url
+        render 'error'
       end
     else
       @error = true
