@@ -14,8 +14,10 @@ window.utils.modal.editUserCloseButton.addEventListener('click', function(e) {
   window.utils.modal.userEditModal = null;
 })
 // Get debug information
+<% if Rails.env.development? %>
 window.utils.debug.debugPanel.innerHTML = "";
 window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
+<% end %>
 // Initialize labels component
 window.utils.labels.init();
 

@@ -12,5 +12,7 @@ if (!window.utils.modal.infoModal) {
 } 
 
 // Get debug information
+<% if Rails.env.development? %>
 window.utils.debug.debugPanel.innerHTML = "";
 window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
+<% end %>
