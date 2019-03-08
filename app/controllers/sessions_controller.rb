@@ -12,11 +12,16 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user && @user.authenticate(params[:session][:password])
-      respond_to do |format|
-        format.js
+      if @user.activated?
+        log_in @user
+        params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+        respond_to do |format|
+          format.js
+        end
+      else
+        flash[:warning] = "Check your email for the activation link."
+        redirect_to root_url
       end
-      log_in @user
-      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
     else
       @error = true
       @error_title = 'Oops'

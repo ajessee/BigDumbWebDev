@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     
     if @user.save
-      log_in @user
+      @user.send_activation_email
       respond_to do |format|
         format.js
       end
@@ -28,6 +28,19 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    if flash[:success]
+      store_message({
+        title: 'Account Activated',
+        message: "Welcome to Big Dumb Web Dev #{@user.name}!",
+        type: 'success'
+      })
+    elsif flash[:error_message]
+      store_message({
+        title: 'Invalid activation link',
+        message: "Sorry, that didn't work. Please contact andre@bigdumbwebdev.com.",
+        type: 'failure'
+      })
+    end
   end
 
   def edit

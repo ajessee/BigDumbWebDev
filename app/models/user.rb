@@ -1,13 +1,16 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
   # Attributes: name, email, password_digest
-  # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token
+  # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token, activation_token
+
+  # before_save is a callback that gets invoked before the user model is saved to the database
+  before_save :downcase_email
+  # before_create is a callback that gets invoked before the user model is created
+  before_create :create_activation_digest
 
   # Pagination per page
   self.per_page = 15
 
-  # before_save is a callback that gets invoked before the user model is saved to the database, we downcase it here to ensure uniqueness
-  before_save { email.downcase! }
 
   # Regex to test email validity
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -36,10 +39,34 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  # Instance method to test if the provided remember_token matches the hashed digest in the database
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  # Instance method to test if the provided token matches the hashed digest in the database
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  # Instance method to activate an account.
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
+  # Instance method to send activation email.
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+  private
+
+  # Converts email to all lower-case.
+  def downcase_email
+    self.email = email.downcase
+  end
+
+  # Creates and assigns the activation token and digest.
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
   end
 
   # This is an idomatic way to define class methods in Ruby. The 'self' is the user class, and it allows you to define methods without having to prepend them with 'User.' or 'self.'

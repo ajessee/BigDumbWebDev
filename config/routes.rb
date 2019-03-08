@@ -24,6 +24,10 @@ Rails.application.routes.draw do
 
   post     '/fowarding_info', to: 'notifications#forwarding_ready'
 
+  # Account Activation
+
+  resources :account_activations, only: [:edit]
+
   # Projects (TODO: Convert to resource?)
 
   get     'projects', to: 'projects#projects'
