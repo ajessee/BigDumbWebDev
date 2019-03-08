@@ -7,7 +7,8 @@ class UserMailer < ApplicationMailer
   #
   def account_activation(user)
     @user = user
-    mail to: user.email, subject: "Account activation"
+    attachments.inline['BDWD_email_icon.svg'] = File.read('app/assets/images/BDWD_email_icon.svg')
+    mail to: user.email, subject: "Welcome to Big Dumb Web Dev!"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml

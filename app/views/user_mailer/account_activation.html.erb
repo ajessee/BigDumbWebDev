@@ -1,9 +1,17 @@
-<h1>Big Dumb Web Dev</h1>
 
-<p>Hi <%= @user.name %>,</p>
 
-<p>
-  Thanks for signing up for an account at Big Dumb Web Dev! Click on the link below to activate your account:
-</p>
 
-<%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>
+
+
+<div class="main-container">
+  <h3>Hi <%= @user.name %>,</h3>
+  
+  <p>Thanks for signing up - I'm excited you are here and I can't wait to share what I've learned with you.</p>
+  
+  <p>Just one more step. Click <%= link_to "here", edit_account_activation_url(@user.activation_token, email: @user.email) %> to activate your account.</p>
+  
+  <p>Cheers,</p>
+  
+  <p>Big Dumb Web Dev</p>
+  <%= image_tag attachments['BDWD_email_icon.svg'].url, alt: 'Big Dumb Web Dev Logo', class: 'BDWD-icon' %>
+</div>
