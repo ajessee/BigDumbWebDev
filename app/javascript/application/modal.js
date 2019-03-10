@@ -72,6 +72,17 @@ const setUpModal = () => {
       }
     },
 
+    closeAllModals: function() {
+      let modalArray = window.utils.modal.modalArray;
+      if (modalArray.length > 0) {
+        modalArray.forEach(function (modal) {
+          modal.querySelector('.all-close').click()
+        })
+        modal.mainBody.classList.add("modalUnblur");
+        this.isModalOpen = false;
+      } 
+    },
+
     animationDone: (e) => {
       let modalContent = e.target;
       let modalCloseButton = e.target.querySelector('.close-modal');

@@ -139,6 +139,13 @@ const setUpNotifications = () => {
       }
     },
 
+    closeAllNotifications: function () {
+      let self = this;
+      this.notificationsArray.forEach(function (el) {
+        self.closeNotification(el);
+      })
+    },
+
     removeNotification: function (container) {
       container.remove();
       // remove the notification from the notification array

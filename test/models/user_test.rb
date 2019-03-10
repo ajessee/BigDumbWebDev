@@ -6,15 +6,20 @@ class UserTest < ActiveSupport::TestCase
   # assert_equal( expected, actual, [msg] )	Ensures that expected == actual is true.
 
   def setup
-    @user = User.new(name: "Testy McTests", email: "testerDude@testy.com", password: "testThis", password_confirmation: "testThis")
+    @user = User.new(first_name: "Testy", last_name: "McTests",email: "testerDude@testy.com", password: "testThis", password_confirmation: "testThis")
   end
 
   test "should be a valid user" do
     assert @user.valid?
   end
 
-  test "user name should be present" do
-    @user.name = "      "
+  test "user first name should be present" do
+    @user.first_name = "      "
+    refute @user.valid?
+  end
+
+  test "user last name should be present" do
+    @user.first_name = "      "
     refute @user.valid?
   end
 
@@ -23,8 +28,12 @@ class UserTest < ActiveSupport::TestCase
     refute @user.valid?
   end
 
-  test "user name should not be longer than 50 characters" do
-    @user.name = "a" * 51
+  test "user first name should not be longer than 50 characters" do
+    @user.first_name = "a" * 51
+  end
+
+  test "user last name should not be longer than 50 characters" do
+    @user.last_name = "a" * 51
   end
 
   test "user email should not be longer than 255 characters" do

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'password_resets/new'
+  get 'password_resets/edit'
   # Root
 
   root    'hello#home'
@@ -27,6 +29,10 @@ Rails.application.routes.draw do
   # Account Activation
 
   resources :account_activations, only: [:edit]
+
+  # Password Resets
+
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
   # Projects (TODO: Convert to resource?)
 

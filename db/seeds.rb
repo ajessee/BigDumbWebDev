@@ -28,5 +28,7 @@ User.create!(
   email: email,
   details: Faker::Quote.famous_last_words,
   password:              password,
-  password_confirmation: password)
+  password_confirmation: password,
+  activated: true,
+  activated_at: Time.zone.now)
 end

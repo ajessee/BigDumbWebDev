@@ -24,8 +24,8 @@ katyna:
 
 <% 30.times do |n| %>
 user_<%= n %>:
-  first_name: <%= "First #{n}" %>
-  last_name: <%= "Last #{n}" %>
+  first_name: <%= "user" %>
+  last_name: <%= "#{n}" %>
   email: <%= "user-#{n}@BDWD.com" %>
   details: <%= "Details #{n}" %>
   password_digest: <%= User.digest('password') %>

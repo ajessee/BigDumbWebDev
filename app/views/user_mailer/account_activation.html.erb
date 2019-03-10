@@ -1,11 +1,9 @@
 <div class="main-container">
-  <h3>Hi <%= @user.first_name %>,</h3>
+  <h3>Hi <%= @user.first_name %></h3>
   
   <p>Thanks for signing up - I'm excited you are here and I can't wait to share what I've learned with you.</p>
   
-  <p>Just one more step. Click <%= link_to "here", edit_account_activation_url(@user.activation_token, email: @user.email) %> to activate your account.</p>
-  
-  <p>Cheers,</p>
+  <p>Click <%= link_to "here", edit_account_activation_url(@user.activation_token, email: @user.email) %> to activate your account.</p>
   
   <p>Big Dumb Web Dev</p>
   <img src="https://s3.amazonaws.com/andre-pictures/BDWD_email_icon.png" alt="Big Dumb Web Dev Logo" class="BDWD-icon">

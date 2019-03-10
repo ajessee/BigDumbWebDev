@@ -28,6 +28,6 @@ window.utils.labels.init();
 <% end %>
 
 <% if @error %>
-window.utils.notifications.openNotification('failure', '<%= @error_title %>', '<%= @error_message %>', 5000, true);
+window.utils.notifications.openNotification('failure', '<%= @error_title %>', '<%= @error_message %>. Or <%= link_to "reset", new_password_reset_path, remote: true %> your password', 10000, true);
 <% end %>
 

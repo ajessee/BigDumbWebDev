@@ -1,0 +1,20 @@
+window.utils.modal.closeAllModals();
+window.utils.notifications.closeAllNotifications();
+
+// Setup modal window, insert password reset partial
+window.utils.modal.passwordResetModal = window.utils.modal.openModal('block', '0%', 6, 5, 6, 8, null, null, false);
+window.utils.modal.passwordResetModal.insertAdjacentHTML('beforeend', "<%= j (render 'password_reset') %>");
+
+// Get close button and attach close modal function
+window.utils.modal.passwordResetCloseButton = document.querySelector("#new-password-reset-close-button");
+window.utils.modal.passwordResetCloseButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  window.utils.modal.closeModal(e);
+  window.utils.modal.loginModal = null;
+})
+// Initialize labels component
+window.utils.labels.init();
+
+<% if @error %>
+window.utils.notifications.openNotification('failure', '<%= @error_title %>', '<%= @error_message %>. Or <%= link_to "reset", new_password_reset_path, remote: true %> your password', 10000, true);
+<% end %>

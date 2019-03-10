@@ -122,7 +122,7 @@
   width: 100vw;
 }
 
-#user-show-partial {
+#user-show-partial, #update-password-partial {
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
   text-align: center;
@@ -169,6 +169,15 @@
 #remember-me-text-link {
   margin: 0;
   font-size: 0.8em;
+}
+
+#password-reset-container {
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  font-size: 1.1em;
 }
 
 .switch {

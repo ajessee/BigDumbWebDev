@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   # Attributes: first_name, last_name, email, details, password_digest
-  # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token, activation_token, name
+  # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token, activation_token, reset_token, name
 
   # before_save is a callback that gets invoked before the user model is saved to the database
   before_save :downcase_email
@@ -12,7 +12,8 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   # Model validation constraints that are run on save
-  validates :name, presence: true, length: {maximum: 50}
+  validates :first_name, presence: true, length: {maximum: 50}
+  validates :last_name, presence: true, length: {maximum: 50}
   validates :email, presence: true, length: {maximum: 255}, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
   validates :password, length: {minimum: 8}, allow_nil: true
 
@@ -21,6 +22,11 @@ class User < ApplicationRecord
   # A pair of virtual attributes (password and password_confirmation), including presence validations upon object creation and a validation requiring that they match
   # An authenticate method that returns the user when the password is correct (and false otherwise)
   has_secure_password
+  
+  # Instance method to return users full name
+  def name
+    first_name + " " + last_name
+  end
 
   # Instance method to store an encrypted remember token in the database in the remember_digest column
   def remember
@@ -47,14 +53,26 @@ class User < ApplicationRecord
     update_columns(activated: true, activated_at: Time.zone.now)
   end
 
+  # Instance method to set the password reset attributes.
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
   # Instance method to send activation email.
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
   end
 
-  # Instance method to return users full name
-  def name
-    first_name + " " + last_name
+  # Instance method to send password reset email.
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  # Instance method to check if password reset email is expired.
+  def password_reset_expired?
+    reset_sent_at < 10.minutes.ago
   end
 
   private

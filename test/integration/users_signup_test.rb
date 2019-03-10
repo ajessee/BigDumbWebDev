@@ -10,7 +10,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     get signup_path, xhr:true
     assert_difference 'User.count', 1 do # the 1 is a second argument to assert_difference that specifies size of difference
       post users_path, xhr: true, params: {user: {
-        name: "First McLucky",
+        first_name: "First",
+        last_name: "McLucky",
         email: "first@mclucky.com",
         password: "password",
         password_confirmation: "password"
@@ -40,7 +41,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     get signup_path, xhr: true
     assert_no_difference 'User.count' do
       post signup_path, xhr: true, params: {user: {
-        name: "",
+        first_name: "",
+        last_name: "thing",
         email: "try@again",
         password: "not",
         password_confirmation: "real"
