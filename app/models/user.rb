@@ -52,6 +52,11 @@ class User < ApplicationRecord
     UserMailer.account_activation(self).deliver_now
   end
 
+  # Instance method to return users full name
+  def name
+    first_name + " " + last_name
+  end
+
   private
 
   # Converts email to all lower-case.

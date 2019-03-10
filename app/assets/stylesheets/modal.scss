@@ -12,16 +12,16 @@
 
 #overlay {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(16, 1fr);
   height: 100%;
   width: 100%;
 }
 
 .modal-content {
   display: none;
-  grid-row: 2 / span 6; 
-  grid-column: 3 / span 4;
+  grid-row: 3 / span 12; 
+  grid-column: 3 / span 12;
   justify-content: center;
   background-color: white;
   position: relative;

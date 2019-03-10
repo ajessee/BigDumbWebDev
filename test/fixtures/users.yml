@@ -4,24 +4,30 @@
 
 # This fixture uses the User.digest class method to create a password digest for the user
 david:
-  name: David Jessee
+  first_name: David
+  last_name: Jessee
   email: david@tengoodyears.com
+  details: A man with a plan
   password_digest: <%= User.digest('password') %>
   admin: true
   activated: true
   activated_at: <%= Time.zone.now %>
 
 katyna:
-  name: Katyna Jessee
+  first_name: Katyna
+  last_name: Jessee
   email: katyna@fifteengoodyears.com
+  details: A woman who knows best
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
 
 <% 30.times do |n| %>
 user_<%= n %>:
-  name:  <%= "User #{n}" %>
+  first_name: <%= "First #{n}" %>
+  last_name: <%= "Last #{n}" %>
   email: <%= "user-#{n}@BDWD.com" %>
+  details: <%= "Details #{n}" %>
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>

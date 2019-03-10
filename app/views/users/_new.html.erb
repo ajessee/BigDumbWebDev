@@ -1,9 +1,14 @@
 <%= form_with model: @user, id: "new-user", class: "user-form" do |f| %>
   <h1 id="user-signup-header" class="user-form-header">Sign up</h1>
-  <div id="new-user-name" class="float-container">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "input-error" %>
-    <%= render "shared/single_error_message", attr: :name.to_s%>
+  <div id="new-user-first-name" class="float-container">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, class: "input-error" %>
+    <%= render "shared/single_error_message", attr: :first_name.to_s%>
+  </div>
+  <div id="new-user-last-name" class="float-container">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, class: "input-error" %>
+    <%= render "shared/single_error_message", attr: :last_name.to_s%>
   </div>
   <div id="new-user-email" class="float-container">
     <%= f.label :email %>
