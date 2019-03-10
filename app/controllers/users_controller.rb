@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     if flash[:success]
       store_message({
         title: 'Account Activated',
-        message: "Welcome to Big Dumb Web Dev #{@user.name}!",
+        message: "Welcome to Big Dumb Web Dev #{@user.first_name}!",
         type: 'success'
       })
       flash.clear
@@ -86,14 +86,14 @@ class UsersController < ApplicationController
   def correct_user
     @user = User.find(params[:id])
     unless current_user?(@user) || current_user.admin?
-      flash[:error_message] = 'You definitely shouldn\'t be trying to access another user\'s resources'
+      flash[:error_message] = "You definitely shouldn\'t be trying to access another user\'s resources #{@user.first_name}"
       redirect_to errors_forbidden_path 
     end
   end
 
   def admin_user
     unless current_user.admin?
-      flash[:error_message] = 'Only admin users are allowed to do that'
+      flash[:error_message] = "Only admin users are allowed to do that #{current_user.first_name}"
       redirect_to errors_forbidden_path 
     end
   end

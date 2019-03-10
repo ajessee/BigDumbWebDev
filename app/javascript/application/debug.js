@@ -9,7 +9,7 @@ const setUpDebug = () => {
     debugPanelOpen: false,
     openDebugPanel: (e) => {
       if (window.utils.debug.debugButton && window.utils.debug.debugPanel && !window.utils.debug.debugPanelOpen) {
-        let modal = window.utils.modal.openModal('block', '0%', 7, 2, 1, 6, null, null, true);
+        let modal = window.utils.modal.openModal('block', '0%', 14, 2, 1, 14, null, null, true);
         modal.appendChild(window.utils.debug.debugPanel);
         window.utils.debug.debugPanel.style.display = 'block';
         window.utils.debug.debugPanelOpen = true;

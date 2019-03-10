@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token
-  # Attributes: name, email, password_digest
-  # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token, activation_token
+  # Attributes: first_name, last_name, email, details, password_digest
+  # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token, activation_token, name
 
   # before_save is a callback that gets invoked before the user model is saved to the database
   before_save :downcase_email
