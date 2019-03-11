@@ -2,12 +2,12 @@ window.utils.modal.closeAllModals();
 window.utils.notifications.closeAllNotifications();
 
 // Setup modal window, insert password reset partial
-window.utils.modal.passwordResetModal = window.utils.modal.openModal('block', '0%', 6, 5, 6, 8, null, null, false);
-window.utils.modal.passwordResetModal.insertAdjacentHTML('beforeend', "<%= j (render 'password_reset') %>");
+window.utils.modal.passwordResetSubmitEmailModal = window.utils.modal.openModal('block', '0%', 6, 5, 6, 8, null, null, false);
+window.utils.modal.passwordResetSubmitEmailModal.insertAdjacentHTML('beforeend', "<%= j (render 'submit_email') %>");
 
 // Get close button and attach close modal function
-window.utils.modal.passwordResetCloseButton = document.querySelector("#new-password-reset-close-button");
-window.utils.modal.passwordResetCloseButton.addEventListener('click', function (e) {
+window.utils.modal.passwordResetSubmitEmailCloseButton = document.querySelector("#submit-email-password-reset-close-button");
+window.utils.modal.passwordResetSubmitEmailCloseButton.addEventListener('click', function (e) {
   e.preventDefault();
   window.utils.modal.closeModal(e);
   window.utils.modal.loginModal = null;

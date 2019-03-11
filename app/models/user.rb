@@ -72,7 +72,7 @@ class User < ApplicationRecord
 
   # Instance method to check if password reset email is expired.
   def password_reset_expired?
-    reset_sent_at < 10.minutes.ago
+    reset_sent_at < 15.minutes.ago
   end
 
   private

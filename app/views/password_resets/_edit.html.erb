@@ -1,5 +1,4 @@
-<div id="update-password-partial">
-  <%= form_for(@user, url: password_reset_path(params[:id]), html: {id: "password-reset", class: "user-form"}) do |f| %>
+<%= form_for(@user, url: password_reset_path(params[:id]), html: {id: "password-reset-form", class: "user-form"}, remote: true ) do |f| %>
   <%= hidden_field_tag :email, @user.email %>
   <h1 id="password-reset-header" class="user-form-header">Reset Password</h1>
   <div id="password-reset-password" class="float-container">
@@ -16,5 +15,4 @@
     <%= f.submit "Update Password", id: "password-reset-submit-button", class: "submit-close-buttons submit-button" %>
     <button id="password-reset-close-button" class="submit-close-buttons close-button all-close">Cancel</button>
   </div>
-  <% end %>
-</div>
+<% end %>

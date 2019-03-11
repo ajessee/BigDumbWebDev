@@ -1,0 +1,25 @@
+if (window.utils.modal.passwordResetModal) {
+  window.utils.modal.passwordResetModal.innerHTML = "";
+  window.utils.modal.passwordResetModal.insertAdjacentHTML('beforeend', "<%= j (render partial: 'edit') %>");
+} 
+// Get close button and attach close modal function
+window.utils.modal.passwordResetCloseButton = document.querySelector("#password-reset-close-button");
+window.utils.modal.passwordResetCloseButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (window.utils.modal.programaticClick) {
+    window.utils.modal.programaticClick = false;
+    window.utils.notifications.openNotification('alert', 'Oops', 'Please reset your password or click cancel', 6000, true);
+  }
+  else {
+    window.utils.modal.passwordResetModal = null;
+    window.location.replace('/');
+  }
+})
+// Get debug information
+<% if Rails.env.development? %>
+window.utils.debug.debugPanel.innerHTML = "";
+window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
+<% end %>
+// Initialize labels component
+window.utils.labels.init();
+

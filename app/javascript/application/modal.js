@@ -65,6 +65,7 @@ const setUpModal = () => {
       if (modalContent) {
         modalContent.classList.add("shrink");
       } else {
+        window.utils.modal.programaticClick = true;
         modalArray[modalArray.length-1].querySelector('.all-close').click()
       }
       if (modalArray.length < 1) {
