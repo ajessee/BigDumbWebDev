@@ -170,7 +170,7 @@ const setUpNav = () => {
       }
     },
 
-    init: function () {
+    init: function (notNew) {
       let self = this;
       this.aboutMeContainer = document.querySelector("#about-me-container") ? document.querySelector("#about-me-container") : null;
       this.httpErrorContainer = document.querySelector(".http-error-container") ? document.querySelector(".http-error-container") : null;
@@ -179,8 +179,10 @@ const setUpNav = () => {
         this.bdwdIcon = document.querySelector("#home-icon");
         this.logInOutIcon = document.querySelector("#login-icon") ? document.querySelector("#login-icon") : document.querySelector("#logout-icon");
         this.iconImageContainers = document.querySelectorAll(".icon-image");
-        this.navbarOffsetTop = this.navbar.offsetTop;
-        this.navbarOffsetHeight = this.navbar.offsetHeight;
+        if (!notNew) {
+          this.navbarOffsetTop = this.navbar.offsetTop;
+          this.navbarOffsetHeight = this.navbar.offsetHeight;
+        }
       }
       // If we've refreshed the page, and scrollY is below the shrink nav marker, make sure that all of our icons are scaled correctly
       if (scrollY > this.navbarOffsetTop) {

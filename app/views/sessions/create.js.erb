@@ -40,7 +40,7 @@ o.oldNav.appendChild(o.newIcon);
 // Remove temp object we create to do this magic
 o = null;
 // Resync navbar
-window.utils.navigation.init();
+window.utils.navigation.init(true);
 window.utils.navigation.showNav();
 // Show success notification
 window.utils.notifications.openNotification('success', 'Congrats!', 'You\'ve successfully logged in. Click <%= j (link_to "here", user_path(@user)) %> to see your user profile.', 6000, true);
