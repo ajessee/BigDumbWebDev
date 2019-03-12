@@ -1,0 +1,15 @@
+<div>
+    <% if @user.posts.any? %>
+  <ol>
+      <% @user.posts.each do |post| %>
+    <li>
+      <p>Author: <%= post.user.name %></p>
+      <p>Title: <%= post.title %></p>
+      <p><%= post.content %></p>
+      <p>Posted <%= time_ago_in_words(post.created_at) %> ago.</p>
+    </li>
+    <% end %>
+  </ol>
+  <%= will_paginate @posts %>
+  <% end %>
+</div>

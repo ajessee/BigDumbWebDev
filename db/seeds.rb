@@ -6,17 +6,24 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create!(
-  first_name:  "Big",
-  last_name: "Dummy",
-  email: "dumb@bigdumbwebdev.com",
+user = User.create!(
+  first_name:  "Andre",
+  last_name: "Jessee",
+  email: "andre.isaac.jessee@gmail.com",
+  # email: "dumb@bigdumbwebdev.com",
   password:              "password",
   password_confirmation: "password",
   admin: true,
   activated: true,
   activated_at: Time.zone.now)
 
-25.times do |n|
+30.times do 
+  title = Faker::Book.title
+  content = Faker::Lorem.paragraph_by_chars(500, false)
+  user.posts.create(title: title, content: content)
+end
+
+25.times do
 first_name  = Faker::Name.first_name
 last_name = Faker::Name.last_name
 email = Faker::Internet.email

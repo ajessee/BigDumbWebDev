@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :posts, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token
   # Attributes: first_name, last_name, email, details, password_digest
   # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token, activation_token, reset_token, name

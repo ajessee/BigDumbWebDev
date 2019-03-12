@@ -50,6 +50,10 @@ Rails.application.routes.draw do
 
   resources   :users
 
+  # Posts
+
+  resources   :posts
+
   # Custom HTTP status pages
 
   get 'errors/bad_request'
