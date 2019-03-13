@@ -39,5 +39,8 @@ const setUpLabels = () => {
   };
 
   window.utils.labels = labels;
+  if (document.querySelectorAll('.float-container')) {
+    labels.init();
+  }
 }
 document.addEventListener("DOMContentLoaded", setUpLabels);
