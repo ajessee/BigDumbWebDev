@@ -34,3 +34,18 @@
 #nav-button:hover {
     cursor: pointer;
 }
+
+#nav-slide-in-menu {
+    background-color: aliceblue;
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(0);
+    transition: transform .35s ease-in-out;
+    height: 100vh;
+    width: 30%;
+}
+
+#nav-slide-in-menu.menu-closed {
+    transform: translateX(100%);
+}
