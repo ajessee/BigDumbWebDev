@@ -5,56 +5,78 @@
 </div>
 
 <div id="nav-slide-in-menu" class="menu-closed">
-    <div id="home-icon">
-        <a class="no-link-color" title="Home" href="/">
-            <%= show_svg('BDWD_icon.svg') %>
-        </a>
-    </div>
-
-    <div class="icon-image" id="projects-icon">
-        <a class="no-link-color" title="Projects"><i class="icon-grow fas fa-code fa-2x" aria-hidden="true"></i><span class="icon-label">Projects</span></a>
-        
-    </div>
-    <div class="icon-image" id="resources-icon">
-        <a class="no-link-color" title="Resources"><i class="icon-grow fas fa-list-ul fa-2x" aria-hidden="true"></i></a>
-        <span class="icon-label">Resources</span>
-    </div>
-    <div class="icon-image" id="blog-icon">
-        <a class="no-link-color" title="Blog"><i class="icon-grow fas fa-bullhorn fa-2x" aria-hidden="true"></i></a>
-        <span class="icon-label">Blog</span>
-    </div>
-
-    <div class="icon-image" id="github-icon">
-        <a class="no-link-color" href="https://github.com/ajessee" target="_" rel="noopener noreferrer" title="Github"><i
-                class="icon-grow fab fa-github fa-2x" aria-hidden="true"></i></a>
-        <span class="icon-label">Github</span>
-    </div>
-
-    <div class="icon-image" id="twitter-icon">
-        <a class="no-link-color" href="https://twitter.com/bigdumbwebdev" target="_" rel="noopener noreferrer" title="Twitter"><i
-                class="icon-grow fab fa-twitter fa-2x" aria-hidden="true"></i></a>
-        <span class="icon-label">Twitter</span>
-    </div>
-
-    <div class="icon-image" id="linkedin-icon">
-        <a class="no-link-color" href="https://www.linkedin.com/in/andrejessee/" target="_" rel="noopener noreferrer"
-            title="LinkedIn"><i class="icon-grow fab fa-linkedin-in fa-2x" aria-hidden="true"></i></a>
-        <span class="icon-label">LinkedIn</span>
-    </div>
-
-    <% if logged_in? %>
-    <div class="icon-image icon-grab" id="logout-icon">
-        <%= link_to logout_path, class: "no-link-color", method: :delete do %>
-        <i class="icon-grow fas fa-sign-out-alt fa-2x" aria-hidden="true"></i>
+    <ul id="nav-menu-items">
+        <li id="nav-menu-home">
+            <a class="no-link-color" title="Home" href="/">
+                <%= show_svg('BDWD_icon.svg') %>
+                <span class="icon-label">Home</span>
+            </a>
+        </li>
+        <li id="nav-menu-projects">
+            <a class="no-link-color" title="Projects">
+                <i class="icon-grow fas fa-code fa-2x" aria-hidden="true"></i>
+                <span class="icon-label">Projects</span>
+            </a>
+        </li>
+        <li id="nav-menu-resources">
+            <a class="no-link-color" title="Resources">
+                <i class="icon-grow fas fa-list-ul fa-2x" aria-hidden="true"></i>
+                <span class="icon-label">Resources</span>
+            </a>    
+        </li>
+        <li id="nav-menu-blog">
+            <a class="no-link-color" title="Blog">
+                <i class="icon-grow fas fa-bullhorn fa-2x" aria-hidden="true"></i>
+                <span class="icon-label">Blog</span>
+            </a> 
+        </li>
+        <% if logged_in? %>
+        <li id="nav-menu-user-profile">
+            <%= link_to user_path(current_user), class: "no-link-color", method: :delete do %>
+                <i class="icon-grow fas fa-user fa-2x"></i>
+                <span class="icon-label">User Profile</span>
+            <% end %>
+        </li>
+        <li id="nav-menu-logout">
+            <%= link_to logout_path, class: "no-link-color", method: :delete do %>
+                <i class="icon-grow fas fa-sign-out-alt fa-2x" aria-hidden="true"></i>
+                <span class="icon-label">Log out</span>
+            <% end %>
+        </li>
+        <% else %>
+        <li id="nav-menu-login">
+            <%= link_to login_path, class: "no-link-color", remote: true do %>
+                <i class="icon-grow fas fa-sign-in-alt fa-2x" aria-hidden="true"></i>
+                <span class="icon-label">Log in</span>
+            <% end %>
+        </li>
+        <li id="nav-menu-signup">
+            <%= link_to signup_path, class: "no-link-color", remote: true do %>
+                <i class="icon-grow fas fa-user-plus fa-2x"></i>
+                <span class="icon-label">Sign Up</span>
+            <% end %>
+        </li>
         <% end %>
-        <span class="icon-label">Log out</span>
-    </div>
-    <% else %>
-    <div class="icon-image icon-grab" id="login-icon">
-        <%= link_to login_path, class: "no-link-color", remote: true do %>
-        <i class="icon-grow fas fa-sign-in-alt fa-2x" aria-hidden="true"></i>
-        <% end %>
-        <span class="icon-label">Log in</span>
-    </div>
-    <% end %>
+        <li id="nav-menu-github">
+            <a class="no-link-color" href="https://github.com/ajessee" target="_" rel="noopener noreferrer" title="Github">
+                <i class="icon-grow fab fa-github fa-2x" aria-hidden="true"></i>
+                <span class="icon-label">Github</span>
+            </a>
+        </li>
+        <li id="nav-menu-twitter">
+            <a class="no-link-color" href="https://twitter.com/bigdumbwebdev" target="_" rel="noopener noreferrer"
+                title="Twitter">
+                <i class="icon-grow fab fa-twitter fa-2x" aria-hidden="true"></i>
+                <span class="icon-label">Twitter</span>
+            </a>  
+        </li>
+        <li id="nav-menu-linkedin">
+            <a class="no-link-color" href="https://www.linkedin.com/in/andrejessee/" target="_" rel="noopener noreferrer"
+                title="LinkedIn">
+                <i class="icon-grow fab fa-linkedin-in fa-2x" aria-hidden="true"></i>
+                <span class="icon-label">LinkedIn</span>
+            </a>
+        </li>
+    </ul>
+
 </div>
