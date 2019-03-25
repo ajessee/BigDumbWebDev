@@ -19,7 +19,7 @@ const setUpNav = () => {
 
       }
 
-      if (offsetHeight + boundingTop < 0) {
+      if (offsetHeight + boundingTop < 0 && this.slideInMenu.classList.contains('menu-closed')) {
         this.navButtonContainer.style.display = "block";
       } else  {
         this.navButtonContainer.style.display = "none";
@@ -30,8 +30,11 @@ const setUpNav = () => {
       if (this.slideInMenu.classList.contains('menu-closed')) {
         this.slideInMenu.classList.remove('menu-closed');
         this.slideInMenu.style.boxShadow ='-7px 0px 22px 0px rgba(0,0,0,0.3)';
+        this.navButtonContainer.style.display = 'none';
+        this.closeNavMenuButton.style.display = 'block';
       } else {
         this.slideInMenu.classList.add('menu-closed');
+        this.closeNavMenuButton.style.display = 'none';
         
       }
     },
@@ -40,11 +43,13 @@ const setUpNav = () => {
       let self = this;
       this.navButtonContainer = document.querySelector('#nav-button-container');
       this.slideInMenu = document.querySelector('#nav-slide-in-menu');
+      this.closeNavMenuButton = document.querySelector('#close-nav-menu-button');
       this.aboutMeContainer = document.querySelector('#about-me-container') ? document.querySelector('#about-me-container') : null;
       this.httpErrorContainer = document.querySelector(".http-error-container") ? document.querySelector(".http-error-container") : null;
       this.slideInMenu.addEventListener("transitionend", function (e) {
         if (self.slideInMenu.classList.contains('menu-closed')) {
           self.slideInMenu.style.boxShadow = 'none';
+          self.navButtonContainer.style.display = 'block';
         }
       });
      
@@ -55,6 +60,9 @@ const setUpNav = () => {
         this.navButtonContainer.addEventListener("click", function (e) {
           self.slideInMenuToggle();
         });
+        this.closeNavMenuButton.addEventListener("click", function(e){
+          self.slideInMenuToggle();
+        })
       
       } else if (this.httpErrorContainer) {
         return;
