@@ -1,0 +1,88 @@
+<div id="nav-button-container">
+    <button id="nav-button">
+        <i class="fas fa-bars fa-4x"></i>
+    </button>
+</div>
+
+<div id="nav-slide-in-menu" class="menu-closed">
+    <ul id="nav-menu-items">
+        <li id="nav-menu-close">
+            <div id="close-nav-menu-button">
+                <i class="fas fa-times fa-2x nav-menu-icon" aria-hidden="true"></i>
+            </div>
+        </li>
+        <li id="nav-menu-home" class="nav-menu-list-item nav-bottom-border">
+            <a class="no-link-color nav-menu-icon-link nav-menu-row" title="Home" href="/">
+                <%= show_svg('BDWD_icon.svg') %>
+                <span class="nav-menu-icon-label">Home</span>
+            </a>
+        </li>
+        <li id="nav-menu-projects" class="nav-menu-list-item">
+            <a class="no-link-color nav-menu-icon-link nav-menu-row" title="Projects">
+                    <i class="fas fa-code fa-2x nav-menu-icon" aria-hidden="true"></i>
+                <span class="nav-menu-icon-label">Projects</span>
+            </a>
+        </li>
+        <li id="nav-menu-resources" class="nav-menu-list-item">
+            <a class="no-link-color nav-menu-icon-link nav-menu-row" title="Resources">
+                    <i class="fas fa-list-ul fa-2x nav-menu-icon" aria-hidden="true"></i>
+                <span class="nav-menu-icon-label">Resources</span>
+            </a>
+        </li>
+        <li id="nav-menu-blog" class="nav-menu-list-item nav-bottom-border">
+            <a class="no-link-color nav-menu-icon-link nav-menu-row" title="Blog">
+                    <i class="fas fa-bullhorn fa-2x nav-menu-icon" aria-hidden="true"></i>
+                <span class="nav-menu-icon-label">Blog</span>
+            </a>
+        </li>
+        <% if logged_in? %>
+        <li id="nav-menu-user-profile" class="nav-menu-list-item">
+            <%= link_to user_path(current_user), class: "no-link-color nav-menu-icon-link nav-menu-row", method: :delete do %>
+            <i class="fas fa-user fa-2x nav-menu-icon"></i>
+            <span class="nav-menu-icon-label">User Profile</span>
+            <% end %>
+        </li>
+        <li id="nav-menu-logout" class="nav-menu-list-item nav-bottom-border">
+            <%= link_to logout_path, class: "no-link-color nav-menu-icon-link nav-menu-row", method: :delete do %>
+            <i class="fas fa-sign-out-alt fa-2x nav-menu-icon" aria-hidden="true"></i>
+            <span class="nav-menu-icon-label">Log out</span>
+            <% end %>
+        </li>
+        <% else %>
+        <li id="nav-menu-login" class="nav-menu-list-item">
+            <%= link_to login_path, class: "no-link-color nav-menu-icon-link nav-menu-row", remote: true do %>
+            <i class="fas fa-sign-in-alt fa-2x nav-menu-icon" aria-hidden="true"></i>
+            <span class="nav-menu-icon-label">Log in</span>
+            <% end %>
+        </li>
+        <li id="nav-menu-signup" class="nav-menu-list-item nav-bottom-border">
+            <%= link_to signup_path, class: "no-link-color nav-menu-icon-link nav-menu-row", remote: true do %>
+            <i class="fas fa-user-plus fa-2x nav-menu-icon"></i>
+            <span class="nav-menu-icon-label">Sign Up</span>
+            <% end %>
+        </li>
+        <% end %>
+        <li id="nav-menu-github">
+            <a class="no-link-color nav-menu-icon-link nav-menu-row" href="https://github.com/ajessee" target="_" rel="noopener noreferrer"
+                title="Github">
+                <i class="fab fa-github fa-2x nav-menu-icon social-icons" aria-hidden="true"></i>
+                <!-- <span class="nav-menu-icon-label">Github</span> -->
+            </a>
+        </li>
+        <li id="nav-menu-twitter">
+            <a class="no-link-color nav-menu-icon-link nav-menu-row" href="https://twitter.com/bigdumbwebdev" target="_"
+                rel="noopener noreferrer" title="Twitter">
+                <i class="fab fa-twitter fa-2x nav-menu-icon social-icons" aria-hidden="true"></i>
+                <!-- <span class="nav-menu-icon-label">Twitter</span> -->
+            </a>
+        </li>
+        <li id="nav-menu-linkedin">
+            <a class="no-link-color nav-menu-icon-link nav-menu-row" href="https://www.linkedin.com/in/andrejessee/"
+                target="_" rel="noopener noreferrer" title="LinkedIn">
+                <i class="fab fa-linkedin-in fa-2x nav-menu-icon social-icons" aria-hidden="true"></i>
+                <!-- <span class="nav-menu-icon-label">LinkedIn</span> -->
+            </a>
+        </li>
+    </ul>
+
+</div>

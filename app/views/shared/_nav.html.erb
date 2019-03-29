@@ -1,11 +1,5 @@
 <nav id="main-nav">
 
-  <div id="home-icon">
-    <a class="no-link-color" title="Home">
-      <%= show_svg('BDWD_icon.svg') %>
-    </a>
-  </div>
-
   <div class="icon-image" id="projects-icon">
     <a class="no-link-color" title="Projects"><i class="icon-grow fas fa-code fa-5x" aria-hidden="true"></i></a>
     <p class="icon-label">Projects</p>
@@ -37,20 +31,5 @@
     <p class="icon-label">LinkedIn</p>
   </div>
 
-  <% if logged_in? %>
-  <div class="icon-image icon-grab" id="logout-icon">
-    <%= link_to logout_path, class: "no-link-color", method: :delete do %>
-    <i class="icon-grow fas fa-sign-out-alt fa-5x" aria-hidden="true"></i>
-    <% end %>
-    <p class="icon-label">Log out</p>
-  </div>
-  <% else %>
-  <div class="icon-image icon-grab" id="login-icon">
-    <%= link_to login_path, class: "no-link-color", remote: true do %>
-    <i class="icon-grow fas fa-sign-in-alt fa-5x" aria-hidden="true"></i>
-    <% end %>
-    <p class="icon-label">Log in</p>
-  </div>
-  <% end %>
 
 </nav>
