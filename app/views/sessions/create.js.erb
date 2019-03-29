@@ -23,5 +23,15 @@ window.utils.modal.closeModal();
   window.location.replace("<%= j (get_location) %>");
 <% end %>
 
+let o = {
+  oldNav: document.querySelector('#nav-slide-in-menu'),
+  newNav: document.createElement('div')
+}
+
+// Call server to get updated nav-menu
+o.newNav.innerHTML = "<%= j (render 'shared/nav_button') %>";
+o.oldNav.innerHTML = o.newNav.querySelector('#nav-slide-in-menu').innerHTML;
+o = null;
+
 // Show success notification
 window.utils.notifications.openNotification('success', 'Congrats!', 'You\'ve successfully logged in. Click <%= j (link_to "here", user_path(@user)) %> to see your user profile.', 6000, true);
