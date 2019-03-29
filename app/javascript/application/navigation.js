@@ -39,6 +39,19 @@ const setUpNav = () => {
       }
     },
 
+    setupScrollTo: function (labelArr) {
+      labelArr.forEach(label => {
+        let button = document.querySelector(`#${label}-icon`);
+        let container = document.querySelector(`#${label}-container`);
+        button.addEventListener("click", function (e) {
+          container.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        });
+      });
+    },
+
     init: function (notNew) {
       let self = this;
       this.navButtonContainer = document.querySelector('#nav-button-container');
@@ -47,27 +60,28 @@ const setUpNav = () => {
       this.aboutMeContainer = document.querySelector('#about-me-container') ? document.querySelector('#about-me-container') : null;
       this.httpErrorContainer = document.querySelector(".http-error-container") ? document.querySelector(".http-error-container") : null;
       this.slideInMenu.addEventListener("transitionend", function (e) {
-        if (self.slideInMenu.classList.contains('menu-closed')) {
+        if (self.slideInMenu.classList.contains('menu-closed') && e.propertyName !== "filter") {
           self.slideInMenu.style.boxShadow = 'none';
           self.navButtonContainer.style.display = 'block';
         }
       });
+
+      this.navButtonContainer.addEventListener("click", function (e) {
+        self.slideInMenuToggle();
+      });
+      this.closeNavMenuButton.addEventListener("click", function(e){
+        self.slideInMenuToggle();
+      })
      
       if (this.aboutMeContainer) {
+        this.setupScrollTo(['projects', 'resources', 'blog']);
         document.addEventListener("scroll", function (e) {
           self.onScroll(true);
         });
-        this.navButtonContainer.addEventListener("click", function (e) {
-          self.slideInMenuToggle();
-        });
-        this.closeNavMenuButton.addEventListener("click", function(e){
-          self.slideInMenuToggle();
-        })
-      
       } else if (this.httpErrorContainer) {
         return;
       } else {
-       
+        this.navButtonContainer.style.display = "block";
       }
 
     }

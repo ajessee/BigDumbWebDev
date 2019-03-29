@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .post-container {
-  height: 100vh;
+
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
 
@@ -16,33 +16,35 @@
 }
 
 .post-form {
+  height: 100vh;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 109px 10% 10% 60% 10%;
+  grid-template-rows: 10% 10% 70% 10%;
   justify-items: center;
 }
 
 .post-form-header {
-  grid-row: 2;
+  grid-row: 1;
   margin: 1%;
 }
 
 #new-post-title {
-  grid-row: 3;
+  grid-row: 2;
   width: 50%;
+  height: 85%;
 }
 
 #new-post-content {
-  grid-row: 4;
+  grid-row: 3;
   width: 80%;
 }
 
 #new-post-submit {
-  grid-row: 5;
+  grid-row: 4;
 }
 
 .trix-content {
-  height: 350px;
+  height: 85%;
   overflow-y: auto;
   background-color: white;
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.05);

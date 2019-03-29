@@ -1,5 +1,4 @@
 <% provide(:title, "New Post") %>
-<%= render partial: 'shared/nav' %>
 <div class="post-container">
   <%= form_with model: @post, id: "new-post", class: "post-form", local: true do |f| %>
     <h1 id="new-post-header" class="post-form-header">Create New Post</h1>

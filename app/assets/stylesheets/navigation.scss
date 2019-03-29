@@ -35,7 +35,7 @@
     transform: translateX(0);
     transition: transform .35s ease-in-out;
     height: 100vh;
-    width: 30%;
+    width: 25%;
 
 }
 
@@ -81,6 +81,10 @@
     transform: scale(1.2);
 }
 
+.icon-grow:hover {
+    transform: scale(1.3);
+}
+
 #close-nav-menu-button {
     display: none;
     grid-column: 3;
@@ -122,9 +126,19 @@
     grid-column: 1/4;
 }
 
+// TODO: Remove this when you add link
+#nav-menu-resources:hover {
+    cursor: not-allowed;
+}
+
 #nav-menu-blog {
     grid-row: 5;
     grid-column: 1/4;
+}
+
+// TODO: Remove this when you add link
+#nav-menu-blog:hover {
+    cursor: not-allowed;
 }
 
 #nav-menu-user-profile {
@@ -144,6 +158,16 @@
 
 #nav-menu-signup {
     grid-row: 7;
+    grid-column: 1/4;
+}
+
+#nav-menu-all-users {
+    grid-row: 8;
+    grid-column: 1/4;
+}
+
+#nav-menu-add-blog-entry {
+    grid-row: 9;
     grid-column: 1/4;
 }
 

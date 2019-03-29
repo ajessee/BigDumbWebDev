@@ -95,7 +95,7 @@ a.nav-links:hover {
   border-bottom: 1px solid white;
 }
 
-.tooltip-text {
+.nav-menu-icon-link span.tooltip-text {
   visibility: hidden;
   width: 120px;
   background-color: #222223;
@@ -107,27 +107,26 @@ a.nav-links:hover {
   border-radius: 6px;
   position: absolute;
   z-index: 4;
-  top: 70%;
-  left: 50%;
-  margin-left: -60px;
+  bottom: 8%;
+  left: 6.5%;
   opacity: 0;
   transition: opacity 0.3s;
 }
 
 /* Tooltip arrow */
-.tooltip-text::after {
+.nav-menu-icon-link span.tooltip-text::after {
   content: " ";
   position: absolute;
-  bottom: 100%;  /* At the top of the tooltip */
+  top: 100%; /* At the bottom of the tooltip */
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent black transparent;
+  border-color: black transparent transparent transparent;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-.icon-image:hover p.tooltip-text {
+.nav-menu-icon-link:hover span.tooltip-text {
   visibility: visible;
   opacity: 1;
 }
