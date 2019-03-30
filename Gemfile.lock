@@ -60,6 +60,22 @@ GEM
     ansi (1.5.0)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
+    aws-eventstream (1.0.2)
+    aws-partitions (1.148.0)
+    aws-sdk-core (3.48.3)
+      aws-eventstream (~> 1.0, >= 1.0.2)
+      aws-partitions (~> 1.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-kms (1.16.0)
+      aws-sdk-core (~> 3, >= 3.48.2)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.36.0)
+      aws-sdk-core (~> 3, >= 3.48.2)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.0)
+    aws-sigv4 (1.1.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
     bcrypt (3.1.12)
     bcrypt (3.1.12-x64-mingw32)
     bindex (0.6.0)
@@ -112,6 +128,7 @@ GEM
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jmespath (1.4.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -255,6 +272,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  aws-sdk-s3
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   capybara (>= 2.15)
