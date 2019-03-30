@@ -37,6 +37,7 @@
 #new-post-content {
   grid-row: 3;
   width: 80%;
+  height: 90%;
 }
 
 #new-post-submit {
@@ -44,10 +45,79 @@
 }
 
 .trix-content {
-  height: 85%;
+  height: 100%;
   overflow-y: auto;
   background-color: white;
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.05);
   font-size: 1.7em;
   font-family: 'Oxygen', sans-serif;
+  padding: 0 1% 0 1%;
+}
+
+#show-post-container {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 8% 92%;
+  font-family: 'Oxygen', sans-serif;
+  background-color: aliceblue;
+  height: 100vh;
+}
+
+#show-post-title-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#show-post-title {
+  font-size: 1.2em;
+  justify-self: center;
+  grid-column: 2;
+}
+#show-post-body {
+  font-size: 1em;
+  margin: 2% 2%;
+}
+
+#post-controls {
+  grid-column: 3;
+  justify-self: end;
+  align-self: center;
+  margin-right: 5%;
+}
+
+#all-posts-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 5% 10% 85%;
+  font-family: 'Oxygen', sans-serif;
+  background-color: aliceblue;
+  height: 100vh;
+}
+
+#all-posts-details {
+  font-size: 1.2em;
+  justify-self: center;
+  align-self: center;
+  grid-row: 2;
+  grid-column: 1/4;
+  text-align: center;
+}
+
+#all-posts-content {
+  font-size: 1em;
+  margin: 2% 2%;
+  grid-row: 3;
+  grid-column: 1/4;
+}
+
+#post-controls-index {
+  grid-column: 3;
+  grid-row: 2;
+  justify-self: end;
+  align-self: center;
+  margin-right: 5%;
+}
+
+div#all-posts-container > div.pagination {
+  grid-column: 1/4;
 }

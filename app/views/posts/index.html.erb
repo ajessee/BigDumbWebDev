@@ -1,15 +1,28 @@
-<div>
-    <% if @user.posts.any? %>
-  <ol>
-      <% @user.posts.each do |post| %>
-    <li>
-      <p>Author: <%= post.user.name %></p>
-      <p>Title: <%= post.title %></p>
+<div id="all-posts-container">
+  <% if @posts.any? %>
+    <% @posts.each do |post| %>
+    <%= will_paginate @posts %>
+    <div id="all-posts-details">
+        <h2><%= post.title %></h2>
+        <p>Author: <%= post.user.name %> | Posted <%= time_ago_in_words(post.created_at) %> ago.
+        </p>
+    </div>
+    <div id="post-controls-index">
+        <% if logged_in? && current_user.admin? %>
+          <%= link_to edit_post_path(post), class: "no-link-color", title: "Edit Post" do %>
+          <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit</button>
+          <% end %>
+          <%= link_to post_path(post), class: "no-link-color", title: "Delete Post", method: "delete" do %>
+          <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete</button>
+          <% end %>
+        <% end %>
+      </div>
+    <div id="all-posts-content">
       <p><%= post.content %></p>
-      <p>Posted <%= time_ago_in_words(post.created_at) %> ago.</p>
-    </li>
+
+    </div>
+
+
     <% end %>
-  </ol>
-  <%= will_paginate @posts %>
   <% end %>
 </div>
