@@ -41,5 +41,7 @@ const insertAttachment = (file) => {
 };
 
 document.addEventListener("DOMContentLoaded", function() {
-  trixOnEditorReady();
+  if (document.querySelector('trix-toolbar')) {
+    trixOnEditorReady();
+  }
 });
