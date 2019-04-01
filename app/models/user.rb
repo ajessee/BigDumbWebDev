@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   has_many :posts, dependent: :destroy
+  has_rich_text :picture
+  has_rich_text :details
   attr_accessor :remember_token, :activation_token, :reset_token
-  # Attributes: first_name, last_name, email, details, password_digest
+  # Attributes: first_name, last_name, email, details, picture, password_digest
   # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token, activation_token, reset_token, name
 
   # before_save is a callback that gets invoked before the user model is saved to the database
@@ -74,6 +76,17 @@ class User < ApplicationRecord
   def password_reset_expired?
     reset_sent_at < 15.minutes.ago
   end
+
+  # Clear empty rich text attributes
+  # def clear
+  #   binding.pry
+  #   if self.picture && self.picture.body.empty?
+  #     update_attribute(:picture, nil)
+  #   end
+  #   if self.details && self.details.body.empty?
+  #     update_attribute(:details, nil)
+  #   end
+  # end
 
   private
 

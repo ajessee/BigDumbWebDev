@@ -114,20 +114,56 @@
 }
 
 .users-container {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 20vh 70vh 10vh;
-  background-color: aliceblue;
-  height: 100vh; 
-  width: 100vw;
-}
-
-#user-show-partial, #update-password-partial {
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
+}
+
+#user-show-partial {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   text-align: center;
-  grid-column: 2 / 6;
+}
+
+#user-show-title {
+  text-align: center;
+  grid-column: 1 / 4;
+  margin: 0;
+  align-self: center;
+}
+
+#user-show-data {
+  text-align: center;
+  grid-column: 1 / 4;
   grid-row: 2;
+}
+
+#user-show-details {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+#user-show-picture {
+  text-align: center;
+  grid-column: 2;
+  grid-row: 4;
+}
+
+#edit-user-picture-button > button, #new-user-image-submit > input, #new-user-details-submit-button {
+  margin: 2% 0 2% 0;
+}
+
+#user-show-picture div.trix-content {
+  height: auto;
+}
+
+#add-user-image{
+  height: 100%;
+}
+
+#new-user-image {
+  height: 80%;
+  margin-left: 2%;
 }
 
 #users-show-partial {

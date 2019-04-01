@@ -47,12 +47,21 @@ class UsersController < ApplicationController
 
   def edit
     # correct_user defines @user that is then passed to the view
+    if params[:update_type] == "picture"
+      render :edit_picture
+    elsif params[:update_type] == "details"
+      render :edit_details
+    end
   end
 
   def update
     # correct_user defines @user that is then passed to the view
     if @user.update(user_params)
-      #render update.erb.js
+      store_message({
+        title: 'Account Activated',
+        message: "You\'ve successfully updated your profile",
+        type: 'success'
+      })
     else
       render 'edit'
     end
@@ -72,7 +81,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :details, :email, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :details, :picture, :email, :password, :password_confirmation, :update_type)
   end
 
   def logged_in_user

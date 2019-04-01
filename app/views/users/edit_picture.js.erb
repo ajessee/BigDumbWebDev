@@ -1,0 +1,8 @@
+document.querySelector('.trix-content').remove();
+document.querySelector('#edit-user-picture-button').remove();
+newEl = document.createElement('div');
+newEl.innerHTML = "<%= j render 'edit_picture' %>";
+document.querySelector('#user-show-picture').appendChild(newEl.firstChild);
+window.utils.trixHelper.trixAddAttachmentButtonToToolbar();
+window.utils.trixHelper.removeTrixMenuButtons();
+delete newEl;

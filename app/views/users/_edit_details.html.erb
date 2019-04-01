@@ -1,0 +1,8 @@
+<%= form_with model: @user, id: "add-user-details", class: "", local: true do |f| %>
+  <div id="new-user-details" class="">
+    <%= f.rich_text_area :details, class: "trix-content" %>
+  </div>
+  <div id="new-user-details-submit" class="post-submit">
+    <%= f.submit @user.details.body && @user.details.body.empty? ? "Add About Me" : "Edit About Me", id: "new-user-details-submit-button", class: "submit-close-buttons submit-button" %>
+  </div>
+<% end %>
