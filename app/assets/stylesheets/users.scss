@@ -121,7 +121,6 @@
 #user-show-partial {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
   text-align: center;
 }
 
@@ -170,9 +169,11 @@
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
   text-align: center;
-  grid-column: 2 / 6;
-  grid-row: 2;
-
+  height: 100vh;
+  display: grid;
+  ul {
+    font-size: 1.5em;
+  }
   li {
       list-style-type: none;
   }

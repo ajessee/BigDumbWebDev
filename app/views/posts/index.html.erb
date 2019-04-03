@@ -1,7 +1,6 @@
 <div id="all-posts-container">
   <% if @posts.any? %>
     <% @posts.each do |post| %>
-    <%= will_paginate @posts %>
     <div id="all-posts-details">
         <h2><%= post.title %></h2>
         <p>Author: <%= post.user.name %> | Posted <%= time_ago_in_words(post.created_at) %> ago.
@@ -21,7 +20,7 @@
       <p><%= post.content %></p>
 
     </div>
-
+    <%= will_paginate @posts %>
 
     <% end %>
   <% end %>

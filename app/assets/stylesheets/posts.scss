@@ -88,7 +88,7 @@
 #all-posts-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 5% 10% 85%;
+  grid-template-rows: 10% 85% 5%;
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
   height: 100vh;
@@ -98,21 +98,22 @@
   font-size: 1.2em;
   justify-self: center;
   align-self: center;
-  grid-row: 2;
+  grid-row: 1;
   grid-column: 1/4;
   text-align: center;
+  margin-top: 3%;
 }
 
 #all-posts-content {
   font-size: 1em;
   margin: 2% 2%;
-  grid-row: 3;
+  grid-row: 2;
   grid-column: 1/4;
 }
 
 #post-controls-index {
   grid-column: 3;
-  grid-row: 2;
+  grid-row: 1;
   justify-self: end;
   align-self: center;
   margin-right: 5%;
@@ -120,4 +121,5 @@
 
 div#all-posts-container > div.pagination {
   grid-column: 1/4;
+  grid-row: 3;
 }
