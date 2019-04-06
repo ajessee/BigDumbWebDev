@@ -11,3 +11,5 @@ window.utils = {
     return vars;
   }
 };
+
+window.utils.elements = {};

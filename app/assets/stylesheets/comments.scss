@@ -1,0 +1,26 @@
+// Place all the styles related to the Comments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.comment-form {
+      display: grid;
+      grid-template-columns: 100%;
+      justify-items: center;
+}
+
+#new-comment-submit {
+  margin: 2% 0 2% 0;
+}
+
+#new-comment-content {
+  max-width: 70%;
+}
+
+#sign-up-login-container {
+  text-align: center;
+  margin-bottom: 2%;
+}
+
+.show-comment-container {
+  margin: 2%;
+}

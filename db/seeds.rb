@@ -7,6 +7,16 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 user = User.create!(
+  first_name:  "Guest",
+  last_name: "User",
+  email: "guest@bigdumbwebdev.com",
+  password:              "guest",
+  password_confirmation: "guest",
+  admin: false,
+  activated: true,
+  activated_at: Time.zone.now)
+
+user = User.create!(
   first_name:  "Andre",
   last_name: "Jessee",
   email: "andre.isaac.jessee@gmail.com",

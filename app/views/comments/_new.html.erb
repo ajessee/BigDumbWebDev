@@ -1,0 +1,39 @@
+<div class="comment-container">
+    <%= form_with model: @comment, id: "new-comment", class: "comment-form" do |f| %>
+      <%= f.hidden_field :post_id, value: @post.id %>
+      <h1 id="new-comment-header" class="comment-form-header">What do you think?</h1>
+      <% if logged_in? %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+      <% else %>
+        <%= f.hidden_field :user_id, value: guest_user.id %>
+        <%= f.hidden_field :guest, value: true %>
+        <div id="new-user-first-name" class="float-container">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name %>
+        </div>
+        <div id="new-user-last-name" class="float-container">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name %>
+        </div>
+      <% end %>
+      <div id="new-comment-content" class="">
+        <%= f.rich_text_area :content, class: "trix-content" %>
+      </div>
+      <div id="new-comment-submit" class="comment-submit">
+        <%= f.submit logged_in? ? "Create Comment" : "Add Comment As Guest", id: "new-comment-submit-button", class: "submit-close-buttons submit-button" %>
+        <button id="new-comment-close-button" class="submit-close-buttons close-button all-close">Cancel</button>
+      </div>
+    <% end %>
+    <% if !logged_in? %>
+      <div id="sign-up-login-container">
+        <h1 id="" class="comment-form-header">Or to comment as a user:</h1>
+        <%= link_to login_path, class: "no-link-color", title: "Login", remote: true do %>
+        <button id="login-user-submit-button" class="submit-close-buttons submit-button">Login</button>
+        <% end %>
+        <%= link_to signup_path, class: "no-link-color", title: "Sign Up", remote: true do %>
+        <button id="login-user-submit-button" class="submit-close-buttons submit-button">Sign Up</button>
+        <% end %>
+      </div>
+    <% end %>
+    
+</div>

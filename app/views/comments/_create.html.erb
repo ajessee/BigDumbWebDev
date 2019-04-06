@@ -1,0 +1,23 @@
+<div class="show-comment-container">
+    <div class="show-comment-title-container">
+      <div class="comment-controls">
+        <% if logged_in? && current_user %>
+          <%= link_to edit_comment_path(@comment), class: "no-link-color", title: "Edit comment" do %>
+          <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit</button>
+          <% end %>
+          <%= link_to comment_path, class: "no-link-color", title: "Delete comment", method: "delete" do %>
+          <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete</button>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+    <div class="show-comment-body">
+        <% if logged_in? && current_user  %>
+        <%= current_user.name %>
+        <% else %>
+        <%= guest_user.name %>
+        <% end %>
+        says: <%= comment.content || @comment.content %>
+    </div>
+  </div>

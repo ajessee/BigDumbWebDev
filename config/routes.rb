@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'password_resets/new'
-  get 'password_resets/edit'
   # Root
 
   root    'hello#home'
@@ -53,6 +51,10 @@ Rails.application.routes.draw do
   # Posts
 
   resources   :posts
+
+  # Comments
+
+  resources   :comments
 
   # Custom HTTP status pages
 
