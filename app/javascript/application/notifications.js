@@ -178,7 +178,7 @@ const setUpNotifications = () => {
           if (notification.newMessage.present) {
             self.openNotification(notification.newMessage.type, notification.newMessage.title, notification.newMessage.message, 6000, true);
           } else if (notification.location) {
-            self.openNotification('alert', 'Friendly Forwarding', 'This is the page you were trying to get to before you logged in. Nifty huh?', 6000, true);
+            self.openNotification('alert', 'Here you go', 'This is the page you were trying to get to before you logged in.', 6000, true);
           }
         })
     }

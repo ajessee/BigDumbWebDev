@@ -4,10 +4,10 @@
     <div id="post-controls">
       <% if logged_in? && current_user.admin? %>
         <%= link_to edit_post_path(@post), class: "no-link-color", title: "Edit Post" do %>
-        <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit</button>
+        <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit Post</button>
         <% end %>
         <%= link_to post_path, class: "no-link-color", title: "Delete Post", method: "delete" do %>
-        <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete</button>
+        <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Post</button>
         <% end %>
       <% end %>
       <%= link_to new_comment_path(post_id: @post.id), class: "no-link-color", id: "add-new-comment-button", title: "Create Comment", remote: true do %>
@@ -18,8 +18,10 @@
   <div id="show-post-body"><%= @post.content%></div>
 
   <% if @post.comments %>
+  <div id="post-comments-container">
     <% @post.comments.each do |comment| %>
     <%= render 'comments/create', comment: comment %>
     <% end %>
+  </div>
   <% end %>
 </div>

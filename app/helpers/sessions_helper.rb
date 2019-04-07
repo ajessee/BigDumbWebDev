@@ -23,7 +23,7 @@ module SessionsHelper
   end
 
   def guest_user
-    User.first
+    @guest_user ||= User.first
   end
 
   def current_user

@@ -12,8 +12,11 @@ class CommentsController < ApplicationController
       @guest = true
       guest_user.first_name = params[:comment][:first_name]
       guest_user.last_name = params[:comment][:last_name]
+      guest_user.save
+      @comment = @commentable.comments.build(comment_params.merge(guest_name: guest_user.name))
+    else
+      @comment = @commentable.comments.build(comment_params)
     end
-    @comment = @commentable.comments.build(comment_params)
     if @comment.save
       #render create
     else
@@ -21,12 +24,31 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    @comment = Comment.find(params[:id])
+    @post = Post.find(@comment.commentable_id)
   end
 
   def update
+    @comment = Comment.find(params[:id])
+    @post = Post.find(@comment.commentable_id)
+    # binding.pry
+    if @comment.update(comment_params)
+      # render update js
+    else
+      render 'edit'
+    end
   end
 
   def destroy
+    @comment = Comment.find(params[:id])
+    @post = Post.find(@comment.commentable_id)
+    store_message({
+      title: 'Comment Deleted',
+      message: "Comment by #{@comment.guest_name || @comment.author.name} successfully deleted",
+      type: 'success'
+    })
+    @comment.destroy
+    redirect_to @post
   end
 
   private

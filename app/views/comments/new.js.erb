@@ -1,5 +1,6 @@
 window.utils.elements.postContainer = document.querySelector('#show-post-container');
 window.utils.elements.newCommentButton = document.querySelector('#add-new-comment-button');
+window.utils.elements.postCommentsContainer = document.querySelector('#post-comments-container') ? document.querySelector('#post-comments-container') : null;
 window.utils.elements.newCommentButton.style.display = "none";
 window.utils.elements.newCommentContainer = document.createElement('div');
 window.utils.elements.newCommentContainer.innerHTML = "<%= j (render 'new') %>"

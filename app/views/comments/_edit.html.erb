@@ -1,0 +1,11 @@
+<%= form_with model: @comment, id: "edit-comment", class: "comment-form" do |f| %>
+<h1 id="new-comment-header" class="comment-form-header">Edit Comment</h1>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+<div id="edit-comment-content" class="">
+  <%= f.rich_text_area :content, class: "trix-content" %>
+</div>
+<div id="edit-comment-submit" class="comment-submit">
+  <%= f.submit "Update Comment", id: "edit-comment-submit-button", class: "submit-close-buttons submit-button" %>
+  <button id="edit-comment-close-button" class="submit-close-buttons close-button all-close">Cancel</button>
+</div>
+<% end %>

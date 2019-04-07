@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   
   get     '/cookie_info', to: 'notifications#cookie_info'
 
+  get     '/signup_login_info', to: 'notifications#signup_login_info'
+
   get     '/notifications', to: 'notifications#get_notifications'
 
   post     '/fowarding_info', to: 'notifications#forwarding_ready'

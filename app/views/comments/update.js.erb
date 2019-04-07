@@ -1,0 +1,3 @@
+window.utils.elements.tempCommentsContainer = document.createElement('div');
+window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create') %>";
+window.utils.elements.thisCommentContainer.parentNode.replaceChild(window.utils.elements.tempCommentsContainer.firstChild, window.utils.elements.thisCommentContainer)

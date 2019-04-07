@@ -1,23 +1,26 @@
-<div class="show-comment-container">
-    <div class="show-comment-title-container">
-      <div class="comment-controls">
-        <% if logged_in? && current_user %>
-          <%= link_to edit_comment_path(@comment), class: "no-link-color", title: "Edit comment" do %>
-          <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit</button>
-          <% end %>
-          <%= link_to comment_path, class: "no-link-color", title: "Delete comment", method: "delete" do %>
-          <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete</button>
-          <% end %>
-        <% end %>
-
-      </div>
-    </div>
-    <div class="show-comment-body">
-        <% if logged_in? && current_user  %>
-        <%= current_user.name %>
-        <% else %>
-        <%= guest_user.name %>
-        <% end %>
-        says: <%= comment.content || @comment.content %>
-    </div>
+<% if @comment  %>
+  <% comment = @comment  %>
+<% end %>
+<div class="show-comment-container" id="comment-container-<%= comment.id %>">
+  <div class="show-comment-body">
+    <% if comment.guest_name != nil %>
+      <%= comment.guest_name %>
+    <% else %>
+     <%= comment.author.name %>
+    <% end %>
+    said: <%= comment.content %>
+    <%= time_ago_in_words(comment.created_at).capitalize %> ago
   </div>
+  <div class="show-comment-controls">
+      <% if logged_in? && current_user?(comment.author) %>
+        <%= link_to edit_comment_path(comment), class: "no-link-color", title: "Edit comment", remote: true do %>
+        <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit Comment</button>
+        <% end %>
+      <% end %>
+      <% if logged_in? && current_user?(comment.author) || current_user && current_user.admin? %>
+        <%= link_to comment_path(comment), class: "no-link-color", title: "Delete comment", method: "delete" do %>
+        <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Comment</button>
+        <% end %>
+      <% end %>
+    </div>
+</div>

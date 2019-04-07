@@ -1,17 +1,17 @@
-<div class="comment-container">
+<div id="post-comments-container">
     <%= form_with model: @comment, id: "new-comment", class: "comment-form" do |f| %>
       <%= f.hidden_field :post_id, value: @post.id %>
-      <h1 id="new-comment-header" class="comment-form-header">What do you think?</h1>
+      <h1 id="new-comment-header" class="comment-form-header">Got any feedback or thoughts?</h1>
       <% if logged_in? %>
         <%= f.hidden_field :user_id, value: current_user.id %>
       <% else %>
         <%= f.hidden_field :user_id, value: guest_user.id %>
         <%= f.hidden_field :guest, value: true %>
-        <div id="new-user-first-name" class="float-container">
+        <div id="new-guest-first-name" class="float-container">
           <%= f.label :first_name %>
           <%= f.text_field :first_name %>
         </div>
-        <div id="new-user-last-name" class="float-container">
+        <div id="new-guest-last-name" class="float-container">
           <%= f.label :last_name %>
           <%= f.text_field :last_name %>
         </div>
@@ -33,6 +33,9 @@
         <%= link_to signup_path, class: "no-link-color", title: "Sign Up", remote: true do %>
         <button id="login-user-submit-button" class="submit-close-buttons submit-button">Sign Up</button>
         <% end %>
+        <div class="signup-login-info">
+            <%= link_to 'Why do this?', signup_login_info_path, id: 'remember-me-text-link', remote: true  %>
+          </div>
       </div>
     <% end %>
     

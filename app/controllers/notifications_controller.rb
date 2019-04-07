@@ -3,6 +3,13 @@ class NotificationsController < ApplicationController
   @@forwarding_needed = false
 
   def cookie_info
+    @type = 'cookie_info'
+    render :info
+  end
+
+  def signup_login_info
+    @type = 'signup_login_info'
+    render :info
   end
 
   def get_notifications

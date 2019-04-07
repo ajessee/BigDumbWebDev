@@ -1,2 +1,12 @@
-window.utils.elements.newCommentContainer.innerHTML = "<%= j (render 'create') %>"
+
+if (window.utils.elements.postCommentsContainer) {
+  window.utils.elements.tempCommentsContainer = document.createElement('div');
+  window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create') %>";
+  window.utils.elements.postCommentsContainer.prepend(window.utils.elements.tempCommentsContainer.firstChild);
+  window.utils.elements.newCommentContainer.remove();
+  window.utils.elements.postCommentsContainer.firstChild.scrollIntoView();
+} else {
+  window.utils.elements.newCommentContainer.innerHTML = "<%= j (render 'create') %>"
+}
+
 window.utils.elements.newCommentButton.style.display = "block";

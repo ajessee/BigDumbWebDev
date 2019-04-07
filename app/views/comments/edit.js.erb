@@ -1,0 +1,14 @@
+window.utils.elements.thisCommentContainer = document.querySelector("#comment-container-" + "<%= j (@comment.id) %>");
+window.utils.elements.thisCommentContainerClone = window.utils.elements.thisCommentContainer.cloneNode(true);
+window.utils.elements.editCommentContainer = document.createElement('div');
+window.utils.elements.editCommentContainer.innerHTML = "<%= j (render 'edit') %>";
+while (window.utils.elements.thisCommentContainer.firstChild) {
+  window.utils.elements.thisCommentContainer.removeChild(window.utils.elements.thisCommentContainer.firstChild);
+}
+window.utils.elements.thisCommentContainer.appendChild(window.utils.elements.editCommentContainer.firstChild)
+window.utils.elements.editCommentCloseButton = document.querySelector("#edit-comment-close-button");
+window.utils.elements.editCommentCloseButton.addEventListener('click', function(e){
+  e.preventDefault();
+  window.utils.elements.thisCommentContainer.parentNode.replaceChild(window.utils.elements.thisCommentContainerClone, window.utils.elements.thisCommentContainer)
+})
+
