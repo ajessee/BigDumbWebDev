@@ -30,13 +30,13 @@
 
 #new-post-title {
   grid-row: 2;
-  width: 50%;
+  width: 80%;
   height: 85%;
 }
 
 #new-post-content {
   grid-row: 3;
-  width: 80%;
+  width: 90%;
   height: 90%;
 }
 
@@ -57,7 +57,7 @@
 #show-post-container {
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 8% 92%;
+  grid-template-rows: 10% 82% 8%;
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
   height: 100vh;
@@ -69,13 +69,15 @@
 }
 
 #show-post-title {
-  font-size: 1.2em;
+  font-size: 2em;
   justify-self: center;
   grid-column: 2;
 }
+
 #show-post-body {
   font-size: 1em;
-  margin: 2% 2%;
+  margin: 1% 1%;
+  position: relative;
 }
 
 #post-controls {
@@ -106,7 +108,7 @@
 
 #all-posts-content {
   font-size: 1em;
-  margin: 2% 2%;
+  margin: 2% 1%;
   grid-row: 2;
   grid-column: 1/4;
 }
@@ -122,4 +124,23 @@
 div#all-posts-container > div.pagination {
   grid-column: 1/4;
   grid-row: 3;
+}
+
+.trix-content .attachment {
+  margin: 2% 0 2% 0;
+}
+
+#post-toggle-fullscreen {
+  position: absolute;
+  right: 0%;
+  margin: 1%;
+  color: grey;
+}
+
+#post-toggle-fullscreen:hover {
+  transform: scale(1.5);
+}
+
+#shrink-post-icon {
+  display: none;
 }

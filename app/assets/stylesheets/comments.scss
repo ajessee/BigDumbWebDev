@@ -12,7 +12,7 @@
   margin: 2% 0 2% 0;
 }
 
-#new-comment-content {
+#new-comment-content, #edit-comment-content {
   max-width: 70%;
   min-width: 70%;
 }
@@ -46,4 +46,8 @@
 
 .show-comment-controls {
   justify-self: end;
+}  
+
+#add-new-comment-button {
+  justify-self: center;
 }
