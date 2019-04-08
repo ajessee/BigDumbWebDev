@@ -30,6 +30,7 @@ class PostsController < ApplicationController
   end
 
   def update
+    merge_tags(params)
     # correct_user defines @post that is then passed to the view
     if @post.update(post_params)
       redirect_to @post
@@ -51,7 +52,23 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :content, :all_tags)
+  end
+
+  def merge_tags(params)
+    counts = params[:post][:counts]
+    new_tags = params[:post][:new_tags]
+    if counts.empty? && new_tags.empty?
+      # no op
+    elsif counts.empty? && !new_tags.empty?
+      params[:post][:all_tags] = new_tags
+    elsif !counts.empty? && new_tags.empty?
+      params[:post][:all_tags] = Tag.find(counts.to_i).name
+    else
+      params[:post][:all_tags] = new_tags.concat(", " + Tag.find(counts.to_i).name)
+    end
+    params[:post].delete :counts
+    params[:post].delete :new_tags
   end
 
   def logged_in_user

@@ -58,6 +58,10 @@ Rails.application.routes.draw do
 
   resources   :comments
 
+  # Tags
+
+  resources   :tags
+
   # Custom HTTP status pages
 
   get 'errors/bad_request'

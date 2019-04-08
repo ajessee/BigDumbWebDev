@@ -9,9 +9,16 @@
     <div id="new-post-content" class="">
       <%= f.rich_text_area :content, class: "trix-content" %>
     </div>
+    <div id="add-tags-container">
+        <%= f.label "Select from existing tags" %>
+        <%= collection_select(:post, :counts, Tag.all, :id, :name, include_blank: "Please Select") %>
+        <%= f.label "Or add one or more here" %>
+        <%= f.text_field :new_tags, placeholder: "Tags separated by a comma", class: 'input-error' %>
+      </div>
     <div id="new-post-submit" class="post-submit">
       <%= f.submit "Save Changes", id: "new-post-submit-button", class: "submit-close-buttons submit-button" %>
       <button id="new-post-close-button" class="submit-close-buttons close-button all-close">Cancel</button>
     </div>
+
   <% end %>
 </div>

@@ -31,7 +31,6 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     @post = Post.find(@comment.commentable_id)
-    # binding.pry
     if @comment.update(comment_params)
       # render update js
     else
