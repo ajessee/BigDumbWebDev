@@ -1,16 +1,14 @@
-function setFullScreenToggle() {
+function setupPosts() {
 
-  console.log("Setup Posts Full Screen Toggle");
+  console.log("Setup Posts");
 
   const posts = {
 
-    init: function() {
+    setupFullScreen: function() {
 
       let self = this;
 
-      this.postBody = document.querySelector('#show-post-body') ? document.querySelector('#show-post-body') : null;
-
-      if (this.postBody) {
+      if (this.showPostBody) {
 
         this.toggleLink = document.querySelector('#post-toggle-fullscreen');
 
@@ -44,14 +42,14 @@ function setFullScreenToggle() {
               document.msExitFullscreen();
             }
           } else {
-            if (self.postBody.requestFullscreen) {
-              self.postBody.requestFullscreen();
-            } else if (self.postBody.mozRequestFullScreen) {
-              self.postBody.mozRequestFullScreen();
-            } else if (self.postBody.webkitRequestFullscreen) {
-              self.postBody.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-            } else if (self.postBody.msRequestFullscreen) {
-              self.postBody.msRequestFullscreen();
+            if (self.showPostBody.requestFullscreen) {
+              self.showPostBody.requestFullscreen();
+            } else if (self.showPostBody.mozRequestFullScreen) {
+              self.showPostBody.mozRequestFullScreen();
+            } else if (self.showPostBody.webkitRequestFullscreen) {
+              self.showPostBody.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            } else if (self.showPostBody.msRequestFullscreen) {
+              self.showPostBody.msRequestFullscreen();
             }
           }
         });
@@ -69,6 +67,52 @@ function setFullScreenToggle() {
         
     
       };
+
+    },
+
+    setupTags: function () {
+
+      if (this.postContainer) {
+        const tagDropDown = document.querySelector('#post_counts');
+        tagDropDown.addEventListener('change', function(e){
+          let selectionText = e.target.options[e.target.selectedIndex].text;
+          let existingTagsInput = document.querySelector('#existing-tags-input');
+          let existingTagsInputArr;
+          if (existingTagsInput.value === "") {
+            existingTagsInputArr = [];
+          } else {
+            existingTagsInputArr = existingTagsInput.value.split(",");
+            existingTagsInputArr = existingTagsInputArr.map(el => el.trim());
+          }
+          if (!existingTagsInputArr.includes(selectionText)) {
+            existingTagsInputArr.push(selectionText);
+          }
+          existingTagsInput.value = existingTagsInputArr.join(", ")
+        })
+      }
+
+    },
+
+    setupCancelButtons: function () {
+
+      if (this.postContainer) {
+        const editPostCancelButton = document.querySelector('#edit-post-cancel-button');
+        const newPostCancelButton = document.querySelector('#new-post-cancel-button');
+        editPostCancelButton.addEventListener('click', function(e){
+          e.preventDefault()
+          let postID = e.target.getAttribute('data-post-id');
+          window.location.href = '/posts/' + postID;
+        })
+      }
+
+    },
+
+    init: function() {
+      this.showPostBody = document.querySelector('#show-post-body') ? document.querySelector('#show-post-body') : null;
+      this.postContainer = document.querySelector('.post-container') ? document.querySelector('.post-container') : null;
+      this.setupFullScreen();
+      this.setupTags();
+      this.setupCancelButtons();
     }
 
   };
@@ -79,4 +123,4 @@ function setFullScreenToggle() {
   
 }
 
-document.addEventListener("DOMContentLoaded", setFullScreenToggle);
+document.addEventListener("DOMContentLoaded", setupPosts);

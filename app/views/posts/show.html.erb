@@ -21,8 +21,11 @@
   </div>
   <% if @post.tags %>
     <div id="tag-container">
-        <% tag_links(@post.all_tags).each do |tag| %>
-          <%= tag %>
+        <% @post.tags.each do |tag| %>
+        <% random_hex_color = generate_random_hex_color %>
+          <%= link_to tag_path(tag.name), class: "no-link-color" do %>
+          <button class="post-tag-button" style="background-color: grey"><%= tag.name.upcase %></button>
+          <% end %>
         <% end %>
     </div>
   <% end %>
