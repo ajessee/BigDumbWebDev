@@ -6,3 +6,59 @@
   font-size: 1.5em !important;
   padding: 10px 30px !important;
 }
+
+#tag-show-container, #tag-cloud-container {
+  display: grid;  
+  font-family: 'Oxygen', sans-serif;
+  grid-template-rows: repeat(3, 1fr);
+  background-color: aliceblue;
+  height: 100vh;
+}
+
+#tag-posts {
+  grid-row: 2 / 3;
+  justify-self: center;
+  font-size: 2em;
+}
+
+#tag-cloud-container {
+  background-image: url(cloud.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 115%;
+  grid-template-rows: 15% 85%;
+}
+
+#tag-cloud-title, #tag-show-title {
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
+  font-size: 1.5em;
+}
+
+#tag-cloud {
+  grid-row: 2;
+  justify-self: center;
+  align-self: center;
+  display: inline;
+}
+
+.post-tag-button {
+  background-color: gray;
+}
+
+.tag-link {
+  margin: 2%;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+}
+
+.tag-link:hover {
+  transform: scale(1.2);
+}
+
+.css1 { font-size: 2em;}
+.css2 { font-size: 2.5em;}
+.css3 { font-size: 3em;}
+.css4 { font-size: 3.5em;}
+.css5 { font-size: 4em;}
+.css6 { font-size: 4.5em;}

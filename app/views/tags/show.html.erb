@@ -1,2 +1,14 @@
-<h1>Tags#show</h1>
-<p>Find me in app/views/tags/show.html.erb</p>
+<div id="tag-show-container">
+    <div id="tag-show-title">
+      <h1><%= @tag.name.capitalize %></h1>
+    </div>
+    <div id="tag-posts">
+      <ul>
+        <% @tag.posts.each do |post| %>
+        <li>
+          <%= link_to post.title, post %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>

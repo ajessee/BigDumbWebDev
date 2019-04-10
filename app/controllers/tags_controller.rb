@@ -1,6 +1,7 @@
 class TagsController < ApplicationController
+  
   def show
-    render layout: false
+    @tag = Tag.find(params[:id])
   end
 
   def index
