@@ -87,6 +87,10 @@ const setUpNav = () => {
     }
   };
   nav.init();
+    // If we've redirected a user to the root path with login === true params, click the login link.
+    if (document.querySelector("#nav-menu-login") && window.utils.getUrlVars().login === "true") {
+      document.querySelector("#nav-menu-login a").click();
+    }
 
   window.utils.navigation = nav;
 }

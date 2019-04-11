@@ -3,8 +3,8 @@
 }
 
 .post-tag-button {
-  font-size: 1.5em !important;
-  padding: 10px 30px !important;
+  font-size: 1.2em !important;
+  padding: 5px 10px !important;
 }
 
 #tag-show-container, #tag-cloud-container {
@@ -43,7 +43,7 @@
 }
 
 .post-tag-button {
-  background-color: gray;
+  background-color: lightslategrey;
 }
 
 .tag-link {
@@ -54,6 +54,10 @@
 
 .tag-link:hover {
   transform: scale(1.2);
+}
+
+#tag-container {
+  text-align: center;
 }
 
 .css1 { font-size: 2em;}

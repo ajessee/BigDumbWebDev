@@ -1,27 +1,9 @@
 <div id="all-posts-container">
   <% if @posts.any? %>
     <% @posts.each do |post| %>
-    <div id="all-posts-details">
-        <h2><%= post.title %></h2>
-        <p>Post ID: <%= post.id %> | Author: <%= post.user.name %> | Posted <%= time_ago_in_words(post.created_at) %> ago.
-        </p>
-    </div>
-    <div id="post-controls-index">
-        <% if logged_in? && current_user.admin? %>
-          <%= link_to edit_post_path(post), class: "no-link-color", title: "Edit Post" do %>
-          <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit Post</button>
-          <% end %>
-          <%= link_to post_path(post), class: "no-link-color", title: "Delete Post", method: "delete" do %>
-          <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Post</button>
-          <% end %>
-        <% end %>
-      </div>
-    <div id="all-posts-content">
-      <p><%= post.content %></p>
-
-    </div>
-    <%= will_paginate @posts %>
-
+    <% @post = post %>
+      <%= will_paginate @posts %>
+      <%= render 'show', post: post, show_all: true %>
     <% end %>
   <% end %>
 </div>
