@@ -23,7 +23,7 @@ class PostsController < ApplicationController
 
   def show
     store_location
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:slug])
   end
 
   def edit
@@ -40,7 +40,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:slug])
     store_message({
       title: 'Post Deleted',
       message: "'#{@post.title}'' successfully deleted",
@@ -68,7 +68,7 @@ class PostsController < ApplicationController
   end
 
   def correct_user
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:slug])
     unless logged_in? && current_user.admin?
       flash[:error_message] = "You definitely shouldn\'t be trying to access another user\'s resources #{current_user.first_name}"
       redirect_to errors_forbidden_path 

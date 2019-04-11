@@ -15,6 +15,8 @@ class Post < ApplicationRecord
   # Posts have rich text content
   has_rich_text :content
 
+  before_validation :set_slug
+
   def all_tags=(names)
     self.tags = names.split(",").map do |name|
       Tag.where(name: name.strip.downcase).first_or_create!
@@ -28,6 +30,18 @@ class Post < ApplicationRecord
   def counts
     Tag.select("tags.id, tags.name,count(taggings.tag_id) as count").
     joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+  end
+
+  def set_slug
+    self.slug = title.parameterize.truncate(80, omission: '')
+  end
+
+  def self.add_slugs
+    update(slug: to_slug(title))
+  end
+
+  def to_param
+    slug
   end
 
 end
