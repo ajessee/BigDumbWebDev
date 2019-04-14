@@ -58,7 +58,7 @@ class UsersController < ApplicationController
     # correct_user defines @user that is then passed to the view
     if @user.update(user_params)
       store_message({
-        title: 'Account Activated',
+        title: 'Account Updated',
         message: "You\'ve successfully updated your profile",
         type: 'success'
       })
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :details, :picture, :email, :password, :password_confirmation, :update_type)
+    params.require(:user).permit(:first_name, :last_name, :details, :image, :email, :password, :password_confirmation, :update_type)
   end
 
   def logged_in_user

@@ -1,9 +1,10 @@
 <%= form_with model: @user, id: "add-user-image", class: "", local: true do |f| %>
+  <%= f.label "Attach image here and then upload" %>
   <div id="new-user-image" class="">
-    <%= f.rich_text_area :picture, placeholder: "Drag a picture here or use the upload button", disabled: true, class: "trix-content" %>
+    <%= f.file_field :image, id: 'user-image-choose-file' %>
   </div>
   <div id="new-user-image-submit" class="post-submit">
-    <%= f.submit @user.picture.body && @user.picture.body.empty? ? "Add Picture" : "Edit Picture", id: "edit-user-picture-button", class: "submit-close-buttons submit-button" %>
+    <%= f.submit "Upload Picture", id: "edit-user-picture-button", class: "disabled-button submit-button" %>
 
   </div>
     <% end %>

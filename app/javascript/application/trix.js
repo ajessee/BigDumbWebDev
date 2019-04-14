@@ -44,25 +44,10 @@ const setUpTrixHelper = () => {
       trixEditor.insertFile(file);
     },
 
-    removeTrixMenuButtons: () => {
-      if (document.querySelector('#user-show-picture')) {
-        let buttons = document.querySelectorAll('#new-user-image trix-toolbar .trix-button--icon');
-        let textField = document.querySelector('#new-user-image trix-editor.trix-content');
-        textField ? textField.contentEditable = false : null;
-        buttons.forEach(function(button) {
-          if (!button.classList.contains('trix-button--icon-attach-files')) {
-            button.setAttribute('disabled', null);
-            button.style.display = "none";
-          }
-        })
-      }
-    },
-
     init: function() {
       if (document.querySelector('trix-toolbar')) {
         this.trixOnEditorReady();
       }
-      this.removeTrixMenuButtons();
     }
 
   }

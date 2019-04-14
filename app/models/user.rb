@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
+  has_one_attached :image
   has_rich_text :picture
   has_rich_text :details
   attr_accessor :remember_token, :activation_token, :reset_token
