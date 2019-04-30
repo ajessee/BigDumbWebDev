@@ -36,15 +36,17 @@ Rails.application.routes.draw do
 
   # Projects (TODO: Convert to resource?)
 
-  get     'projects', to: 'projects#projects'
+  resources :projects, param: :slug
 
-  get     'projects/todo', to: 'projects#todo'
+  # get     'projects', to: 'projects#projects'
 
-  get     'projects/loan-calculator', to: 'projects#calculator'
+  # get     'projects/todo', to: 'projects#todo'
 
-  get     'projects/number-guesser', to: 'projects#number_guesser'
+  # get     'projects/loan-calculator', to: 'projects#calculator'
 
-  get     'projects/contacts', to: 'projects#contacts'
+  # get     'projects/number-guesser', to: 'projects#number_guesser'
+
+  # get     'projects/contacts', to: 'projects#contacts'
 
   # Users
 

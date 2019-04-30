@@ -51,10 +51,16 @@
             <span class="nav-menu-icon-label">All Posts</span>
             <% end %>
         </li>
-        <li id="nav-menu-add-blog-entry" class="nav-menu-list-item nav-bottom-border">
+        <li id="nav-menu-add-blog-entry" class="nav-menu-list-item">
             <%= link_to new_post_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "Create Blog Entry" do %>
             <i class="fas fa-paragraph fa-2x nav-menu-icon" aria-hidden="true"></i>
             <span class="nav-menu-icon-label">Create Blog Entry</span>
+            <% end %>
+        </li>
+        <li id="nav-menu-add-new-project" class="nav-menu-list-item nav-bottom-border">
+            <%= link_to new_project_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "Create New Project", remote: true do %>
+            <i class="fas fa-code fa-2x nav-menu-icon" aria-hidden="true"></i>
+            <span class="nav-menu-icon-label">Create New Project</span>
             <% end %>
         </li>
         <% end %>

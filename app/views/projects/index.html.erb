@@ -1,0 +1,17 @@
+<% provide(:title, "Projects") %>
+<section id="all-projects-container" class="projects-container">
+  <h1 class="header mobile-row-1">All Projects</h1>
+
+  <% @user.projects.each do |project| %>
+  <a class="no-link-color project-card" id="all-number-guesser-logo" href="<%= project.external_url ? project.url : 'projects/' + project.slug %>" rel="noopener noreferrer">
+    <div class="link-image">
+      <%= project.name %>
+    </div>
+    <div class="link-image">
+      <%= project.description %>
+    </div>
+    <p id="all-number-guesser-caption" class="image-label"></p>
+  </a>
+  <% end %>
+
+</section>

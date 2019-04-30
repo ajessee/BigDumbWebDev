@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :posts, dependent: :destroy
+  has_many :projects, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_one_attached :image
   has_rich_text :picture

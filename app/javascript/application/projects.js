@@ -20,6 +20,28 @@ function setProjectsGrid() {
   };
 }
 
+function setupProjectsUtils() {
+  console.log("Setup Projects Utils");
+
+  const projects = {
+    setupUrlSlider: function() {
+      let sliderInput = document.querySelector('input#project_external_url');
+      let externalUrlField = document.getElementById('new-project-url');
+
+      sliderInput.addEventListener('change', function(e){
+        if (e.target.checked) {
+          externalUrlField.style.display = "block";
+        } else {
+          externalUrlField.style.display = "none";
+        }
+      })
+    }
+  };
+
+  window.utils.projects = projects;
+}
+
 document.addEventListener("DOMContentLoaded", setProjectsGrid);
+document.addEventListener("DOMContentLoaded", setupProjectsUtils);
 
 

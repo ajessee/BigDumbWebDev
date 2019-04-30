@@ -1,0 +1,35 @@
+if (window.utils.modal.newProjectModal) {
+  window.utils.modal.newProjectModal.innerHTML = "";
+  window.utils.modal.newProjectModal.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
+} else {
+  if (window.innerWidth > 1440) {
+    window.utils.modal.newProjectModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, false);
+  } else {
+    window.utils.modal.newProjectModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, false);
+  }
+  // Setup modal window, insert new user signup partial
+
+  window.utils.modal.newProjectModal.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
+}
+// Get close button and attach close modal function
+window.utils.modal.newProjectCloseButton = document.querySelector("#new-project-close-button");
+window.utils.modal.newProjectCloseButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  window.utils.modal.closeModal(e);
+  window.utils.modal.newProjectModal = null;
+})
+// Initialize labels component
+window.utils.labels.init();
+// Setup URL slider event listener to show/hide URL field
+window.utils.projects.setupUrlSlider();
+
+<% if Rails.env.development? %>
+  // Get debug information
+  window.utils.debug.debugPanel.innerHTML = "";
+  window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
+<% end %>
+
+<% if @error %>
+window.utils.notifications.openNotification('failure', '<%= @error_title %>', '<%= @error_message %>. Or <%= link_to "reset", new_password_reset_path, remote: true %> your password', 10000, true);
+<% end %>
+

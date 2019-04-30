@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  # Posts belong to users
+  # Posts belongs to a user
   belongs_to :user
   # A post can have many comments
   has_many :comments, as: :commentable, dependent: :destroy
