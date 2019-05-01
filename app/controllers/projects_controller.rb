@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
   def create
     @project = current_user.projects.new(project_params)
     @project.save
+    # binding.pry
     if @project.external_url
       redirect_to projects_path
     else
@@ -33,7 +34,7 @@ class ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:name, :description, :external_url, :url, :slug)
+    params.require(:project).permit(:name, :description, :external_url, :url, :slug, :image)
   end
 
   def show_post_params_name

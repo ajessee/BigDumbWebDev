@@ -8,6 +8,15 @@
     <%= f.label :description %>
     <%= f.text_field :description, class: "input-error" %>
   </div>
+  <div id="new-project-picture" class="check-box-container">
+    <div>
+      <%= f.label "Project Thumbnail" %>
+    </div>
+      <%= f.file_field :image, id: 'project-picture-choose-file' %>
+    </div>
+  <div id="new-project-info-box" class="check-box-container">
+    If this is an internal project, you'll need to create the view erb file that matches the name of this new project plus any needed javascript
+  </div>
   <div id="new-project-external-url" class="check-box-container">
     <p>External URL?</p>
       <%= f.label :external_url, class: "switch" do %>

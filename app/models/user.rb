@@ -3,7 +3,6 @@ class User < ApplicationRecord
   has_many :projects, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_one_attached :image
-  has_rich_text :picture
   has_rich_text :details
   attr_accessor :remember_token, :activation_token, :reset_token
   # Attributes: first_name, last_name, email, details, picture, password_digest
@@ -80,6 +79,7 @@ class User < ApplicationRecord
     reset_sent_at < 15.minutes.ago
   end
 
+  # TODO: Remove
   # Clear empty rich text attributes
   # def clear
   #   binding.pry

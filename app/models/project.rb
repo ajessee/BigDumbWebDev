@@ -5,6 +5,7 @@ class Project < ApplicationRecord
   validates :user_id, presence: true
   # Make sure we have a title, since we are going to use this for the URL
   validates :name, presence: true
+  has_one_attached :image
 
   before_validation :set_slug
 

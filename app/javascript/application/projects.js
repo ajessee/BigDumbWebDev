@@ -27,12 +27,15 @@ function setupProjectsUtils() {
     setupUrlSlider: function() {
       let sliderInput = document.querySelector('input#project_external_url');
       let externalUrlField = document.getElementById('new-project-url');
+      let checkboxInfo = document.getElementById('new-project-info-box');
 
       sliderInput.addEventListener('change', function(e){
         if (e.target.checked) {
           externalUrlField.style.display = "block";
+          checkboxInfo.style.display = "none";
         } else {
           externalUrlField.style.display = "none";
+          checkboxInfo.style.display = "block";
         }
       })
     }
