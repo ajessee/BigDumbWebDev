@@ -19,8 +19,8 @@
 
   <div id="user-show-picture">
     <h2>Your Picture</h2> 
-    <% if @user.image.attachment != nil %>
-      <%= image_tag @user.image unless @user.image == nil %>
+    <% if @user.image.attached? %>
+      <%= image_tag @user.image %>
         <% if logged_in? && current_user?(@user)%>
           <%= link_to edit_user_path(@user, update_type: 'picture'), class: "no-link-color", id: "edit-user-picture-button", title: "Edit User Picture", remote: "true" do %>
           <button class="submit-close-buttons submit-button">Edit Picture</button>

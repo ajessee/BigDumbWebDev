@@ -12,7 +12,7 @@
     <div>
       <%= f.label "Project Thumbnail" %>
     </div>
-    <% if @project.image != nil %>
+    <% if @project.image.attached? %>
     <div>
       Current image filename: <%= @project.image.filename.to_s %>
     </div>

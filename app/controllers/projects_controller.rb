@@ -27,6 +27,16 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    @project = Project.find_by(slug: params[:slug])
+    if @project.update(project_params)
+      if @project.external_url
+        redirect_to projects_path
+      else
+        render @project.slug
+      end
+    else
+      render 'edit'
+    end
   end
 
   def destroy

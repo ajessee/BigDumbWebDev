@@ -7,8 +7,6 @@ if (window.utils.modal.editProjectModal) {
   } else {
     window.utils.modal.editProjectModal = window.utils.modal.openModal('block', '0%', 2, 3, 14, 12, null, null, false);
   }
-  // Setup modal window, insert new user signup partial
-
   window.utils.modal.editProjectModal.insertAdjacentHTML('beforeend', "<%= j (render 'edit') %>");
 }
 // Get close button and attach close modal function
@@ -30,9 +28,5 @@ window.utils.projects.checkUrlField();
   // Get debug information
   window.utils.debug.debugPanel.innerHTML = "";
   window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
-<% end %>
-
-<% if @error %>
-window.utils.notifications.openNotification('failure', '<%= @error_title %>', '<%= @error_message %>. Or <%= link_to "reset", new_password_reset_path, remote: true %> your password', 10000, true);
 <% end %>
 
