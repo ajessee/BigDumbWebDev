@@ -11,7 +11,6 @@ class ProjectsController < ApplicationController
   def create
     @project = current_user.projects.new(project_params)
     @project.save
-    # binding.pry
     if @project.external_url
       redirect_to projects_path
     else
@@ -24,12 +23,21 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @project = Project.find_by(slug: params[:slug])
   end
 
   def update
   end
 
   def destroy
+    @project = Project.find_by(slug: params[:slug])
+    store_message({
+      title: 'Project Deleted',
+      message: "'#{@project.name}'' successfully deleted",
+      type: 'success'
+    })
+    @project.destroy
+    redirect_to projects_url
   end
 
   private

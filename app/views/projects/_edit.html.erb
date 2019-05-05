@@ -1,0 +1,41 @@
+<%= form_with model: @project, id: "edit-project-form", class: "user-form", local: true do |f| %>
+  <h1 id="edit-project-header" class="user-form-header">Edit New Project</h1>
+  <div id="edit-project-name" class="float-container">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "input-error" %>
+  </div>
+  <div id="edit-project-description" class="float-container">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: "input-error" %>
+  </div>
+  <div id="edit-project-picture" class="check-box-container">
+    <div>
+      <%= f.label "Project Thumbnail" %>
+    </div>
+    <% if @project.image != nil %>
+    <div>
+      Current image filename: <%= @project.image.filename.to_s %>
+    </div>
+    <% end%>
+    
+      <%= f.file_field :image, id: 'project-picture-choose-file' %>
+    </div>
+    <div id="edit-project-info-box" class="check-box-container">
+        If this is an internal project, you'll need to create the view erb file that matches the name of this new project plus any needed javascript
+      </div>
+  <div id="edit-project-external-url" class="check-box-container">
+    <p>External URL?</p>
+      <%= f.label :external_url, class: "switch" do %>
+      <%= f.check_box :external_url %>
+      <div class="slider round"></div>
+      <% end %>
+  </div>
+  <div id="edit-project-url" class="float-container">
+    <%= f.label :url %>
+    <%= f.text_field :url, class: "input-error" %>
+  </div>
+  <div id="edit-project-submit" class="user-submit">
+    <%= f.submit "Edit Project", id: "edit-project-submit-button", class: "submit-close-buttons submit-button" %>
+    <button id="edit-project-close-button" class="submit-close-buttons close-button all-close">Cancel</button>
+  </div>
+<% end %>

@@ -5,29 +5,17 @@
 // Function to get number of current projects and adjust grid css accordingly to have right number of rows
 // TODO: load projects dynamically from database
 
-function setProjectsGrid() {
-  console.log("Setup Projects Grid");
-
-  const container = document.getElementById('all-projects-container');
-
-  if (container) {
-
-    const projectCards = document.querySelectorAll('.project-card');
-    const numberOfCards = projectCards.length;
-    const numberOfRows = Math.ceil(numberOfCards / 3);
-
-    container.style.setProperty('grid-template-rows', `repeat(${numberOfRows}, auto)`)
-  };
-}
-
-function setupProjectsUtils() {
+function setProjects() {
   console.log("Setup Projects Utils");
 
   const projects = {
+
+    container: document.getElementById('all-projects-container') ? document.getElementById('all-projects-container') : null,
+
     setupUrlSlider: function() {
       let sliderInput = document.querySelector('input#project_external_url');
-      let externalUrlField = document.getElementById('new-project-url');
-      let checkboxInfo = document.getElementById('new-project-info-box');
+      let externalUrlField = document.getElementById('new-project-url') || document.getElementById('edit-project-url');
+      let checkboxInfo = document.getElementById('new-project-info-box') || document.getElementById('edit-project-info-box');
 
       sliderInput.addEventListener('change', function(e){
         if (e.target.checked) {
@@ -38,13 +26,40 @@ function setupProjectsUtils() {
           checkboxInfo.style.display = "block";
         }
       })
+    },
+
+    checkUrlField: function() {
+      let externalUrlField = document.getElementById('new-project-url') || document.getElementById('edit-project-url');
+      let value = externalUrlField.querySelector('input').value
+      if (value === "") {
+        externalUrlField.style.display = "none";
+      }
+    },
+
+    setUpProjectGrid: function() {
+      const projectCards = document.querySelectorAll('.project-card');
+      const numberOfCards = projectCards.length;
+      const numberOfRows = Math.ceil(numberOfCards / 3);
+  
+      this.container.style.setProperty('grid-template-rows', `repeat(${numberOfRows}, auto)`)
+    },
+
+    init: function() {
+
+      if (this.container) {
+        this.setUpProjectGrid();
+      };
+      
     }
+
   };
 
+  projects.init();
   window.utils.projects = projects;
+
 }
 
-document.addEventListener("DOMContentLoaded", setProjectsGrid);
-document.addEventListener("DOMContentLoaded", setupProjectsUtils);
+
+document.addEventListener("DOMContentLoaded", setProjects);
 
 
