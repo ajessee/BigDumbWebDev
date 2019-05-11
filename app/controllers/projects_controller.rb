@@ -1,7 +1,12 @@
 class ProjectsController < ApplicationController
+
+  # Since I'm the only user that can create new projects, every action except for show and index are restricted
+  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
+
   def index
-    # Figure out how to set default user (me) that owns all the projects in production
-    @user = User.last
+    # I am always the first user now that I've updated the seeds.rb file
+    @user = User.first
   end
 
   def new
@@ -10,11 +15,15 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.new(project_params)
-    @project.save
-    if @project.external_url
-      redirect_to projects_path
+    if @project.save
+      if @project.external_url
+        redirect_to projects_path
+      else
+        render @project.slug
+      end
     else
-      render @project.slug
+      # TODO: Figure out how to handle errors for project missing name or description. Maybe do client-side validation?
+      redirect_to projects_path
     end
   end
 

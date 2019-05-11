@@ -65,12 +65,12 @@ module SessionsHelper
     session[:forwarding_url] = request.original_url if request.get?
   end
 
-  # Get stored location if exisits
+  # Get stored location if exists
   def get_location
     session[:forwarding_url] if session[:forwarding_url]
   end
 
-  # Get stored location if exisits
+  # Get stored location if exists
   def clear_location
     session.delete(:forwarding_url) if session[:forwarding_url]
   end

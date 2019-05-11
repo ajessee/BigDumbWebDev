@@ -9,13 +9,11 @@ class UsersController < ApplicationController
   end
 
   def new
-    # In keystrokes.js, we grab a hidden div with a link_to new_user_path with remote true
     @user = User.new
   end  
   
   def create
     @user = User.new(user_params)
-    
     if @user.save
       @user.send_activation_email
       respond_to do |format|
@@ -84,25 +82,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :details, :image, :email, :password, :password_confirmation, :update_type)
   end
 
-  def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:error_message] = 'You need to log in to do that'
-      redirect_to errors_unauthorized_path
-    end
-  end
-
   def correct_user
     @user = User.find(params[:id])
     unless current_user?(@user) || current_user.admin?
       flash[:error_message] = "You definitely shouldn\'t be trying to access another user\'s resources #{@user.first_name}"
-      redirect_to errors_forbidden_path 
-    end
-  end
-
-  def admin_user
-    unless current_user.admin?
-      flash[:error_message] = "Only admin users are allowed to do that #{current_user.first_name}"
       redirect_to errors_forbidden_path 
     end
   end

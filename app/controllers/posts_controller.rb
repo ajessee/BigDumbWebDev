@@ -58,25 +58,10 @@ class PostsController < ApplicationController
     params[:post].delete :counts
   end
 
-  def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:error_message] = 'You need to log in to do that'
-      redirect_to errors_unauthorized_path
-    end
-  end
-
   def correct_user
     @post = Post.find_by(slug: params[:slug])
     unless logged_in? && current_user.admin?
       flash[:error_message] = "You definitely shouldn\'t be trying to access another user\'s resources #{current_user.first_name}"
-      redirect_to errors_forbidden_path 
-    end
-  end
-
-  def admin_user
-    unless current_user.admin?
-      flash[:error_message] = "Only admin users are allowed to do that #{current_user.first_name}"
       redirect_to errors_forbidden_path 
     end
   end

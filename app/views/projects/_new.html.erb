@@ -3,10 +3,12 @@
   <div id="new-project-name" class="float-container">
     <%= f.label :name %>
     <%= f.text_field :name, class: "input-error" %>
+    <%= render  "shared/single_project_error_message", attr: :name.to_s%>
   </div>
   <div id="new-project-description" class="float-container">
     <%= f.label :description %>
     <%= f.text_field :description, class: "input-error" %>
+    <%= render  "shared/single_project_error_message", attr: :description.to_s%>
   </div>
   <div id="new-project-picture" class="check-box-container">
     <div>

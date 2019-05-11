@@ -34,19 +34,9 @@ Rails.application.routes.draw do
 
   resources :password_resets, only: [:new, :create, :edit, :update]
 
-  # Projects (TODO: Convert to resource?)
+  # Projects 
 
   resources :projects, param: :slug
-
-  # get     'projects', to: 'projects#projects'
-
-  # get     'projects/todo', to: 'projects#todo'
-
-  # get     'projects/loan-calculator', to: 'projects#calculator'
-
-  # get     'projects/number-guesser', to: 'projects#number_guesser'
-
-  # get     'projects/contacts', to: 'projects#contacts'
 
   # Users
 

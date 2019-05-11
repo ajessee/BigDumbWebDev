@@ -3,8 +3,10 @@ class Project < ApplicationRecord
   belongs_to :user
   # Make sure we have an associated user that owns the post
   validates :user_id, presence: true
-  # Make sure we have a title, since we are going to use this for the URL
-  validates :name, presence: true
+  # Make sure we have a title, since we are going to use this for the URL. Also needs to be unique
+  validates :name, presence: true, uniqueness: true
+  # We always want a description too
+  validates :description, presence: true
   has_one_attached :image
 
   before_validation :set_slug

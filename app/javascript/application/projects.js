@@ -45,13 +45,11 @@ function setProjects() {
     },
 
     init: function() {
-
       if (this.container) {
         this.setUpProjectGrid();
       };
       
     }
-
   };
 
   projects.init();
