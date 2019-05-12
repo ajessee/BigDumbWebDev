@@ -1,6 +1,6 @@
 var map = {}; // You could also use an array
-// TODO: Finish this up
-// TODO: Put in module
+// TODO: Finish this up, Put in module. Figure out what functionality I want from keyboard shortcuts.
+
 onkeydown = onkeyup = function(e){
     e = e || event; // to deal with IE
     map[e.keyCode] = e.type == 'keydown';

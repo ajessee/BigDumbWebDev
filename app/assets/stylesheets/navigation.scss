@@ -135,14 +135,14 @@
     cursor: not-allowed;
 }
 
-#nav-menu-blog {
-    grid-row: 5;
-    grid-column: 1/4;
-}
-
 // TODO: Remove this when you add link
 #nav-menu-blog:hover {
     cursor: not-allowed;
+}
+
+#nav-menu-blog {
+    grid-row: 5;
+    grid-column: 1/4;
 }
 
 #nav-menu-user-profile {

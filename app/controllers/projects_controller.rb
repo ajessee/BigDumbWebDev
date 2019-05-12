@@ -3,6 +3,12 @@ class ProjectsController < ApplicationController
   # Since I'm the only user that can create new projects, every action except for show and index are restricted
   before_action :logged_in_and_admin_user, only: [:new, :create, :edit, :update, :destroy]
 
+  def scroll3d
+    # Grab three random projects to show
+    @projects = Project.order("RANDOM()").limit(3)
+    
+  end
+
   def index
     # I am always the first user now that I've updated the seeds.rb file
     @user = User.first

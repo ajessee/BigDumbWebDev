@@ -52,6 +52,19 @@ const setUpNav = () => {
       });
     },
 
+    removeNavElements: function () {
+      // We know the iframe exists because we are calling this function from the iframe's onload function in HTML
+      let iframe = document.querySelector('#scroll3d-iframe');
+      iframe.contentDocument.querySelector('#nav-button-container').remove();
+      iframe.contentDocument.querySelector('#debug-button-container').remove();
+      iframe.contentDocument.querySelector('#modal').remove();
+      iframe.contentDocument.querySelector('#nav-slide-in-menu').remove();
+      iframe.contentDocument.querySelector('.debug-panel').remove();
+      
+      
+      
+    },
+
     init: function (notNew) {
       let self = this;
       this.navButtonContainer = document.querySelector('#nav-button-container');

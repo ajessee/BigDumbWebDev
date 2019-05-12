@@ -79,18 +79,6 @@ class User < ApplicationRecord
     reset_sent_at < 15.minutes.ago
   end
 
-  # TODO: Remove
-  # Clear empty rich text attributes
-  # def clear
-  #   binding.pry
-  #   if self.picture && self.picture.body.empty?
-  #     update_attribute(:picture, nil)
-  #   end
-  #   if self.details && self.details.body.empty?
-  #     update_attribute(:details, nil)
-  #   end
-  # end
-
   private
 
   # Converts email to all lower-case.
@@ -104,7 +92,7 @@ class User < ApplicationRecord
     self.activation_digest = User.digest(activation_token)
   end
 
-  # This is an idomatic way to define class methods in Ruby. The 'self' is the user class, and it allows you to define methods without having to prepend them with 'User.' or 'self.'
+  # This is an idiomatic way to define class methods in Ruby. The 'self' is the user class, and it allows you to define methods without having to prepend them with 'User.' or 'self.'
   class << self
     # Class method to return a BCrypt hash of the provided string
     def digest(string)

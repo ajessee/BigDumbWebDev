@@ -3,4 +3,5 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include NotificationsHelper
   include UsersHelper
+  # TODO: Delete all helper files you aren't using
 end

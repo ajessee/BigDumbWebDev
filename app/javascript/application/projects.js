@@ -1,10 +1,6 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-
-// Function to get number of current projects and adjust grid css accordingly to have right number of rows
-// TODO: load projects dynamically from database
-
 function setProjects() {
   console.log("Setup Projects Utils");
 

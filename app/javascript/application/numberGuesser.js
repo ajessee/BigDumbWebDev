@@ -9,7 +9,7 @@
   until I realized that I shouldn't just do something because it is cool. One issue that arises is that arrow functions are not hoisted, so I have to put the event listener at the bottom of the page. Also, arrow functions don't have a 'this' object (unless you pass it one), so 'this' === window for all these functions. This isn't a 
   problem, because I am creating an object per each project, and attaching properties and methods to that. Need to think about whether I want to refactor to use regular ol' functions, or if I can keep like this. 7/22/18, don't see the need to refactor now.
 
-  Todo:
+  TODO:
     1. Set object to null on page reload to wipe from memory - is this needed?
     2. Refactor to ES6 classes
     3. Change from arrow functions to regular functions?

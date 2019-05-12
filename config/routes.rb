@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   
   get     'hello/home'
 
+  # iFrame for 3d scroll
+
+  get '/scroll3d', to: 'projects#scroll3d'
+
   # Sessions and new users
   
   get     '/signup',  to: 'users#new'
