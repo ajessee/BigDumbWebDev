@@ -4,12 +4,12 @@
   <div id="password-reset-password" class="float-container">
     <%= f.label :password %>
     <%= f.password_field :password, class: "input-error" %>
-    <%= render "shared/single_error_message", attr: :password.to_s%>
+    <%= render "shared/single_user_error_message", attr: :password.to_s%>
   </div>
   <div id="password-reset-password-confirm" class="float-container">
     <%= f.label :password_confirmation, "Confirmation" %>
     <%= f.password_field :password_confirmation, class: "input-error" %>
-    <%= render  "shared/single_error_message", attr: :password_confirmation.to_s%>
+    <%= render  "shared/single_user_error_message", attr: :password_confirmation.to_s%>
   </div>
   <div id="password-reset-submit" class="user-submit">
     <%= f.submit "Update Password", id: "password-reset-submit-button", class: "submit-close-buttons submit-button" %>

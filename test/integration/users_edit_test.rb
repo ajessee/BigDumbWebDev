@@ -17,7 +17,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
       password_confirmation: "bar" } }
 
       assert_template 'users/_edit'
-      assert_template 'shared/_single_error_message'
+      assert_template 'shared/_single_user_error_message'
   end
 
   test "successful edit" do
