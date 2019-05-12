@@ -15,6 +15,20 @@ module UsersHelper
     end
   end
 
+  def logged_in_and_admin_user
+    unless logged_in? && current_user.admin?
+      flash[:error_message] = "Only admin users are allowed to do that."
+      redirect_to errors_forbidden_path 
+    end
+  end
+
+  def correct_user
+    unless logged_in? && current_user.admin?
+      flash[:error_message] = "You definitely shouldn\'t be trying to access another user\'s resources #{current_user.first_name}"
+      redirect_to errors_forbidden_path 
+    end
+  end
+
   def returnUserError(userObject, currentAttribute)
      case currentAttribute 
        when "first_name"

@@ -1,12 +1,12 @@
 class PostsController < ApplicationController
 
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:destroy, :index]
+  # Since I'm the only user that can create new posts, every action except for show and index are restricted
+  before_action :logged_in_and_admin_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :delete_counts, only: [:create, :update]
   
   def index
-    @user = current_user
+    # I am always the first user now that I've updated the seeds.rb file
+    @user = User.first
     @posts = @user.posts.paginate(page: params[:page], per_page: 1)
   end
 
@@ -17,6 +17,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     @post.save
+    # TODO: Figure out how to handle errors for post missing title - its the only validation we do. Maybe do client-side validation?
     redirect_to @post
   end
 
@@ -26,14 +27,15 @@ class PostsController < ApplicationController
   end
 
   def edit
-    # correct_user defines @post that is then passed to the view
+    @post = Post.find_by(slug: params[:slug])
   end
 
   def update
-    # correct_user defines @post that is then passed to the view
+    @post = Post.find_by(slug: params[:slug])
     if @post.update(post_params)
       redirect_to @post
     else
+      # TODO: Figure out how to handle errors for post missing title - its the only validation we do. Maybe do client-side validation?
       render 'edit'
     end
   end
@@ -55,15 +57,8 @@ class PostsController < ApplicationController
   end
 
   def delete_counts
+    # collection_select() in the post new/edit forms creates a post[counts] attribute that we have to remove from the params
     params[:post].delete :counts
-  end
-
-  def correct_user
-    @post = Post.find_by(slug: params[:slug])
-    unless logged_in? && current_user.admin?
-      flash[:error_message] = "You definitely shouldn\'t be trying to access another user\'s resources #{current_user.first_name}"
-      redirect_to errors_forbidden_path 
-    end
   end
 
 end

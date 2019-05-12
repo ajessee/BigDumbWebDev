@@ -96,13 +96,25 @@ function setupPosts() {
     setupCancelButtons: function () {
 
       if (this.postContainer) {
-        const editPostCancelButton = document.querySelector('#edit-post-cancel-button');
-        const newPostCancelButton = document.querySelector('#new-post-cancel-button');
-        editPostCancelButton.addEventListener('click', function(e){
-          e.preventDefault()
-          let postID = e.target.getAttribute('data-post-id');
-          window.location.href = '/posts/' + postID;
-        })
+        const editPostCancelButton = document.querySelector('#edit-post-cancel-button') ? document.querySelector('#edit-post-cancel-button') : null;
+        const newPostCancelButton = document.querySelector('#new-post-cancel-button') ? document.querySelector('#new-post-cancel-button') : null;
+
+        if (editPostCancelButton) {
+          editPostCancelButton.addEventListener('click', function(e){
+            e.preventDefault()
+            let postID = e.target.getAttribute('data-post-id');
+            window.location.href = '/posts/' + postID;
+          })
+        }
+
+        if (newPostCancelButton) {
+          newPostCancelButton.addEventListener('click', function(e){
+            e.preventDefault()
+            window.location.href = '/posts'
+          })
+        }
+
+
       }
 
     },

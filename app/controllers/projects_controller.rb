@@ -1,8 +1,7 @@
 class ProjectsController < ApplicationController
 
   # Since I'm the only user that can create new projects, every action except for show and index are restricted
-  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
-  before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :logged_in_and_admin_user, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     # I am always the first user now that I've updated the seeds.rb file
@@ -44,7 +43,8 @@ class ProjectsController < ApplicationController
         render @project.slug
       end
     else
-      render 'edit'
+      # TODO: Figure out how to handle errors for project missing name or description. Maybe do client-side validation?
+      redirect_to projects_path
     end
   end
 
@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
     @project = Project.find_by(slug: params[:slug])
     store_message({
       title: 'Project Deleted',
-      message: "'#{@project.name}'' successfully deleted",
+      message: "'#{@project.name}' successfully deleted",
       type: 'success'
     })
     @project.destroy
