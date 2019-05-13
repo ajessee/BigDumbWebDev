@@ -5,7 +5,8 @@ class ProjectsController < ApplicationController
 
   def scroll3d
     # Grab three random projects to show
-    @projects = Project.order("RANDOM()").limit(3)
+    @projects = Project.order("RANDOM()").limit(4)
+    # @projects = Project.all
     
   end
 

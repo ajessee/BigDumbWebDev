@@ -3,6 +3,28 @@
   width: 100vw;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
+.project-card-3d {
+  background-color: white;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
+  font-size: 1.5em;
+}
+
+.project-card-3d:hover {
+  transform: scale(1.05, 1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+#all-projects-link > div > svg {
+  padding: 0.7em;
+}
+
 :root {
   --scenePerspective: 1;
   --scenePerspectiveOriginX: 50;
@@ -13,7 +35,7 @@
   --viewportHeight: 0; // Viewport height will allow us to set the depth of our scene
 }
 
-#hello-page-projects-container {
+#projects-container {
   background-color: aliceblue;
 }
 

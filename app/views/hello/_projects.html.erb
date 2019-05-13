@@ -1,56 +1,6 @@
-<section id="hello-page-projects-container">
+<section id="projects-container">
     <h1 class="projects-header">Projects</h1>
-
+    <!-- We are putting this in an iframe because in order for the 3d effect to work, the position of the viewport needs to be fixed.
+    TODO: Look into using HTML Web Components instead. If that works, do it for individual projects too -->
     <iframe src="/scroll3d" frameborder="0" id="scroll3d-iframe" onLoad="window.utils.navigation.removeNavElements()"></iframe>
-  
-
-  
   </section>
-
-<!-- <section id="projects-container" class="projects-container">
-  <h1 class="projects-header">Projects</h1>
-
-  <a class="no-link-color project-card" id="rdj-logo" href="https://www.ralphdonaldjessee.com/" target="_" rel="noopener noreferrer">
-    <div class="link-image 2">
-      <%= image_tag("rdjlogo.png", class: 'project-image') %>
-    </div>
-    <p id="rdj-caption" class="image-label">A web application to share stories my grandfather wrote</p>
-  </a>
-
-  <a class="no-link-color project-card" id="nycycle-logo" href="https://nycycle-1.herokuapp.com/" target="_" rel="noopener noreferrer">
-    <div class="link-image">
-      <%= image_tag("nycycle.png", class: 'project-image') %>
-    </div>
-    <p id="nycycle-caption" class="image-label">A web application to find the closest recycling bin to you in NYC</p>
-  </a>
-
-  <a class="no-link-color project-card" id="water-logo" href="https://github.com/ajessee/visualize_NYC_resevoir_levels" target="_" rel="noopener noreferrer">
-    <div class="link-image">
-      <%= image_tag("water.png", class: 'project-image') %>
-    </div>
-    <p id="water-caption" class="image-label">A command line application to visualize NYC reservoir levels (GitHub Page)</p>
-  </a>
-
-  <a class="no-link-color project-card" id="headup-logo" href="https://head-up.herokuapp.com/" target="_" rel="noopener noreferrer">
-    <div class="link-image">
-      <%= image_tag("headUp.png", class: 'project-image') %>
-    </div>
-    <p id="water-caption" class="image-label">A web application for my friend's consulting business</p>
-  </a>
-
-  <a class="no-link-color project-card" id="toefl-logo" href="https://github.com/ajessee/toefl_audio_essay_feature" target="_" rel="noopener noreferrer">
-    <div class="link-image">
-      <%= image_tag("toefl.png", class: 'project-image') %>
-    </div>
-    <p id="water-caption" class="image-label">A feature I built for Kaplan, Inc. for their TOEFL prep product (GitHub Page)</p>
-  </a>
-
-
-  <a class="no-link-color project-card" id="all-logo" href="projects">
-    <div class="link-image">
-      <i class="far fa-plus-square fa-5x" aria-hidden="true"></i>
-    </div>
-    <p id="all-caption" class="image-label">See All Projects</p>
-  </a>
-
-</section> -->

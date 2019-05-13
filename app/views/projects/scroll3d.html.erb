@@ -1,41 +1,30 @@
 <div class="viewport">
-    <div class="scene3D-container">
-      <div class="scene3D">
-        <% @projects.each do |project| %>
-        <div class="project-card">
-            <% if logged_in? && current_user.admin? %>
-            <div class="project-card-controls">
-                <%= link_to edit_project_path(project), class: "no-link-color", title: "Edit Project", target: "_blank", remote: true do %>
-                <i class="far fa-edit fa-1x nav-menu-icon" aria-hidden="true"></i>
-                <% end %>
-                <%= link_to project_path(project), class: "no-link-color", title: "Delete Project", method: "delete" do %>
-                <i class="fas fa-times fa-1x nav-menu-icon" aria-hidden="true"></i>
-                <% end %>
-              </div>
-              <% end %>
-      
-          <a class="no-link-color project-card-link" id="<%= project.slug %>-link" href="<%= project.external_url ? project.url : 'projects/' + project.slug %>" rel="noopener noreferrer" target="_blank">
-            <div class="link-image">
-                <% if project.image.attachment != nil %>
-                <%= image_tag(project.image.variant(resize_to_limit: [300, 300]), class: "project-image") unless project.image == nil %>
-                <% end %>
-            </div>
-            <div class="image-label">
-              <%= project.description %>
-            </div>
-          </a>
-      
-        </div>
-        <% end %>
-        <div class="project-card">
-          <!-- change href to reload page -->
-          <a class="no-link-color" id="all-logo" href="projects">
-            <div class="link-image">
-              <i class="far fa-plus-square fa-5x" aria-hidden="true"></i>
-            </div>
-            <p id="all-caption" class="image-label">See All Projects</p>
-          </a>
-        </div>
+  <div class="scene3D-container">
+    <div class="scene3D">
+      <% @projects.each do |project| %>
+      <div class="project-card-3d">
+        <a class="no-link-color project-card-link" id="<%= project.slug %>-link"
+          href="<%= project.external_url ? project.url : 'projects/' + project.slug %>" rel="noopener noreferrer"
+          target="_blank" data-replace-href="<%= !project.external_url %>">
+          <div class="link-image">
+            <% if project.image.attachment != nil %>
+            <%= image_tag(project.image.variant(resize_to_limit: [300, 300]), class: "project-image") unless project.image == nil %>
+            <% end %>
+          </div>
+          <div class="image-label">
+            <%= project.description %>
+          </div>
+        </a>
+      </div>
+      <% end %>
+      <div class="project-card-3d">
+        <a class="no-link-color" id="all-projects-link" href="#">
+          <div class="link-image text-align-center">
+            <i class="far fa-plus-square fa-5x" aria-hidden="true"></i>
+          </div>
+          <div class="image-label">See All Projects</div>
+        </a>
       </div>
     </div>
   </div>
+</div>
