@@ -95,25 +95,25 @@ existing_projects_array.each do |proj|
 end
 
 # Uncomment to seed dev database with fake users.
-30.times do 
-  title = Faker::Book.title
-  content = Faker::Lorem.paragraph_by_chars(500, false)
-  admin_user.posts.create(title: title, content: content)
-end
+# 30.times do 
+#   title = Faker::Book.title
+#   content = Faker::Lorem.paragraph_by_chars(500, false)
+#   admin_user.posts.create(title: title, content: content)
+# end
 
-25.times do
-first_name  = Faker::Name.first_name
-last_name = Faker::Name.last_name
-email = Faker::Internet.email
-details = Faker::Quote.famous_last_words
-password = "password"
-User.create!(
-  first_name:  first_name,
-  last_name: last_name,
-  email: email,
-  details: Faker::Quote.famous_last_words,
-  password:              password,
-  password_confirmation: password,
-  activated: true,
-  activated_at: Time.zone.now)
-end
+# 25.times do
+# first_name  = Faker::Name.first_name
+# last_name = Faker::Name.last_name
+# email = Faker::Internet.email
+# details = Faker::Quote.famous_last_words
+# password = "password"
+# User.create!(
+#   first_name:  first_name,
+#   last_name: last_name,
+#   email: email,
+#   details: Faker::Quote.famous_last_words,
+#   password:              password,
+#   password_confirmation: password,
+#   activated: true,
+#   activated_at: Time.zone.now)
+# end
