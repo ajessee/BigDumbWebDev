@@ -5,9 +5,12 @@ const setUp3D = () => {
   if (window.frameElement) {
     // the iFrame has loaded
     const threeD = {
+
       moveCamera: function() {
+        document.documentElement.querySelector('.viewport').style.backgroundColor = "#c5cdd8";
         document.documentElement.style.setProperty("--cameraZ", window.pageYOffset);
       },
+      
       setSceneHeight: function () {
         const self = this;
         const numberOfItems = 4; // Or number of items you have in `.scene3D`
@@ -89,7 +92,7 @@ const setUp3D = () => {
         }
         contentDocument.querySelector('#all-projects-link').addEventListener('click', function (e) {
           e.preventDefault();
-          window.location.replace('/projects');
+          top.window.location.replace('/projects');
         });
         const allCardLinksArray = contentDocument.querySelectorAll('.project-card-link');
         allCardLinksArray.forEach(function(linkEl) {
@@ -99,18 +102,22 @@ const setUp3D = () => {
             linkEl.addEventListener('click', function(e) {
               e.preventDefault();
               linkEl.setAttribute('target', "")
-              window.location.replace(newHref);
+              top.window.location.replace(newHref);
             })
           }
         })
       },
   
       init: function () {
+        let self = this;
         this.projectsContainer = top.document.querySelector('#projects-container') ? top.document.querySelector('#projects-container') : null;
         this.projectsIFrame = window.frameElement;
         if (this.projectsContainer && this.projectsIFrame) {
           this.setUpIFrame();
-          window.addEventListener("scroll", this.moveCamera);
+          window.addEventListener("scroll", this.moveCamera.bind(this));
+          top.window.addEventListener("scroll", function(){
+            self.projectsIFrame.contentDocument.querySelector('.viewport').style.backgroundColor = "aliceblue";
+          });
           window.addEventListener("mousemove", this.moveCameraAngle.bind(this));
           this.setSceneHeight();
         }

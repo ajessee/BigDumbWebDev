@@ -19,7 +19,7 @@ const setUpNav = () => {
 
       }
 
-      if (offsetHeight + boundingTop < 0 && this.slideInMenu.classList.contains('menu-closed')) {
+      if (offsetHeight + boundingTop < 100 && this.slideInMenu.classList.contains('menu-closed')) {
         this.navButtonContainer.style.display = "block";
       } else  {
         this.navButtonContainer.style.display = "none";
