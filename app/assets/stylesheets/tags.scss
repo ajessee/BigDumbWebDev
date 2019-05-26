@@ -1,4 +1,4 @@
-#add-tags-container > input {
+#add-tags-container>input {
   width: 400px;
 }
 
@@ -7,8 +7,9 @@
   padding: 5px 10px !important;
 }
 
-#tag-show-container, #tag-cloud-container {
-  display: grid;  
+#tag-show-container,
+#tag-cloud-container {
+  display: grid;
   font-family: 'Oxygen', sans-serif;
   grid-template-rows: repeat(3, 1fr);
   background-color: aliceblue;
@@ -28,7 +29,8 @@
   grid-template-rows: 15% 85%;
 }
 
-#tag-cloud-title, #tag-show-title {
+#tag-cloud-title,
+#tag-show-title {
   grid-row: 1;
   justify-self: center;
   align-self: center;
@@ -60,9 +62,46 @@
   text-align: center;
 }
 
-.css1 { font-size: 2em;}
-.css2 { font-size: 2.5em;}
-.css3 { font-size: 3em;}
-.css4 { font-size: 3.5em;}
-.css5 { font-size: 4em;}
-.css6 { font-size: 4.5em;}
+.css1 {
+  font-size: 2em;
+}
+
+.css2 {
+  font-size: 2.5em;
+}
+
+.css3 {
+  font-size: 3em;
+}
+
+.css4 {
+  font-size: 3.5em;
+}
+
+.css5 {
+  font-size: 4em;
+}
+
+.css6 {
+  font-size: 4.5em;
+}
+
+// Huge screen
+@media only screen and (min-width : 1501px) {
+  // placeholder
+}
+
+// Most screens
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+  // placeholder
+}
+
+// iPads and tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+  // placeholder
+}
+
+// Phones
+@media only screen and (max-width: 767px) {
+  // placeholder
+}

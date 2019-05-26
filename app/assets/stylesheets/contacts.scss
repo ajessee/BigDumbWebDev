@@ -56,7 +56,7 @@
 #contact-first-name-input,
 #contact-last-name-input,
 #contact-phone-input,
-#contact-email-input{
+#contact-email-input {
   margin-top: 1%;
   border-bottom: 2px solid #d2d5e0;
   border-left: 0px solid;
@@ -71,7 +71,7 @@
 #contact-first-name-input:focus,
 #contact-last-name-input:focus,
 #contact-phone-input:focus,
-#contact-email-input:focus{
+#contact-email-input:focus {
   outline: 2px solid rgb(166, 184, 232);
 }
 
@@ -112,18 +112,18 @@
   font-weight: 400;
   font-size: 1.2em;
   text-align: center;
-  border-collapse: collapse; 
+  border-collapse: collapse;
 }
 
 #table-border-bottom {
   border-bottom: 2px solid black;
 }
 
-#table-border-bottom > th {
+#table-border-bottom>th {
   padding: 8px 0px 8px 0px;
 }
 
-#contact-table > tbody:before {
+#contact-table>tbody:before {
   content: "-";
   display: block;
   line-height: 1em;
@@ -139,7 +139,7 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #contact-modal-content {
@@ -167,7 +167,8 @@
   cursor: pointer;
 }
 
-.contact-success, .contact-error {
+.contact-success,
+.contact-error {
   color: white;
   padding: 5px;
   margin: 5px 0 5px 0;
@@ -179,4 +180,24 @@
 
 .contact-error {
   color: red;
+}
+
+// Huge screen
+@media only screen and (min-width : 1501px) {
+  // placeholder
+}
+
+// Most screens
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+  // placeholder
+}
+
+// iPads and tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+  // placeholder
+}
+
+// Phones
+@media only screen and (max-width: 767px) {
+  // placeholder
 }

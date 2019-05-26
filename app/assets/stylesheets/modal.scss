@@ -1,10 +1,10 @@
 #modal {
   display: none;
-  position: fixed; 
+  position: fixed;
   z-index: 5;
   height: 100%;
   width: 100%;
-  top: 0; 
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
@@ -20,7 +20,7 @@
 
 .modal-content {
   display: none;
-  grid-row: 3 / span 12; 
+  grid-row: 3 / span 12;
   grid-column: 3 / span 12;
   justify-content: center;
   background-color: white;
@@ -29,26 +29,35 @@
   box-shadow: 15px 16px 12px rgba(0, 0, 0, 0.3);
 }
 
+.modal-notification-info {
+  width: 90%;
+  text-align: center;
+  font-family: 'Oxygen', sans-serif;
+  align-self: center;
+  justify-self: center;
+  padding: 5%;
+}
+
 .grow {
   animation-name: grow;
-  animation-duration: 0.3s; 
-  animation-timing-function: ease-out; 
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
   animation-delay: 0s;
   animation-direction: normal;
   animation-iteration-count: 1;
   animation-fill-mode: none;
-  animation-play-state: running; 
+  animation-play-state: running;
 }
 
 .shrink {
   animation-name: shrink;
-  animation-duration: 0.3s; 
-  animation-timing-function: ease-out; 
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
   animation-delay: 0s;
   animation-direction: normal;
   animation-iteration-count: 1;
   animation-fill-mode: none;
-  animation-play-state: running; 
+  animation-play-state: running;
 }
 
 @keyframes grow {
@@ -56,6 +65,7 @@
     transform: scale(0);
     border-radius: 100%;
   }
+
   100% {
     transform: scale(1);
     border-radius: 2%;
@@ -66,12 +76,12 @@
   0% {
     border-radius: 2%;
   }
+
   100% {
     transform: scale(0);
     border-radius: 100%;
   }
 }
-
 
 .modalBlur>*:not(#modal):not(#debug-button-container) {
   -webkit-filter: blur(3px) brightness(50%);
@@ -85,7 +95,7 @@
   -ms-transition: 0.3s -ms-filter linear;
 }
 
-.modalUnblur>*:not(#modal):not(#debug-button-container)  {
+.modalUnblur>*:not(#modal):not(#debug-button-container) {
   -webkit-filter: none;
   -moz-filter: none;
   -o-filter: none;
@@ -109,4 +119,24 @@
 .close-modal:hover {
   cursor: pointer;
   color: #F04747;
+}
+
+// Huge screen
+@media only screen and (min-width : 1501px) {
+  // placeholder
+}
+
+// Most screens
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+  // placeholder
+}
+
+// iPads and tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+  // placeholder
+}
+
+// Phones
+@media only screen and (max-width: 767px) {
+  // placeholder
 }

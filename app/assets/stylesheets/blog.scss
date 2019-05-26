@@ -5,7 +5,7 @@
   background-color: aliceblue;
   grid-row-gap: 1em;
   place-items: center;
-  min-height: 100vh; 
+  min-height: 100vh;
   min-width: 100vw;
 }
 
@@ -17,6 +17,22 @@
   grid-row: 1;
 }
 
+// Huge screen
+@media only screen and (min-width : 1501px) {
+  // placeholder
+}
+
+// Most screens
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+  // placeholder
+}
+
+// iPads and tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+  // placeholder
+}
+
+// Phones
 @media only screen and (max-width: 767px) {
   #blog-container {
     grid-template-columns: auto;

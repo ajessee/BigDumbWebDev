@@ -1,18 +1,15 @@
-// Place all the styles related to the Comments controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 .comment-form {
-      display: grid;
-      grid-template-columns: 100%;
-      justify-items: center;
+  display: grid;
+  grid-template-columns: 100%;
+  justify-items: center;
 }
 
 #new-comment-submit {
   margin: 2% 0 2% 0;
 }
 
-#new-comment-content, #edit-comment-content {
+#new-comment-content,
+#edit-comment-content {
   max-width: 70%;
   min-width: 70%;
 }
@@ -40,14 +37,35 @@
   margin: 1%;
 }
 
-#new-guest-first-name, #new-guest-last-name {
+#new-guest-first-name,
+#new-guest-last-name {
   width: 50%;
 }
 
 .show-comment-controls {
   justify-self: end;
-}  
+}
 
 #add-new-comment-button {
   justify-self: center;
+}
+
+// Huge screen
+@media only screen and (min-width : 1501px) {
+  // placeholder
+}
+
+// Most screens
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+  // placeholder
+}
+
+// iPads and tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+  // placeholder
+}
+
+// Phones
+@media only screen and (max-width: 767px) {
+  // placeholder
 }

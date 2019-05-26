@@ -74,7 +74,7 @@ const setUpNav = () => {
       })
      
       if (this.aboutMeContainer) {
-        this.setupScrollTo(['projects', 'resources', 'blog']);
+        this.setupScrollTo(['projects', 'blog']);
         document.addEventListener("scroll", function (e) {
           self.onScroll(true);
         });

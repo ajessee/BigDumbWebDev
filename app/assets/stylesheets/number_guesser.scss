@@ -52,7 +52,10 @@
   grid-column: 2;
 }
 
-#ng-guess-input, #ng-set-min, #ng-set-max, #ng-set-guesses {
+#ng-guess-input,
+#ng-set-min,
+#ng-set-max,
+#ng-set-guesses {
   justify-self: center;
   align-self: center;
   border-radius: 3px;
@@ -62,7 +65,10 @@
   width: 150px;
 }
 
-#ng-guess-btn, #ng-hint-btn, #ng-settings-btn, #ng-settings-save-btn {
+#ng-guess-btn,
+#ng-hint-btn,
+#ng-settings-btn,
+#ng-settings-save-btn {
   background: none;
   font-size: 1em;
   text-align: center;
@@ -83,7 +89,7 @@
   grid-row: 3;
 }
 
-#ng-hint-btn{
+#ng-hint-btn {
   grid-column: 2;
   grid-row: 7;
   display: none;
@@ -96,7 +102,10 @@
   grid-row: 4;
 }
 
-#ng-yoda-start, #ng-yoda-try-again, #ng-yoda-lose, #ng-yoda-win {
+#ng-yoda-start,
+#ng-yoda-try-again,
+#ng-yoda-lose,
+#ng-yoda-win {
   grid-row: 5;
   grid-column: 1/4;
   justify-self: center;
@@ -104,11 +113,13 @@
   margin: 0;
 }
 
-#ng-yoda-start{
+#ng-yoda-start {
   display: flex;
 }
 
-#ng-yoda-try-again, #ng-yoda-lose, #ng-yoda-win {
+#ng-yoda-try-again,
+#ng-yoda-lose,
+#ng-yoda-win {
   display: none;
 }
 
@@ -124,11 +135,22 @@
   grid-column: 1/4;
 }
 
-#ng-min-num {
-
+// Huge screen
+@media only screen and (min-width : 1501px) {
+  // placeholder
 }
 
-#ng-max-num {
-  
+// Most screens
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+  // placeholder
 }
 
+// iPads and tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+  // placeholder
+}
+
+// Phones
+@media only screen and (max-width: 767px) {
+  // placeholder
+}

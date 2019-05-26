@@ -3,7 +3,7 @@
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 20vh 70vh 10vh;
   background-color: aliceblue;
-  height: 100vh; 
+  height: 100vh;
   width: 100vw;
 }
 
@@ -14,7 +14,7 @@
 }
 
 #landing-page-image {
-  grid-row: 2; 
+  grid-row: 2;
   grid-column: 2 / span 4;
   display: flex;
   justify-content: center;
@@ -25,15 +25,18 @@
   height: 70vh;
 }
 
-#fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
+#fade-in-big,
+#fade-in-dumb,
+#fade-in-web,
+#fade-in-dev {
   opacity: 0;
   font-family: 'Oxygen', sans-serif;
   font-size: 5em;
-  transition: opacity 1s; 
+  transition: opacity 1s;
 }
 
 #arrow {
-  grid-row: 3; 
+  grid-row: 3;
   grid-column: 2 / span 4;
   display: flex;
   justify-content: center;
@@ -42,78 +45,47 @@
   opacity: 0;
 }
 
-@media only screen and (min-width : 1501px) {
-  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
-    font-size: 5.7em;
-  }
-}
-
-@media only screen and (min-width : 1025px) and (max-width : 1500px) {
-  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
-    font-size: 5em;
-  }
-}
-
-@media only screen and (min-width : 768px) and (max-width : 1024px) {
-  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
-    font-size: 4em;
-  }
-}
-
-@media only screen and (max-width: 767px) {
-
-  #landing-page-container, #about-me-container, #projects-container, #modal {
-    grid-template-columns: auto;
-    grid-template-rows: auto auto auto;
-  }
-
-  #landing-page-title {
-    grid-column: 1;
-    display: flex;
-    justify-content: center;
-  }
-
-  #landing-page-image {
-    grid-row: 2; 
-    grid-column: 1;
-    display: flex;
-    justify-content: center;
-  }
-
-  #bigDumbWebDevSVG {
-    visibility: hidden;
-    height: 35vh;
-  }
-
-  #arrow {
-    grid-row: 3; 
-    grid-column: 1;
-  }
-
-  .fa-angle-down {
-    font-size: 3em;
-  }
-
-  #fade-in-big, #fade-in-dumb, #fade-in-web, #fade-in-dev {
-    font-size: 1.5em;
-  }
-}
-
 // Flash Animation
 @keyframes flash {
-	0% { opacity: 0; } 
-	50% { opacity: 1; } 
-	100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
+
 @-moz-keyframes redXFlash {
-	0% { opacity: 0; } 
-	50% { opacity: 1; } 
-	100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
+
 @-webkit-keyframes redXFlash {
-	0% { opacity: 0; } 
-	50% { opacity: 1; } 
-	100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 // Arrow drop animation
@@ -127,6 +99,7 @@
     will-change: transform;
     color: transparent;
   }
+
   to {
     -moz-transform: translateY(0vh);
     -ms-transform: translateY(0vh);
@@ -137,6 +110,7 @@
     color: black;
   }
 }
+
 @-moz-keyframes drop {
   from {
     -moz-transform: translateY(-50vh);
@@ -147,6 +121,7 @@
     will-change: transform;
     color: transparent;
   }
+
   to {
     -moz-transform: translateY(0vh);
     -ms-transform: translateY(0vh);
@@ -157,6 +132,7 @@
     color: black;
   }
 }
+
 @-webkit-keyframes drop {
   from {
     -moz-transform: translateY(-50vh);
@@ -167,6 +143,7 @@
     will-change: transform;
     color: transparent;
   }
+
   to {
     -moz-transform: translateY(0vh);
     -ms-transform: translateY(0vh);
@@ -178,4 +155,81 @@
   }
 }
 
+// Huge screen
+@media only screen and (min-width : 1501px) {
 
+  #fade-in-big,
+  #fade-in-dumb,
+  #fade-in-web,
+  #fade-in-dev {
+    font-size: 5.7em;
+  }
+}
+
+// Most screens
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+
+  #fade-in-big,
+  #fade-in-dumb,
+  #fade-in-web,
+  #fade-in-dev {
+    font-size: 5em;
+  }
+}
+
+// iPads and tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+
+  #fade-in-big,
+  #fade-in-dumb,
+  #fade-in-web,
+  #fade-in-dev {
+    font-size: 4em;
+  }
+}
+
+// Phones
+@media only screen and (max-width: 767px) {
+
+  #landing-page-container,
+  #about-me-container,
+  #projects-container,
+  #modal {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+  }
+
+  #landing-page-title {
+    grid-column: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  #landing-page-image {
+    grid-row: 2;
+    grid-column: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  #bigDumbWebDevSVG {
+    visibility: hidden;
+    height: 35vh;
+  }
+
+  #arrow {
+    grid-row: 3;
+    grid-column: 1;
+  }
+
+  .fa-angle-down {
+    font-size: 3em;
+  }
+
+  #fade-in-big,
+  #fade-in-dumb,
+  #fade-in-web,
+  #fade-in-dev {
+    font-size: 1.5em;
+  }
+}

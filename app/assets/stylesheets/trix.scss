@@ -1,3 +1,41 @@
+/* Provides a drop-in pointer for the default Trix stylesheet that will format the toolbar and
+* the trix-editor content (whether displayed or under editing). Feel free to incorporate this
+* inclusion directly in any other asset bundle and remove this file.
+
+*= require trix/dist/trix
+
+* We need to override trix.css’s image gallery styles to accommodate the
+* <action-text-attachment> element we wrap around attachments. Otherwise,
+* images in galleries will be squished by the max-width: 33%; rule.
+*/
+
+.trix-content {
+  .attachment-gallery {
+    > action-text-attachment,
+    > .attachment {
+      flex: 1 0 33%;
+      padding: 0 0.5em;
+      max-width: 33%;
+    }
+
+    &.attachment-gallery--2,
+    &.attachment-gallery--4 {
+      > action-text-attachment,
+      > .attachment {
+        flex-basis: 50%;
+        max-width: 50%;
+      }
+    }
+  }
+
+  action-text-attachment {
+    .attachment {
+      padding: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+}
+
 .trix-button--icon-attach-files::before {
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA%2FPjxzdmcgaGVpZ2h0PSIxNnB4IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNCAxNiIgd2lkdGg9IjI0cHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c2tldGNoPSJodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2gvbnMiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48dGl0bGUvPjxkZXNjLz48ZGVmcy8%2BPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSI%2BPGcgZmlsbD0iIzAwMDAwMCIgaWQ9IkNvcmUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMjYuMDAwMDAwLCAtNDYuMDAwMDAwKSI%2BPGcgaWQ9ImJhY2t1cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTI2LjAwMDAwMCwgNDYuMDAwMDAwKSI%2BPHBhdGggZD0iTTE5LjQsNiBDMTguNywyLjYgMTUuNywwIDEyLDAgQzkuMSwwIDYuNiwxLjYgNS40LDQgQzIuMyw0LjQgMCw2LjkgMCwxMCBDMCwxMy4zIDIuNywxNiA2LDE2IEwxOSwxNiBDMjEuOCwxNiAyNCwxMy44IDI0LDExIEMyNCw4LjQgMjEuOSw2LjIgMTkuNCw2IEwxOS40LDYgWiBNMTQsOSBMMTQsMTMgTDEwLDEzIEwxMCw5IEw3LDkgTDEyLDQgTDE3LDkgTDE0LDkgTDE0LDkgWiIgaWQ9IlNoYXBlIi8%2BPC9nPjwvZz48L2c%2BPC9zdmc%2B);
   transform: scale(0.7);

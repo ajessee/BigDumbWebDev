@@ -1,7 +1,3 @@
-// Place all the styles related to the Posts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 .post-container {
 
   font-family: 'Oxygen', sans-serif;
@@ -9,6 +5,7 @@
 
   .float-container {
     margin-bottom: 5px;
+
     input {
       padding: 0.8em 0 10px;
     }
@@ -58,7 +55,8 @@
   padding: 0 1% 0 1%;
 }
 
-#show-post-container, #all-posts-container {
+#show-post-container,
+#all-posts-container {
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
   min-height: 100vh;
@@ -117,7 +115,7 @@
   margin-right: 5%;
 }
 
-div#all-posts-container > div.pagination {
+div#all-posts-container>div.pagination {
   grid-column: 1/4;
   grid-row: 3;
 }
@@ -144,4 +142,24 @@ div#all-posts-container > div.pagination {
 #add-comment-to-post {
   text-align: center;
   padding: 1%;
+}
+
+// Huge screen
+@media only screen and (min-width : 1501px) {
+  // placeholder
+}
+
+// Most screens
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+  // placeholder
+}
+
+// iPads and tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+  // placeholder
+}
+
+// Phones
+@media only screen and (max-width: 767px) {
+  // placeholder
 }

@@ -1,7 +1,7 @@
 .pagination {
   background: aliceblue;
   text-align: center;
-  cursor: default; 
+  cursor: default;
 }
 
 .pagination a,
@@ -11,7 +11,7 @@
 }
 
 .pagination .disabled {
-  color: #aaaaaa; 
+  color: #aaaaaa;
 }
 
 .pagination .current {
@@ -30,10 +30,30 @@
 
 .pagination a {
   text-decoration: none;
-  color: black; 
+  color: black;
 }
 
 .pagination a:hover,
 .pagination a:focus {
   text-decoration: underline;
+}
+
+// Huge screen
+@media only screen and (min-width : 1501px) {
+  // placeholder
+}
+
+// Most screens
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+  // placeholder
+}
+
+// iPads and tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+  // placeholder
+}
+
+// Phones
+@media only screen and (max-width: 767px) {
+  // placeholder
 }
