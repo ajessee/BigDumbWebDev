@@ -52,43 +52,6 @@ const setUpNav = () => {
       });
     },
 
-    removeNavElements: function () {
-      // TODO: Move this out of nav and into project-3d-scroll.js
-      // We know the iframe exists because we are calling this function from the iframe's onload function in HTML
-      const iframe = document.querySelector('#scroll3d-iframe');
-      if (iframe.contentDocument.querySelector('#nav-button-container')) {
-        iframe.contentDocument.querySelector('#nav-button-container').remove();
-      }
-      if (iframe.contentDocument.querySelector('#debug-button-container')) {
-        iframe.contentDocument.querySelector('#debug-button-container').remove();
-      }
-      if (iframe.contentDocument.querySelector('#modal')) {
-        iframe.contentDocument.querySelector('#modal').remove();
-      }
-      if (iframe.contentDocument.querySelector('#nav-slide-in-menu')) {
-        iframe.contentDocument.querySelector('#nav-slide-in-menu').remove();
-      }
-      if (iframe.contentDocument.querySelector('.debug-panel')) {
-        iframe.contentDocument.querySelector('.debug-panel').remove();
-      }
-      iframe.contentDocument.querySelector('#all-projects-link').addEventListener('click', function (e) {
-        e.preventDefault();
-        window.location.replace('/projects');
-      });
-      const allCardLinksArray = iframe.contentDocument.querySelectorAll('.project-card-link');
-      allCardLinksArray.forEach(function(linkEl) {
-        let replaceHref = linkEl.getAttribute('data-replace-href');
-        if (replaceHref === "true") {
-          let newHref = linkEl.getAttribute('href');
-          linkEl.addEventListener('click', function(e) {
-            e.preventDefault();
-            linkEl.setAttribute('target', "")
-            window.location.replace(newHref);
-          })
-        }
-      })
-    },
-
     init: function (notNew) {
       let self = this;
       this.navButtonContainer = document.querySelector('#nav-button-container');

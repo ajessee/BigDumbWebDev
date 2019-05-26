@@ -1,0 +1,51 @@
+#projects-parallax-container {
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  // // background-image: image-url('project_parallax.svg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 50vh;
+  width: 100vw;
+  
+  // display: block;
+  // margin-before: 0.5em;
+  // margin-after: 0.5em;
+  // margin-start: auto;
+  // margin-end: auto;
+  // overflow: hidden;
+  // border-style: inset;
+  // border-width: 1px;
+  background-color: cornflowerblue;
+  // display: block;
+  // height: 100vh; // This height can be adjusted here and below
+}
+
+#project-parallax-svg-container {
+  // width: 100vw;
+  // height: 100vh;
+  // top: 0;
+  // background-position: center !important;
+  // transform: translateY(0px);
+}
+
+
+
+@media only screen and (min-width : 1501px) {
+
+}
+
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+
+}
+
+@media only screen and (max-width : 767px) {
+  background-image: image-url('matrix_small.gif');
+}

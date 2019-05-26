@@ -125,63 +125,48 @@
     grid-column: 1/4;
 }
 
-#nav-menu-resources {
+#nav-menu-blog {
     grid-row: 4;
     grid-column: 1/4;
 }
 
-// TODO: Remove this when you add link
-#nav-menu-resources:hover {
-    cursor: not-allowed;
-}
-
-// TODO: Remove this when you add link
-#nav-menu-blog:hover {
-    cursor: not-allowed;
-}
-
-#nav-menu-blog {
+#nav-menu-user-profile {
     grid-row: 5;
     grid-column: 1/4;
 }
 
-#nav-menu-user-profile {
-    grid-row: 6;
-    grid-column: 1/4;
-}
-
 #nav-menu-logout {
-    grid-row: 7;
+    grid-row: 6;
     grid-column: 1/4;
 }
 
 #nav-menu-login {
-    grid-row: 6;
+    grid-row: 5;
     grid-column: 1/4;
 }
 
 #nav-menu-signup {
-    grid-row: 7;
+    grid-row: 6;
     grid-column: 1/4;
 }
 
 #nav-menu-all-users {
-    grid-row: 8;
+    grid-row: 7;
     grid-column: 1/4;
 }
 
 #nav-menu-all-posts {
-    grid-row: 9;
+    grid-row: 8;
     grid-column: 1/4;
 }
 
 #nav-menu-add-blog-entry {
-    grid-row: 10;
+    grid-row: 9;
     grid-column: 1/4;
 }
 
 #nav-menu-add-new-project {
-    grid-row: 11;
+    grid-row: 10;
     grid-column: 1/4;
 }
 

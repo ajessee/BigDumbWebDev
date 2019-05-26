@@ -29,7 +29,7 @@ let o = {
 }
 
 // Call server to get updated nav-menu
-o.newNav.innerHTML = "<%= j (render 'shared/nav_button') %>";
+o.newNav.innerHTML = "<%= j (render 'shared/nav_main') %>";
 o.closeButton = o.oldNav.querySelector('#close-nav-menu-button');
 o.oldNav.innerHTML = o.newNav.querySelector('#nav-slide-in-menu').innerHTML;
 o.oldNav.querySelector('#close-nav-menu-button').remove();

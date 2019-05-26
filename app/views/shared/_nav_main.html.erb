@@ -1,0 +1,108 @@
+    <div id="nav-button-container">
+        <button id="nav-button">
+            <i class="fas fa-bars fa-4x"></i>
+        </button>
+    </div>
+
+    <div id="nav-slide-in-menu" class="menu-closed">
+        <ul id="nav-menu-items">
+            <li id="nav-menu-close">
+                <div id="close-nav-menu-button">
+                    <i class="fas fa-times fa-2x nav-menu-icon" aria-hidden="true"></i>
+                </div>
+            </li>
+            <li id="nav-menu-home" class="nav-menu-list-item nav-bottom-border">
+                <%= link_to root_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "Home" do %>
+                <%= show_svg('BDWD_icon.svg') %>
+                <span class="nav-menu-icon-label">Home</span>
+                <% end %>
+            </li>
+            <li id="nav-menu-projects" class="nav-menu-list-item">
+                <%= link_to projects_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "Projects" do %>
+                <i class="fas fa-code fa-2x nav-menu-icon" aria-hidden="true"></i>
+                <span class="nav-menu-icon-label">Projects</span>
+                <% end %>
+            </li>
+            <li id="nav-menu-blog" class="nav-menu-list-item nav-bottom-border">
+                <%= link_to posts_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "Blog" do %>
+                <i class="fas fa-bullhorn fa-2x nav-menu-icon" aria-hidden="true"></i>
+                <span class="nav-menu-icon-label">Blog</span>
+                <% end %>
+            </li>
+            <% if logged_in? %>
+            <li id="nav-menu-user-profile" class="nav-menu-list-item">
+                <%= link_to user_path(current_user), class: "no-link-color nav-menu-icon-link nav-menu-row", title: "User Profile" do %>
+                <i class="fas fa-user fa-2x nav-menu-icon"></i>
+                <span class="nav-menu-icon-label">User Profile</span>
+                <% end %>
+            </li>
+            <li id="nav-menu-logout" class="nav-menu-list-item nav-bottom-border">
+                <%= link_to logout_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "Log Out" , method: :delete do %>
+                <i class="fas fa-sign-out-alt fa-2x nav-menu-icon" aria-hidden="true"></i>
+                <span class="nav-menu-icon-label">Log out</span>
+                <% end %>
+            </li>
+            <% else %>
+            <li id="nav-menu-login" class="nav-menu-list-item">
+                <%= link_to login_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "Log In", remote: true do %>
+                <i class="fas fa-sign-in-alt fa-2x nav-menu-icon" aria-hidden="true"></i>
+                <span class="nav-menu-icon-label">Log in</span>
+                <% end %>
+            </li>
+            <li id="nav-menu-signup" class="nav-menu-list-item nav-bottom-border">
+                <%= link_to signup_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "Sign Up", remote: true do %>
+                <i class="fas fa-user-plus fa-2x nav-menu-icon"></i>
+                <span class="nav-menu-icon-label">Sign Up</span>
+                <% end %>
+            </li>
+            <% end %>
+            <% if logged_in? && current_user.admin? %>
+            <li id="nav-menu-all-users" class="nav-menu-list-item">
+                <%= link_to users_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "All Users" do %>
+                <i class="fas fa-users fa-2x nav-menu-icon"></i>
+                <span class="nav-menu-icon-label">All Users</span>
+                <% end %>
+            </li>
+            <li id="nav-menu-all-posts" class="nav-menu-list-item">
+                <%= link_to posts_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "All Posts" do %>
+                <i class="fas fa-th-large fa-2x nav-menu-icon"></i>
+                <span class="nav-menu-icon-label">All Posts</span>
+                <% end %>
+            </li>
+            <li id="nav-menu-add-blog-entry" class="nav-menu-list-item">
+                <%= link_to new_post_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "Create Blog Entry" do %>
+                <i class="fas fa-paragraph fa-2x nav-menu-icon" aria-hidden="true"></i>
+                <span class="nav-menu-icon-label">Create Blog Entry</span>
+                <% end %>
+            </li>
+            <li id="nav-menu-add-new-project" class="nav-menu-list-item nav-bottom-border">
+                <%= link_to new_project_path, class: "no-link-color nav-menu-icon-link nav-menu-row", title: "Create New Project", remote: true do %>
+                <i class="fas fa-code fa-2x nav-menu-icon" aria-hidden="true"></i>
+                <span class="nav-menu-icon-label">Create New Project</span>
+                <% end %>
+            </li>
+            <% end %>
+            <li id="nav-menu-github">
+                <a class="no-link-color nav-menu-icon-link nav-menu-row" href="https://github.com/ajessee" target="_"
+                    rel="noopener noreferrer" title="Github">
+                    <i class="fab fa-github fa-2x nav-menu-icon social-icons" aria-hidden="true"></i>
+                    <!-- <span class="nav-menu-icon-label">Github</span> -->
+                </a>
+            </li>
+            <li id="nav-menu-twitter">
+                <a class="no-link-color nav-menu-icon-link nav-menu-row" href="https://twitter.com/bigdumbwebdev"
+                    target="_" rel="noopener noreferrer" title="Twitter">
+                    <i class="fab fa-twitter fa-2x nav-menu-icon social-icons" aria-hidden="true"></i>
+                    <!-- <span class="nav-menu-icon-label">Twitter</span> -->
+                </a>
+            </li>
+            <li id="nav-menu-linkedin">
+                <a class="no-link-color nav-menu-icon-link nav-menu-row" href="https://www.linkedin.com/in/andrejessee/"
+                    target="_" rel="noopener noreferrer" title="LinkedIn">
+                    <i class="fab fa-linkedin-in fa-2x nav-menu-icon social-icons" aria-hidden="true"></i>
+                    <!-- <span class="nav-menu-icon-label">LinkedIn</span> -->
+                </a>
+            </li>
+        </ul>
+
+    </div>
