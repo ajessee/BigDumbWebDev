@@ -15,6 +15,7 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  # Allow testing of subdomains in development
   config.action_dispatch.tld_length = 0
 
   # Enable/disable caching. By default caching is disabled.

@@ -104,5 +104,38 @@
 
 // Phones
 @media only screen and (max-width: 767px) {
-  // placeholder
+
+  .tag-cloud-container {
+    background-size: 100%;
+    height: 50vh;
+    grid-template-rows: auto;
+  }
+
+  .tag-cloud {
+
+  }
+
+  .css1 {
+    font-size: 0.5em;
+  }
+  
+  .css2 {
+    font-size: 0.7em;
+  }
+  
+  .css3 {
+    font-size: 1em;
+  }
+  
+  .css4 {
+    font-size: 1.5em;
+  }
+  
+  .css5 {
+    font-size: 2em;
+  }
+  
+  .css6 {
+    font-size: 2.5em;
+  }
 }

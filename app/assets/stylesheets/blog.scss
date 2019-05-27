@@ -1,12 +1,35 @@
 #blog-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto auto 20px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: auto auto auto;
   background-color: aliceblue;
-  grid-row-gap: 1em;
-  place-items: center;
-  min-height: 100vh;
-  min-width: 100vw;
+  border-bottom: 2px solid black;
+
+  .tag-cloud-container {
+    grid-row: 3;
+    grid-column: 1/11;
+  }
+
+  .tag-cloud {
+
+  }
+  
+}
+
+#blog-header {
+  grid-column: 1/11;
+  grid-row: 1;
+}
+
+#intro-post-body {
+  grid-column: 2 / 10;
+  grid-row: 2;
+
+  .trix-content {
+    background-color: aliceblue !important;
+    box-shadow: none;
+    font-size: 1.5em;
+  }
 }
 
 .header {
@@ -45,11 +68,9 @@
     grid-column: 1;
   }
 
-  .construction-image {
-    grid-column: 1;
+  #intro-post-body {
+    font-size: 0.8em;
+    text-align: center;
   }
 
-  .under-construction {
-    grid-column: 1;
-  }
 }
