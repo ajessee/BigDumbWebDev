@@ -1,12 +1,4 @@
 #all-projects-container {
-  // TODO: figure out what to put here
-}
-
-#main-page-projects-container {
-  // TODO: figure out what to put here
-}
-
-.projects-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: minmax(200px, auto);
@@ -15,7 +7,6 @@
   background-color: aliceblue;
   place-items: center;
   align-content: space-evenly;
-
 }
 
 .projects-header {

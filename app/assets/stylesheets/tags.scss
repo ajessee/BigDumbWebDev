@@ -8,7 +8,7 @@
 }
 
 #tag-show-container,
-#tag-cloud-container {
+.tag-cloud-container {
   display: grid;
   font-family: 'Oxygen', sans-serif;
   grid-template-rows: repeat(3, 1fr);
@@ -22,7 +22,7 @@
   font-size: 2em;
 }
 
-#tag-cloud-container {
+.tag-cloud-container {
   background-image: url(cloud.svg);
   background-repeat: no-repeat;
   background-size: 100% 115%;
@@ -37,7 +37,7 @@
   font-size: 1.5em;
 }
 
-#tag-cloud {
+.tag-cloud {
   grid-row: 2;
   justify-self: center;
   align-self: center;
@@ -52,10 +52,11 @@
   margin: 2%;
   text-decoration: none;
   transition: all .2s ease-in-out;
+  display: inline-block;
 }
 
 .tag-link:hover {
-  transform: scale(1.2);
+  transform: scale(1.2) !important;
 }
 
 #tag-container {

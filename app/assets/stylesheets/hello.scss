@@ -15,11 +15,45 @@
 
 .p-about {
   margin: 0.6em 0 0.6em 0;
+  font-size: 1.2em;
 }
 
 .no-link-color {
   color: inherit;
   text-decoration: none;
+}
+
+#blog-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: auto auto auto;
+  background-color: aliceblue;
+
+  .tag-cloud-container {
+    grid-row: 3;
+    grid-column: 1/11;
+  }
+
+  .tag-cloud {
+
+  }
+  
+}
+
+#blog-header {
+  grid-column: 1/11;
+  grid-row: 1;
+}
+
+#intro-post-body {
+  grid-column: 2 / 10;
+  grid-row: 2;
+
+  .trix-content {
+    background-color: aliceblue !important;
+    box-shadow: none;
+    font-size: 1.5em;
+  }
 }
 
 // Huge screen
