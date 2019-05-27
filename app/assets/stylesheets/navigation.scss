@@ -257,6 +257,11 @@
 
 // Phones
 @media only screen and (max-width: 767px) {
+
+    #nav-button {
+        font-size: 0.5em;
+    }
+
     #nav-slide-in-menu {
         width: 80% !important;
     }
