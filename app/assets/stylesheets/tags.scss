@@ -23,7 +23,7 @@
 }
 
 .tag-cloud-container {
-  background-image: url(cloud.svg);
+  background-image: image-url("cloud.svg");
   background-repeat: no-repeat;
   background-size: 100% 115%;
   grid-template-rows: 15% 85%;
