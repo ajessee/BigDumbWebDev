@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
   # Root
 
+  match '/', to: 'posts#index', constraints: { subdomain: 'blog' }, via: [:get]
+  match '/', to: 'projects#index', constraints: { subdomain: 'projects' }, via: [:get]
+
   root    'hello#home'
   
   get     'hello/home'
