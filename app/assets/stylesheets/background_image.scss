@@ -232,4 +232,70 @@
   #fade-in-dev {
     font-size: 1.5em;
   }
+
+  @keyframes drop {
+  from {
+    -moz-transform: translateY(-50vh);
+    -ms-transform: translateY(-50vh);
+    -webkit-transform: translateY(-50vh);
+    transform: translateY(-50vh);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: transparent;
+  }
+
+  to {
+    -moz-transform: translateY(0vh);
+    -ms-transform: translateY(0vh);
+    -webkit-transform: translateY(0vh);
+    transform: translateY(0vh);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: black;
+  }
+}
+
+@-moz-keyframes drop {
+  from {
+    -moz-transform: translateY(-50vh);
+    -ms-transform: translateY(-50vh);
+    -webkit-transform: translateY(-50vh);
+    transform: translateY(-50vh);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: transparent;
+  }
+
+  to {
+    -moz-transform: translateY(0vh);
+    -ms-transform: translateY(0vh);
+    -webkit-transform: translateY(0vh);
+    transform: translateY(0vh);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: black;
+  }
+}
+
+@-webkit-keyframes drop {
+  from {
+    -moz-transform: translateY(-50vh);
+    -ms-transform: translateY(-50vh);
+    -webkit-transform: translateY(-50vh);
+    transform: translateY(-50vh);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: transparent;
+  }
+
+  to {
+    -moz-transform: translateY(0vh);
+    -ms-transform: translateY(0vh);
+    -webkit-transform: translateY(0vh);
+    transform: translateY(0vh);
+    transition: transform 300ms linear;
+    will-change: transform;
+    color: black;
+  }
+}
 }
