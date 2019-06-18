@@ -1,7 +1,7 @@
 <% if Rails.env.production? %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async
-  src="https://www.googletagmanager.com/gtag/js?id=<%= Rails.application.credentials.dig(:aws, :google_analytics_tracking_id) %>">
+  src="https://www.googletagmanager.com/gtag/js?id=<%= Rails.application.credentials.dig(:google_analytics_tracking_id) %>">
 </script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -11,6 +11,6 @@
   }
   gtag('js', new Date());
 
-  gtag('config', '<%= Rails.application.credentials.dig(:aws, :google_analytics_tracking_id) %>');
+  gtag('config', '<%= Rails.application.credentials.dig(:google_analytics_tracking_id) %>');
 </script>
 <% end %>
