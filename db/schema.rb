@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 2019_04_30_011100) do
     t.string "thumbnail"
     t.integer "word_count"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -104,8 +104,8 @@ ActiveRecord::Schema.define(version: 2019_04_30_011100) do
     t.string "last_name"
     t.text "details"
     t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
@@ -115,28 +115,6 @@ ActiveRecord::Schema.define(version: 2019_04_30_011100) do
     t.string "reset_digest"
     t.datetime "reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
-  end
-
-  create_table "version_associations", force: :cascade do |t|
-    t.integer "version_id"
-    t.string "foreign_key_name", null: false
-    t.integer "foreign_key_id"
-    t.string "foreign_type"
-    t.index ["foreign_key_name", "foreign_key_id", "foreign_type"], name: "index_version_associations_on_foreign_key"
-    t.index ["version_id"], name: "index_version_associations_on_version_id"
-  end
-
-  create_table "versions", force: :cascade do |t|
-    t.string "item_type", null: false
-    t.bigint "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object"
-    t.datetime "created_at"
-    t.text "object_changes"
-    t.integer "transaction_id"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
-    t.index ["transaction_id"], name: "index_versions_on_transaction_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

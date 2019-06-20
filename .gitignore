@@ -28,3 +28,9 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# While developing in Windows
+/Gemfile
+/Gemfile.lock
+/config/puma.rb
+
