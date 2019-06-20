@@ -2,7 +2,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # NOTE: Remove Ruby version when developing on machines that have different versions
-ruby '2.6.1'
+ruby '2.6.1' # Work laptop
+# ruby '2.6.0' # Home Laptop
 # NOTE: Remove below if you are developing in Mac/Linux environment
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 
