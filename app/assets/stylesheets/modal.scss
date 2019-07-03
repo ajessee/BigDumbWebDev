@@ -83,7 +83,7 @@
   }
 }
 
-.modalBlur>*:not(#modal):not(#debug-button-container) {
+.modalBlur>*:not(#modal):not(#debug-button-container):not(div>iframe[name=LPFrame]) {
   -webkit-filter: blur(3px) brightness(50%);
   -moz-filter: blur(3px) brightness(50%);
   -o-filter: blur(3px) brightness(50%);
@@ -95,7 +95,7 @@
   -ms-transition: 0.3s -ms-filter linear;
 }
 
-.modalUnblur>*:not(#modal):not(#debug-button-container) {
+.modalUnblur>*:not(#modal):not(#debug-button-container):not(div>iframe[name=LPFrame]) {
   -webkit-filter: none;
   -moz-filter: none;
   -o-filter: none;
