@@ -114,16 +114,19 @@
 
 // Phones
 @media only screen and (max-width: 767px) {
-  .projects-container {
-    grid-template-columns: auto;
-    grid-template-rows: repeat(7, 1fr) 20px;
-    place-items: center;
+
+  #all-projects-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
   }
+
   .project-card {
     grid-column: 1;
     display: grid;
-    grid-template-columns: 5% auto 5%;
-    grid-template-rows: 5% auto auto 5%;
+  }
+
+  .projects-header {
+    grid-column: 1;
   }
 
   .project-card:hover {
