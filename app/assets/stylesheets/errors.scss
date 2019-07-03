@@ -43,5 +43,20 @@
 
 // Phones
 @media only screen and (max-width: 767px) {
-  // placeholder
+  .http-error-container {
+  
+    h1 {
+      text-align: center;
+      font-size: 2em;
+    }
+  
+    p {
+      text-align: center;
+      font-size: 1.5em;
+    }
+  
+    a {
+      font-size: 2em;
+    }
+  }
 }
