@@ -75,5 +75,32 @@
 
 // Phones
 @media only screen and (max-width: 767px) {
-  // placeholder
+
+  .notifications-container {
+    bottom: 5%;
+    right: 10%;
+    left: 10%;
+    padding: 2%;
+    max-width: 100%;
+  }
+
+  @keyframes slidein {
+    from {
+      margin-bottom: -30%;
+    }
+  
+    to {
+      margin-bottom: 0%;
+    }
+  }
+  
+  @keyframes slideout {
+    from {
+      margin-bottom: 0%;
+    }
+  
+    to {
+      margin-bottom: -50%;
+    }
+  }
 }
