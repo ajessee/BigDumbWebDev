@@ -13,7 +13,7 @@ const setUp3D = () => {
       
       setSceneHeight: function () {
         const self = this;
-        const numberOfItems = 4; // Or number of items you have in `.scene3D`
+        const numberOfItems = document.querySelector('.scene3D').children.length;
         const itemZ = parseFloat(
           getComputedStyle(this.projectsIFrame.contentDocument.documentElement).getPropertyValue("--itemZ")
         );
