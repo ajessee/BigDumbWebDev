@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg width="100%" id="" viewBox="0 0 308.29 255.935" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+<svg id="" viewBox="0 0 308.29 255.935" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
   <defs>
     <pattern id="pattern-0" x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse" viewBox="0 0 100 100">
       <rect x="0" y="0" width="50" height="100" style="fill: black;"/>
