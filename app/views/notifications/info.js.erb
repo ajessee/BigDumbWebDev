@@ -1,5 +1,10 @@
 if (!window.utils.modal.infoModal) {
-  window.utils.modal.infoModal = window.utils.modal.openModal('grid', '0%', 14, 6, 1, 6, null, null, true);
+  let mobile = window.matchMedia("(max-width: 767px)");
+  if (mobile) {
+    window.utils.modal.infoModal = window.utils.modal.openModal('grid', '0%', 15, 2, 1, 14, null, null, true);
+  } else {
+    window.utils.modal.infoModal = window.utils.modal.openModal('grid', '0%', 14, 6, 1, 6, null, null, true);
+  }
   window.utils.modal.infoModal.style.backgroundColor = 'aliceblue';
   window.utils.modal.infoModal.style.marginTop = '2%';
   window.utils.modal.infoModal.insertAdjacentHTML('beforeend', "<%= j (render @type) %>");
