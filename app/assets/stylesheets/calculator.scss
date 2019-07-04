@@ -202,6 +202,11 @@ div #lc-results {
 @media only screen and (max-width: 767px) {
   #lc-project-container {
     grid-template-columns: 10% 80% 10% !important;
+
+    input:disabled {
+      width: 90% !important;
+    }
+    
   }
   #lc-project-title {
     font-size: 1.6em !important;
@@ -214,8 +219,5 @@ div #lc-results {
   #lc-results-interest-label {
     font-size: 0.9em !important;
     ;
-  }
-  input:disabled {
-    width: 90% !important;
   }
 }
