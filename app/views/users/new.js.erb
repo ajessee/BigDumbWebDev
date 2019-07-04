@@ -5,7 +5,6 @@ if (window.utils.modal.signupModal) {
   let mobile = window.matchMedia("(max-width: 767px)");
   let tablet = window.matchMedia("(min-width: 768px)");
   let largeScreen = window.matchMedia("(min-width: 1501px)");
-  debugger
   if (largeScreen.matches) {
     window.utils.modal.signupModal = window.utils.modal.openModal('block', '0%', 3, 5, 12, 8, null, null, false);
   } else if (tablet.matches || mobile.matches) {

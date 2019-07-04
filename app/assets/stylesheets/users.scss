@@ -288,7 +288,6 @@ body {
 
   #new-user-submit-button,
   #new-user-close-button {
-    display: block;
     margin: 0.4em auto;
   }
 
@@ -299,5 +298,17 @@ body {
   div.float-container>input,
   div.float-container>label {
     font-size: 1em;
+  }
+
+  .float-container {
+
+    label {
+      font-size: 1.1em;
+    }
+
+    input {
+      padding: 1.3em 0 10px;
+    }
+
   }
 }

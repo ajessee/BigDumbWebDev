@@ -34,7 +34,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    render show_post_params_name
+    # Look in the params for the name of the slug, then render that name which show match a view template. If not, throw 404.
+    render show_post_params_name rescue redirect_to errors_not_found_path 
   end
 
   def edit

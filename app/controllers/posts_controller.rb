@@ -24,10 +24,12 @@ class PostsController < ApplicationController
   def show
     store_location
     @post = Post.find_by(slug: params[:slug])
+    redirect_to errors_not_found_path if !@post
   end
 
   def edit
     @post = Post.find_by(slug: params[:slug])
+    redirect_to errors_not_found_path if !@post
   end
 
   def update
