@@ -26,7 +26,6 @@
     left: 0;
     transform: translateX(0);
     transition: transform .35s ease-in-out;
-    height: 100vh;
     width: 25%;
 }
 
@@ -40,7 +39,8 @@
     height: 100vh;
     grid-template-rows: 5% repeat(11, 1fr);
     grid-template-columns: repeat(3, 1fr);
-    padding: 0% 2% 0% 5%;
+    padding: 0% 2% 0% 2%;
+    margin-block-start: auto;
 }
 
 .nav-menu-row {
@@ -265,7 +265,6 @@
 
     #nav-slide-in-menu {
         width: 100vw !important;
-        height: 100vh !important;
     }
 
     #welcome-nav {
