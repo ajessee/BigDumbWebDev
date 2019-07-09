@@ -301,7 +301,6 @@ body {
   }
 
   .float-container {
-
     label {
       font-size: 1.1em;
     }
@@ -309,6 +308,9 @@ body {
     input {
       padding: 1.3em 0 10px;
     }
+  }
 
+  #user-show-details-container {
+    margin: 0 2% 0 2%;
   }
 }
