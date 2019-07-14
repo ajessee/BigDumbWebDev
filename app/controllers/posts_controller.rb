@@ -7,7 +7,11 @@ class PostsController < ApplicationController
   def index
     # I am always the first user now that I've updated the seeds.rb file
     @user = User.first
-    @posts = @user.posts.paginate(page: params[:page], per_page: 1)
+    if logged_in? && current_user.admin?
+      @posts = @user.posts.paginate(page: params[:page], per_page: 1)
+    else
+      @posts = @user.posts.paginate(page: params[:page], per_page: 10)
+    end
   end
 
   def new
@@ -56,6 +60,10 @@ class PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(:title, :content, :all_tags)
+  end
+
+  def admin_params
+    params.require(:post).permit(:admin)
   end
 
   def delete_counts

@@ -144,6 +144,54 @@ div#all-posts-container>div.pagination {
   padding: 1%;
 }
 
+#show-user-post-container {
+  display: grid;
+  grid-gap: 1em;
+  padding: 0 3% 5% 3%;
+  background-color: aliceblue;
+  place-items: center;
+  align-content: space-evenly;
+}
+
+.posts-header {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 5em;
+  text-align: center;
+  padding: 0.2em;
+  margin: 0;
+}
+
+.post-card {
+  width: 85%;
+  background-color: white;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
+}
+
+.post-card:hover {
+  transform: scale(1.05, 1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.post-card-link {
+  display: grid;
+}
+
+.post-title {
+  text-align: center;
+  margin: 1%;
+}
+
+.post-tags {
+  text-align: center;
+}
+
+.post-tag {
+  text-decoration: none;
+}
+
 // Huge screen
 @media only screen and (min-width : 1501px) {
   // placeholder

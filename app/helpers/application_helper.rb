@@ -23,5 +23,13 @@ module ApplicationHelper
       yield(tag, classes[index.round])
     end
   end
+
+  def mobile_device
+    agent = request.user_agent
+    debugger
+    return "tablet" if agent =~ /(tablet|ipad)|(android(?!.*mobile))/i
+    return "mobile" if agent =~ /Mobile/
+    return "desktop"
+  end
   
 end

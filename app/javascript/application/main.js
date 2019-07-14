@@ -9,7 +9,10 @@ window.utils = {
       vars[key] = value;
     });
     return vars;
-  }
+  },
+  weMobile: window.matchMedia("(max-width: 767px)"),
+  weTablet: window.matchMedia("(min-width: 768px)"),
+  weLargeScreen: window.matchMedia("(min-width: 1501px)"),
 };
 
 window.utils.elements = {};
