@@ -1,3 +1,4 @@
+<% provide(:title, "Blog") %>
 <div id="all-posts-container">
   <% if @posts.any? %>
     <% if logged_in? && current_user.admin? %>

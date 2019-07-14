@@ -2,12 +2,9 @@ if (window.utils.modal.signupModal) {
   window.utils.modal.signupModal.innerHTML = "";
   window.utils.modal.signupModal.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
 } else {
-  let mobile = window.matchMedia("(max-width: 767px)");
-  let tablet = window.matchMedia("(min-width: 768px)");
-  let largeScreen = window.matchMedia("(min-width: 1501px)");
-  if (largeScreen.matches) {
+  if (window.utils.weLargeScreen.matches) {
     window.utils.modal.signupModal = window.utils.modal.openModal('block', '0%', 3, 5, 12, 8, null, null, false);
-  } else if (tablet.matches || mobile.matches) {
+  } else if (window.utils.weTablet.matches || window.utils.weMobile.matches) {
     window.utils.modal.signupModal = window.utils.modal.openModal('block', '0%', 1, 1, 16, 16, null, null, false);
   } else {
     window.utils.modal.signupModal = window.utils.modal.openModal('block', '0%', 2, 3, 14, 12, null, null, false);

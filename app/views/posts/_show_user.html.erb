@@ -1,7 +1,8 @@
 <div id="show-user-post-container">
   <h1 class="posts-header">All Blog Posts</h1>
   <% posts.each do |post| %>
-  <a class="no-link-color post-card-link" id="<%= post.slug %>-link" href="<%= post.slug %>" rel="noopener noreferrer">
+  <%= link_to post_path(post), class: "no-link-color post-card-link" do %>
+
     <div class="post-card">
     <h2 class="post-title"><%= post.title %></h2>
       <% if post.tags %>
@@ -15,7 +16,7 @@
           <% end %>
         </div>
       <% end %>
-  </a>
+    <% end %>
   
 </div>
 <% end %>
