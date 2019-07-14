@@ -132,7 +132,9 @@
 
 // Huge screen
 @media only screen and (min-width : 1501px) {
-  // placeholder
+  #projects-container {
+    grid-template-rows: auto;
+  }
 }
 
 // Most screens
@@ -142,7 +144,9 @@
 
 // iPads and tablets
 @media only screen and (min-width : 768px) and (max-width : 1024px) {
-  // placeholder
+  #projects-container {
+    grid-template-rows: auto;
+  }
 }
 
 // Phones
