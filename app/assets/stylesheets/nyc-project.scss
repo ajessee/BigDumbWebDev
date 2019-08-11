@@ -1,0 +1,36 @@
+#nyc-project-container {
+  display: grid;
+
+  background-color: aliceblue;
+  justify-items: center;
+  .pagination {
+    grid-row: 3;
+  }
+  height: 100vh;
+  
+}
+
+#nyc-project-caption {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 1.5em;
+}
+
+
+
+#nyc-project-media-wrapper {
+  text-align: center;
+  grid-row: 2;
+
+
+  img {
+    border: 25px solid white;
+    border-radius: 4px;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.15);
+  }
+
+  video {
+    border: 25px solid white;
+    border-radius: 4px;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.15);
+  }
+}

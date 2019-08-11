@@ -8,6 +8,7 @@ class Project < ApplicationRecord
   # We always want a description too
   validates :description, presence: true
   has_one_attached :image
+  has_many :resources, as: :resourceable, dependent: :destroy
 
   before_validation :set_slug
 

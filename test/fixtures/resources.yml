@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  caption: MyString
+  path: MyString
+  taken_at: MyString
+  day: 
+
+two:
+  caption: MyString
+  path: MyString
+  taken_at: MyString
+  day: 

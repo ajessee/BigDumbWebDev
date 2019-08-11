@@ -1,0 +1,19 @@
+<% provide(:title, "A Year In NYC") %>
+<section id="nyc-project-container">
+
+    <%= will_paginate @resources %>
+    <% @resources.each do |r| %>
+
+    <div id="nyc-project-media-wrapper">
+      <div id="nyc-project-caption">
+        <%= r.caption%>
+      </div>
+      <% if r.image.attached? && r.resource_type == "image" %>
+        <%= image_tag(r.image.variant(resize: '600x600')) %>
+      <% elsif r.image.previewable? && r.resource_type == "video" %>
+        <%= video_tag rails_blob_path(r.image.attachment.blob), controls: true, autoplay: true%>
+      <% end %>
+    </div>
+    <% end %>
+
+</section>
