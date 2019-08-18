@@ -9,8 +9,8 @@ namespace :upload_instagram do
 
       s3 = Aws::S3::Client.new(
       region: 'us-east-1',
-      access_key_id: Rails.application.credentials.access_key_id,
-      secret_access_key: Rails.application.credentials.secret_access_key
+      access_key_id: 'AKIA2XCY3KHECIAY4LPV',
+      secret_access_key: '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'
       )
 
       jsonFile = File.open(jsonPath)
