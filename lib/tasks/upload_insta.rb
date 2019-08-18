@@ -1,7 +1,8 @@
 require "json"
 
-jsonPath = '/Users/andre/Desktop/pictures/instagram/nycProject.json'
-resourceDirPath = '/Users/andre/Desktop/pictures/instagram/impartialobserver_20181001_part_2/'
+jsonPath = 'nycProject.json'
+# resourceDirPath = '/Users/andre/Desktop/pictures/instagram/impartialobserver_20181001_part_2/'
+resourceDirPath = 'https://temp-insta-store.s3.amazonaws.com/impartialobserver_20181001_part_2/'
 
 jsonFile = File.open(jsonPath)
 jsonFileRead = jsonFile.read

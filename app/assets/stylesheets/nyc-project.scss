@@ -1,36 +1,52 @@
 #nyc-project-container {
-  display: grid;
-
   background-color: aliceblue;
   justify-items: center;
-  .pagination {
-    grid-row: 3;
-  }
-  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(auto-fill, 1fr);
+  min-height: 100vh;
   
-}
-
-#nyc-project-caption {
-  font-family: 'Oxygen', sans-serif;
-  font-size: 1.5em;
-}
-
-
-
-#nyc-project-media-wrapper {
-  text-align: center;
-  grid-row: 2;
-
-
-  img {
-    border: 25px solid white;
-    border-radius: 4px;
-    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.15);
+  .pagination {
+    grid-row: 4;
   }
 
-  video {
-    border: 25px solid white;
-    border-radius: 4px;
-    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.15);
+  #nyc-project-day-caption{
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.5em;
+    grid-row: 1;
+    text-align: center;
+    max-width: 80vw;
+    max-height: 10vh;
   }
+
+  #nyc-project-media-wrapper {
+    justify-items: center;
+
+    display: grid;
+
+    text-align: center;
+  
+    img, video {
+      grid-row: 2;
+      border: 25px solid white;
+      border-radius: 4px;
+      box-shadow: 0 3px 2px rgba(0, 0, 0, 0.15);
+      
+    }
+
+    img {
+      max-height: 80vh;
+    }
+
+    video {
+      min-width: 80vh;
+    }
+  
+  }
+
 }
+
+
+
+
+
