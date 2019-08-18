@@ -1,11 +1,19 @@
 require "json"
 require "pry-byebug"
+require "aws-sdk-s3"
 
 jsonPath = 'nycProject.json'
 # resourceDirPath = '/Users/andre/Desktop/pictures/instagram/impartialobserver_20181001_part_2/'
 resourceDirPath = 'https://temp-insta-store.s3.amazonaws.com/impartialobserver_20181001_part_2/'
 
 binding.pry
+
+s3 = Aws::S3::Resource.new(
+  region: 'us-east-1',
+  access_key_id: Rails.application.credentials.access_key_id,
+  secret_access_key: Rails.application.credentials.secret_access_key
+)
+
 jsonFile = File.open(jsonPath)
 jsonFileRead = jsonFile.read
 parsed = JSON.parse(jsonFileRead)
@@ -24,10 +32,12 @@ puts project.valid?
 
 
 parsed["media"].each do |p|
+  binding.pry
   r = project.resources.create!({caption: p["caption"], path: p["path"], resource_type: p["type"], taken_at: p["taken_at"], day: p["day"].to_i})
   rDay = r.day.to_s
   rType = r.resource_type == "video" ? ".mp4" : ".jpg"
-  rFile = File.open(resourceDirPath + r.path) 
+  file = s3.bucket('temp-insta-store').object(p["path"].match(/([^\/]+$)/))
+  rFile = File.open(file) 
   rFilename = r.path.match(/[ \w-]+?(?=\.)/).to_s + rType
   puts "Resource id: " + r.id.to_s
   puts "Path: " + resourceDirPath + r.path
