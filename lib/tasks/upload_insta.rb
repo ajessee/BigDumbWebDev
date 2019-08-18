@@ -1,4 +1,5 @@
 require "json"
+require 'pry-byebug'
 
 jsonPath = 'nycProject.json'
 # resourceDirPath = '/Users/andre/Desktop/pictures/instagram/impartialobserver_20181001_part_2/'
@@ -22,6 +23,7 @@ puts project.valid?
 
 
 parsed["media"].each do |p|
+  binding.pry
   r = project.resources.create!({caption: p["caption"], path: p["path"], resource_type: p["type"], taken_at: p["taken_at"], day: p["day"].to_i})
   rDay = r.day.to_s
   rType = r.resource_type == "video" ? ".mp4" : ".jpg"
