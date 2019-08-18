@@ -1,15 +1,11 @@
 namespace :upload_instagram do
   require "json"
-  require "pry-byebug"
   require "aws-sdk-s3"
-  require 'open-uri'
 
   desc "upload"
   task :task_one => :environment do 
       jsonPath = 'lib/tasks/nycProject.json'
-      # resourceDirPath = '/Users/andre/Desktop/pictures/instagram/impartialobserver_20181001_part_2/'
       resourceDirPath = 'impartialobserver_20181001_part_2/'
-      awsResourceDirPath = 'https://temp-insta-store.s3.amazonaws.com/impartialobserver_20181001_part_2/'
 
       s3 = Aws::S3::Client.new(
       region: 'us-east-1',
@@ -40,7 +36,6 @@ namespace :upload_instagram do
         rType = r.resource_type == "video" ? ".mp4" : ".jpg"
         fileName = p["path"].match(/([^\/]+$)/).to_s
         resp = s3.get_object(bucket:'temp-insta-store', key: resourceDirPath + p["path"])
-        # rFile = TempFile.open(resp.body)
         rFilename = r.path.match(/[ \w-]+?(?=\.)/).to_s + rType
         puts "Resource id: " + r.id.to_s
         puts "Path: " + resourceDirPath + r.path
