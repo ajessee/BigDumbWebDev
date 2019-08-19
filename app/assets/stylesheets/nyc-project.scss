@@ -67,8 +67,8 @@
     justify-items: center;
     display: grid;
     grid-template-columns: 100vw;
-    grid-template-rows: repeat(4, 1fr);
-    height: 100vh;
+    grid-template-rows: repeat(4, minmax(max-content, auto));
+    min-height: 100vh;
     
     .pagination {
       grid-row: 1;
