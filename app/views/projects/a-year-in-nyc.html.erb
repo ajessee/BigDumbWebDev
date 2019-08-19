@@ -4,20 +4,20 @@
   <% @resources.each do |r| %>
   <%= will_paginate @resources %>
   
-  <div id="nyc-project-media-wrapper">
-    <% if r.image.attached? && r.resource_type == "image" %>
-    <%= image_tag(r.image.variant(resize: '600x600')) %>
-    <% elsif r.image.previewable? && r.resource_type == "video" %>
-    <%= video_tag rails_blob_path(r.image.attachment.blob), controls: true, autoplay: true%>
-    <% end %>
-  </div>
-  <div id="nyc-project-day-caption">
+  <div id="nyc-project-caption">
     <%= r.caption.match(/[^#]*/)%>
     <% r.caption.match(/\#(.*)/).to_s.split(" ").each do |tag| %>
     <% if (tag[0]== "#") %>
       <a href="http://instagram.com/tags/<%= tag[1..-1] %>"><%= tag %></a>
     <% end %>
   <% end %>
+  </div>
+  <div id="nyc-project-media">
+    <% if r.image.attached? && r.resource_type == "image" %>
+    <%= image_tag(r.image.variant(resize: '600x600')) %>
+    <% elsif r.image.previewable? && r.resource_type == "video" %>
+    <%= video_tag rails_blob_path(r.image.attachment.blob), controls: true, autoplay: true%>
+    <% end %>
   </div>
   <div id="nyc-project-body-caption">
   
