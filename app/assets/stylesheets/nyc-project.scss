@@ -71,11 +71,11 @@
     height: 100vh;
     
     .pagination {
-      grid-row: 4;
+      grid-row: 1;
       grid-column: 1;
 
       .next_page, .previous_page {
-        font-size: 1.2em;
+        font-size: 1.5em;
         font-family: 'Indie Flower', cursive;
       }
     }
