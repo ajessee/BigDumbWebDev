@@ -46,6 +46,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find_by(slug: params[:slug])
+    @resources = @project.resources.order(:day).paginate(page: params[:page], per_page: 1)
     if @project.update(project_params)
       if @project.external_url
         redirect_to projects_path

@@ -1,29 +1,28 @@
 <% provide(:title, "A Year In NYC") %>
 <section id="nyc-project-container">
 
-  <% @resources.each do |r| %>
   <% if mobile_device == "mobile" %>
-  <%= will_paginate @resources, :page_links => false %>
+    <%= will_paginate @resources, :page_links => false %>
   <% else %>
-  <%= will_paginate @resources %>
+    <%= will_paginate @resources %>
   <% end %> 
   
+  <% @resources.each do |r| %>
   <div id="nyc-project-caption">
-    <%= r.caption.match(/[^#]*/)%>
-    <% r.caption.match(/\#(.*)/).to_s.split(" ").each do |tag| %>
-    <% if (tag[0]== "#") %>
+    <%= r.caption.match(/[^#]*/) %>
+      <% r.caption.match(/\#(.*)/).to_s.split(" ").each do |tag| %>
+      <% if (tag[0]== "#") %>
       <a href="http://instagram.com/tags/<%= tag[1..-1] %>" target="_"><%= tag %></a>
+      <% end %>
     <% end %>
-  <% end %>
   </div>
   <div id="nyc-project-media">
     <% if r.image.attached? && r.resource_type == "image" %>
-    <%= image_tag(r.image.variant(resize: '600x600')) %>
+      <%= image_tag(r.image.variant(resize: '600x600')) %>
     <% elsif r.image.previewable? && r.resource_type == "video" %>
-    <%= video_tag rails_blob_path(r.image.attachment.blob), controls: true, autoplay: true%>
+      <%= video_tag rails_blob_path(r.image.attachment.blob), controls: true, autoplay: true %>
     <% end %>
   </div>
-
   <% end %>
   
 </section>
