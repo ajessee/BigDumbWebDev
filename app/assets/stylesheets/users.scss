@@ -99,7 +99,7 @@
   }
 }
 
-.field_with_errors {
+.error_explanation {
   color: red;
 }
 
@@ -295,8 +295,8 @@ body {
     margin: 5%;
   }
 
-  div.float-container>input,
-  div.float-container>label {
+  div.float-container input,
+  div.float-container label {
     font-size: 1em;
   }
 

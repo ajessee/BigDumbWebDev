@@ -39,6 +39,8 @@ module UsersHelper
         getMessage(userObject.errors.full_messages_for(currentAttribute))
        when "password"
         getMessage(userObject.errors.full_messages_for(currentAttribute))
+       when "password_confirmation"
+        getMessage(userObject.errors.full_messages_for(currentAttribute))
      end 
   end
 

@@ -23,7 +23,7 @@
   <div id="new-user-password-confirmation" class="float-container">
     <%= f.label :password_confirmation, "Confirmation" %>
     <%= f.password_field :password_confirmation, class: "input-error" %>
-    <%= render "shared/single_user_error_message", attr: :password_confirmation.to_s%>
+    <%= render "shared/single_user_error_message", attr: :password_confirmation.to_s %>
   </div>
   <div id="new-user-submit" class="user-submit">
     <%= f.submit "Create Account", id: "new-user-submit-button", class: "submit-close-buttons submit-button" %>

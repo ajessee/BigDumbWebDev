@@ -42,14 +42,14 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
           params: { email: user.email,
                     user: { password:              "foobaz",
                             password_confirmation: "barquux" } }
-    # assert_select 'span#error_explanation'
+    # assert_select 'span.error_explanation'
     assert_equal "text/javascript", @response.content_type
     # Empty password
     patch password_reset_path(user.reset_token), xhr: true,
           params: { email: user.email,
                     user: { password:              "",
                             password_confirmation: "" } }
-    # assert_select 'span#error_explanation'
+    # assert_select 'span.error_explanation'
     assert_equal "text/javascript", @response.content_type
     # Valid password & confirmation
     patch password_reset_path(user.reset_token), xhr: true,
