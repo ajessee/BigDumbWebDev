@@ -2,11 +2,6 @@
   width: 400px;
 }
 
-.post-tag-button {
-  font-size: 1.2em !important;
-  padding: 5px 10px !important;
-}
-
 #tag-show-container,
 .tag-cloud-container {
   display: grid;
@@ -46,6 +41,8 @@
 
 .post-tag-button {
   background-color: lightslategrey;
+  font-size: 1.2em;
+  padding: 5px 10px;
 }
 
 .tag-link {
@@ -137,5 +134,9 @@
   
   .css6 {
     font-size: 2.5em;
+  }
+
+  .post-tag-button {
+    font-size: 0.7em;
   }
 }

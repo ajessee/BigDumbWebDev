@@ -4,6 +4,22 @@
   </p>
 <% end %>
 
+<div id="post-controls">
+  <% if local_assigns[:show_all] && show_all === true %>
+    <%= link_to post_path(post), class: "no-link-color", title: "Show Post" do %>
+    <button id="login-user-close-button" class="submit-close-buttons submit-button">Go To Post</button>
+    <% end %>
+  <% end %>
+  <% if logged_in? && current_user.admin? %>
+    <%= link_to edit_post_path(post), class: "no-link-color", title: "Edit Post" do %>
+    <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit Post</button>
+    <% end %>
+    <%= link_to post_path(post), class: "no-link-color", title: "Delete Post", method: "delete" do %>
+    <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Post</button>
+    <% end %>
+  <% end %>
+</div>
+
   <% if post.tags %>
   <div id="tag-container">
       <% post.tags.each do |tag| %>
@@ -14,21 +30,6 @@
   </div>
   <% end %>
 
-  <div id="post-controls">
-    <% if local_assigns[:show_all] && show_all === true %>
-      <%= link_to post_path(post), class: "no-link-color", title: "Show Post" do %>
-      <button id="login-user-close-button" class="submit-close-buttons submit-button">Go To Post</button>
-      <% end %>
-    <% end %>
-    <% if logged_in? && current_user.admin? %>
-      <%= link_to edit_post_path(post), class: "no-link-color", title: "Edit Post" do %>
-      <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit Post</button>
-      <% end %>
-      <%= link_to post_path(post), class: "no-link-color", title: "Delete Post", method: "delete" do %>
-      <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Post</button>
-      <% end %>
-    <% end %>
-  </div>
 
 
   <div id="show-post-body">
