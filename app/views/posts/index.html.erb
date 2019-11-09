@@ -3,8 +3,12 @@
   <% if @posts.any? %>
     <% if logged_in? && current_user.admin? %>
       <% @posts.each do |post| %>
-      <% @post = post %>
-      <%= will_paginate @posts %>
+        <% @post = post %>
+          <% if mobile_device == "mobile" %>
+            <%= will_paginate @posts, :page_links => false %>
+          <% else %>
+            <%= will_paginate @posts %>
+          <% end %> 
         <%= render 'show', post: post, show_all: true %>
       <% end %>
     <% else %>
