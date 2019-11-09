@@ -6,6 +6,7 @@
   grid-template-columns: repeat(40, 1fr);
   grid-template-rows: 15% 10% 75%;
   min-height: 100vh;
+  padding-bottom: 2%;
 
   .projects-header {
     grid-column: 1 / 41;
