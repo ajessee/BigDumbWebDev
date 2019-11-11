@@ -25,13 +25,13 @@
   margin: 1%;
 }
 
-#new-post-title {
+#new-post-title, #edit-post-title {
   grid-row: 2;
   width: 80%;
   height: 85%;
 }
 
-#new-post-content {
+#new-post-content, #edit-post-content {
   grid-row: 3;
   width: 90%;
   height: 90%;
@@ -39,10 +39,15 @@
 
 #add-tags-container {
   grid-row: 4;
+  text-align: center;
 }
 
-#new-post-submit {
+#new-post-submit, #edit-post-submit {
   grid-row: 5;
+}
+
+#edit-post-content .trix-content {
+  background-color: white;
 }
 
 .trix-content {
@@ -211,11 +216,15 @@ div#all-posts-container>div.pagination {
   
   .trix-content {
     font-size: 1.2em;
-    padding: 0 5% 0 5%;
+    padding: 1%;
   }
 
   #show-post-title {
     font-size: 1.5em;
+  }
+
+  #show-post-container #show-post-title {
+    padding: 15% 5% 0% 5% !important;
   }
 
   #show-post-details {
@@ -237,11 +246,11 @@ div#all-posts-container>div.pagination {
   }
 
   .pagination {
-    margin: 5%;
+    padding: 5% !important;
   }
 
   #main-body-container #show-post-title {
-    padding: 15% 5% 0 5%;
+    padding: 0% 5% 0 5%;
   }
 
   .post-form {
@@ -253,12 +262,12 @@ div#all-posts-container>div.pagination {
     margin: 2%;
   }
   
-  #new-post-title {
+  #new-post-title, #edit-post-title {
     grid-row: 2;
     width: 90%;
   }
   
-  #new-post-content {
+  #new-post-content, #edit-post-content {
     grid-row: 3;
   }
   
@@ -267,7 +276,7 @@ div#all-posts-container>div.pagination {
     width: 90%;
   }
   
-  #new-post-submit {
+  #new-post-submit, #edit-post-submit {
     grid-row: 5;
   }
 
@@ -275,14 +284,14 @@ div#all-posts-container>div.pagination {
     font-size: 0.7em;
   }
 
-  .trix-content {
-    background-color: white;
+  #show-post-container .trix-content {
+    background-color: aliceblue;
+  }
+
+  #edit-post-content .trix-content {
     font-size: 1em;
   }
 
-  #add-tags-container {
-    text-align: center;
-  }
   #add-tags-container label {
     font-size: 0.6em;
     display: inline-block;
@@ -290,5 +299,9 @@ div#all-posts-container>div.pagination {
 
   #add-tags-container > input {
     width: 80% !important;
+  }
+
+  #post-toggle-fullscreen {
+    transform: scale(0.8) !important;
   }
 }

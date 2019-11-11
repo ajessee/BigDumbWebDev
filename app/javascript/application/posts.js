@@ -93,6 +93,15 @@ function setupPosts() {
 
     },
 
+    redirectToPost: function(postID) {
+      if (postID) {
+        window.location.href = '/posts/' + postID;
+      }
+      else {
+        window.location.href = '/posts'
+      }
+    },
+
     setupCancelButtons: function () {
 
       if (this.postContainer) {
@@ -102,15 +111,35 @@ function setupPosts() {
         if (editPostCancelButton) {
           editPostCancelButton.addEventListener('click', function(e){
             e.preventDefault()
-            let postID = e.target.getAttribute('data-post-id');
-            window.location.href = '/posts/' + postID;
+            let postId = e.target.getAttribute('data-post-id');
+            if (window.utils.postAutoSaver && window.utils.postAutoSaver.isDirty) {
+              let choice = confirm("You have unsaved changes, are you sure?");
+              if (choice == true) {
+                window.utils.posts.redirectToPost(postId);
+              } else {
+                return
+              }
+            }
+            else {
+              window.utils.posts.redirectToPost(postId);
+            }
           })
         }
 
         if (newPostCancelButton) {
           newPostCancelButton.addEventListener('click', function(e){
             e.preventDefault()
-            window.location.href = '/posts'
+            if (window.utils.postAutoSaver && window.utils.postAutoSaver.isDirty) {
+              let choice = confirm("You have unsaved changes, are you sure?");
+              if (choice == true) {
+                window.utils.posts.redirectToPost();
+              } else {
+                return
+              }
+            }
+            else {
+              window.utils.posts.redirectToPost();
+            }
           })
         }
 

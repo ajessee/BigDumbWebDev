@@ -1,12 +1,12 @@
 <% provide(:title, "Edit Post") %>
 <div class="post-container">
-  <%= form_with model: @post, id: "new-post", class: "post-form", local: true do |f| %>
-  <h1 id="new-post-header" class="post-form-header">Edit Post</h1>
-  <div id="new-post-title" class="float-container">
+  <%= form_with model: @post, id: "edit-post", class: "post-form", local: true do |f| %>
+  <h1 id="edit-post-header" class="post-form-header">Edit Post</h1>
+  <div id="edit-post-title" class="float-container">
     <%= f.label :title %>
     <%= f.text_field :title, class: "input-error" %>
   </div>
-  <div id="new-post-content" class="">
+  <div id="edit-post-content" class="">
     <%= f.rich_text_area :content, class: "trix-content" %>
   </div>
   <div id="add-tags-container">
@@ -15,8 +15,8 @@
     <%= f.label "Or add and remove tags here" %>
     <%= f.text_field :all_tags, placeholder: "Tags separated by a comma", id: 'existing-tags-input' %>
   </div>
-  <div id="new-post-submit" class="post-submit">
-    <%= f.submit "Save Changes", id: "new-post-submit-button", class: "submit-close-buttons submit-button" %>
+  <div id="edit-post-submit" class="post-submit">
+    <%= f.submit "Save Changes", id: "edit-post-submit-button", class: "submit-close-buttons submit-button" %>
     <button id="edit-post-cancel-button" class="submit-close-buttons close-button all-close"
       data-post-id="<%= @post.slug %>">Cancel</button>
   </div>
