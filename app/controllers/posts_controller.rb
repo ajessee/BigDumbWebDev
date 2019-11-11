@@ -57,6 +57,19 @@ class PostsController < ApplicationController
     redirect_to posts_url
   end
 
+  def check_diffs
+    parsed_json = ActiveSupport::JSON.decode(request.body.string)
+    @currentContent = parsed_json["currentContent"]
+    @savedContent = parsed_json["savedContent"]
+    @diffHtml = Diffy::SplitDiff.new(@currentContent, @savedContent, :format => :html)
+    if @diffHtml == ""
+      render status: 204
+    else
+      render :partial => "posts/check_diffs"
+    end
+    
+  end
+
   private
   def post_params
     params.require(:post).permit(:title, :content, :all_tags)

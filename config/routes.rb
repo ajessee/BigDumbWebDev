@@ -30,6 +30,8 @@ Rails.application.routes.draw do
 
   post     '/fowarding_info', to: 'notifications#forwarding_ready'
 
+  post     '/check_diffs', to: 'posts#check_diffs'
+
   # Account Activation
 
   resources :account_activations, only: [:edit]
