@@ -196,6 +196,11 @@ div#all-posts-container>div.pagination {
   text-decoration: none;
 }
 
+#edit-post-submit label.switch, #new-post-submit label.switch {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
 // Huge screen
 @media only screen and (min-width : 1501px) {
   // placeholder

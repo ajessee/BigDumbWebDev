@@ -2,8 +2,13 @@ const loadAutoPostSaver = () => {
   console.log("Loading Post Auto Saver");
   // Declare UI element variables to be able to do cool stuff to them!
   saver = {}
-  saver.isDirty = false;
+  saver.editor = document.querySelector("trix-editor").editor;
+  saver.originalDocument = saver.editor.getDocument();
+  saver.hasUnsavedChanges = false; 
+  saver.unsavedChangesCached = false;
   saver.saveButton = document.querySelector('#new-post-submit-button') || document.querySelector('#edit-post-submit-button');
+  saver.saveButton.disabled = true;
+  saver.saveButton.style.backgroundColor = 'lightgrey';
 
   saver.checkForSavedPost = () => {
     console.log('Checking for saved post');
@@ -60,7 +65,7 @@ const loadAutoPostSaver = () => {
                 window.utils.modal.closeModal(event);
                 let blogId = document.querySelector("trix-editor").getAttribute("input");
                 localStorage.removeItem(blogId);
-                window.utils.postAutoSaver.isDirty = false;
+                window.utils.postAutoSaver.unsavedChangesCached = false;
               }
               
             })
@@ -78,13 +83,13 @@ const loadAutoPostSaver = () => {
   }
 
   saver.saveToLocalStorage = () => {
-    if (window.utils.postAutoSaver.isDirty) {
+    if (!window.utils.postAutoSaver.unsavedChangesCached) {
       console.log('Auto-save blog content to local storage');
       let blogContent = document.querySelector("trix-editor").value;
       let blogId = document.querySelector("trix-editor").getAttribute("input");
       let storageObject = {content: blogContent};
       localStorage.setItem(blogId, JSON.stringify(storageObject));
-      window.utils.postAutoSaver.isDirty = false;
+      window.utils.postAutoSaver.unsavedChangesCached = true;
     }
   }
 
@@ -98,13 +103,22 @@ const loadAutoPostSaver = () => {
   saver.loadEventListeners = () => {
     // Listen for change in trix field
     document.addEventListener("trix-change", function(event) {
-      window.utils.postAutoSaver.isDirty = true;
+      window.utils.postAutoSaver.unsavedChangesCached = false;
+      window.utils.postAutoSaver.hasUnsavedChanges = !window.utils.postAutoSaver.originalDocument.isEqualTo(event.target.editor.getDocument());
+      if (window.utils.postAutoSaver.hasUnsavedChanges) {
+        window.utils.postAutoSaver.saveButton.disabled = false;
+        window.utils.postAutoSaver.saveButton.style.backgroundColor = '#4CAF50';
+      }
+      else {
+        saver.saveButton.disabled = true;
+        saver.saveButton.style.backgroundColor = 'lightgrey';
+      }
     })
 
     window.utils.postAutoSaver.saveButton.addEventListener("click", function (event) {
       let blogId = document.querySelector("trix-editor").getAttribute("input");
       localStorage.removeItem(blogId);
-      window.utils.postAutoSaver.isDirty = false;
+      window.utils.postAutoSaver.unsavedChangesCached = false;
     })
 
   }
