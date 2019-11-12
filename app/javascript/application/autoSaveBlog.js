@@ -45,26 +45,6 @@ const loadAutoPostSaver = () => {
         
           window.utils.modal.diffModal.insertAdjacentHTML('beforeend', data);
 
-          // let delNodes= document.querySelector('div.diff del').childNodes;
-          // let insNodes = document.querySelector('div.diff ins').childNodes;
-          
-          // let updateNodes = (nodes) => {
-          //   let htmlString = "";
-          //   nodes.forEach((node) => {
-          //     if (node.nodeType === 3) {
-          //       htmlString += node.wholeText
-          //     }
-          //     else {
-          //       newString = "<strong>" + node.innerText + "</strong>";
-          //       htmlString += newString;
-          //     }
-          //   })
-          //   return htmlString;
-          // }
-          
-          // document.querySelector('div.diff del').innerHTML = updateNodes(delNodes);
-          // document.querySelector('div.diff ins').innerHTML = updateNodes(insNodes);
-
           let savedButton = document.querySelector('#use-saved-version-button');
           let currentButton = document.querySelector('#use-current-version-button');
           let buttons = [savedButton, currentButton]
