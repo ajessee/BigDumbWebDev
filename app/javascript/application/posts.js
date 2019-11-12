@@ -112,7 +112,7 @@ function setupPosts() {
           editPostCancelButton.addEventListener('click', function(e){
             e.preventDefault()
             let postId = e.target.getAttribute('data-post-id');
-            if (window.utils.postAutoSaver && window.utils.postAutoSaver.isDirty) {
+            if (window.utils.postAutoSaver && window.utils.postAutoSaver.hasUnsavedChanges) {
               let choice = confirm("You have unsaved changes, are you sure?");
               if (choice == true) {
                 window.utils.posts.redirectToPost(postId);
@@ -129,7 +129,7 @@ function setupPosts() {
         if (newPostCancelButton) {
           newPostCancelButton.addEventListener('click', function(e){
             e.preventDefault()
-            if (window.utils.postAutoSaver && window.utils.postAutoSaver.isDirty) {
+            if (window.utils.postAutoSaver && window.utils.postAutoSaver.hasUnsavedChanges) {
               let choice = confirm("You have unsaved changes, are you sure?");
               if (choice == true) {
                 window.utils.posts.redirectToPost();

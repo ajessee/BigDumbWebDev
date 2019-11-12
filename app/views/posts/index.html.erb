@@ -12,7 +12,7 @@
         <%= render 'show', post: post, show_all: true %>
       <% end %>
     <% else %>
-        <%= render 'show_user', posts: @posts %>
+        <%= render 'show_user', posts: @posts.where(published: true) %>
     <% end %>
   <% end %>
 </div>
