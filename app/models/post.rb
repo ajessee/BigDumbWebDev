@@ -16,6 +16,7 @@ class Post < ApplicationRecord
   has_rich_text :content
 
   before_validation :set_slug
+  before_validation :cast_published
 
   def all_tags=(names)
     self.tags = names.split(",").map do |name|
@@ -34,6 +35,10 @@ class Post < ApplicationRecord
 
   def set_slug
     self.slug = title.parameterize.truncate(80, omission: '')
+  end
+
+  def cast_published
+    self.published = ActiveRecord::Type::Boolean.new.cast(self.published)
   end
 
   def self.add_slugs
