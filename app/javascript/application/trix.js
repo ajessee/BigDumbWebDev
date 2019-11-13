@@ -5,6 +5,21 @@ const setUpTrixHelper = () => {
     
     trixOnEditorReady: function() {
       this.trixAddAttachmentButtonToToolbar();
+      this.trixAddUnlineButtonToToolbar();
+    },
+
+    trixAddUnlineButtonToToolbar: function() {
+      window.utils.Trix.config.textAttributes.underline = {
+        style: { "textDecoration": "underline" },
+        inheritable: true,
+        parser: function(element) {
+          var style = window.getComputedStyle(element);
+          return style.textDecoration === "underline";
+        }
+      }
+      let trixTextTools = document.querySelector(".trix-button-group--text-tools");
+      let buttonHTML = '<button type="button" class="trix-button trix-button--icon trix-button--icon-underline" data-trix-attribute="underline" data-trix-action="underline" data-trix-key="u" title="Underline" tabindex="-1">Underline</button>'
+      trixTextTools.children[1].insertAdjacentHTML("afterend", buttonHTML);  
     },
 
     trixAddAttachmentButtonToToolbar: function() {
