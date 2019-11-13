@@ -5,14 +5,36 @@
       <button id="use-saved-version-button" class="submit-close-buttons submit-button" data-content="<%= @savedContent %>">Use Unsaved Version</button>
   </div>
   <div id="saved-version">
-    <%= raw @diffHtml.right %>
+    <% if !@titleDiffEmpty %>
+      <p>Title: <%= raw @titleDiff.right %></p>
+    <% end %>
+    <% if !@contentDiffEmpty %>
+      <p>Content: <%= raw @contentDiff.right %></p>
+    <% end %>
+    <% if !@tagsDiffEmpty %>
+      <p>Tags: <%= raw @tagsDiff.right %></p>
+    <% end %>
+    <% if !@publishedDiffEmpty %>
+      <p>Published: <%= raw @publishedDiff.right %></p>
+    <% end %>
   </div>
   <div id="current-version-controls">
     <h3 id="current-diff-header">Current version:</h3>
     <button id="use-current-version-button" class="submit-close-buttons submit-button" data-content="<%= @currentContent %>">Use Current Version</button>
   </div>
   <div id="current-version">
-    <%= raw @diffHtml.left %>
+    <% if !@titleDiffEmpty %>
+      <p>Title: <%= raw @titleDiff.left %></p>
+    <% end %>
+    <% if !@contentDiffEmpty %>
+      <p>Content: <%= raw @contentDiff.left %></p>
+    <% end %>
+    <% if !@tagsDiffEmpty %>
+      <p>Tags: <%= raw @tagsDiff.left %></p>
+    <% end %>
+    <% if !@publishedDiffEmpty %>
+      <p>Published: <%= raw @publishedDiff.left %></p>
+    <% end %>
   </div>
   
 </div>

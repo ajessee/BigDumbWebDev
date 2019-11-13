@@ -1,26 +1,45 @@
-const loadAutoPostSaver = () => {
+const loadAutoPostSaver = function() {
   console.log("Loading Post Auto Saver");
   // Declare UI element variables to be able to do cool stuff to them!
   saver = {}
-  saver.editor = document.querySelector("trix-editor").editor;
+  saver.trix = document.querySelector("trix-editor");
+  saver.editor = saver.trix.editor;
+  saver.blogId = saver.trix.inputElement.id;
+  saver.titleInput = document.querySelector('input#post_title');
+  saver.tagsInput = document.querySelector('input#existing-tags-input');
+  saver.publishedInput = document.querySelector('input#post_published');
+  saver.saveButton = document.querySelector('#new-post-submit-button') || document.querySelector('#edit-post-submit-button');
+  saver.originalTitle = saver.titleInput.value;
   saver.originalDocument = saver.editor.getDocument();
+  saver.originalTags = saver.tagsInput.value;
+  saver.originalPublishedState = saver.publishedInput.checked;
   saver.hasUnsavedChanges = false; 
   saver.unsavedChangesCached = false;
-  saver.saveButton = document.querySelector('#new-post-submit-button') || document.querySelector('#edit-post-submit-button');
-  saver.saveButton.disabled = true;
-  saver.saveButton.style.backgroundColor = 'lightgrey';
 
-  saver.checkForSavedPost = () => {
+  saver.generateDiffPayload = function() {
+    let savedContent = this.getSavedContent(this.blogId);
+    let payload = {
+      currentContent: {
+        title: window.utils.postAutoSaver.currentTitle || window.utils.postAutoSaver.originalTitle,
+        content: document.querySelector("trix-editor").value,
+        tags: window.utils.postAutoSaver.currentTags || window.utils.postAutoSaver.originalTags,
+        published: window.utils.postAutoSaver.currentPublishedState ? window.utils.postAutoSaver.currentPublishedState.toString() || window.utils.postAutoSaver.originalPublishedState.toString() : false
+      },
+      savedContent: savedContent
+    }
+    return payload;
+  }
+
+  saver.getSavedContent = function (blogId) {
+    return JSON.parse(localStorage.getItem(blogId)) || null;
+  }
+
+  saver.checkForSavedPost = function() {
     console.log('Checking for saved post');
-    let blogId = document.querySelector("trix-editor").getAttribute("input");
-    let savedContent = JSON.parse(localStorage.getItem(blogId));
+
     let authenToken = document.querySelector('input[name="authenticity_token"]').value;
-    if (savedContent) {
-      let currentContent = document.querySelector("trix-editor").value;
-      let payload = {
-        "currentContent": currentContent,
-        "savedContent": savedContent.content
-      }
+    if (this.getSavedContent(this.blogId)) {
+      let payload = window.utils.postAutoSaver.generateDiffPayload();
       fetch('/check_diffs', {
         method: 'POST',
         // For future reference, this is how you make a POST request to rails and authenticate it.
@@ -34,7 +53,7 @@ const loadAutoPostSaver = () => {
       })
       .then(function(response) {
         if (response.status == 204) {
-          throw new Error('No delta between current content and saved content');
+          throw new Error('AutoPostSaver: No delta between current content and saved content');
         }
         return response.text();
       })
@@ -49,6 +68,7 @@ const loadAutoPostSaver = () => {
           // Setup modal window, insert new user signup partial
         
           window.utils.modal.diffModal.insertAdjacentHTML('beforeend', data);
+          window.utils.modal.diffModal.style.overflowY = "auto";
 
           let savedButton = document.querySelector('#use-saved-version-button');
           let currentButton = document.querySelector('#use-current-version-button');
@@ -82,37 +102,74 @@ const loadAutoPostSaver = () => {
     }
   }
 
-  saver.saveToLocalStorage = () => {
+  saver.saveToLocalStorage = function() {
     if (!window.utils.postAutoSaver.unsavedChangesCached) {
       console.log('Auto-save blog content to local storage');
       let blogContent = document.querySelector("trix-editor").value;
       let blogId = document.querySelector("trix-editor").getAttribute("input");
-      let storageObject = {content: blogContent};
+      let storageObject = {
+        title: window.utils.postAutoSaver.currentTitle || window.utils.postAutoSaver.originalTitle,
+        content: blogContent,
+        tags: window.utils.postAutoSaver.currentTags || window.utils.postAutoSaver.originalTags,
+        published: window.utils.postAutoSaver.currentPublishedState ? window.utils.postAutoSaver.currentPublishedState.toString() || window.utils.postAutoSaver.originalPublishedState.toString() : false
+      };
       localStorage.setItem(blogId, JSON.stringify(storageObject));
       window.utils.postAutoSaver.unsavedChangesCached = true;
     }
   }
 
-  saver.setupTimer = () => {
+  saver.setupTimer = function() {
     setInterval(function(){ 
       window.utils.postAutoSaver.saveToLocalStorage();
     }, 20000);
   };
 
-  // Declare function to add (load) event listeners to elements
-  saver.loadEventListeners = () => {
+  saver.toggleSaveButton = (enable) => {
+    if (enable) {
+      window.utils.postAutoSaver.saveButton.disabled = false;
+      window.utils.postAutoSaver.saveButton.style.backgroundColor = '#4CAF50';
+    } 
+    else {
+      window.utils.postAutoSaver.saveButton.disabled = true;
+      window.utils.postAutoSaver.saveButton.style.backgroundColor = 'lightgrey';
+    }
+  }
+
+  saver.checkForUnsavedChanges = function() {
+    let unsavedTitleChanges = window.utils.postAutoSaver.currentTitle ? window.utils.postAutoSaver.currentTitle != window.utils.postAutoSaver.originalTitle : false;
+    let unsavedTagChanges = window.utils.postAutoSaver.currentTags ? window.utils.postAutoSaver.currentTags != window.utils.postAutoSaver.originalTags : false;
+    let unsavedContentChanges = !window.utils.postAutoSaver.originalDocument.isEqualTo(window.utils.postAutoSaver.editor.getDocument());
+    let unsavedPublishedState = window.utils.postAutoSaver.currentPublishedState != window.utils.postAutoSaver.originalPublishedState;
+    window.utils.postAutoSaver.hasUnsavedChanges = unsavedTitleChanges || unsavedTagChanges || unsavedContentChanges || unsavedPublishedState;
+
+    window.utils.postAutoSaver.hasUnsavedChanges ? 
+    window.utils.postAutoSaver.toggleSaveButton(true) : 
+    window.utils.postAutoSaver.toggleSaveButton(false) 
+  }
+
+  saver.loadEventListeners = function() {
     // Listen for change in trix field
     document.addEventListener("trix-change", function(event) {
       window.utils.postAutoSaver.unsavedChangesCached = false;
-      window.utils.postAutoSaver.hasUnsavedChanges = !window.utils.postAutoSaver.originalDocument.isEqualTo(event.target.editor.getDocument());
-      if (window.utils.postAutoSaver.hasUnsavedChanges) {
-        window.utils.postAutoSaver.saveButton.disabled = false;
-        window.utils.postAutoSaver.saveButton.style.backgroundColor = '#4CAF50';
-      }
-      else {
-        saver.saveButton.disabled = true;
-        saver.saveButton.style.backgroundColor = 'lightgrey';
-      }
+      window.utils.postAutoSaver.checkForUnsavedChanges();
+    })
+
+    window.utils.postAutoSaver.titleInput.addEventListener("change", function(event) {
+      window.utils.postAutoSaver.unsavedChangesCached = false;
+      window.utils.postAutoSaver.currentTitle = event.target.value;
+      window.utils.postAutoSaver.checkForUnsavedChanges();
+    })
+
+    window.utils.postAutoSaver.tagsInput.addEventListener("change", function(event) {
+      window.utils.postAutoSaver.unsavedChangesCached = false;
+      window.utils.postAutoSaver.currentTags = event.target.value;
+      window.utils.postAutoSaver.checkForUnsavedChanges();
+    })
+
+    window.utils.postAutoSaver.publishedInput.addEventListener("change", function(event) {
+      window.utils.postAutoSaver.unsavedChangesCached = false;
+      window.utils.postAutoSaver.currentPublishedState = event.target.checked;
+      window.utils.postAutoSaver.checkForUnsavedChanges();
     })
 
     window.utils.postAutoSaver.saveButton.addEventListener("click", function (event) {
@@ -126,6 +183,7 @@ const loadAutoPostSaver = () => {
   saver.init = function() {
     this.loadEventListeners();
     this.setupTimer();
+    this.toggleSaveButton(false); 
     this.checkForSavedPost();
   }
 

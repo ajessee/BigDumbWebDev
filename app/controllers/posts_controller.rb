@@ -61,9 +61,17 @@ class PostsController < ApplicationController
     parsed_json = ActiveSupport::JSON.decode(request.body.string)
     @currentContent = parsed_json["currentContent"]
     @savedContent = parsed_json["savedContent"]
-    @diffHtml = Diffy::SplitDiff.new(@currentContent, @savedContent, :format => :html)
-    if @diffHtml == ""
-      render status: 204
+    @titleDiff = Diffy::SplitDiff.new(@currentContent["title"], @savedContent["title"], :format => :html)
+    @titleDiffEmpty = !Diffy::SplitDiff.new(@currentContent["title"], @savedContent["title"])
+    @contentDiff = Diffy::SplitDiff.new(@currentContent["content"], @savedContent["content"], :format => :html)
+    @contentDiffEmpty = !Diffy::SplitDiff.new(@currentContent["content"], @savedContent["content"])
+    @tagsDiff = Diffy::SplitDiff.new(@currentContent["tags"], @savedContent["tags"], :format => :html)
+    @tagsDiffEmpty = !Diffy::SplitDiff.new(@currentContent["tags"], @savedContent["tags"])
+    @publishedDiff = Diffy::SplitDiff.new(@currentContent["published"], @savedContent["published"], :format => :html) 
+    @publishedDiffEmpty = !Diffy::SplitDiff.new(@currentContent["published"], @savedContent["published"]) 
+    all_empty = @titleDiffEmpty && @contentDiffEmpty && @tagsDiffEmpty && @publishedDiffEmpty
+    if all_empty
+      render :json => {:success => "False"}, status: 204
     else
       render :partial => "posts/check_diffs"
     end
