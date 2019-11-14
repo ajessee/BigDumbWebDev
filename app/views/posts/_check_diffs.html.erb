@@ -2,7 +2,7 @@
   <h1 id="diff-header">We found some unsaved changes. Please select which version you want to use:</h1>
   <div id="saved-version-controls">
       <h3 id="saved-diff-header">Unsaved version:</h3>
-      <button id="use-saved-version-button" class="submit-close-buttons submit-button" data-content="<%= @savedContent %>">Use Unsaved Version</button>
+      <button id="use-saved-version-button" class="submit-close-buttons submit-button" data-content="<%= @savedContent['content'] %>">Use Unsaved Version</button>
   </div>
   <div id="saved-version">
     <% if !@titleDiffEmpty %>
@@ -20,7 +20,7 @@
   </div>
   <div id="current-version-controls">
     <h3 id="current-diff-header">Current version:</h3>
-    <button id="use-current-version-button" class="submit-close-buttons submit-button" data-content="<%= @currentContent %>">Use Current Version</button>
+    <button id="use-current-version-button" class="submit-close-buttons submit-button" data-content="<%= @currentContent['content'] %>">Use Current Version</button>
   </div>
   <div id="current-version">
     <% if !@titleDiffEmpty %>

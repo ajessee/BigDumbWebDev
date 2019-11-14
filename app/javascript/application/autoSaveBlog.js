@@ -20,10 +20,10 @@ const loadAutoPostSaver = function() {
     let savedContent = this.getSavedContent(this.blogId);
     let payload = {
       currentContent: {
-        title: window.utils.postAutoSaver.currentTitle || window.utils.postAutoSaver.originalTitle,
-        content: document.querySelector("trix-editor").value,
-        tags: window.utils.postAutoSaver.currentTags || window.utils.postAutoSaver.originalTags,
-        published: window.utils.postAutoSaver.currentPublishedState ? window.utils.postAutoSaver.currentPublishedState.toString() || window.utils.postAutoSaver.originalPublishedState.toString() : false
+        title: this.currentTitle || this.originalTitle,
+        content: this.trix.value,
+        tags: this.currentTags || this.originalTags,
+        published: this.currentPublishedState ? this.currentPublishedState.toString() || this.originalPublishedState.toString() : false
       },
       savedContent: savedContent
     }
@@ -32,6 +32,27 @@ const loadAutoPostSaver = function() {
 
   saver.getSavedContent = function (blogId) {
     return JSON.parse(localStorage.getItem(blogId)) || null;
+  }
+
+  saver.tidyHtml = function (html) {
+    options = {
+      "indent":"auto",
+      "indent-spaces":2,
+      "wrap": 120,
+      "markup":true,
+      "output-xml":false,
+      "numeric-entities":true,
+      "quote-marks":false,
+      "quote-nbsp":false,
+      "show-body-only":true,
+      "quote-ampersand":false,
+      "break-before-br":true,
+      "uppercase-tags":false,
+      "uppercase-attributes":false,
+      "drop-font-tags":true,
+      "tidy-mark":false
+    }
+    return tidy_html5(html, options)
   }
 
   saver.checkForSavedPost = function() {
@@ -58,6 +79,7 @@ const loadAutoPostSaver = function() {
         return response.text();
       })
       .then(function(data){
+          data = window.utils.postAutoSaver.tidyHtml(data);
           if (window.utils.weLargeScreen.matches) {
             window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
           } else if (window.utils.weTablet.matches || window.utils.weMobile.matches) {
@@ -103,18 +125,16 @@ const loadAutoPostSaver = function() {
   }
 
   saver.saveToLocalStorage = function() {
-    if (!window.utils.postAutoSaver.unsavedChangesCached) {
+    if (!this.unsavedChangesCached) {
       console.log('Auto-save blog content to local storage');
-      let blogContent = document.querySelector("trix-editor").value;
-      let blogId = document.querySelector("trix-editor").getAttribute("input");
       let storageObject = {
-        title: window.utils.postAutoSaver.currentTitle || window.utils.postAutoSaver.originalTitle,
-        content: blogContent,
-        tags: window.utils.postAutoSaver.currentTags || window.utils.postAutoSaver.originalTags,
-        published: window.utils.postAutoSaver.currentPublishedState ? window.utils.postAutoSaver.currentPublishedState.toString() || window.utils.postAutoSaver.originalPublishedState.toString() : false
+        title: this.currentTitle || this.originalTitle,
+        content: this.trix.value,
+        tags: this.currentTags || this.originalTags,
+        published: this.currentPublishedState ? this.currentPublishedState.toString() || this.originalPublishedState.toString() : false
       };
-      localStorage.setItem(blogId, JSON.stringify(storageObject));
-      window.utils.postAutoSaver.unsavedChangesCached = true;
+      localStorage.setItem(this.blogId, JSON.stringify(storageObject));
+      this.unsavedChangesCached = true;
     }
   }
 
@@ -136,15 +156,15 @@ const loadAutoPostSaver = function() {
   }
 
   saver.checkForUnsavedChanges = function() {
-    let unsavedTitleChanges = window.utils.postAutoSaver.currentTitle ? window.utils.postAutoSaver.currentTitle != window.utils.postAutoSaver.originalTitle : false;
-    let unsavedTagChanges = window.utils.postAutoSaver.currentTags ? window.utils.postAutoSaver.currentTags != window.utils.postAutoSaver.originalTags : false;
-    let unsavedContentChanges = !window.utils.postAutoSaver.originalDocument.isEqualTo(window.utils.postAutoSaver.editor.getDocument());
-    let unsavedPublishedState = window.utils.postAutoSaver.currentPublishedState != window.utils.postAutoSaver.originalPublishedState;
-    window.utils.postAutoSaver.hasUnsavedChanges = unsavedTitleChanges || unsavedTagChanges || unsavedContentChanges || unsavedPublishedState;
+    let unsavedTitleChanges = this.currentTitle ? this.currentTitle != this.originalTitle : false;
+    let unsavedTagChanges = this.currentTags ? this.currentTags != this.originalTags : false;
+    let unsavedContentChanges = !this.originalDocument.isEqualTo(this.editor.getDocument());
+    let unsavedPublishedState = this.currentPublishedState != this.originalPublishedState;
+    this.hasUnsavedChanges = unsavedTitleChanges || unsavedTagChanges || unsavedContentChanges || unsavedPublishedState;
 
-    window.utils.postAutoSaver.hasUnsavedChanges ? 
-    window.utils.postAutoSaver.toggleSaveButton(true) : 
-    window.utils.postAutoSaver.toggleSaveButton(false) 
+    this.hasUnsavedChanges ? 
+    this.toggleSaveButton(true) : 
+    this.toggleSaveButton(false) 
   }
 
   saver.loadEventListeners = function() {
