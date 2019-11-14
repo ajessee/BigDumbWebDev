@@ -62,13 +62,17 @@ class PostsController < ApplicationController
     @currentContent = parsed_json["currentContent"]
     @savedContent = parsed_json["savedContent"]
     @titleDiff = Diffy::SplitDiff.new(@currentContent["title"], @savedContent["title"], :format => :html)
-    @titleDiffEmpty = !Diffy::SplitDiff.new(@currentContent["title"], @savedContent["title"])
+    @titleDiffText = Diffy::SplitDiff.new(@currentContent["title"], @savedContent["title"]).instance_values["diff"]
+    @titleDiffEmpty = @titleDiffText.empty?
     @contentDiff = Diffy::SplitDiff.new(@currentContent["content"], @savedContent["content"], :format => :html)
-    @contentDiffEmpty = !Diffy::SplitDiff.new(@currentContent["content"], @savedContent["content"])
+    @contentDiffText = Diffy::SplitDiff.new(@currentContent["content"], @savedContent["content"]).instance_values["diff"]
+    @contentDiffEmpty = @contentDiffText.empty?
     @tagsDiff = Diffy::SplitDiff.new(@currentContent["tags"], @savedContent["tags"], :format => :html)
-    @tagsDiffEmpty = !Diffy::SplitDiff.new(@currentContent["tags"], @savedContent["tags"])
+    @tagsDiffText = Diffy::SplitDiff.new(@currentContent["tags"], @savedContent["tags"]).instance_values["diff"]
+    @tagsDiffEmpty = @tagsDiffText.empty?
     @publishedDiff = Diffy::SplitDiff.new(@currentContent["published"], @savedContent["published"], :format => :html) 
-    @publishedDiffEmpty = !Diffy::SplitDiff.new(@currentContent["published"], @savedContent["published"]) 
+    @publishedDiffText = Diffy::SplitDiff.new(@currentContent["published"], @savedContent["published"]).instance_values["diff"]
+    @publishedDiffEmpty = @publishedDiffText.empty?
     all_empty = @titleDiffEmpty && @contentDiffEmpty && @tagsDiffEmpty && @publishedDiffEmpty
     if all_empty
       render :json => {:success => "False"}, status: 204
