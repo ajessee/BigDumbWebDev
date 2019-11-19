@@ -49,6 +49,10 @@
   padding: 6px 12px !important;
 }
 
+.content-diff-display trix-toolbar {
+  display: none;
+}
+
 
 // Huge screen
 @media only screen and (min-width : 1501px) {
