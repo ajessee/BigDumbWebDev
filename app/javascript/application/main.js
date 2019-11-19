@@ -10,6 +10,10 @@ window.utils = {
     });
     return vars;
   },
+  htmlDecode: function (input) {
+    var doc = new DOMParser().parseFromString(input, "text/html");
+    return doc.documentElement.textContent;
+  },
   weMobile: window.matchMedia("(max-width: 767px)"),
   weTablet: window.matchMedia("(min-width: 768px)"),
   weLargeScreen: window.matchMedia("(min-width: 1501px)"),

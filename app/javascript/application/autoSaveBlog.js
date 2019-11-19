@@ -2,7 +2,7 @@ const loadAutoPostSaver = function() {
   console.log("Loading Post Auto Saver");
   // Declare UI element variables to be able to do cool stuff to them!
   saver = {}
-  saver.trix = document.querySelector("trix-editor");
+  saver.trix = document.querySelector(".trix-wrapper trix-editor");
   saver.editor = saver.trix.editor;
   saver.blogId = saver.trix.inputElement.id;
   saver.titleInput = document.querySelector('input#post_title');
@@ -23,7 +23,8 @@ const loadAutoPostSaver = function() {
         title: this.currentTitle || this.originalTitle,
         content: this.trix.value,
         tags: this.currentTags || this.originalTags,
-        published: this.currentPublishedState ? this.currentPublishedState.toString() || this.originalPublishedState.toString() : false
+        published: this.currentPublishedState ? this.currentPublishedState.toString() || this.originalPublishedState.toString() : false,
+        editorState: JSON.stringify(this.editor)
       },
       savedContent: savedContent
     }
@@ -79,7 +80,6 @@ const loadAutoPostSaver = function() {
         return response.text();
       })
       .then(function(data){
-          data = window.utils.postAutoSaver.tidyHtml(data);
           if (window.utils.weLargeScreen.matches) {
             window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
           } else if (window.utils.weTablet.matches || window.utils.weMobile.matches) {
@@ -87,10 +87,15 @@ const loadAutoPostSaver = function() {
           } else {
             window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
           }
-          // Setup modal window, insert new user signup partial
         
           window.utils.modal.diffModal.insertAdjacentHTML('beforeend', data);
           window.utils.modal.diffModal.style.overflowY = "auto";
+          let savedContent = document.querySelector("#saved-content-input").value;
+          let currentContent = document.querySelector("#current-content-input").value;
+          let savedEditor = document.querySelector("#saved-content-trix").editor;
+          let currentEditor = document.querySelector("#current-content-trix").editor;
+          savedEditor.loadJSON(JSON.parse(savedContent));
+          currentEditor.loadJSON(JSON.parse(currentContent));
 
           let savedButton = document.querySelector('#use-saved-version-button');
           let currentButton = document.querySelector('#use-current-version-button');
@@ -100,12 +105,13 @@ const loadAutoPostSaver = function() {
             button.addEventListener("click", function(event){
               let choice = confirm("Are you sure you want to use this version?");
               if (choice) {
-                let content = event.target.getAttribute("data-content");
-                let editor = document.querySelector("trix-editor").editor;
+                let buttonId = event.target.id;
+                let content = buttonId.includes("saved") ? document.querySelector("#saved-content-input").value : document.querySelector("#current-content-input").value;
+                let editor = document.querySelector(".trix-wrapper trix-editor").editor;
                 editor.loadHTML('');
-                editor.loadHTML(content);
+                editor.loadJSON(JSON.parse(content));
                 window.utils.modal.closeModal(event);
-                let blogId = document.querySelector("trix-editor").getAttribute("input");
+                let blogId = document.querySelector(".trix-wrapper trix-editor").getAttribute("input");
                 localStorage.removeItem(blogId);
                 window.utils.postAutoSaver.unsavedChangesCached = false;
               }
@@ -125,13 +131,15 @@ const loadAutoPostSaver = function() {
   }
 
   saver.saveToLocalStorage = function() {
-    if (!this.unsavedChangesCached) {
+    let isModalOpen = window.utils.modal.isModalOpen;
+    if (!this.unsavedChangesCached && !isModalOpen) {
       console.log('Auto-save blog content to local storage');
       let storageObject = {
         title: this.currentTitle || this.originalTitle,
         content: this.trix.value,
         tags: this.currentTags || this.originalTags,
-        published: this.currentPublishedState ? this.currentPublishedState.toString() || this.originalPublishedState.toString() : false
+        published: this.currentPublishedState ? this.currentPublishedState.toString() || this.originalPublishedState.toString() : false,
+        editorState: JSON.stringify(this.editor)
       };
       localStorage.setItem(this.blogId, JSON.stringify(storageObject));
       this.unsavedChangesCached = true;
@@ -193,7 +201,7 @@ const loadAutoPostSaver = function() {
     })
 
     window.utils.postAutoSaver.saveButton.addEventListener("click", function (event) {
-      let blogId = document.querySelector("trix-editor").getAttribute("input");
+      let blogId = document.querySelector(".trix-wrapper trix-editor").getAttribute("input");
       localStorage.removeItem(blogId);
       window.utils.postAutoSaver.unsavedChangesCached = false;
     })
