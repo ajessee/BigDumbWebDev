@@ -81,7 +81,7 @@ class PostsController < ApplicationController
     end
   end
 
-  // TODO: When rails updates their action text to allow for static html attachments, add this back in
+  # TODO: When rails updates their action text to allow for static html attachments, add this back in
   # def get_gist
   #   parsed_json = ActiveSupport::JSON.decode(request.body.string)
   #   render layout: false
