@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  include ActionText::Attachable
   # Posts belongs to a user
   belongs_to :user
   # A post can have many comments

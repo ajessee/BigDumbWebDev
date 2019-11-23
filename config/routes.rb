@@ -32,6 +32,8 @@ Rails.application.routes.draw do
 
   post     '/check_diffs', to: 'posts#check_diffs'
 
+  post     '/get_gist', to: 'posts#get_gist'
+
   # Account Activation
 
   resources :account_activations, only: [:edit]

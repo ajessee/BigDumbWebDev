@@ -79,8 +79,13 @@ class PostsController < ApplicationController
     else
       render :partial => "posts/check_diffs"
     end
-    
   end
+
+  // TODO: When rails updates their action text to allow for static html attachments, add this back in
+  # def get_gist
+  #   parsed_json = ActiveSupport::JSON.decode(request.body.string)
+  #   render layout: false
+  # end
 
   private
   def post_params
