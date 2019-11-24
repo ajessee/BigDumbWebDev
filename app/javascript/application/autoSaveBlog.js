@@ -77,9 +77,9 @@ const loadAutoPostSaver = function() {
         if (response.status == 204) {
           throw new Error('AutoPostSaver: No delta between current content and saved content');
         }
-        return response.text();
+        return response.json();
       })
-      .then(function(data){
+      .then(function(json){
           if (window.utils.weLargeScreen.matches) {
             window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
           } else if (window.utils.weTablet.matches || window.utils.weMobile.matches) {
@@ -88,7 +88,7 @@ const loadAutoPostSaver = function() {
             window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
           }
         
-          window.utils.modal.diffModal.insertAdjacentHTML('beforeend', data);
+          window.utils.modal.diffModal.insertAdjacentHTML('beforeend', json.partial);
           window.utils.modal.diffModal.style.overflowY = "auto";
           let savedContent = document.querySelector("#saved-content-input").value;
           let currentContent = document.querySelector("#current-content-input").value;
