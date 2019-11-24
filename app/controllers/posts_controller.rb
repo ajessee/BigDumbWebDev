@@ -61,23 +61,28 @@ class PostsController < ApplicationController
     parsed_json = ActiveSupport::JSON.decode(request.body.string)
     @currentContent = parsed_json["currentContent"]
     @savedContent = parsed_json["savedContent"]
-    @titleDiff = Diffy::SplitDiff.new(@currentContent["title"], @savedContent["title"], :format => :html)
-    @titleDiffText = Diffy::SplitDiff.new(@currentContent["title"], @savedContent["title"]).instance_values["diff"]
-    @titleDiffEmpty = @titleDiffText.empty?
-    @contentDiff = Diffy::SplitDiff.new(@currentContent["content"], @savedContent["content"], :format => :html)
-    @contentDiffText = Diffy::SplitDiff.new(@currentContent["content"], @savedContent["content"]).instance_values["diff"]
-    @contentDiffEmpty = @contentDiffText.empty?
-    @tagsDiff = Diffy::SplitDiff.new(@currentContent["tags"], @savedContent["tags"], :format => :html)
-    @tagsDiffText = Diffy::SplitDiff.new(@currentContent["tags"], @savedContent["tags"]).instance_values["diff"]
-    @tagsDiffEmpty = @tagsDiffText.empty?
-    @publishedDiff = Diffy::SplitDiff.new(@currentContent["published"], @savedContent["published"], :format => :html) 
-    @publishedDiffText = Diffy::SplitDiff.new(@currentContent["published"], @savedContent["published"]).instance_values["diff"]
-    @publishedDiffEmpty = @publishedDiffText.empty?
-    all_empty = @titleDiffEmpty && @contentDiffEmpty && @tagsDiffEmpty && @publishedDiffEmpty
-    if all_empty
+    payload = helpers.create_diff_payload(@currentContent, @savedContent)
+    if payload[:allEmpty]
       render :json => {:success => "False"}, status: 204
     else
-      render :partial => "posts/check_diffs"
+      render json: { 
+        partial: 
+          render_to_string(
+            partial: 'posts/check_diffs', 
+            formats: :html, 
+            layout: false, 
+            locals: payload
+          ),
+        emptyElements: {
+          title: ActiveSupport::JSON.encode(payload[:titleDiffEmpty]),
+          content: ActiveSupport::JSON.encode(payload[:contentDiffEmpty]),
+          tags: ActiveSupport::JSON.encode(payload[:tagsDiffEmpty]),
+          published: ActiveSupport::JSON.encode(payload[:publishedDiffEmpty])
+        },
+        publishedValue: payload[:publishedDiffText],
+        newPost: ActiveSupport::JSON.encode(payload[:newPost])
+      }
+      # render :partial => "posts/check_diffs"
     end
   end
 

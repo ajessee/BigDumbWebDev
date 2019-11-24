@@ -116,6 +116,8 @@ function setupPosts() {
               let choice = confirm("You have unsaved changes, are you sure?");
               if (choice == true) {
                 window.utils.posts.redirectToPost(postId);
+                debugger;
+                // TODO: Delete post from local storage
               } else {
                 return
               }
@@ -133,6 +135,8 @@ function setupPosts() {
               let choice = confirm("You have unsaved changes, are you sure?");
               if (choice == true) {
                 window.utils.posts.redirectToPost();
+                // TODO: Delete post from local storage
+                debugger;
               } else {
                 return
               }
