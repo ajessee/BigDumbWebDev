@@ -6,21 +6,21 @@
   </div>
   <div id="saved-version">
     <% if !titleDiffEmpty %>
-      <p class="title-diff" data-value="<%= titleDiffText %>">Title: <%= raw titleDiff.right %></p>
+      <p class="title-diff">Title: <%= raw titleDiff.right %></p>
     <% end %>
-    <% if !contentDiffEmpty %>
+    <% if !contentDiffEmpty  %>
       <p>Editor:</p>
       <form class="content-diff-display">
-          <input id="saved-content-input" value='<%= raw savedContent["editorState"] %>' type="hidden" name="content">
+          <input id="saved-content-input" type="hidden" name="content">
           <trix-editor id="saved-content-trix" contenteditable="false"></trix-editor>
       </form>
       <p>HTML diff: <%= raw contentDiff.right %></p>
     <% end %>
-    <% if !tagsDiffEmpty %>
-      <p class="tags-diff" data-value="<%= tagsDiffText %>">Tags: <%= raw tagsDiff.right %></p>
+    <% if !tagsDiffEmpty && !tagsDiffTest.string2.empty? %>
+      <p class="tags-diff">Tags: <%= raw tagsDiff.right %></p>
     <% end %>
     <% if !publishedDiffEmpty %>
-      <p class="published-diff" data-value="<%= publishedDiffText %>">Published: <%= raw publishedDiff.right %></p>
+      <p class="published-diff">Published: <%= raw publishedDiff.right %></p>
     <% end %>
   </div>
   <% if !newPost %>
@@ -30,21 +30,21 @@
   </div>
   <div id="current-version">
     <% if !titleDiffEmpty %>
-      <p class="title-diff" data-value="<%= titleDiffText %>">Title: <%= raw titleDiff.left %></p>
+      <p class="title-diff">Title: <%= raw titleDiff.left %></p>
     <% end %>
-    <% if !contentDiffEmpty %>
+    <% if !contentDiffEmpty  %>
       <p>Editor:</p>
       <form class="content-diff-display">
-          <input id="current-content-input" value='<%= raw currentContent["editorState"] %>' type="hidden" name="content">
+          <input id="current-content-input" type="hidden" name="content">
           <trix-editor id="current-content-trix" contenteditable="false"></trix-editor>
       </form>
       <p>HTML diff: <%= raw contentDiff.left %></p>
     <% end %>
-    <% if !tagsDiffEmpty %>
-      <p class="tags-diff" data-value="<%= tagsDiffText %>">Tags: <%= raw tagsDiff.left %></p>
+    <% if !tagsDiffEmpty && !tagsDiffTest.string1.empty? %>
+      <p class="tags-diff">Tags: <%= raw tagsDiff.left %></p>
     <% end %>
     <% if !publishedDiffEmpty %>
-      <p class="published-diff" data-value="<%= publishedDiffText %>">Published: <%= raw publishedDiff.left %></p>
+      <p class="published-diff">Published: <%= raw publishedDiff.left %></p>
     <% end %>
   </div>
   <% end %>
