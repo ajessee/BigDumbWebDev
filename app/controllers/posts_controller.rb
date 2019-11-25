@@ -65,7 +65,7 @@ class PostsController < ApplicationController
     if payload[:allEmpty]
       render :json => {:success => "False"}, status: 204
     else
-      render json: { 
+      response = { 
         partial: 
           render_to_string(
             partial: 'posts/check_diffs', 
@@ -73,16 +73,9 @@ class PostsController < ApplicationController
             layout: false, 
             locals: payload
           ),
-        emptyElements: {
-          title: ActiveSupport::JSON.encode(payload[:titleDiffEmpty]),
-          content: ActiveSupport::JSON.encode(payload[:contentDiffEmpty]),
-          tags: ActiveSupport::JSON.encode(payload[:tagsDiffEmpty]),
-          published: ActiveSupport::JSON.encode(payload[:publishedDiffEmpty])
-        },
-        publishedValue: payload[:publishedDiffText],
-        newPost: ActiveSupport::JSON.encode(payload[:newPost])
+        payload: payload
       }
-      # render :partial => "posts/check_diffs"
+      render json: ActiveSupport::JSON.encode(response)
     end
   end
 

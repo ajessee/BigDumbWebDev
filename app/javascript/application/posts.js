@@ -88,6 +88,7 @@ function setupPosts() {
             existingTagsInputArr.push(selectionText);
           }
           existingTagsInput.value = existingTagsInputArr.join(", ")
+          existingTagsInput.dispatchEvent(new Event("change"));
         })
       }
 
