@@ -1,8 +1,8 @@
 <div class="diff-container" data-new-post="<% if newPost %>true<% else %>false<% end %>">
-  <h1 id="diff-header">We found some unsaved changes. <% if !newPost %>Please select which version you want to use:<% end %></h1>
+  <h1 id="diff-header">Unsaved changes found. <% if !newPost %>You can restore the unsaved changes or use the last saved verison.<% else %>Please click 'Restore Unsaved Changes' or click the 'X' to discard your unsaved changes.<% end %></h1>
   <div id="saved-version-controls">
-      <h3 id="saved-diff-header">Unsaved version:</h3>
-      <button id="use-saved-version-button" class="submit-close-buttons submit-button">Use Unsaved Version</button>
+      <h3 id="saved-diff-header">Unsaved Changes:</h3>
+      <button id="use-saved-version-button" class="submit-close-buttons submit-button">Restore Unsaved Changes</button>
   </div>
   <div id="saved-version">
     <% if !titleDiffEmpty %>
@@ -16,7 +16,7 @@
       </form>
       <p>HTML diff: <%= raw contentDiff.right %></p>
     <% end %>
-    <% if !tagsDiffEmpty && !tagsDiffTest.string2.empty? %>
+    <% if !tagsDiffEmpty  %>
       <p class="tags-diff">Tags: <%= raw tagsDiff.right %></p>
     <% end %>
     <% if !publishedDiffEmpty %>
@@ -25,8 +25,8 @@
   </div>
   <% if !newPost %>
   <div id="current-version-controls">
-    <h3 id="current-diff-header">Current version:</h3>
-    <button id="use-current-version-button" class="submit-close-buttons submit-button">Use Current Version</button>
+    <h3 id="current-diff-header">Saved Version:</h3>
+    <button id="use-current-version-button" class="submit-close-buttons submit-button">Use Saved Version</button>
   </div>
   <div id="current-version">
     <% if !titleDiffEmpty %>
@@ -40,7 +40,7 @@
       </form>
       <p>HTML diff: <%= raw contentDiff.left %></p>
     <% end %>
-    <% if !tagsDiffEmpty && !tagsDiffTest.string1.empty? %>
+    <% if !tagsDiffEmpty  %>
       <p class="tags-diff">Tags: <%= raw tagsDiff.left %></p>
     <% end %>
     <% if !publishedDiffEmpty %>

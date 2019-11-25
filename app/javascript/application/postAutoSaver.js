@@ -74,7 +74,7 @@ const loadPostAutoSaver = function() {
   };
 
   saver.saveToLocalStorage = function(elementName, newStateObject) {
-    console.info(`Post Auto Saver: Saving ${elementName} to local storage...`);
+    console.info(`Post Auto Saver: Saving ${elementName} to local storage`);
     let savedStateObject = this.getSavedContent(this.blogId);
     // If we already have saved state, merge new changes and resave
     if (savedStateObject) {
@@ -84,7 +84,7 @@ const loadPostAutoSaver = function() {
     else {
       localStorage.setItem(this.blogId, JSON.stringify(newStateObject));
     }
-    console.info(`Post Auto Saver: ${elementName} successfully saved.`);
+    console.info(`Post Auto Saver: ${elementName} successfully saved`);
   }
 
   saver.checkForUnsavedChanges = function(elementName, currentElementValue) {
@@ -147,13 +147,24 @@ const loadPostAutoSaver = function() {
     return JSON.parse(localStorage.getItem(blogId)) || null;
   }
 
+  saver.openModal = function() {
+    if (window.utils.weLargeScreen.matches) {
+      window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
+    } else if (window.utils.weTablet.matches || window.utils.weMobile.matches) {
+      window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 1, 1, 16, 16, null, null, true);
+    } else {
+      window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
+    }
+    window.utils.navigation.toggleNavButton(false);
+  }
+
   saver.checkForSavedPost = function() {
-    console.info('Post Auto Saver: Checking for saved post...');
+    console.info('Post Auto Saver: Checking for saved post');
     // Get Rails authenticity token
     let authenToken = document.querySelector('input[name="authenticity_token"]').value;
     // If we have saved content locally, check for diffs
     if (this.getSavedContent(this.blogId)) {
-      console.info('Post Auto Saver: Saved post found. Sending current and saved content to server for diff calculations...');
+      console.info('Post Auto Saver: Saved post found. Sending current and saved content to server for diff calculations');
       let payload = window.utils.postAutoSaver.generateDiffPayload();
       fetch('/check_diffs', {
         method: 'POST',
@@ -175,13 +186,21 @@ const loadPostAutoSaver = function() {
       .then(function(response){
         console.info('Post Auto Saver: Diffs response received.');
         // Setup modal window
-        if (window.utils.weLargeScreen.matches) {
-          window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
-        } else if (window.utils.weTablet.matches || window.utils.weMobile.matches) {
-          window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 1, 1, 16, 16, null, null, true);
-        } else {
-          window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
-        }
+        window.utils.postAutoSaver.openModal();
+        window.utils.postAutoSaver.modalCloseButton = document.querySelector('button.close-modal');
+        // Listen for modal close. Remove post state object from local storage on confirm.
+        // This is a hack. The modal close process (css class changes) has already happened on click.
+        // I just reopen the modal. Inelegant, but it works for now. TODO: Improve.
+        window.utils.postAutoSaver.modalCloseButton.addEventListener("click", function (event) {
+          let userConfirm = confirm("You have unsaved changes. If you close this window you will lose them. Are you sure?");
+          if (userConfirm) {
+            localStorage.removeItem(window.utils.postAutoSaver.blogId);
+          } else {
+            window.utils.postAutoSaver.openModal();
+            window.utils.modal.diffModal.insertAdjacentHTML('beforeend', response.partial);
+            window.utils.modal.diffModal.style.overflowY = "auto";
+          }
+        });
         // Store reponse
         window.utils.postAutoSaver.response = response;
         // Inject partial into modal
@@ -215,45 +234,32 @@ const loadPostAutoSaver = function() {
               const buttonId = event.target.id;
               const useSavedState = buttonId.includes("saved") ? true : false;
               const cachedResponse = window.utils.postAutoSaver.response.payload;
-              let title;
-              let content;
-              let tags;
-              let published;
+              // Only need to inject data into editor if they are using unsaved changes.
               if (useSavedState) {
-                title = !cachedResponse.titleDiffEmpty ? cachedResponse.savedContent.title : null;
-                content = !cachedResponse.contentDiffEmpty ? cachedResponse.savedContent.editorState : null;
-                tags = !cachedResponse.tagsDiffEmpty ? cachedResponse.savedContent.tags : null;
-                published = !cachedResponse.publishedDiffEmpty ? cachedResponse.savedPublished : null;
+                let title = !cachedResponse.titleDiffEmpty ? cachedResponse.savedContent.title : null;
+                let content = !cachedResponse.contentDiffEmpty ? cachedResponse.savedContent.editorState : null;
+                let tags = !cachedResponse.tagsDiffEmpty ? cachedResponse.savedContent.tags : null;
+                let published = !cachedResponse.publishedDiffEmpty ? cachedResponse.savedPublished : null;
+
+                if (title) {
+                  window.utils.postAutoSaver.titleInput.value = title;
+                  window.utils.postAutoSaver.titleInput.focus();
+                }
+                if (content) {
+                  window.utils.postAutoSaver.editor.loadHTML('');
+                  window.utils.postAutoSaver.editor.loadJSON(JSON.parse(content));
+                  window.utils.postAutoSaver.originalDocument = window.utils.postAutoSaver.editor.getDocument();
+                }
+                if (tags) {
+                  window.utils.postAutoSaver.tagsInput.value = tags;
+                }
+                if (published) {
+                  window.utils.postAutoSaver.publishedInput.checked = published;
+                } 
               }
-              else {
-                title = !cachedResponse.titleDiffEmpty ? cachedResponse.currentContent.title : null;
-                content = !cachedResponse.contentDiffEmpty ? cachedResponse.currentContent.editorState : null;
-                tags = !cachedResponse.tagsDiffEmpty ? cachedResponse.currentContent.tags : null;
-                published = !cachedResponse.publishedDiffEmpty ? cachedResponse.currentPublished : null;
-              }
-              if (title) {
-                window.utils.postAutoSaver.titleInput.value = title;
-                window.utils.postAutoSaver.titleInput.focus();
-              } else {
-                window.utils.postAutoSaver.titleInput.value = "";
-              }
-              if (content) {
-                window.utils.postAutoSaver.editor.loadHTML('');
-                window.utils.postAutoSaver.editor.loadJSON(JSON.parse(content));
-                window.utils.postAutoSaver.originalDocument = window.utils.postAutoSaver.editor.getDocument();
-              }
-              if (tags) {
-                window.utils.postAutoSaver.tagsInput.value = tags;
-              } else {
-                window.utils.postAutoSaver.tagsInput.value = "";
-              }
-              if (published) {
-                window.utils.postAutoSaver.publishedInput.checked = published;
-              } else {
-                window.utils.postAutoSaver.publishedInput.checked = false;
-              }
+              // Otherwise, we will used what is in editor now
               window.utils.modal.closeModal(event);
-              // localStorage.removeItem(window.utils.postAutoSaver.blogId);
+              localStorage.removeItem(window.utils.postAutoSaver.blogId);
             }
           })
         }
@@ -265,7 +271,10 @@ const loadPostAutoSaver = function() {
       .catch(function(e) {
         console.error("Post Auto Saver Error: " + e.message);
       }) 
+    } else {
+      console.info('Post Auto Saver: No saved post found');
     }
+
   }
 
   saver.toggleSaveButton = (enable) => {

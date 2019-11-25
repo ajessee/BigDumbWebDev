@@ -52,6 +52,14 @@ const setUpNav = () => {
       });
     },
 
+    toggleNavButton : function (show) {
+      if (show) {
+        this.navButtonContainer.style.display = "block";
+      } else {
+        this.navButtonContainer.style.display = "none";
+      }
+    },
+
     init: function (notNew) {
       let self = this;
       this.navButtonContainer = document.querySelector('#nav-button-container');

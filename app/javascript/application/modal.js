@@ -71,6 +71,7 @@ const setUpModal = () => {
       if (modalArray.length < 1) {
         modal.mainBody.classList.add("modalUnblur");
       }
+      window.utils.navigation.toggleNavButton(true);
     },
 
     closeAllModals: function() {
