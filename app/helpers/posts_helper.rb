@@ -6,16 +6,17 @@ module PostsHelper
   def create_diff_payload(currentContent, savedContent)
     newPost = currentContent["newPost"]
     titleDiff = Diffy::SplitDiff.new(currentContent["title"], savedContent["title"], :format => :html)
-    titleDiffText = Diffy::Diff.new(currentContent["title"], savedContent["title"], ignore_crlf: true).string2
+    titleDiffTest = Diffy::Diff.new(currentContent["title"], savedContent["title"], ignore_crlf: true)
+    titleDiffText = titleDiffTest.string2
     titleDiffEmpty = titleDiffText ? titleDiffText.empty? : true
     contentDiff = Diffy::SplitDiff.new(currentContent["content"], savedContent["content"], :format => :html)
     contentDiffTest = Diffy::Diff.new(currentContent["content"], savedContent["content"], ignore_crlf: true)
-    contentDiffText = Diffy::SplitDiff.new(currentContent["content"], savedContent["content"]).instance_values["diff"]
-    contentDiffEmpty = contentDiffText.empty?
+    contentDiffText = contentDiffTest.string2
+    contentDiffEmpty = contentDiffText ? contentDiffText.empty? : true
     tagsDiff = Diffy::SplitDiff.new(currentContent["tags"], savedContent["tags"], :format => :html)
     tagsDiffTest = Diffy::Diff.new(currentContent["tags"], savedContent["tags"], ignore_crlf: true)
-    tagsDiffEmpty = tagsDiffTest.diff.empty?
     tagsDiffText = tagsDiffTest.string2
+    tagsDiffEmpty = tagsDiffText ? tagsDiffText.empty? : true
     if savedContent["published"] == nil
       publishedDiffEmpty = true
     else
@@ -33,12 +34,10 @@ module PostsHelper
         titleDiffText: titleDiffText,
         titleDiffEmpty: titleDiffEmpty,
         contentDiff: contentDiff,
-        contentDiffTest: contentDiffTest,
         contentDiffText: contentDiffText,
         contentDiffEmpty: contentDiffEmpty,
         tagsDiff: tagsDiff,
         tagsDiffText: tagsDiffText,
-        tagsDiffTest: tagsDiffTest,
         tagsDiffEmpty: tagsDiffEmpty,
         publishedDiff: publishedDiff,
         publishedDiffEmpty: publishedDiffEmpty,

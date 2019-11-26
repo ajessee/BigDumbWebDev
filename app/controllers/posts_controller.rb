@@ -41,7 +41,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to @post
     else
-      # TODO: Figure out how to handle errors for post missing title - its the only validation we do. Maybe do client-side validation?
+      # I've setup client side validation for title input. Should never get to this point
       render 'edit'
     end
   end

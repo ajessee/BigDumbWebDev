@@ -94,6 +94,27 @@ function setupPosts() {
 
     },
 
+    highlightInvalidInputs: function() {
+      let input = document.querySelector('input#post_title') ? document.querySelector('input#post_title') : null;
+      if (input) {
+        let wrapperDiv = input.parentElement;
+        input.addEventListener("invalid", function (event) {
+          if (input.validity.valueMissing) {
+            input.setCustomValidity("Please enter a title for your post.");
+            wrapperDiv.style.border = "2px solid red";
+          } else {
+            input.setCustomValidity("");
+            wrapperDiv.style.border = 'none';
+          }
+        });
+        input.addEventListener("change", function (event) {
+          if (!input.validity.valueMissing) {
+            wrapperDiv.style.border = 'none';
+          } 
+        });
+      }
+    },
+
     redirectToPost: function(postID) {
       if (postID) {
         window.location.href = '/posts/' + postID;
@@ -159,6 +180,7 @@ function setupPosts() {
       this.setupFullScreen();
       this.setupTags();
       this.setupCancelButtons();
+      this.highlightInvalidInputs();
     }
 
   };

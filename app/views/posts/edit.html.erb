@@ -4,7 +4,7 @@
   <h1 id="edit-post-header" class="post-form-header">Edit Post</h1>
   <div id="edit-post-title" class="float-container">
     <%= f.label :title %>
-    <%= f.text_field :title, class: "input-error" %>
+    <%= f.text_field :title, class: "input-error", required: true %>
   </div>
   <div id="edit-post-content" class="trix-wrapper" data-sgid="<%= @post.attachable_sgid%>">
     <%= f.rich_text_area :content, class: "trix-content" %>
