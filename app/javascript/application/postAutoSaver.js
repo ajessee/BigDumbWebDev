@@ -210,7 +210,7 @@ const loadPostAutoSaver = function() {
         let selectionButtonsArray = [];
         if (!window.utils.postAutoSaver.newPost) {
           // Make sure we have a diff in content
-          if (!response.payload.contentDiffEmpty && response.payload.currentContent.content !== "") {
+          if (!response.payload.contentDiffEmpty && response.payload.currentContent.content !== "" && response.payload.currentContent.editorState) {
             let currentEditor = document.querySelector("#current-content-trix").editor;
             let currentEditorState = response.payload.currentContent.editorState;
             currentEditor.loadJSON(JSON.parse(currentEditorState));
@@ -219,7 +219,7 @@ const loadPostAutoSaver = function() {
           selectionButtonsArray.push(currentButton)
         }
         // Make sure we have a diff in content
-        if (!response.payload.contentDiffEmpty && response.payload.savedContent.content !== "") {
+        if (!response.payload.contentDiffEmpty && response.payload.savedContent.content !== "" && response.payload.savedContent.editorState) {
           let savedEditor = document.querySelector("#saved-content-trix").editor;
           let savedEditorState = response.payload.savedContent.editorState;
           savedEditor.loadJSON(JSON.parse(savedEditorState));
