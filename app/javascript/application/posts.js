@@ -138,8 +138,7 @@ function setupPosts() {
               let choice = confirm("You have unsaved changes, are you sure?");
               if (choice == true) {
                 window.utils.posts.redirectToPost(postId);
-                debugger;
-                // TODO: Delete post from local storage
+                window.utils.postAutoSaver.deleteSavedContent(window.utils.postAutoSaver.blogId);
               } else {
                 return
               }
@@ -157,8 +156,8 @@ function setupPosts() {
               let choice = confirm("You have unsaved changes, are you sure?");
               if (choice == true) {
                 window.utils.posts.redirectToPost();
-                // TODO: Delete post from local storage
-                debugger;
+                window.utils.posts.redirectToPost(postId);
+                window.utils.postAutoSaver.deleteSavedContent(window.utils.postAutoSaver.blogId);
               } else {
                 return
               }
