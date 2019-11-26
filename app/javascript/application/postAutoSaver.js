@@ -7,6 +7,7 @@ const loadPostAutoSaver = function() {
   // Cache Trix editor instance
   saver.trix = document.querySelector(".trix-wrapper trix-editor");
   saver.editor = saver.trix.editor;
+  saver.hasUnsavedChanges = false;
 
   // Cache Trix blog id
   saver.blogId = saver.trix.inputElement.id;
@@ -56,6 +57,7 @@ const loadPostAutoSaver = function() {
     this.saveButton.addEventListener("click", function (event) {
       // TODO: Check for 200 response from post save before erasing.
       localStorage.removeItem(this.blogId);
+      this.hasUnsavedChanges = false;
     }.bind(this))
   }
 
@@ -80,9 +82,11 @@ const loadPostAutoSaver = function() {
     if (savedStateObject) {
       let mergedObject = {...savedStateObject, ...newStateObject};
       localStorage.setItem(this.blogId, JSON.stringify(mergedObject));
+      this.hasUnsavedChanges = true;
     } // Else just save directly 
     else {
       localStorage.setItem(this.blogId, JSON.stringify(newStateObject));
+      this.hasUnsavedChanges = true;
     }
     console.info(`Post Auto Saver: ${elementName} successfully saved`);
   }
@@ -147,6 +151,10 @@ const loadPostAutoSaver = function() {
     return JSON.parse(localStorage.getItem(blogId)) || null;
   }
 
+  saver.deleteSavedContent = function (blogId) {
+    localStorage.removeItem(this.blogId);
+  }
+
   saver.openModal = function() {
     if (window.utils.weLargeScreen.matches) {
       window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
@@ -195,6 +203,7 @@ const loadPostAutoSaver = function() {
           let userConfirm = confirm("You have unsaved changes. If you close this window you will lose them. Are you sure?");
           if (userConfirm) {
             localStorage.removeItem(window.utils.postAutoSaver.blogId);
+            this.hasUnsavedChanges = false;
           } else {
             window.utils.postAutoSaver.openModal();
             window.utils.modal.diffModal.insertAdjacentHTML('beforeend', response.partial);
@@ -256,10 +265,13 @@ const loadPostAutoSaver = function() {
                 if (published) {
                   window.utils.postAutoSaver.publishedInput.checked = published;
                 } 
+                window.utils.notifications.openNotification('alert', 'Save your work', 'We\'ve restored your unsaved changes. Please save your changes now. ' , 6000, true);
+                window.utils.postAutoSaver.toggleSaveButton(true);
               }
               // Otherwise, we will used what is in editor now
               window.utils.modal.closeModal(event);
               localStorage.removeItem(window.utils.postAutoSaver.blogId);
+              this.hasUnsavedChanges = false;
             }
           })
         }
