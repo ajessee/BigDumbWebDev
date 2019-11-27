@@ -2,8 +2,8 @@ namespace :upload_instagram do
   require "json"
   require "aws-sdk-s3"
 
-  desc "upload"
-  task :task_one => :environment do 
+  desc "Take pictures from AWS S3 bucket and create 'resources' for Post model"
+  task :upload => :environment do 
       jsonPath = 'lib/tasks/nycProject.json'
       resourceDirPath = 'impartialobserver_20181001_part_2/'
 

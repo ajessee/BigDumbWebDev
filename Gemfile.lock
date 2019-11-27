@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/sosodev/actiontext-static.git
+  revision: 3aa490369fe3639a6657c400845d87f197f03c87
+  specs:
+    actiontext-static (1.0.0)
+      rails (>= 6.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -250,6 +257,8 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     shellany (0.0.1)
+    spoon (0.0.6)
+      ffi
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -296,6 +305,7 @@ PLATFORMS
   x86-mswin32
 
 DEPENDENCIES
+  actiontext-static!
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)

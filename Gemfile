@@ -26,6 +26,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'mini_magick'
 # Gem to do HTML diffs
 gem 'diffy', '~> 3.3'
+# Gem to enable static ActionText attachements
+gem 'actiontext-static', git: 'https://github.com/sosodev/actiontext-static.git'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
