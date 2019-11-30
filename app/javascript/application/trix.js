@@ -40,30 +40,11 @@ const setUpTrixHelper = () => {
         .addEventListener("click", self.trixAddAttachment)
     },
 
-    // TODO: When rails updates their action text to allow for static html attachments, add this back in
-    // trixAddEmbedButtonToToolbar: function() {
-    //   let trixLinkButtons = document.querySelector(".trix-dialog__link-fields .trix-button-group");
-    //   let self = this;
-    //   const inputHTML = `
-    //         <button
-    //         type="button"
-    //         class="trix-button"
-    //         id="embed-link-button"
-    //         data-trix-action="x-embed" title="Embed Files"
-    //         tabindex="-1"
-    //       >Embed</button>
-    //     `;
-    //     trixLinkButtons.innerHTML += inputHTML;
-    
-    //     document.querySelector("#embed-link-button")
-    //     .addEventListener("click", self.trixEmbedLink);
-    // },
-
     trixAddAttachment: function() {
       const fileInput = document.createElement("input");
     
       fileInput.setAttribute("type", "file");
-      fileInput.setAttribute("accept", ".jpg, .png, .gif");
+      fileInput.setAttribute("accept", ".jpg, .png, .gif, .mp4");
       fileInput.setAttribute("multiple", "");
     
       fileInput.addEventListener("change", () => {
@@ -73,6 +54,24 @@ const setUpTrixHelper = () => {
     
       fileInput.click()
     },
+
+    insertAttachment: (file) => {
+      const trixEditor = document.querySelector("trix-editor").editor;
+      trixEditor.insertFile(file);
+    },
+
+    init: function() {
+      if (document.querySelector('trix-toolbar')) {
+        this.trixOnEditorReady();
+      }
+    }
+
+  }
+  trix.init();
+  window.utils.trixHelper = trix;
+}
+
+document.addEventListener("DOMContentLoaded", setUpTrixHelper);
 
     // TODO: When rails updates their action text to allow for static html attachments, add this back in
     // trixEmbedLink: function(e) {
@@ -123,20 +122,21 @@ const setUpTrixHelper = () => {
     //   //   })
     // },
 
-    insertAttachment: (file) => {
-      const trixEditor = document.querySelector("trix-editor").editor;
-      trixEditor.insertFile(file);
-    },
-
-    init: function() {
-      if (document.querySelector('trix-toolbar')) {
-        this.trixOnEditorReady();
-      }
-    }
-
-  }
-  trix.init();
-  window.utils.trixHelper = trix;
-}
-
-document.addEventListener("DOMContentLoaded", setUpTrixHelper);
+    // TODO: When rails updates their action text to allow for static html attachments, add this back in
+    // trixAddEmbedButtonToToolbar: function() {
+    //   let trixLinkButtons = document.querySelector(".trix-dialog__link-fields .trix-button-group");
+    //   let self = this;
+    //   const inputHTML = `
+    //         <button
+    //         type="button"
+    //         class="trix-button"
+    //         id="embed-link-button"
+    //         data-trix-action="x-embed" title="Embed Files"
+    //         tabindex="-1"
+    //       >Embed</button>
+    //     `;
+    //     trixLinkButtons.innerHTML += inputHTML;
+    
+    //     document.querySelector("#embed-link-button")
+    //     .addEventListener("click", self.trixEmbedLink);
+    // },

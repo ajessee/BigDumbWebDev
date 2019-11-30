@@ -187,9 +187,10 @@ const loadPostAutoSaver = function() {
       })
       .then(function(response) {
         if (response.status == 204) {
-          console.info('Post Auto Saver: No delta between current content and saved content');
+          return response.then(Promise.reject.bind(Promise));
+        } else {
+          return response.json();
         }
-        return response.json();
       })
       .then(function(response){
         console.info('Post Auto Saver: Diffs response received.');
@@ -281,8 +282,9 @@ const loadPostAutoSaver = function() {
 
       })
       .catch(function(e) {
-        console.error("Post Auto Saver Error: " + e.message);
-      }) 
+        let message = e.message || e;
+        console.info("Post Auto Saver Error: " + message);
+      })
     } else {
       console.info('Post Auto Saver: No saved post found');
     }
