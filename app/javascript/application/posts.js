@@ -173,6 +173,35 @@ function setupPosts() {
 
     },
 
+    // HACK!
+    replaceUrlForAnimatedElements: function() {
+      let attachments = document.querySelectorAll('action-text-attachment');
+      attachments.forEach(function(attachment){
+        let contentType = attachment.getAttribute("content-type");
+        if (contentType === "image/gif") {
+          const url = attachment.getAttribute("url");
+          let childImg = attachment.querySelector('img');
+          childImg.setAttribute("src", url);
+        }
+        if (contentType === "video/mp4") {
+          const url = attachment.getAttribute("url");
+          let childImg = attachment.querySelector('img');
+          childImg.remove();
+          let videoEl = document.createElement('video');
+          let sourceEl = document.createElement('source');
+          videoEl.setAttribute("width", "100%");
+          videoEl.setAttribute("height", "auto");
+          videoEl.setAttribute("controls", "");
+          videoEl.setAttribute("autoPlay", "");
+          videoEl.setAttribute("loop", "");
+          sourceEl.setAttribute("src", url);
+          sourceEl.setAttribute("type", "video/mp4");
+          videoEl.append(sourceEl);
+          attachment.querySelector('figure').append(videoEl);
+        }
+      })
+    },
+
     init: function() {
       this.showPostBody = document.querySelector('#show-post-body') ? document.querySelector('#show-post-body') : null;
       this.postContainer = document.querySelector('.post-container') ? document.querySelector('.post-container') : null;
@@ -180,6 +209,7 @@ function setupPosts() {
       this.setupTags();
       this.setupCancelButtons();
       this.highlightInvalidInputs();
+      this.replaceUrlForAnimatedElements();
     }
 
   };
