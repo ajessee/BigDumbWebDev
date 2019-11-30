@@ -201,6 +201,10 @@ div#all-posts-container>div.pagination {
   margin-right: 5px;
 }
 
+#show-post-container .trix-content {
+  background-color: aliceblue;
+}
+
 // Huge screen
 @media only screen and (min-width : 1501px) {
   // placeholder
