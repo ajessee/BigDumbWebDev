@@ -182,6 +182,7 @@ function setupPosts() {
           const url = attachment.getAttribute("url");
           let childImg = attachment.querySelector('img');
           childImg.setAttribute("src", url);
+          childImg.style.border = "solid 1px black";
         }
         if (contentType === "video/mp4") {
           const url = attachment.getAttribute("url");
@@ -189,11 +190,12 @@ function setupPosts() {
           childImg.remove();
           let videoEl = document.createElement('video');
           let sourceEl = document.createElement('source');
-          videoEl.setAttribute("width", "100%");
+          videoEl.setAttribute("width", "90%");
           videoEl.setAttribute("height", "auto");
           videoEl.setAttribute("controls", "");
           videoEl.setAttribute("autoPlay", "");
           videoEl.setAttribute("loop", "");
+          videoEl.style.border = "solid 1px black";
           sourceEl.setAttribute("src", url);
           sourceEl.setAttribute("type", "video/mp4");
           videoEl.append(sourceEl);
