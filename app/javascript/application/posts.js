@@ -173,7 +173,7 @@ function setupPosts() {
 
     },
 
-    // HACK!
+    // This is an ugly hack to work around the fact that I don't know how to configure active storage files/attachements to preview correctly
     replaceUrlForAnimatedElements: function() {
       let attachments = document.querySelectorAll('action-text-attachment');
       attachments.forEach(function(attachment){
@@ -190,7 +190,7 @@ function setupPosts() {
           childImg.remove();
           let videoEl = document.createElement('video');
           let sourceEl = document.createElement('source');
-          videoEl.setAttribute("width", "90%");
+          videoEl.setAttribute("width", "80%");
           videoEl.setAttribute("height", "auto");
           videoEl.setAttribute("controls", "");
           videoEl.setAttribute("autoPlay", "");
