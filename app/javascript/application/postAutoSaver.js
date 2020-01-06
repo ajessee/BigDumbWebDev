@@ -10,7 +10,7 @@ const loadPostAutoSaver = function() {
   saver.hasUnsavedChanges = false;
 
   // Cache Trix blog id
-  saver.blogId = saver.trix.inputElement.id;
+  saver.blogId = saver.trix.inputElement ? saver.trix.inputElement.id : null;
 
   // Cache if new post
   saver.newPost = document.querySelector('form.post-form').id === "new-post" ? true : false;
@@ -26,7 +26,7 @@ const loadPostAutoSaver = function() {
 
   // Cache original state of title, content, tags, and whether or not post is published
   saver.originalTitle = saver.titleInput.value;
-  saver.originalDocument = saver.editor.getDocument();
+  saver.originalDocument = saver.editor ? saver.editor.getDocument() : null;
   saver.originalTags = saver.tagsInput.value;
   saver.originalPublishedState = saver.publishedInput.checked;
 

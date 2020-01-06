@@ -18,6 +18,7 @@ const setUpTrixHelper = () => {
           return style.textDecoration === "underline";
         }
       }
+
       let trixTextTools = document.querySelector(".trix-button-group--text-tools");
       let buttonHTML = '<button type="button" class="trix-button trix-button--icon trix-button--icon-underline" data-trix-attribute="underline" data-trix-action="underline" data-trix-key="u" title="Underline" tabindex="-1">Underline</button>'
       trixTextTools.children[1].insertAdjacentHTML("afterend", buttonHTML);  
@@ -63,6 +64,11 @@ const setUpTrixHelper = () => {
     init: function() {
       if (document.querySelector('trix-toolbar')) {
         this.trixOnEditorReady();
+        // TODO: See if you can inject code into pre block
+        // document.querySelector(".trix-button--icon-code")
+        // .addEventListener("click", function(e){
+        //   debugger;
+        // })
       }
     }
 
@@ -74,10 +80,30 @@ const setUpTrixHelper = () => {
 document.addEventListener("DOMContentLoaded", setUpTrixHelper);
 
     // TODO: When rails updates their action text to allow for static html attachments, add this back in
+
+        // trixAddEmbedButtonToToolbar: function() {
+    //   let trixLinkButtons = document.querySelector(".trix-dialog__link-fields .trix-button-group");
+    //   let self = this;
+    //   const inputHTML = `
+    //         <button
+    //         type="button"
+    //         class="trix-button"
+    //         id="embed-link-button"
+    //         data-trix-action="x-embed" title="Embed Files"
+    //         tabindex="-1"
+    //       >Embed</button>
+    //     `;
+    //     trixLinkButtons.innerHTML += inputHTML;
+    
+    //     document.querySelector("#embed-link-button")
+    //     .addEventListener("click", self.trixEmbedLink);
+    // },
+
     // trixEmbedLink: function(e) {
     //   const urlInput = document.querySelector(".trix-dialog__link-fields input");
     //   let embedLink = urlInput.value;
-    //   let sgid = document.querySelector("#edit-post-content").getAttribute("data-sgid");
+    //   let editorContent = document.querySelector("#new-post-content") || document.querySelector("#edit-post-content");
+    //   let sgid = editorContent.getAttribute("data-sgid");
     //   let authenToken = document.querySelector('input[name="authenticity_token"]').value;
     //   // let embed = '<iframe width="420" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>'
     //   // let attachment = new window.utils.Trix.Attachment({sgid: sgid, content: embed})
@@ -101,42 +127,24 @@ document.addEventListener("DOMContentLoaded", setUpTrixHelper);
     //     let src = 'data:text/html;charset=utf-8,' + encodeURI(text);
     //     var iframe = `<iframe id="gist-iframe" width="600" height="450" src="${src}" frameborder="0" allowfullscreen></iframe>`
     //     let editor = document.querySelector('trix-editor').editor;
-    //     let attachment = new window.utils.Trix.Attachment({sgid: sgid,  content: iframe, contentType: "vnd.rubyonrails.horizontal-rule.html"});
+    //     let attachment = new window.utils.Trix.Attachment({sgid: sgid, content: iframe});
     //     editor.insertAttachment(attachment);
     //   })
-    //   // fetch(proxyUrl + embedLink)
-    //   //   .then(function (data) {
-    //   //     return data.text();
-    //   //   })
-    //   //   .then(function(text) {
-    //   //     let regex = new RegExp(/\<(.+)\>/, 'g');
-    //   //     let matchArray = text.match(regex);
-    //   //     let cssLink = matchArray[0];
-    //   //     let body = matchArray[1];
-    //   //     let iFrame = document.querySelector('#gist-iframe');
-    //   //     let doc = new DOMParser().parseFromString(cssLink, "text/html");
-    //   //     iFrame.contentDocument.head.appendChild(doc.head.firstElementChild);
-    //   //     iFrame.contentWindow.document.open();
-    //   //     iFrame.contentWindow.document.write(body);
-    //   //     iFrame.contentWindow.document.close();
-    //   //   })
+      // fetch(proxyUrl + embedLink)
+      //   .then(function (data) {
+      //     return data.text();
+      //   })
+      //   .then(function(text) {
+      //     let regex = new RegExp(/\<(.+)\>/, 'g');
+      //     let matchArray = text.match(regex);
+      //     let cssLink = matchArray[0];
+      //     let body = matchArray[1];
+      //     let iFrame = document.querySelector('#gist-iframe');
+      //     let doc = new DOMParser().parseFromString(cssLink, "text/html");
+      //     iFrame.contentDocument.head.appendChild(doc.head.firstElementChild);
+      //     iFrame.contentWindow.document.open();
+      //     iFrame.contentWindow.document.write(body);
+      //     iFrame.contentWindow.document.close();
+      //   })
     // },
-
-    // TODO: When rails updates their action text to allow for static html attachments, add this back in
-    // trixAddEmbedButtonToToolbar: function() {
-    //   let trixLinkButtons = document.querySelector(".trix-dialog__link-fields .trix-button-group");
-    //   let self = this;
-    //   const inputHTML = `
-    //         <button
-    //         type="button"
-    //         class="trix-button"
-    //         id="embed-link-button"
-    //         data-trix-action="x-embed" title="Embed Files"
-    //         tabindex="-1"
-    //       >Embed</button>
-    //     `;
-    //     trixLinkButtons.innerHTML += inputHTML;
-    
-    //     document.querySelector("#embed-link-button")
-    //     .addEventListener("click", self.trixEmbedLink);
-    // },
+   

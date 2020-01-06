@@ -27,7 +27,12 @@ class PostsController < ApplicationController
 
   def show
     store_location
-    @post = Post.find_by(slug: params[:slug])
+    if logged_in? && current_user.admin?
+      @post = Post.find_by(slug: params[:slug])
+    else
+      @post = Post.find_by(slug: params[:slug], published: true)
+    end
+    
     redirect_to errors_not_found_path if !@post
   end
 
@@ -81,7 +86,7 @@ class PostsController < ApplicationController
 
   # TODO: When rails updates their action text to allow for static html attachments, add this back in
   # def get_gist
-  #   parsed_json = ActiveSupport::JSON.decode(request.body.string)
+  #   @gist_url = ActiveSupport::JSON.decode(request.body.string)
   #   render layout: false
   # end
 
