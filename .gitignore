@@ -29,3 +29,6 @@
 yarn-debug.log*
 .yarn-integrity
 
+# Ignore rake task that I stupidly put aws keys in
+/lib/tasks/upload_instagram.rake
+
