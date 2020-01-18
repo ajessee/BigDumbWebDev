@@ -29,6 +29,6 @@
 yarn-debug.log*
 .yarn-integrity
 
-# Ignore rake task that I stupidly put aws keys in
-/lib/tasks/upload_instagram.rake
+# ignore copy of DB from production that I pull down in new rake task
+latest.dump
 

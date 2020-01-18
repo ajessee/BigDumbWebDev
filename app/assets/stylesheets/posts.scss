@@ -225,6 +225,12 @@ div#all-posts-container>div.pagination {
   
   .trix-content {
     font-size: 1.2em;
+    padding: 5%;
+    text-align: center;
+  }
+
+  .trix-content pre {
+    text-align: left;
     padding: 1%;
   }
 

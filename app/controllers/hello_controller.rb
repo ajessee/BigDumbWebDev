@@ -1,7 +1,8 @@
 class HelloController < ApplicationController
 
   def home
-    @intro_post = Post.find(1) || nil;
+    @user = User.first
+    @intro_post = Post.find(1) || @user.posts.create!(title: "Test Post", content: "Nothing to see here")
   end
 
 end

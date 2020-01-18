@@ -29,7 +29,7 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: big_dumb_web_dev
+  username: andre
 
   # The password associated with the postgres role (username).
   #password:
@@ -83,3 +83,4 @@ production:
   database: big_dumb_web_dev_production
   username: big_dumb_web_dev
   password: <%= ENV['BIG_DUMB_WEB_DEV_DATABASE_PASSWORD'] %>
+
