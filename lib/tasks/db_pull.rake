@@ -1,4 +1,8 @@
+# To run: rake db:pull
 # lib/tasks/db_pull.rake
+# After you run this, you'll need to run
+# rails db:environment:set RAILS_ENV=development 
+# because it will set environment to prod because its restoring from prod
 namespace :db do
   desc 'Pull production db to development'
   task :pull => [:dump, :restore]
