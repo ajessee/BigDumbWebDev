@@ -2,6 +2,7 @@
 # lib/tasks/db_pull.rake
 # After you run this, you'll need to run
 # rails db:environment:set RAILS_ENV=development 
+# rails db:migrate RAILS_ENV=development
 # because it will set environment to prod because its restoring from prod
 namespace :db do
   desc 'Pull production db to development'
@@ -20,6 +21,10 @@ namespace :db do
     File.delete(dumpfile) if File.exist?(dumpfile)
     puts 'PG_RESTORE on development database...'
     system "pg_restore --verbose --clean --no-privileges --no-owner -h 127.0.0.1 -U #{dev['username']} -d #{dev['database']} latest.dump"
+    system "sleep 5"
+    system "rails db:environment:set RAILS_ENV=development"
+    system "rails db:migrate RAILS_ENV=development"
+    system "git checkout db/schema.rb"
     puts 'Done!'
   end
 end

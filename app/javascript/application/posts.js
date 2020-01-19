@@ -10,10 +10,10 @@ function setupPosts() {
 
       if (this.showPostBody) {
 
-        this.makeCodeBlockSemanticallyValid = function() {
+        this.applyFormattingToPreBlocks = function() {
           const preElements = this.showPostBody.querySelector('.trix-content').querySelectorAll('pre');
           preElements.forEach(function(preElement) {
-            const regex = /lang-\w*/gm;
+            const regex = /(?!lang\-\\w\*)lang-\w*\W*/gm;
             const codeElement = document.createElement('code'); 
             if (preElement.childNodes.length > 1) {
               console.error('<pre> element contained nested inline elements (probably styling) and could not be processed. Please remove them and try again.')
@@ -21,7 +21,8 @@ function setupPosts() {
             let preElementTextNode = preElement.removeChild(preElement.firstChild);
             let language = preElementTextNode.textContent.match(regex);
             if (language) {
-              preElementTextNode.textContent = preElementTextNode.textContent.replace(regex, '');
+              language = language[0].toString().trim();
+              preElementTextNode.textContent = preElementTextNode.textContent.replace(language, '');
               codeElement.classList.add(language, 'line-numbers');
             }
             codeElement.append(preElementTextNode)
@@ -239,7 +240,7 @@ function setupPosts() {
       this.replaceUrlForAnimatedElements();
       if (this.showPostBody) {
         this.fullScreenButtonMargin();
-        this.makeCodeBlockSemanticallyValid();
+        this.applyFormattingToPreBlocks();
       }
     }
 
