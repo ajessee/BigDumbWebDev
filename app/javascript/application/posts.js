@@ -29,6 +29,9 @@ function setupPosts() {
           preElements.forEach(function(preElement) {
             const regex = /lang-\w*/gm;
             const codeElement = document.createElement('code'); 
+            if (preElement.childNodes.length > 1) {
+              console.error('<pre> element contained nested inline elements (probably styling) and could not be processed. Please remove them and try again.')
+            }
             let preElementTextNode = preElement.removeChild(preElement.firstChild);
             let language = preElementTextNode.textContent.match(regex);
             if (language) {
