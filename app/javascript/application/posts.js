@@ -10,20 +10,6 @@ function setupPosts() {
 
       if (this.showPostBody) {
 
-        this.toggleLink = document.querySelector('#post-toggle-fullscreen');
-
-        this.toggleIcons = function(expand) {
-          const expandIcon = document.querySelector('#expand-post-icon');
-          const shrinkIcon = document.querySelector('#shrink-post-icon');
-          if (expand) {
-            expandIcon.style.display = "block";
-            shrinkIcon.style.display = "none";
-          } else {
-            expandIcon.style.display = "none";
-            shrinkIcon.style.display = "block";
-          }
-        };
-
         this.makeCodeBlockSemanticallyValid = function() {
           const preElements = this.showPostBody.querySelector('.trix-content').querySelectorAll('pre');
           preElements.forEach(function(preElement) {
@@ -41,6 +27,25 @@ function setupPosts() {
             codeElement.append(preElementTextNode)
             preElement.append(codeElement)
           })
+        };
+
+        this.fullScreenButtonMargin = function () {
+          this.showPostBody.querySelector('.trix-content').firstElementChild.style.marginTop = '4%';
+          this.toggleLink.style.zIndex = '9999';
+        };
+
+        this.toggleLink = document.querySelector('#post-toggle-fullscreen');
+
+        this.toggleIcons = function(expand) {
+          const expandIcon = document.querySelector('#expand-post-icon');
+          const shrinkIcon = document.querySelector('#shrink-post-icon');
+          if (expand) {
+            expandIcon.style.display = "block";
+            shrinkIcon.style.display = "none";
+          } else {
+            expandIcon.style.display = "none";
+            shrinkIcon.style.display = "block";
+          }
         };
     
         this.toggleLink.addEventListener('click', function(e) {
@@ -232,13 +237,16 @@ function setupPosts() {
       this.setupCancelButtons();
       this.highlightInvalidInputs();
       this.replaceUrlForAnimatedElements();
-      this.makeCodeBlockSemanticallyValid();
+      if (this.showPostBody) {
+        this.fullScreenButtonMargin();
+        this.makeCodeBlockSemanticallyValid();
+      }
     }
 
   };
 
-  posts.init();
   window.utils.posts = posts;
+  posts.init();
 
   
 }
