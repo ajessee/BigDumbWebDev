@@ -17,6 +17,7 @@ namespace :db do
   task :restore do
     dev = Rails.application.config.database_configuration['development']
     dumpfile = "#{Rails.root}/tmp/latest.dump"
+    File.delete(dumpfile) if File.exist?(dumpfile)
     puts 'PG_RESTORE on development database...'
     system "pg_restore --verbose --clean --no-privileges --no-owner -h 127.0.0.1 -U #{dev['username']} -d #{dev['database']} latest.dump"
     puts 'Done!'
