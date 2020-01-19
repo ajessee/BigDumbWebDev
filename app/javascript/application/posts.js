@@ -22,8 +22,23 @@ function setupPosts() {
             expandIcon.style.display = "none";
             shrinkIcon.style.display = "block";
           }
+        };
 
-        }
+        this.makeCodeBlockSemanticallyValid = function() {
+          const preElements = this.showPostBody.querySelector('.trix-content').querySelectorAll('pre');
+          preElements.forEach(function(preElement) {
+            const regex = /lang-\w*/gm;
+            const codeElement = document.createElement('code'); 
+            let preElementTextNode = preElement.removeChild(preElement.firstChild);
+            let language = preElementTextNode.textContent.match(regex);
+            if (language) {
+              preElementTextNode.textContent = preElementTextNode.textContent.replace(regex, '');
+              codeElement.classList.add(language, 'line-numbers');
+            }
+            codeElement.append(preElementTextNode)
+            preElement.append(codeElement)
+          })
+        };
     
         this.toggleLink.addEventListener('click', function(e) {
           if (
@@ -214,6 +229,7 @@ function setupPosts() {
       this.setupCancelButtons();
       this.highlightInvalidInputs();
       this.replaceUrlForAnimatedElements();
+      this.makeCodeBlockSemanticallyValid();
     }
 
   };

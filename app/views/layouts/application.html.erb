@@ -8,11 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= render 'layouts/fonts' %>
   <%= render 'layouts/icon' %>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= render 'layouts/google_analytics' %>
-  <%= javascript_pack_tag 'application' %>
+  <%= render 'layouts/prism_css' %>
 </head>
 
 <body id="main-body-container">
@@ -20,6 +19,9 @@
   <%= yield %>
   <%= render 'layouts/debug' if Rails.env.development? %>
   <%= render 'shared/nav_main' %>
+  <%= javascript_pack_tag 'application' %>
+  <%= render 'layouts/google_analytics' %>
+  <%= render 'layouts/prism_js' %>
 </body>
 
 </html>
