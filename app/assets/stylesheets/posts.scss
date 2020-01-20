@@ -56,7 +56,7 @@
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.05);
   font-size: 1.7em;
   font-family: 'Oxygen', sans-serif;
-  padding: 0 1% 0 1%;
+  padding: 2%;
 }
 
 #show-post-container,
@@ -131,8 +131,8 @@ div#all-posts-container>div.pagination {
 #post-toggle-fullscreen {
   position: absolute;
   right: 0%;
-  margin: 1%;
   color: grey;
+  z-index: 9999;
 }
 
 #post-toggle-fullscreen:hover {
@@ -207,6 +207,14 @@ div#all-posts-container>div.pagination {
 
 #show-post-body pre {
   font-size: 0.8em;
+}
+
+.post-date-posted {
+  font-family: 'Oxygen', sans-serif;
+  text-align: center;
+  margin: 0.5%;
+  font-style: italic;
+  font-size: 1em;
 }
 
 // Huge screen
@@ -322,5 +330,9 @@ div#all-posts-container>div.pagination {
 
   #post-toggle-fullscreen {
     transform: scale(0.8) !important;
+  }
+
+  .post-date-posted {
+    font-size: 0.8em;
   }
 }

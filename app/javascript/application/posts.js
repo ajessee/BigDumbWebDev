@@ -30,11 +30,6 @@ function setupPosts() {
           })
         };
 
-        this.fullScreenButtonMargin = function () {
-          this.showPostBody.querySelector('.trix-content').firstElementChild.style.marginTop = '4%';
-          this.toggleLink.style.zIndex = '9999';
-        };
-
         this.toggleLink = document.querySelector('#post-toggle-fullscreen');
 
         this.toggleIcons = function(expand) {
@@ -68,12 +63,16 @@ function setupPosts() {
           } else {
             if (self.showPostBody.requestFullscreen) {
               self.showPostBody.requestFullscreen();
+              self.showPostBody.style.paddingBottom = '3%';
             } else if (self.showPostBody.mozRequestFullScreen) {
               self.showPostBody.mozRequestFullScreen();
+              self.showPostBody.style.paddingBottom = '3%';
             } else if (self.showPostBody.webkitRequestFullscreen) {
               self.showPostBody.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+              self.showPostBody.style.paddingBottom = '3%';
             } else if (self.showPostBody.msRequestFullscreen) {
               self.showPostBody.msRequestFullscreen();
+              self.showPostBody.style.paddingBottom = '3%';
             }
           }
         });
@@ -239,7 +238,6 @@ function setupPosts() {
       this.highlightInvalidInputs();
       this.replaceUrlForAnimatedElements();
       if (this.showPostBody) {
-        this.fullScreenButtonMargin();
         this.applyFormattingToPreBlocks();
       }
     }

@@ -33,6 +33,7 @@
     <% end %>
 
 
+    <p class="post-date-posted"><%= @post.created_at.strftime("Posted %m/%d/%Y") %></p>
 
     <div id="show-post-body">
         <a href="#" class="no-link-color" id="post-toggle-fullscreen">
