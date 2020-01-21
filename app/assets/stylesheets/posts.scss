@@ -60,7 +60,8 @@
 }
 
 #show-post-container,
-#all-posts-container {
+#all-posts-container,
+#all-tags-container {
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
   min-height: 100vh;
@@ -166,12 +167,13 @@ div#all-posts-container>div.pagination {
 }
 
 .post-card {
-  width: 85%;
   background-color: white;
   border-radius: 5px;
   background-color: #fff;
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.15);
   transition: all 0.2s ease-in-out;
+  padding: 2%;
+  font-size: 1.2em;
 }
 
 .post-card:hover {
@@ -180,7 +182,7 @@ div#all-posts-container>div.pagination {
 }
 
 .post-card-link {
-  display: grid;
+  width: 80%
 }
 
 .post-title {

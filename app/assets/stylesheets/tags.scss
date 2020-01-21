@@ -2,19 +2,20 @@
   width: 400px;
 }
 
-#tag-show-container,
-.tag-cloud-container {
+#show-user-post-container,
+#tag-show-container {
   display: grid;
-  font-family: 'Oxygen', sans-serif;
-  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 1em;
+  padding: 0 3% 5% 3%;
   background-color: aliceblue;
-  height: 100vh;
+  place-items: center;
+  align-content: space-evenly;
 }
 
-#tag-posts {
-  grid-row: 2 / 3;
-  justify-self: center;
-  font-size: 2em;
+.tag-cloud-container {
+  font-family: 'Oxygen', sans-serif;
+  background-color: aliceblue;
+  height: 100vh;
 }
 
 .tag-cloud-container {
@@ -25,11 +26,11 @@
 }
 
 #tag-cloud-title,
-#tag-show-title {
+#tag-show-header {
   grid-row: 1;
   justify-self: center;
   align-self: center;
-  font-size: 1.5em;
+  font-size: 3em;
 }
 
 .tag-cloud {

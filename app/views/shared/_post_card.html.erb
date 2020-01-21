@@ -1,0 +1,12 @@
+<%= link_to post_path(post), class: "no-link-color post-card-link" do %>
+  <div class="post-card">
+    <h2 class="post-title"><%= post.title %></h2>
+      <% if post.tags && showTags %>
+        <div class="post-tags">
+          <% post.tags.each do |tag| %>
+            #<%= tag.name %>
+          <% end %>
+        </div>
+      <% end %>
+  </div>
+<% end %>
