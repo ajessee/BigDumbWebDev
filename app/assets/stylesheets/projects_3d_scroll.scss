@@ -4,7 +4,7 @@
   border-bottom: 2px solid black;
   display: grid;
   grid-template-columns: repeat(40, 1fr);
-  grid-template-rows: 15% 10% 75%;
+  grid-template-rows: 12% 12% 78%;
   min-height: 100vh;
   padding-bottom: 2%;
 
@@ -16,8 +16,9 @@
     grid-column: 4 / 38;
     grid-row: 2;
     font-family: 'Oxygen', sans-serif;
-    font-size: 1.3em;
+    font-size: 1.5em;
     text-align: center;
+    margin: 1%;
   }
 
   #scroll3d-iframe {
