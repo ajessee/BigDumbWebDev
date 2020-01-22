@@ -64,15 +64,19 @@ function setupPosts() {
             if (self.showPostBody.requestFullscreen) {
               self.showPostBody.requestFullscreen();
               self.showPostBody.style.paddingBottom = '3%';
+              self.showPostBody.style.backgroundColor = 'aliceblue';
             } else if (self.showPostBody.mozRequestFullScreen) {
               self.showPostBody.mozRequestFullScreen();
               self.showPostBody.style.paddingBottom = '3%';
+              self.showPostBody.style.backgroundColor = 'aliceblue';
             } else if (self.showPostBody.webkitRequestFullscreen) {
               self.showPostBody.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
               self.showPostBody.style.paddingBottom = '3%';
+              self.showPostBody.style.backgroundColor = 'aliceblue';
             } else if (self.showPostBody.msRequestFullscreen) {
               self.showPostBody.msRequestFullscreen();
               self.showPostBody.style.paddingBottom = '3%';
+              self.showPostBody.style.backgroundColor = 'aliceblue';
             }
           }
         });

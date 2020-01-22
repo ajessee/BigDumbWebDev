@@ -90,11 +90,11 @@
 #show-post-body {
   font-size: 1em;
   margin: 1% 1%;
-  position: relative;
+  display: grid;
 }
 
 #post-controls {
-  text-align: right;
+  text-align: center;
   padding: 0.5% 2.5% 1.5% 0;
 }
 
@@ -133,10 +133,9 @@ div#all-posts-container>div.pagination {
 }
 
 #post-toggle-fullscreen {
-  position: absolute;
   right: 0%;
   color: grey;
-  z-index: 9999;
+  justify-self: end;
 }
 
 #post-toggle-fullscreen:hover {
@@ -149,7 +148,7 @@ div#all-posts-container>div.pagination {
 
 #add-comment-to-post {
   text-align: center;
-  padding: 1%;
+  padding: 3%;
 }
 
 #show-user-post-container {
@@ -208,6 +207,7 @@ div#all-posts-container>div.pagination {
 
 #show-post-container .trix-content {
   background-color: aliceblue;
+  box-shadow: none;
 }
 
 #show-post-body pre {
@@ -217,9 +217,9 @@ div#all-posts-container>div.pagination {
 .post-date-posted {
   font-family: 'Oxygen', sans-serif;
   text-align: center;
-  margin: 0.5%;
+  margin: 2%;
   font-style: italic;
-  font-size: 1em;
+  font-size: 1.5em;
 }
 
 // Huge screen
@@ -269,7 +269,6 @@ div#all-posts-container>div.pagination {
   }
 
   #post-controls {
-    text-align: center;
     margin: 2%;
   }
 
@@ -338,7 +337,7 @@ div#all-posts-container>div.pagination {
   }
 
   .post-date-posted {
-    font-size: 0.8em;
-    margin: 1%;
+    font-size: 1em;
+    margin: 2%;
   }
 }

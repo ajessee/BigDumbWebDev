@@ -9,7 +9,7 @@
           <% else %>
             <%= will_paginate @posts %>
           <% end %> 
-        <%= render 'show', post: post, show_all: true %>
+        <%= render 'show', post: post %>
       <% end %>
     <% else %>
         <%= render 'show_user', posts: @posts.where(published: true) %>

@@ -32,9 +32,11 @@ const setUpNav = () => {
         this.slideInMenu.style.boxShadow ='-7px 0px 22px 0px rgba(0,0,0,0.3)';
         this.navButtonContainer.style.display = 'none';
         this.closeNavMenuButton.style.display = 'block';
+        this.navMenuOpen = true;
       } else {
         this.slideInMenu.classList.add('menu-closed');
         this.closeNavMenuButton.style.display = 'none';
+        this.navMenuOpen = false;
         
       }
     },
