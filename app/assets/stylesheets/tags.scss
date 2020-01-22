@@ -13,16 +13,23 @@
 }
 
 .tag-cloud-container {
+  grid-row: 3;
+  grid-column: 1/11;
   font-family: 'Oxygen', sans-serif;
-  background-color: aliceblue;
   height: 100vh;
+  display: grid;
+  background-image: image-url("cloud.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(10, 1fr);
 }
 
-.tag-cloud-container {
-  background-image: image-url("cloud.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 115%;
-  grid-template-rows: 15% 85%;
+.tag-cloud {
+  grid-column: 2/10;
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
 }
 
 #tag-cloud-title,
@@ -33,12 +40,6 @@
   font-size: 3em;
 }
 
-.tag-cloud {
-  grid-row: 2;
-  justify-self: center;
-  align-self: center;
-  display: inline;
-}
 
 .post-tag-button {
   background-color: lightslategrey;
