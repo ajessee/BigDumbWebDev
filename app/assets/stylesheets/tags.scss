@@ -16,12 +16,11 @@
   grid-row: 3;
   grid-column: 1/11;
   font-family: 'Oxygen', sans-serif;
-  height: max-content;
-  min-height: 90vh;
+  height: 100vh;
   display: grid;
   background-image: image-url("cloud.svg");
   background-position: center;
-  background-size: cover;
+  background-size: 75%;
   background-repeat: no-repeat;
   grid-template-rows: auto;
   grid-template-columns: repeat(10, 1fr);
