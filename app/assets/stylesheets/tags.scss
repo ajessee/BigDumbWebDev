@@ -16,9 +16,11 @@
   grid-row: 3;
   grid-column: 1/11;
   font-family: 'Oxygen', sans-serif;
-  height: 100vh;
+  height: max-content;
+  min-height: 90vh;
   display: grid;
   background-image: image-url("cloud.svg");
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   grid-template-rows: auto;
@@ -32,7 +34,13 @@
   align-self: center;
 }
 
-#tag-cloud-title,
+#tag-cloud-title {
+  grid-row: 1;
+  grid-column: 1 / 11;
+  justify-self: center;
+  font-size: 3em;
+}
+
 #tag-show-header {
   grid-row: 1;
   justify-self: center;
@@ -106,38 +114,37 @@
 // Phones
 @media only screen and (max-width: 767px) {
 
-  .tag-cloud-container {
-    background-size: 100%;
-    height: 50vh;
-    grid-template-rows: auto;
+  #blog-container .tag-cloud-container {
+    height: max-content;
+    min-height: 50vh;
   }
 
-  .tag-cloud {
-    margin: 0em 1.5em 0em 1.5em;
+  .tag-cloud-container {
+    background-size: auto;
   }
 
   .css1 {
-    font-size: 0.5em;
+    font-size: 0.6em;
   }
   
   .css2 {
-    font-size: 0.7em;
+    font-size: 0.8em;
   }
   
   .css3 {
-    font-size: 1em;
+    font-size: 1.2em;
   }
   
   .css4 {
-    font-size: 1.5em;
+    font-size: 1.7em;
   }
   
   .css5 {
-    font-size: 2em;
+    font-size: 2.2em;
   }
   
   .css6 {
-    font-size: 2.5em;
+    font-size: 2.7em;
   }
 
   .post-tag-button {
@@ -148,6 +155,10 @@
 
   #tag-show-header {
     font-size: 1em;
+  }
+
+  #tag-cloud-title {
+    font-size: 2em;
   }
 
   .post-card-link {

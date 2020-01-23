@@ -6,11 +6,9 @@
       <h1><%= @tag.name.capitalize %></h1>
     </div>
 
-
     <% @tag.posts.each do |post| %>
-    <%= render 'shared/post_card', post: post, showTags: false %>
+      <%= render 'shared/post_card', post: post, showTags: false %>
     <% end %>
-
 
   </div>
 </div>

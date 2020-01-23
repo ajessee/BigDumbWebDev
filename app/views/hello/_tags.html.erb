@@ -1,9 +1,0 @@
-<div class="tag-cloud-container">
-    <div class="tag-cloud">
-        <% tag_cloud Tag.counts, %w{css1 css2 css3 css4 css5 css6} do |tag, css_class| %>
-          <% if tag.has_published_post %>
-            <%= link_to tag.name, tag, {class: "tag-link " + css_class, style: "color: #{generate_random_hex_color}"} %>
-          <% end %>
-        <% end %>
-    </div>
-  </div>
