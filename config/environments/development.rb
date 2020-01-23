@@ -35,7 +35,8 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  # Update 1/23/20 - I've changed this to amazon since I'm now pulling the DB from production
+  config.active_storage.service = :amazon
   config.active_job.queue_adapter = :inline
 
   # Email in development
