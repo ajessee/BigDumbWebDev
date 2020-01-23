@@ -29,10 +29,6 @@ namespace :db do
     puts "Reconfiguring development environment..."
     puts "rails db:environment:set RAILS_ENV=development"
     system "rails db:environment:set RAILS_ENV=development"
-    puts "rails db:migrate RAILS_ENV=development"
-    system "rails db:migrate RAILS_ENV=development"
-    puts "git checkout db/schema.rb"
-    system "git checkout db/schema.rb"
     puts "Done"
   end
   
