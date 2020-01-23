@@ -1,56 +1,60 @@
-<h1 id="show-post-title"><%= post.title%></h1>
-<% if local_assigns[:show_all] && show_all === true %>
-  <p id="show-post-details">Post ID: <%= post.id %> | Published: <%= post.published.to_s.capitalize %> | Posted <%= time_ago_in_words(post.created_at) %> ago
-  </p>
-<% end %>
+ <div id="show-post-container">
 
-<div id="post-controls">
-  <% if local_assigns[:show_all] && show_all === true %>
-    <%= link_to post_path(post), class: "no-link-color", title: "Show Post" do %>
-    <button id="login-user-close-button" class="submit-close-buttons submit-button">Go To Post</button>
-    <% end %>
-  <% end %>
-  <% if logged_in? && current_user.admin? %>
-    <%= link_to edit_post_path(post), class: "no-link-color", title: "Edit Post" do %>
-    <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit Post</button>
-    <% end %>
-    <%= link_to post_path(post), class: "no-link-color", title: "Delete Post", method: "delete" do %>
-    <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Post</button>
-    <% end %>
-  <% end %>
-</div>
-
-  <% if post.tags %>
-  <div id="tag-container">
-      <% post.tags.each do |tag| %>
-        <%= link_to tag_path(tag), class: "no-link-color" do %>
-        <button class="post-tag-button"><%= tag.name.upcase %></button>
+    <h1 id="show-post-title"><%= @post.title%></h1>
+    
+    <% if logged_in? && current_user.admin? %>
+      <p id="show-post-details">Post ID: <%= @post.id %> | Published: <%= @post.published.to_s.capitalize %> | 
+        <%= @post.created_at.strftime("Posted: %m/%d/%Y") %>
+      </p>
+      <div id="post-controls">
+        <%= link_to post_path(@post), class: "no-link-color", title: "Go To Post" do %>
+          <button id="login-user-close-button" class="submit-close-buttons submit-button">Go To Post</button>
         <% end %>
+
+        <%= link_to edit_post_path(@post), class: "no-link-color", title: "Edit Post" do %>
+          <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit Post</button>
+        <% end %>
+        <%= link_to post_path(@post), class: "no-link-color", title: "Delete Post", method: "delete" do %>
+          <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Post</button>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="post-date-posted"><%= @post.created_at.strftime("Posted %m/%d/%Y") %></p>
+    <% end %>
+
+    <% if @post.tags %>
+      <div id="tag-container">
+        <% @post.tags.each do |tag| %>
+          <%= link_to tag_path(tag), class: "no-link-color" do %>
+            <button class="post-tag-button"><%= tag.name.upcase %></button>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div id="show-post-body" class="show-post-container">
+        <a href="#" class="no-link-color" id="post-toggle-fullscreen">
+            <i id="expand-post-icon" class="fas fa-expand fa-2x nav-menu-icon"></i>
+            <i id="shrink-post-icon" class="fas fa-compress fa-2x nav-menu-icon"></i>
+        </a>
+        <%= @post.content%>
+    </div>
+      
+      <% if @post.comments %>
+        <div id="post-comments-container">
+            <% @post.comments.each do |comment| %>
+              <%= render 'comments/create', comment: comment %>
+            <% end %>
+        </div>
       <% end %>
-  </div>
-  <% end %>
+
+      <div id="add-comment-to-post">
+          <%= link_to new_comment_path(post_id: @post.id), class: "no-link-color", id: "add-new-comment-button", title: "Create Comment", remote: true do %>
+          <button id="login-user-close-button" class="submit-close-buttons submit-button">Add Comment</button>
+          <% end %>
+      </div>
 
 
 
-  <div id="show-post-body">
-    <a href="#" class="no-link-color" id="post-toggle-fullscreen">
-        <i id="expand-post-icon" class="fas fa-expand fa-2x nav-menu-icon"></i>
-        <i id="shrink-post-icon" class="fas fa-compress fa-2x nav-menu-icon"></i>
-    </a>
-    <%= post.content%>
-  </div>
 
-
-  <div id="add-comment-to-post">
-    <%= link_to new_comment_path(post_id: post.id), class: "no-link-color", id: "add-new-comment-button", title: "Create Comment", remote: true do %>
-      <button id="login-user-close-button" class="submit-close-buttons submit-button">Add Comment</button>
-    <% end %>
-  </div>
-
-  <% if post.comments %>
-  <div id="post-comments-container">
-    <% post.comments.each do |comment| %>
-    <%= render 'comments/create', comment: comment %>
-    <% end %>
-  </div>
-  <% end %>
+</div>

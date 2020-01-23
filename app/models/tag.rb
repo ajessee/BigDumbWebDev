@@ -7,4 +7,8 @@ class Tag < ApplicationRecord
     joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
   end
 
+  def has_published_post
+    self.posts.where(published: true).length > 0
+  end
+
 end

@@ -1,26 +1,7 @@
 <div id="show-user-post-container">
   <h1 class="posts-header">All Blog Posts</h1>
   <% posts.each do |post| %>
-  <%= link_to post_path(post), class: "no-link-color post-card-link" do %>
-
-    <div class="post-card">
-    <h2 class="post-title"><%= post.title %></h2>
-      <% if post.tags %>
-        <div class="post-tags">
-          <% post.tags.each do |tag| %>
-
-            <%= link_to tag_path(tag), class: "post-tag" do %>
-              <%= tag.name.upcase %>
-            <% end %>
-
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
-  
-</div>
-<% end %>
-<%= will_paginate posts %>
-
-
+    <%= render 'shared/post_card', post: post,showTags: true %>
+  <% end %>
+  <%= will_paginate posts %>
 </div>

@@ -18,7 +18,7 @@ window.utils.elements.cancelAddNewCommentButton.addEventListener('click', functi
   e.preventDefault();
   window.utils.elements.newCommentButton.style.display = "block";
   window.utils.elements.newCommentContainer.remove();
-  window.utils.elements.postContainer.scrollIntoView();
+  window.utils.elements.newCommentButton.scrollIntoView();
   window.utils.elements.postContainer.style.gridTemplateRows = window.utils.elements.cachedGridValue;
   window.utils.elements.postContainer.style.height = window.utils.elements.cachedHeightValue;
 })

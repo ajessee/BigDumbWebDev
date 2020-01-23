@@ -50,17 +50,21 @@
   background-color: white;
 }
 
+#show-post-body .trix-content {
+  padding: 2%;
+}
+
 .trix-content {
   height: 100%;
   overflow-y: auto;
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.05);
   font-size: 1.7em;
   font-family: 'Oxygen', sans-serif;
-  padding: 0 1% 0 1%;
 }
 
 #show-post-container,
-#all-posts-container {
+#all-posts-container,
+#all-tags-container {
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
   min-height: 100vh;
@@ -74,8 +78,8 @@
   font-size: 2.5em;
   text-align: center;
   background-color: aliceblue;
-  padding: 1%;
   margin: 0;
+  padding: 2% 6% 0 6%;
 }
 
 #show-post-details {
@@ -86,12 +90,12 @@
 #show-post-body {
   font-size: 1em;
   margin: 1% 1%;
-  position: relative;
+  display: grid;
 }
 
 #post-controls {
-  text-align: right;
-  padding: 0.5%;
+  text-align: center;
+  padding: 0.5% 2.5% 1.5% 0;
 }
 
 #all-posts-details {
@@ -129,10 +133,9 @@ div#all-posts-container>div.pagination {
 }
 
 #post-toggle-fullscreen {
-  position: absolute;
   right: 0%;
-  margin: 1%;
   color: grey;
+  justify-self: end;
 }
 
 #post-toggle-fullscreen:hover {
@@ -145,7 +148,7 @@ div#all-posts-container>div.pagination {
 
 #add-comment-to-post {
   text-align: center;
-  padding: 1%;
+  padding: 3%;
 }
 
 #show-user-post-container {
@@ -166,12 +169,13 @@ div#all-posts-container>div.pagination {
 }
 
 .post-card {
-  width: 85%;
   background-color: white;
   border-radius: 5px;
   background-color: #fff;
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.15);
   transition: all 0.2s ease-in-out;
+  padding: 2%;
+  font-size: 1.2em;
 }
 
 .post-card:hover {
@@ -180,7 +184,7 @@ div#all-posts-container>div.pagination {
 }
 
 .post-card-link {
-  display: grid;
+  width: 80%
 }
 
 .post-title {
@@ -203,6 +207,19 @@ div#all-posts-container>div.pagination {
 
 #show-post-container .trix-content {
   background-color: aliceblue;
+  box-shadow: none;
+}
+
+#show-post-body pre {
+  font-size: 0.8em;
+}
+
+.post-date-posted {
+  font-family: 'Oxygen', sans-serif;
+  text-align: center;
+  margin: 2%;
+  font-style: italic;
+  font-size: 1.5em;
 }
 
 // Huge screen
@@ -225,6 +242,12 @@ div#all-posts-container>div.pagination {
   
   .trix-content {
     font-size: 1.2em;
+    padding: 5%;
+    text-align: center;
+  }
+
+  .trix-content pre {
+    text-align: left;
     padding: 1%;
   }
 
@@ -246,7 +269,6 @@ div#all-posts-container>div.pagination {
   }
 
   #post-controls {
-    text-align: center;
     margin: 2%;
   }
 
@@ -312,5 +334,15 @@ div#all-posts-container>div.pagination {
 
   #post-toggle-fullscreen {
     transform: scale(0.8) !important;
+  }
+
+  .post-date-posted {
+    font-size: 1em;
+    margin: 2%;
+  }
+
+  .posts-header {
+    font-size: 2.2em;
+    margin: 5% 10% 0 10%;
   }
 }

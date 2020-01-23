@@ -29,3 +29,6 @@
 yarn-debug.log*
 .yarn-integrity
 
+# ignore copy of DB from production that I pull down in new rake task
+latest.dump
+

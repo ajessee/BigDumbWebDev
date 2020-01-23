@@ -10,6 +10,26 @@ function setupPosts() {
 
       if (this.showPostBody) {
 
+        this.applyFormattingToPreBlocks = function() {
+          const preElements = this.showPostBody.querySelector('.trix-content').querySelectorAll('pre');
+          preElements.forEach(function(preElement) {
+            const regex = /(?!lang\-\\w\*)lang-\w*\W*/gm;
+            const codeElement = document.createElement('code'); 
+            if (preElement.childNodes.length > 1) {
+              console.error('<pre> element contained nested inline elements (probably styling) and could not be processed. Please remove them and try again.')
+            }
+            let preElementTextNode = preElement.removeChild(preElement.firstChild);
+            let language = preElementTextNode.textContent.match(regex);
+            if (language) {
+              language = language[0].toString().trim();
+              preElementTextNode.textContent = preElementTextNode.textContent.replace(language, '');
+              codeElement.classList.add(language, 'line-numbers');
+            }
+            codeElement.append(preElementTextNode)
+            preElement.append(codeElement)
+          })
+        };
+
         this.toggleLink = document.querySelector('#post-toggle-fullscreen');
 
         this.toggleIcons = function(expand) {
@@ -22,8 +42,7 @@ function setupPosts() {
             expandIcon.style.display = "none";
             shrinkIcon.style.display = "block";
           }
-
-        }
+        };
     
         this.toggleLink.addEventListener('click', function(e) {
           if (
@@ -44,12 +63,20 @@ function setupPosts() {
           } else {
             if (self.showPostBody.requestFullscreen) {
               self.showPostBody.requestFullscreen();
+              self.showPostBody.style.paddingBottom = '3%';
+              self.showPostBody.style.backgroundColor = 'aliceblue';
             } else if (self.showPostBody.mozRequestFullScreen) {
               self.showPostBody.mozRequestFullScreen();
+              self.showPostBody.style.paddingBottom = '3%';
+              self.showPostBody.style.backgroundColor = 'aliceblue';
             } else if (self.showPostBody.webkitRequestFullscreen) {
               self.showPostBody.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+              self.showPostBody.style.paddingBottom = '3%';
+              self.showPostBody.style.backgroundColor = 'aliceblue';
             } else if (self.showPostBody.msRequestFullscreen) {
               self.showPostBody.msRequestFullscreen();
+              self.showPostBody.style.paddingBottom = '3%';
+              self.showPostBody.style.backgroundColor = 'aliceblue';
             }
           }
         });
@@ -167,8 +194,6 @@ function setupPosts() {
             }
           })
         }
-
-
       }
 
     },
@@ -184,7 +209,9 @@ function setupPosts() {
           let parentFigure = attachment.querySelector('figure');
           childImg.setAttribute("src", url);
           childImg.style.setProperty("box-shadow", "5px 9px 15px 5px rgba(0.1, 0.1, 0.1, 0.1)");
-          parentFigure.style.setProperty("padding", "0 10% 0 10%", "important")
+          if (!window.utils.weMobile) {
+            parentFigure.style.setProperty("padding", "0 10% 0 10%", "important")
+          }
         }
         if (contentType === "video/mp4") {
           const url = attachment.getAttribute("url");
@@ -214,12 +241,15 @@ function setupPosts() {
       this.setupCancelButtons();
       this.highlightInvalidInputs();
       this.replaceUrlForAnimatedElements();
+      if (this.showPostBody) {
+        this.applyFormattingToPreBlocks();
+      }
     }
 
   };
 
-  posts.init();
   window.utils.posts = posts;
+  posts.init();
 
   
 }

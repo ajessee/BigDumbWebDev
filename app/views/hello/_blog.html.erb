@@ -4,6 +4,14 @@
       <% if @intro_post %>
         <%= @intro_post.content%>
       <% end %>
+      <div class="icon-image" id="all-blog-icon">
+        <%= link_to posts_path, class: "no-link-color", title: "All Blogs" do %>
+        <i class="icon-grow far fa-newspaper fa-5x" aria-hidden="true"></i>
+        <% end %>
+        <p class="icon-label">All Blogs</p>
+        </div>
   </article>
-  <%= render 'tags' %>
+  <div class="tag-cloud-container">
+    <%= render 'shared/tags' %>
+  </div>
 </section>

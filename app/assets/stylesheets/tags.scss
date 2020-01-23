@@ -2,47 +2,58 @@
   width: 400px;
 }
 
-#tag-show-container,
-.tag-cloud-container {
+#show-user-post-container,
+#tag-show-container {
   display: grid;
-  font-family: 'Oxygen', sans-serif;
-  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 1em;
+  padding: 0 3% 5% 3%;
   background-color: aliceblue;
-  height: 100vh;
-}
-
-#tag-posts {
-  grid-row: 2 / 3;
-  justify-self: center;
-  font-size: 2em;
+  place-items: center;
+  align-content: space-evenly;
 }
 
 .tag-cloud-container {
+  grid-row: 3;
+  grid-column: 1/11;
+  font-family: 'Oxygen', sans-serif;
+  height: max-content;
+  min-height: 90vh;
+  display: grid;
   background-image: image-url("cloud.svg");
+  background-position: center;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-size: 100% 115%;
-  grid-template-rows: 15% 85%;
-}
-
-#tag-cloud-title,
-#tag-show-title {
-  grid-row: 1;
-  justify-self: center;
-  align-self: center;
-  font-size: 1.5em;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(10, 1fr);
 }
 
 .tag-cloud {
-  grid-row: 2;
+  grid-column: 2/10;
+  grid-row: 1;
   justify-self: center;
   align-self: center;
-  display: inline;
 }
+
+#tag-cloud-title {
+  grid-row: 1;
+  grid-column: 1 / 11;
+  justify-self: center;
+  font-size: 3em;
+}
+
+#tag-show-header {
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
+  font-size: 3em;
+}
+
 
 .post-tag-button {
   background-color: lightslategrey;
   font-size: 1.2em;
-  padding: 5px 10px;
+  padding: 10px 15px;
+  margin: 0.5%;
 }
 
 .tag-link {
@@ -58,6 +69,7 @@
 
 #tag-container {
   text-align: center;
+  margin: 0% 5% 0% 5%;
 }
 
 .css1 {
@@ -102,41 +114,58 @@
 // Phones
 @media only screen and (max-width: 767px) {
 
-  .tag-cloud-container {
-    background-size: 100%;
-    height: 50vh;
-    grid-template-rows: auto;
+  #blog-container .tag-cloud-container {
+    height: max-content;
+    min-height: 50vh;
   }
 
-  .tag-cloud {
-    margin: 0em 1.5em 0em 1.5em;
+  .tag-cloud-container {
+    background-size: auto;
   }
 
   .css1 {
-    font-size: 0.5em;
+    font-size: 0.6em;
   }
   
   .css2 {
-    font-size: 0.7em;
+    font-size: 0.8em;
   }
   
   .css3 {
-    font-size: 1em;
+    font-size: 1.2em;
   }
   
   .css4 {
-    font-size: 1.5em;
+    font-size: 1.7em;
   }
   
   .css5 {
-    font-size: 2em;
+    font-size: 2.2em;
   }
   
   .css6 {
-    font-size: 2.5em;
+    font-size: 2.7em;
   }
 
   .post-tag-button {
     font-size: 0.7em;
+    margin: 1%;
+    padding: 8px 13px;
+  }
+
+  #tag-show-header {
+    font-size: 1em;
+  }
+
+  #tag-cloud-title {
+    font-size: 2em;
+  }
+
+  .post-card-link {
+    font-size: 0.7em;
+  }
+
+  .post-card {
+    padding: 5%;
   }
 }
