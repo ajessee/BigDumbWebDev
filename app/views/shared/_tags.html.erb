@@ -1,14 +1,23 @@
 <div class="tag-cloud">
   <% tag_cloud Tag.counts, %w{css1 css2 css3 css4 css5 css6} do |tag, css_class| %>
-    <% if tag.has_published_post %>
-      <%= link_to tag.name, tag, {class: "tag-link " + css_class, style: "color: #{generate_random_hex_color}"} %>
-    <% end %>
-    <% if logged_in? && current_user.admin? %>
-      <% if !tag.has_published_post %>
-        <%= link_to tag.name, tag, {class: "tag-link " + css_class, style: "color: #{generate_random_hex_color}"} do %>
-          <p>Unpublished</p>
+    <span class="tag-link-container">
+      <% if tag.has_published_post %>
+        <%= link_to tag.name, tag, {class: "tag-link " + css_class, style: "color: #{generate_random_hex_color}"} %>
+      <% else %>
+        <% if logged_in? && current_user.admin? && show_admin %>
+        <span class="<% if !tag.has_published_post %>unpublished-tag<% end %>">
+          <%= link_to tag.name, tag, {class: "tag-link " + css_class, style: "color: transparent; text-shadow: 0 0 4px #{generate_random_hex_color};"} %>
+        </span>
         <% end %>
       <% end %>
-    <% end %>
+      <% if logged_in? && current_user.admin? && show_admin%>
+        <span class="tag-delete">
+            <%= link_to tag_path(tag), class: "no-link-color", title: "Delete Tag", method: "delete" do %>
+            <i class="fas fa-times fa-1x nav-menu-icon" aria-hidden="true"></i>
+          <% end %>
+        </span>
+      <% end %>
+    </span>
   <% end %>
 </div>
+  

@@ -55,11 +55,33 @@
   margin: 0.5%;
 }
 
-.tag-link {
+.tag-link-container {
   margin: 2%;
+}
+
+.tag-link {
   text-decoration: none;
   transition: all .2s ease-in-out;
   display: inline-block;
+}
+
+.tag-delete {
+  margin: 0.4%;
+  vertical-align: 100%;
+}
+
+.unpublished-tag {
+  position: relative;
+}
+
+.unpublished-tag:after {
+  content: "Unpublished";
+  color: black;
+  position: absolute;
+  font-size: 0.8em;
+  opacity: 0.6;
+  left: 2em;
+  top: 1em;
 }
 
 .tag-link:hover {

@@ -112,7 +112,7 @@ function setupPosts() {
             existingTagsInputArr = existingTagsInputArr.map(el => el.trim());
           }
           if (!existingTagsInputArr.includes(selectionText)) {
-            existingTagsInputArr.push(selectionText);
+            if (selectionText !== "Please Select") existingTagsInputArr.push(selectionText);
           }
           existingTagsInput.value = existingTagsInputArr.join(", ")
           existingTagsInput.dispatchEvent(new Event("change"));
