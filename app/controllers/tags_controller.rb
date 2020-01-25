@@ -1,4 +1,6 @@
 class TagsController < ApplicationController
+
+  before_action :admin_user, only: [:destroy]
   
   def show
     @tag = Tag.find(params[:id])

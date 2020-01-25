@@ -9,14 +9,11 @@ class CommentsController < ApplicationController
     # In this case, a post is commentable
     @commentable = Post.find_by_id(params[:comment][:post_id])
     if guest?
-      @guest = true
       guest_user.first_name = params[:comment][:first_name]
       guest_user.last_name = params[:comment][:last_name]
       guest_user.save
-      @comment = @commentable.comments.build(comment_params.merge(guest_name: guest_user.name))
-    else
-      @comment = @commentable.comments.build(comment_params)
     end
+    @comment = @commentable.comments.build(comment_params)
     if @comment.save
       #render create
     else
@@ -61,7 +58,8 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:content, :user_id)
+    params.require(:comment).permit(:user_id, :content)
   end
+  
 
 end

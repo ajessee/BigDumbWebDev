@@ -15,7 +15,7 @@
         </div>
       <% end %>
 
-    <a class="no-link-color project-card-link" id="<%= project.slug %>-link" href="<%= project.external_url ? project.url : 'projects/' + project.slug %>" rel="noopener noreferrer" target="_blank">
+    <a class="no-link-color project-card-link" id="<%= project.slug %>-link" href="<%= project.external_url ? project.url : 'projects/' + project.slug %>" rel="noopener noreferrer" target="<%= project.external_url ? '_blank' : '_self' %>">
       <div class="link-image">
           <% if project.image.attachment != nil %>
             <%= image_tag(project.image.variant(resize_to_limit: [300, 300]), class: "project-image") unless project.image == nil %>

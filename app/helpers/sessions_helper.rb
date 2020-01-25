@@ -22,10 +22,6 @@ module SessionsHelper
     user == current_user
   end
 
-  def guest_user
-    @guest_user ||= User.first
-  end
-
   def current_user
     # Check to see if there is a user_id in the session hash, and if so, assign it to the local user_id variable
     if (user_id = session[:user_id])
@@ -60,6 +56,11 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
   
+  # Stores the URL of the original referer URL (Used to cache page location on logout)
+  def store_referer_location
+    session[:forwarding_url] = request.referer
+  end
+
   # Stores the URL if GET request
   def store_location
     session[:forwarding_url] = request.original_url if request.get?

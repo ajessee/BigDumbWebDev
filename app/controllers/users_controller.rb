@@ -67,11 +67,20 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+    @comments = @user.comments
+    @message = "#{@user.name} successfully deleted."
+    if @comments.length > 0
+      @message += " Deleted #{@comments.length} user #{'comment'.pluralize(@comments.length)}"
+    end
     store_message({
       title: 'User Deleted',
-      message: "#{@user.name} successfully deleted",
+      message: @message,
       type: 'success'
     })
+    @comments.each do |comment|
+      comment.posts.comments.destroy(comment)
+      comment.destroy
+    end
     @user.destroy
     redirect_to users_url
   end

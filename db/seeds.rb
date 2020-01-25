@@ -11,19 +11,9 @@ admin_user = User.create!(
   last_name: "Jessee",
   email: "andre.isaac.jessee@gmail.com",
   # email: "dumb@bigdumbwebdev.com",
-  password:              Rails.application.credentials.dig(:seed, :admin_user_password),
-  password_confirmation: Rails.application.credentials.dig(:seed, :admin_user_password),
+  password:              Rails.application.credentials.dig(:password, :admin_user_password),
+  password_confirmation: Rails.application.credentials.dig(:password, :admin_user_password),
   admin: true,
-  activated: true,
-  activated_at: Time.zone.now)
-
-guest_user = User.create!(
-  first_name:  "Guest",
-  last_name: "User",
-  email: "guest@bigdumbwebdev.com",
-  password:              Rails.application.credentials.dig(:seed, :guest_user_password),
-  password_confirmation: Rails.application.credentials.dig(:seed, :guest_user_password),
-  admin: false,
   activated: true,
   activated_at: Time.zone.now)
 
@@ -50,3 +40,13 @@ User.create!(
   activated: true,
   activated_at: Time.zone.now)
 end
+
+# guest_user = User.create!(
+#   first_name:  "Guest",
+#   last_name: "User",
+#   email: "guest@bigdumbwebdev.com",
+#   password:              Rails.application.credentials.dig(:seed, :guest_user_password),
+#   password_confirmation: Rails.application.credentials.dig(:seed, :guest_user_password),
+#   admin: false,
+#   activated: true,
+#   activated_at: Time.zone.now)

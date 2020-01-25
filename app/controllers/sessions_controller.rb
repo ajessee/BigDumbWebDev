@@ -10,11 +10,18 @@ class SessionsController < ApplicationController
   end
 
   def create
+    @location = store_referer_location
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user && @user.authenticate(params[:session][:password])
       if @user.activated?
         log_in @user
         params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+        store_message({
+          title: 'Success',
+          message: "You've been logged in to your account.",
+          type: 'success'
+        })
+        clear_location
         respond_to do |format|
           format.js
         end
@@ -31,8 +38,15 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    @location = store_referer_location
     log_out if logged_in?
-    redirect_to root_url
+    clear_location
+    store_message({
+      title: 'Success',
+      message: "Logged Out",
+      type: 'success'
+    })
+    redirect_to @location
   end
   
 end
