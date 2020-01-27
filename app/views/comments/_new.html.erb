@@ -6,14 +6,13 @@
         <%= f.hidden_field :user_id, value: current_user.id %>
       <% else %>
         <%= f.hidden_field :user_id, value: guest_user.id %>
-        <%= f.hidden_field :guest, value: true %>
         <div id="new-guest-first-name" class="float-container">
           <%= f.label :first_name %>
-          <%= f.text_field :first_name %>
+          <%= f.text_field :first_name, value: guest_user.guest_first_name_set ? guest_user.first_name : ''  %>
         </div>
         <div id="new-guest-last-name" class="float-container">
           <%= f.label :last_name %>
-          <%= f.text_field :last_name %>
+          <%= f.text_field :last_name, value: guest_user.guest_last_name_set ? guest_user.last_name : ''   %>
         </div>
       <% end %>
       <div id="new-comment-content" class="">

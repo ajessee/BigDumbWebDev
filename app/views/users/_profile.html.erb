@@ -1,53 +1,33 @@
 <div id="user-show-partial">
-
   <div id="user-show-title">
-  <h1 id="">Hi <%= @user.first_name%>!</h1>
-  <h2>Here are the details we have on file for you. This is all of the data we collect, nothing more.</h2>
-</div>
-
+    <h1 id="">Hi <%= @user.first_name%>!</h1>
+    <h2>Here are the details we have on file for you. This is all of the data we collect, nothing more.</h2>
+  </div>
   <div id="user-show-data">
     <h2>First Name: <%= @user.first_name%></h2>
     <h2>Last Name: <%= @user.last_name%></h2>
     <h2>Email Address: <%= @user.email%></h2>
     <h2>Password: [hidden]</h2>
     <% if logged_in? && current_user?(@user)%>
-          <%= link_to edit_user_path(@user), class: "no-link-color", id: "edit-user-data-button", title: "Edit User", remote: "true" do %>
-          <button class="submit-close-buttons submit-button">Edit User Information</button>
-          <% end %>
-        <% end %>
+      <%= link_to edit_user_path(@user), class: "no-link-color", id: "edit-user-data-button", title: "Edit User", remote: "true" do %>
+        <button class="submit-close-buttons submit-button">Edit User Information</button>
+      <% end %>
+    <% end %>
   </div>
-
+   <%= render 'user_show_details' %>
   <div id="user-show-picture">
-    <h2>Your Picture</h2> 
+    <h2>Your Picture</h2>
     <% if @user.image.attached? %>
       <%= image_tag @user.image %>
       <div>
-        <% if logged_in? && current_user?(@user)%>
+        <% if logged_in? && current_user?(@user) %>
           <%= link_to edit_user_path(@user, update_type: 'picture'), class: "no-link-color", id: "edit-user-picture-button", title: "Edit User Picture", remote: "true" do %>
-          <button class="submit-close-buttons submit-button">Edit Picture</button>
+            <button class="submit-close-buttons submit-button">Edit Picture</button>
           <% end %>
         <% end %>
       </div>
     <% else %>
       <%= render 'edit_picture' %>
     <% end %>
-
   </div>
-
-  <div id="user-show-details">
-      <h2>About You</h2>
-      <% if @user.details.body && !@user.details.body.empty? %>
-      <div id="user-show-details-container">
-        <p><%= @user.details.body %></p>
-          <% if logged_in? && current_user?(@user)%>
-            <%= link_to edit_user_path(@user, update_type: 'details'), class: "no-link-color", id: "edit-user-details-button", title: "Edit User Details", remote: "true" do %>
-            <button class="submit-close-buttons submit-button">Edit About Me</button>
-            <% end %>
-        <% end %>
-      </div>
-      <% else %>
-        <%= render 'edit_details' %>
-      <% end %>
-  </div>
-
 </div>

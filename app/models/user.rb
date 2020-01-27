@@ -79,6 +79,14 @@ class User < ApplicationRecord
     reset_sent_at < 15.minutes.ago
   end
 
+  def guest_first_name_set
+    self.guest && self.first_name != "Anonymous"
+  end
+
+  def guest_last_name_set
+    self.guest && self.last_name != "Guest User"
+  end
+
   private
 
   # Converts email to all lower-case.

@@ -108,12 +108,14 @@
 .users-container {
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
+  height: 100vh;
 }
 
 #user-show-partial {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   text-align: center;
+  background-color: aliceblue;
 }
 
 #user-show-title {
@@ -132,6 +134,10 @@
 #user-show-details {
   grid-column: 2;
   grid-row: 3;
+}
+
+#user-show-details .trix-content{
+  background-color: white;
 }
 
 #user-show-picture {
@@ -268,6 +274,16 @@ input:checked+.slider:before {
 
 body {
   background-color: #f1f2f3;
+}
+
+.about-you-no-input {
+  background-color: lightgray;
+  resize: none;
+  width: 50%;
+}
+
+#user-show-details-container .trix-content {
+  margin: 5%;
 }
 
 // Huge screen

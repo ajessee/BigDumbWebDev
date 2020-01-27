@@ -1,9 +1,15 @@
 <div id="debug-button-container">
-    <button id="debug-button">
-        <i class="fas fa-info-circle fa-5x"></i>
-    </button>
+  <button id="debug-button">
+    <i class="fas fa-info-circle fa-5x"></i>
+  </button>
 </div>
-
 <div class="debug-panel">
-    <%= debug(params)  %>
+  <div>
+    <p class="debug_dump">Debug:</p> 
+    <pre><%= debug(params)  %></pre>
+  </div>
+  <div>
+    <p class="debug_dump">Session:</p>
+    <pre class="debug_dump"><%= session.to_h %></pre>
+  </div>
 </div>

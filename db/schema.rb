@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_12_020931) do
+ActiveRecord::Schema.define(version: 2020_01_27_002133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(version: 2019_11_12_020931) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "guest_name"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -64,8 +63,8 @@ ActiveRecord::Schema.define(version: 2019_11_12_020931) do
     t.string "thumbnail"
     t.integer "word_count"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
     t.boolean "published", default: false
     t.index ["published"], name: "index_posts_on_published"
@@ -119,8 +118,8 @@ ActiveRecord::Schema.define(version: 2019_11_12_020931) do
     t.string "last_name"
     t.text "details"
     t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
@@ -129,6 +128,7 @@ ActiveRecord::Schema.define(version: 2019_11_12_020931) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.boolean "guest", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

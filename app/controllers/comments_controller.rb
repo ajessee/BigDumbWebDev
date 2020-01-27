@@ -3,12 +3,18 @@ class CommentsController < ApplicationController
   def new
     @comment = Comment.new
     @post = Post.find_by_id(new_params)
+    @guest_user = User.find_by(email: (cookies.permanent.signed[:guest_user_email]))
+    if @guest_user
+      guest_user(@guest_user)
+    else 
+      @guest_user = guest_user
+    end
   end
 
   def create
     # In this case, a post is commentable
     @commentable = Post.find_by_id(params[:comment][:post_id])
-    if guest?
+    if !current_user
       guest_user.first_name = params[:comment][:first_name]
       guest_user.last_name = params[:comment][:last_name]
       guest_user.save

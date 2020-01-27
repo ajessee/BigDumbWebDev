@@ -1,8 +1,15 @@
-<%= form_with model: @user, id: "add-user-details", class: "", local: true do |f| %>
-  <div id="new-user-details" class="">
-    <%= f.rich_text_area :details, class: "trix-content" %>
-  </div>
-  <div id="new-user-details-submit" class="post-submit">
-    <%= f.submit @user.details.body && @user.details.body.empty? ? "Add About Me" : "Edit About Me", id: "new-user-details-submit-button", class: "submit-close-buttons submit-button" %>
-  </div>
+<% if logged_in? && current_user?(@user) %>
+  <%= form_with model: @user, id: "add-user-details", class: "", local: true do |f| %>
+    <div id="new-user-details" class="">
+      <%= f.rich_text_area :details, class: "trix-content" %>
+    </div>
+    <div id="new-user-details-submit" class="post-submit">
+      <%= f.submit "Save About Me", id: "new-user-details-submit-button", class: "submit-close-buttons submit-button" %>
+    </div>
+  <% end %>
+<% else %>
+  <textarea class="about-you-no-input" disabled></textarea>
+<% end %>
+<%= link_to edit_user_path(@user, update_type: 'cancel_details'), class: "no-link-color", id: "cancel-edit-user-details-button", title: "Cancel Edit User Details", remote: "true" do %>
+  <button id="cancel-about-me-edit" class="submit-close-buttons close-button all-close">Cancel</button>
 <% end %>

@@ -72,8 +72,11 @@ module UsersHelper
 
   # find guest_user object associated with the current session,
   # creating one as needed
-  def guest_user
+  def guest_user(user = nil)
     # Cache the value the first time it's gotten.
+    if (user)
+      @cached_guest_user = user
+    end
     @cached_guest_user ||=
       User.find_by!(email: (cookies.permanent.signed[:guest_user_email] ||= create_guest_user.email))
 
@@ -95,7 +98,7 @@ module UsersHelper
 
   # creates guest user by adding a record to the DB with temp first/last name, email, and guest password
   def create_guest_user
-    user = User.create(first_name: "temp_first", last_name: "temp_last", email: "guest_#{SecureRandom.uuid}@bigdumbweb.dev", password: Rails.application.credentials.dig(:password, :guest_user_password), password_confirmation: Rails.application.credentials.dig(:password, :guest_user_password))
+    user = User.create(first_name: "Anonymous", last_name: "Guest User", email: "guest_#{SecureRandom.uuid}@bigdumbweb.dev", guest: true, password: Rails.application.credentials.dig(:password, :guest_user_password), password_confirmation: Rails.application.credentials.dig(:password, :guest_user_password))
     user.save
     user
   end

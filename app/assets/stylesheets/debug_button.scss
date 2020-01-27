@@ -21,13 +21,12 @@
 
 .debug-panel {
   display: none;
+
 }
 
 .debug_dump {
-  width: 80%;
-  margin: 2% 2% 2% 4%;
   font-family: 'VT323', monospace;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 pre {
@@ -41,6 +40,7 @@ pre {
   /* Opera 7 */
   word-wrap: break-word;
   /* Internet Explorer 5.5+ */
+  overflow-wrap: break-word;
 }
 
 // Huge screen

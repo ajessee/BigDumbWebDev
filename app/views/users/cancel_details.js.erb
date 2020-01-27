@@ -1,0 +1,6 @@
+window.utils.elements.userShowDetailsContainer = document.querySelector('#user-show-details');
+window.utils.elements.newUserShowDetailsContainer = document.createElement('div');
+window.utils.elements.newUserShowDetailsContainer.innerHTML = "<%= j render 'user_show_details' %>";
+window.utils.elements.userShowDetailsContainer.parentNode.replaceChild(window.utils.elements.newUserShowDetailsContainer.firstElementChild, window.utils.elements.userShowDetailsContainer);
+window.utils.elements.userShowDetailsContainer = null;
+window.utils.elements.newUserShowDetailsContainer = null;

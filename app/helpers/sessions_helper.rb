@@ -29,7 +29,7 @@ module SessionsHelper
       @current_user ||= User.find_by(id: user_id)
     # Other check if user_id is in the cookie (and unencrypt). Otherwise, no op. 
     # This condition will be true if a user is opening a new browser window and has elected to be remembered, thus storing their information in the permanent cookie.
-    elsif (user_id = cookies.signed[:user_id])
+    elsif (user_id = cookies.permanent.signed[:user_id])
       user = User.find_by(id: user_id)
       # If we find a user and that user's remember token is correct
       if user && user.authenticated?(:remember, cookies[:remember_token])

@@ -49,6 +49,8 @@ class UsersController < ApplicationController
       render :edit_picture
     elsif params[:update_type] == "details"
       render :edit_details
+    elsif params[:update_type] == "cancel_details"
+      render :cancel_details
     end
   end
 
@@ -67,7 +69,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @comments = @user.comments
+    @comments = Comment.where(user_id: @user.id)
     @message = "#{@user.name} successfully deleted."
     if @comments.length > 0
       @message += " Deleted #{@comments.length} user #{'comment'.pluralize(@comments.length)}"
@@ -78,8 +80,10 @@ class UsersController < ApplicationController
       type: 'success'
     })
     @comments.each do |comment|
-      comment.posts.comments.destroy(comment)
       comment.destroy
+    end
+    if @user.guest && cookies.permanent.signed[:guest_user_email] == @user.email
+      cookies.delete :guest_user_email
     end
     @user.destroy
     redirect_to users_url
