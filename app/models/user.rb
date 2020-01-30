@@ -87,6 +87,16 @@ class User < ApplicationRecord
     self.guest && self.last_name != "Guest User"
   end
 
+  def convert_from_guest_account(cookies)
+    if self.guest
+      if cookies.signed[:guest_user_email]
+        cookies.delete :guest_user_email
+      end
+      self.guest = false
+      self.send_activation_email
+    end
+  end
+
   private
 
   # Converts email to all lower-case.

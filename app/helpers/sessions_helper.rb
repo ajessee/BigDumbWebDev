@@ -19,7 +19,11 @@ module SessionsHelper
   end
 
   def current_user?(user)
-    user == current_user
+    if user.guest
+      user == User.find_by(email: (cookies.permanent.signed[:guest_user_email]))
+    else
+      user == current_user
+    end
   end
 
   def current_user

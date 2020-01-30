@@ -26,3 +26,9 @@ window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params)
 <% end %>
 // Initialize labels component
 window.utils.labels.init();
+
+window.utils.tempVars.isGuestUserAndSetName = <%= current_or_guest_user.guest && (guest_user.guest_first_name_set || guest_user.guest_last_name_set) %>;
+if (window.utils.tempVars.isGuestUserAndSetName === true) {
+  window.utils.notifications.openNotification('alert', 'Hi again!', 'It looks like you\'ve made a comment before, so we\'ve stored your name to make it a little easier to sign up for an account' , 6000, true);
+}
+

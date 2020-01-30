@@ -53,7 +53,33 @@ const setUpModal = () => {
       this.overlay.appendChild(elements.modalContent);
       this.modalArray.push(elements.modalContent);
       this.isModalOpen = true;
+      this.removeDrapAndDropFromInputs(elements.modalContent);
       return elements.modalContent;
+    },
+
+    removeDrapAndDropFromInputs: (modalContent) => {
+      const update = function (mutationsList, observer) {
+        for(var mutation of mutationsList) {
+          if (mutation.type == 'childList') {
+            mutation.addedNodes.forEach(node => {
+              if (node.nodeType !== 3) {
+                const inputs = node.querySelectorAll('input');
+                inputs.forEach(input => {
+                  input.setAttribute('draggable', 'true');
+                  input.addEventListener('dragstart', function(e) {
+                    event.preventDefault();
+                    event.stopPropagation()
+                  })
+                })
+              }
+             
+            })
+          }
+      }
+      };
+      const config = { attributes: true, childList: true, subtree: true };
+      const observer = new MutationObserver(update);
+      observer.observe(modalContent, config);
     },
 
     closeModal: (e) => {

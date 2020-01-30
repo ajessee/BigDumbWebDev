@@ -9,6 +9,7 @@ const setUpDragAndDrop = () => {
 
     drag_start: function (event) {
       window.utils.dragAndDrop.currentDragElement = event.target;
+      if (event.target.nodeName === "INPUT") return;
       var style = window.getComputedStyle(event.target, null);
       event.dataTransfer.setData("text/plain",
       (parseInt(style.getPropertyValue("left"),10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - event.clientY));

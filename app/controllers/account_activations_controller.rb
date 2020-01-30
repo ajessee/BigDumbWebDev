@@ -1,4 +1,5 @@
 class AccountActivationsController < ApplicationController
+  # TODO: This is where the guest activation is failing, can't find ID
   def edit
     user = User.find_by(email: params[:email])
     if user && !user.activated? && user.authenticated?(:activation, params[:id])

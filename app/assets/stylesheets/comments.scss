@@ -11,6 +11,7 @@
 #new-comment-content,
 #edit-comment-content {
   width: 90%;
+  padding: 1%;
 }
 
 #new-comment-content .trix-content,
@@ -63,6 +64,10 @@
 
 #add-new-comment-button {
   justify-self: center;
+}
+
+.gray-content {
+  color: gray;
 }
 
 // Huge screen

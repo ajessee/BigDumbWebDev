@@ -57,9 +57,17 @@ class UsersController < ApplicationController
   def update
     # correct_user defines @user that is then passed to the view
     if @user.update(user_params)
+      if @user.guest
+        @title = 'Account Created'
+        @message = 'You\'ve successfully created your account. Please check your email for your activation link'
+        @user.convert_from_guest_account(cookies)
+      else
+        @title = 'Account Updated'
+        @message = 'You\'ve successfully updated your profile'
+      end
       store_message({
-        title: 'Account Updated',
-        message: "You\'ve successfully updated your profile",
+        title: @title,
+        message: @message,
         type: 'success'
       })
     else

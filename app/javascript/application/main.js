@@ -29,3 +29,5 @@ window.utils = {
 };
 
 window.utils.elements = {};
+
+window.utils.tempVars = {};

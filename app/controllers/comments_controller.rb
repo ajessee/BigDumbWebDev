@@ -3,21 +3,16 @@ class CommentsController < ApplicationController
   def new
     @comment = Comment.new
     @post = Post.find_by_id(new_params)
-    @guest_user = User.find_by(email: (cookies.permanent.signed[:guest_user_email]))
-    if @guest_user
-      guest_user(@guest_user)
-    else 
-      @guest_user = guest_user
-    end
   end
 
   def create
     # In this case, a post is commentable
     @commentable = Post.find_by_id(params[:comment][:post_id])
-    if !current_user
+    if !logged_in?
       guest_user.first_name = params[:comment][:first_name]
       guest_user.last_name = params[:comment][:last_name]
       guest_user.save
+      params[:comment] = params[:comment].merge(:user_id => guest_user.id)
     end
     @comment = @commentable.comments.build(comment_params)
     if @comment.save
@@ -46,7 +41,7 @@ class CommentsController < ApplicationController
     @post = Post.find(@comment.commentable_id)
     store_message({
       title: 'Comment Deleted',
-      message: "Comment by #{@comment.guest_name || @comment.author.name} successfully deleted",
+      message: "Comment by #{@comment.author.name} successfully deleted",
       type: 'success'
     })
     @comment.destroy
@@ -54,10 +49,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-  def guest?
-    params[:comment][:guest] && params[:comment][:guest] == "true";
-  end
 
   def new_params
     params.require(:post_id)
@@ -67,5 +58,4 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:user_id, :content)
   end
   
-
 end

@@ -1,32 +1,36 @@
-<%= form_with model: @user, id: "new-user", class: "user-form" do |f| %>
-  <h1 id="user-signup-header" class="user-form-header">Sign up</h1>
-  <div id="new-user-first-name" class="float-container">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, class: "input-error" %>
-    <%= render "shared/single_user_error_message", attr: :first_name.to_s%>
-  </div>
-  <div id="new-user-last-name" class="float-container">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name, class: "input-error" %>
-    <%= render "shared/single_user_error_message", attr: :last_name.to_s%>
-  </div>
-  <div id="new-user-email" class="float-container">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "input-error" %>
-    <%= render  "shared/single_user_error_message", attr: :email.to_s%>
-  </div>
-  <div id="new-user-password" class="float-container">
-    <%= f.label :password %>
-    <%= f.password_field :password, class: "input-error" %>
-    <%= render "shared/single_user_error_message", attr: :password.to_s%>
-  </div>
-  <div id="new-user-password-confirmation" class="float-container">
-    <%= f.label :password_confirmation, "Confirmation" %>
-    <%= f.password_field :password_confirmation, class: "input-error" %>
-    <%= render "shared/single_user_error_message", attr: :password_confirmation.to_s %>
-  </div>
-  <div id="new-user-submit" class="user-submit">
-    <%= f.submit "Create Account", id: "new-user-submit-button", class: "submit-close-buttons submit-button" %>
-    <button id="new-user-close-button" class="submit-close-buttons close-button all-close">Cancel</button>
-  </div>
+<% if current_or_guest_user.guest %>
+  <%= render "edit" %>
+<% else %>
+  <%= form_with model: @user, id: "new-user", class: "user-form" do |f| %>
+    <h1 id="user-signup-header" class="user-form-header">Sign up</h1>
+    <div id="new-user-first-name" class="float-container">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, class: "input-error" %>
+      <%= render "shared/single_user_error_message", attr: :first_name.to_s%>
+    </div>
+    <div id="new-user-last-name" class="float-container">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, class: "input-error" %>
+      <%= render "shared/single_user_error_message", attr: :last_name.to_s%>
+    </div>
+    <div id="new-user-email" class="float-container">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: "input-error" %>
+      <%= render  "shared/single_user_error_message", attr: :email.to_s%>
+    </div>
+    <div id="new-user-password" class="float-container">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: "input-error" %>
+      <%= render "shared/single_user_error_message", attr: :password.to_s%>
+    </div>
+    <div id="new-user-password-confirmation" class="float-container">
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation, class: "input-error" %>
+      <%= render "shared/single_user_error_message", attr: :password_confirmation.to_s %>
+    </div>
+    <div id="new-user-submit" class="user-submit">
+      <%= f.submit "Create Account", id: "new-user-submit-button", class: "submit-close-buttons submit-button" %>
+      <button id="new-user-close-button" class="submit-close-buttons close-button all-close">Cancel</button>
+    </div>
+  <% end %>
 <% end %>
