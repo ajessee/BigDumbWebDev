@@ -1,4 +1,4 @@
-<%# if guest user, don't use form_with model, because it is changing from create to update when existing_guest_user %>
+<%# TODO: if guest user, don't use form_with model, because it is changing from create to update when existing_guest_user %>
 <%= form_with model: @user, id: "new-user", class: "user-form" do |f| %>
   <h1 id="user-signup-header" class="user-form-header">Sign up</h1>
   <div id="new-user-first-name" class="float-container">

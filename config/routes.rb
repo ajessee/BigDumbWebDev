@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get     '/demote_guest', to: 'users#demote_guest'
 
   # Account Activation
-  # TODO: look at this!
+
   resources :account_activations, only: [:edit]
 
   # Password Resets

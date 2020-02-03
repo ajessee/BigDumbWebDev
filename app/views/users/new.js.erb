@@ -29,8 +29,8 @@ window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params)
 window.utils.labels.init();
 
 // TODO: Figure this out
-//window.utils.tempVars.isGuestUserAndSetName = <%= j (existing_guest_user? && existing_guest_user?.guest_2? && (existing_guest_user?.guest_first_name_updated? || existing_guest_user?.guest_last_name_updated?)) %>;
-//if (window.utils.tempVars.isGuestUserAndSetName === true) {
-//  window.utils.notifications.openNotification('alert', 'Hi again!', 'It looks like you\'ve made a comment before, so we\'ve stored your name to make it a little easier to sign up for an account' , 6000, true);
-//}
+window.utils.tempVars.isGuestUserAndSetName = "<%= j (existing_guest_user? && existing_guest_user?.guest_1? && (existing_guest_user?.guest_first_name_updated? || existing_guest_user?.guest_last_name_updated?)) %>";
+if (window.utils.tempVars.isGuestUserAndSetName === "true") {
+  window.utils.notifications.openNotification('alert', 'Hi again!', 'It looks like you\'ve made a comment before, so we\'ve stored your name to make it a little easier to sign up for an account' , 6000, true);
+}
 

@@ -22,6 +22,7 @@ class UsersController < ApplicationController
       if @user.update(user_params)
         @user.convert_from_guest_account(cookies)
         @user.create_activation_digest
+        @user.save
         @user.send_activation_email
       else
         render 'new'
