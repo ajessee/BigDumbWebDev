@@ -62,17 +62,18 @@ const setUpModal = () => {
         for(var mutation of mutationsList) {
           if (mutation.type == 'childList') {
             mutation.addedNodes.forEach(node => {
-              if (node.nodeType !== 3) {
-                const inputs = node.querySelectorAll('input');
-                inputs.forEach(input => {
-                  input.setAttribute('draggable', 'true');
-                  input.addEventListener('dragstart', function(e) {
-                    event.preventDefault();
-                    event.stopPropagation()
+              if (node.nodeType == 3) {
+                const inputs = node.querySelectorAll('input').length ? node.querySelectorAll('input') : null;
+                if (inputs) {
+                  inputs.forEach(input => {
+                    input.setAttribute('draggable', 'true');
+                    input.addEventListener('dragstart', function(e) {
+                      event.preventDefault();
+                      event.stopPropagation()
+                    })
                   })
-                })
+                }
               }
-             
             })
           }
       }

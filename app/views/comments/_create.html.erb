@@ -8,12 +8,12 @@
     <p class="gray-content"><%= time_ago_in_words(comment.created_at).capitalize %> ago</p>
   </div>
   <div class="show-comment-controls">
-      <% if logged_in? && current_user?(comment.author) #|| current_or_guest_user.guest && current_user?(comment.author) %>
+      <% if logged_in? && current_user?(comment.author) %>
         <%= link_to edit_comment_path(comment), class: "no-link-color", title: "Edit comment", remote: true do %>
         <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit Comment</button>
         <% end %>
       <% end %>
-      <% if logged_in? && current_user?(comment.author) || current_user && current_user.admin? #|| current_or_guest_user.guest && current_user?(comment.author) %>
+      <% if logged_in? && current_user?(comment.author) || current_user && current_user.admin? %>
         <%= link_to comment_path(comment), class: "no-link-color", title: "Delete comment", method: "delete" do %>
         <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Comment</button>
         <% end %>

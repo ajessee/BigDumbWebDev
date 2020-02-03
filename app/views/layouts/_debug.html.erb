@@ -5,11 +5,19 @@
 </div>
 <div class="debug-panel">
   <div>
-    <p class="debug_dump">Debug:</p> 
+    <p class="debug_dump">Debug:</p>
     <pre><%= debug(params)  %></pre>
   </div>
   <div>
     <p class="debug_dump">Session:</p>
     <pre class="debug_dump"><%= session.to_h %></pre>
+  </div>
+  <div>
+    <p class="debug_dump">BDWD Encrypted Cookie:</p>
+    <pre class="debug_dump"><%= cookies.permanent.encrypted[:_big_dumb_web_dev_session] %></pre>
+  </div>
+  <div>
+    <p class="debug_dump">Guest User Email Cookie:</p>
+    <pre class="debug_dump"><%= cookies.permanent.signed[:guest_user_email] %></pre>
   </div>
 </div>

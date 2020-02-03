@@ -7,16 +7,16 @@
     <% else %>
       <div id="new-guest-first-name" class="float-container">
         <%= f.label :first_name %>
-        <% if existing_guest_user? %>
-          <%= f.text_field :first_name, value: guest_user.guest_first_name_set ? guest_user.first_name : ''  %>
+        <% if existing_guest_user? && existing_guest_user?.guest_first_name_updated? %>
+          <%= f.text_field :first_name, value: existing_guest_user?.first_name %>
         <% else %>
           <%= f.text_field :first_name %>
         <% end %>
       </div>
       <div id="new-guest-last-name" class="float-container">
         <%= f.label :last_name %>
-        <% if existing_guest_user? %>
-          <%= f.text_field :last_name, value: guest_user.guest_last_name_set ? guest_user.last_name : ''   %>
+        <% if existing_guest_user? && existing_guest_user?.guest_last_name_updated? %>
+          <%= f.text_field :last_name, value: existing_guest_user?.last_name  %>
         <% else %>
           <%= f.text_field :last_name  %>
         <% end %>
@@ -36,8 +36,14 @@
       <%= link_to login_path, class: "no-link-color", title: "Login", remote: true do %>
         <button id="login-user-submit-button" class="submit-close-buttons submit-button">Login</button>
       <% end %>
-      <%= link_to signup_path, class: "no-link-color", title: "Sign Up", remote: true do %>
-        <button id="login-user-submit-button" class="submit-close-buttons submit-button">Sign Up</button>
+      <% if existing_guest_user? %>
+        <%= link_to new_user_path, class: "no-link-color", title: "Sign Up", remote: true do %>
+          <button id="get-edit-guest-user-button" class="submit-close-buttons submit-button">Sign Up</button>
+        <% end %>
+      <% else %>
+        <%= link_to signup_path, class: "no-link-color", title: "Sign Up", remote: true do %>
+          <button id="login-user-submit-button" class="submit-close-buttons submit-button">Sign Up</button>
+        <% end %>
       <% end %>
       <div class="signup-login-info">
         <%= link_to 'Why do this?', signup_login_info_path, id: 'remember-me-text-link', remote: true  %>

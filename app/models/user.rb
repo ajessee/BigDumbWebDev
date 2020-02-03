@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  enum role: [:guest_1, :guest_2, :user, :admin]
   has_many :posts, dependent: :destroy
   has_many :projects, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
@@ -8,10 +9,12 @@ class User < ApplicationRecord
   # Attributes: first_name, last_name, email, details, picture, password_digest
   # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token, activation_token, reset_token, name
 
-  # before_save is a callback that gets invoked before the user model is saved to the database
-  before_save :downcase_email
   # before_create is a callback that gets invoked before the user model is created
   before_create :create_activation_digest
+  # after initialize is a callback that get invoked after user model is created but before written to database
+  after_initialize :set_default_role, :if => :new_record?
+  # before_save is a callback that gets invoked before the user model is saved to the database
+  before_save :downcase_email
 
   # Regex to test email validity
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -79,22 +82,39 @@ class User < ApplicationRecord
     reset_sent_at < 15.minutes.ago
   end
 
-  def guest_first_name_set
-    self.guest && self.first_name != "Anonymous"
+  def guest_first_name_updated?
+    self.first_name != "Anonymous"
   end
 
-  def guest_last_name_set
-    self.guest && self.last_name != "Guest User"
+  def guest_last_name_updated?
+    self.last_name != "Guest User"
+  end
+
+  def guest_email_updated?
+    !(self.email.starts_with?("guest_") && self.email.ends_with?("@bigdumbweb.dev"))
+  end
+
+  def guest_password_updated?
+    !self.authenticate(Rails.application.credentials.dig(:password, :guest_user_password))
   end
 
   def convert_from_guest_account(cookies)
-    if self.guest
-      if cookies.signed[:guest_user_email]
+    if self.guest_2?
+      if cookies.permanent.signed[:guest_user_email]
         cookies.delete :guest_user_email
       end
-      self.guest = false
-      self.send_activation_email
+      self.user!
     end
+  end
+
+  def set_default_role
+    self.role ||= :user
+  end
+
+  # Creates and assigns the activation token and digest.
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
   end
 
   private
@@ -102,12 +122,6 @@ class User < ApplicationRecord
   # Converts email to all lower-case.
   def downcase_email
     self.email = email.downcase
-  end
-
-  # Creates and assigns the activation token and digest.
-  def create_activation_digest
-    self.activation_token  = User.new_token
-    self.activation_digest = User.digest(activation_token)
   end
 
   # This is an idiomatic way to define class methods in Ruby. The 'self' is the user class, and it allows you to define methods without having to prepend them with 'User.' or 'self.'

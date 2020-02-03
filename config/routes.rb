@@ -34,8 +34,10 @@ Rails.application.routes.draw do
 
   post     '/get_gist', to: 'posts#get_gist'
 
-  # Account Activation
+  get     '/demote_guest', to: 'users#demote_guest'
 
+  # Account Activation
+  # TODO: look at this!
   resources :account_activations, only: [:edit]
 
   # Password Resets

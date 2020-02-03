@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:session][:password])
       if @user.activated?
         log_in @user
-        params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+        remember(@user) if params[:session][:remember_me] == '1'
         store_message({
           title: 'Success',
           message: "You've been logged in to your account.",

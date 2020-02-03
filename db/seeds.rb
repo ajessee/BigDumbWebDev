@@ -13,7 +13,7 @@ admin_user = User.create!(
   # email: "dumb@bigdumbwebdev.com",
   password:              Rails.application.credentials.dig(:password, :admin_user_password),
   password_confirmation: Rails.application.credentials.dig(:password, :admin_user_password),
-  admin: true,
+  role: 'admin',
   activated: true,
   activated_at: Time.zone.now)
 
