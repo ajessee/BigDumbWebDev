@@ -2,15 +2,15 @@ if (window.utils.modal.signupModal) {
   window.utils.modal.signupModal.innerHTML = "";
   window.utils.modal.signupModal.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
 } else {
-  if (window.utils.weLargeScreen.matches) {
-    window.utils.modal.signupModal = window.utils.modal.openModal('block', '0%', 3, 5, 12, 8, null, null, false);
-  } else if (window.utils.weTablet.matches || window.utils.weMobile.matches) {
-    window.utils.modal.signupModal = window.utils.modal.openModal('block', '0%', 1, 1, 16, 16, null, null, false);
-  } else {
-    window.utils.modal.signupModal = window.utils.modal.openModal('block', '0%', 2, 3, 14, 12, null, null, false);
-  }
-  // Setup modal window, insert new user signup partial
-  window.utils.modal.signupModal.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
+if (window.utils.weLargeScreen.matches) {
+  window.utils.modal.signupModal = window.utils.modal.openModal('block', '0%', 3, 5, 12, 8, null, null, false);
+} else if (window.utils.weTablet.matches || window.utils.weMobile.matches) {
+  window.utils.modal.signupModal = window.utils.modal.openModal('block', '0%', 1, 1, 16, 16, null, null, false);
+} else {
+  window.utils.modal.signupModal = window.utils.modal.openModal('block', '0%', 2, 3, 14, 12, null, null, false);
+}
+// Setup modal window, insert new user signup partial
+window.utils.modal.signupModal.insertAdjacentHTML('beforeend', "<%= j (render 'new') %>");
 }
 // Get close button and attach close modal function
 window.utils.modal.newUserCloseButton = document.querySelector("#new-user-close-button");
@@ -22,15 +22,15 @@ window.utils.modal.newUserCloseButton.addEventListener('click', function(e) {
 })
 // Get debug information
 <% if Rails.env.development? %>
-window.utils.debug.debugPanel.innerHTML = "";
-window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
+  window.utils.debug.debugPanel.innerHTML = '';
+  window.utils.debug.debugPanel.insertAdjacentHTML('beforeend', `<%= debug(params) %>`);
 <% end %>
 // Initialize labels component
 window.utils.labels.init();
-
-// TODO: Figure this out
+// Show notification that we've remembered guest user
 window.utils.tempVars.isGuestUserAndSetName = "<%= j (existing_guest_user? && existing_guest_user?.guest_1? && (existing_guest_user?.guest_first_name_updated? || existing_guest_user?.guest_last_name_updated?)) %>";
-if (window.utils.tempVars.isGuestUserAndSetName === "true") {
+window.utils.tempVars.noUserErrors = "<%= j (@user.errors.empty?) %>";
+if (window.utils.tempVars.isGuestUserAndSetName === "true" && window.utils.tempVars.noUserErrors === "true") {
   window.utils.notifications.openNotification('alert', 'Hi again!', 'It looks like you\'ve made a comment before, so we\'ve stored your name to make it a little easier to sign up for an account' , 6000, true);
 }
-
+window.utils.tempVars = null;

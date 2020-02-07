@@ -25,7 +25,12 @@ class UsersController < ApplicationController
         @user.save
         @user.send_activation_email
       else
-        render 'new'
+        @user = User.new(user_params)
+        if !@user.save
+    
+          existing_guest_user?.guest_1!
+          render 'new'
+        end
       end
     else
       @user = User.new(user_params)
@@ -104,6 +109,9 @@ class UsersController < ApplicationController
     if existing_guest_user? && existing_guest_user?.guest_2?
       existing_guest_user?.guest_1!
       existing_guest_user?.save
+      head :ok
+    else
+      head :no_content
     end
   end
 
