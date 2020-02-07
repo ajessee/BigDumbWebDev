@@ -62,7 +62,7 @@ const setUpModal = () => {
         for(var mutation of mutationsList) {
           if (mutation.type == 'childList') {
             mutation.addedNodes.forEach(node => {
-              if (node.nodeType == 3) {
+              if (node.nodeType == 1) {
                 const inputs = node.querySelectorAll('input').length ? node.querySelectorAll('input') : null;
                 if (inputs) {
                   inputs.forEach(input => {
