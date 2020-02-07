@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
-  enum role: [:guest_1, :guest_2, :user, :admin]
+  enum role: %i[guest_1 guest_2 user admin]
   has_many :posts, dependent: :destroy
   has_many :projects, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
@@ -12,28 +14,28 @@ class User < ApplicationRecord
   # before_create is a callback that gets invoked before the user model is created
   before_create :create_activation_digest
   # after initialize is a callback that get invoked after user model is created but before written to database
-  after_initialize :set_default_role, :if => :new_record?
+  after_initialize :set_default_role, if: :new_record?
   # before_save is a callback that gets invoked before the user model is saved to the database
   before_save :downcase_email
 
   # Regex to test email validity
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
   # Model validation constraints that are run on save
-  validates :first_name, presence: true, length: {maximum: 50}
-  validates :last_name, presence: true, length: {maximum: 50}
-  validates :email, presence: true, length: {maximum: 255}, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
-  validates :password, length: {minimum: 8}, allow_nil: true
+  validates :first_name, presence: true, length: { maximum: 50 }
+  validates :last_name, presence: true, length: { maximum: 50 }
+  validates :email, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
+  validates :password, length: { minimum: 8 }, allow_nil: true
 
   # The has_secure_password method adds the following functionality to the user model:
   # The ability to save a securely hashed password_digest attribute to the database
   # A pair of virtual attributes (password and password_confirmation), including presence validations upon object creation and a validation requiring that they match
   # An authenticate method that returns the user when the password is correct (and false otherwise)
   has_secure_password
-  
+
   # Instance method to return users full name
   def name
-    first_name + " " + last_name
+    first_name + ' ' + last_name
   end
 
   # Instance method to store an encrypted remember token in the database in the remember_digest column
@@ -53,6 +55,7 @@ class User < ApplicationRecord
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
+
     BCrypt::Password.new(digest).is_password?(token)
   end
 
@@ -82,31 +85,37 @@ class User < ApplicationRecord
     reset_sent_at < 15.minutes.ago
   end
 
+  # Instance method to check if guest user has updated the default first name
   def guest_first_name_updated?
-    self.first_name != "Anonymous"
+    first_name != 'Anonymous'
   end
 
+  # Instance method to check if guest user has updated the default last name 
   def guest_last_name_updated?
-    self.last_name != "Guest User"
+    last_name != 'Guest User'
   end
 
+  # Instance method to check if guest user has updated the randomly assigned guest email (they've created an account)
   def guest_email_updated?
-    !(self.email.starts_with?("guest_") && self.email.ends_with?("@bigdumbweb.dev"))
+    !(email.starts_with?('guest_') && email.ends_with?('@bigdumbweb.dev'))
   end
 
+  # Instance method to check if guest user has updated the default password
   def guest_password_updated?
-    !self.authenticate(Rails.application.credentials.dig(:password, :guest_user_password))
+    !authenticate(Rails.application.credentials.dig(:password, :guest_user_password))
   end
 
+  # Instance method to remove the guest email from permanent cookie and convert guest user to regular user
   def convert_from_guest_account(cookies)
-    if self.guest_2?
+    if guest_2?
       if cookies.permanent.signed[:guest_user_email]
         cookies.delete :guest_user_email
       end
-      self.user!
+      user!
     end
   end
 
+  # Instance method to set default user role
   def set_default_role
     self.role ||= :user
   end
@@ -137,5 +146,4 @@ class User < ApplicationRecord
       SecureRandom.urlsafe_base64
     end
   end
-
 end

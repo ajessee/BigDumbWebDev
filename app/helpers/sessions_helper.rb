@@ -1,5 +1,6 @@
-module SessionsHelper
+# frozen_string_literal: true
 
+module SessionsHelper
   # store the provided user's id in the session method (which rails uses to store info in an encrypted cookie that expires on browser close)
   def log_in(user)
     session[:user_id] = user.id
@@ -27,12 +28,12 @@ module SessionsHelper
     if (user_id = session[:user_id])
       # ||= (or equals) returns @current_user if it has already been assigned, otherwise checks database
       @current_user ||= User.find_by(id: user_id)
-    # Other check if user_id is in the cookie (and unencrypt). Otherwise, no op. 
+    # Other check if user_id is in the cookie (and unencrypt). Otherwise, no op.
     # This condition will be true if a user is opening a new browser window and has elected to be remembered, thus storing their information in the permanent cookie.
     elsif (user_id = cookies.permanent.signed[:user_id])
       user = User.find_by(id: user_id)
       # If we find a user and that user's remember token is correct
-      if user && user.authenticated?(:remember, cookies[:remember_token])
+      if user&.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user
       end
@@ -55,7 +56,7 @@ module SessionsHelper
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
   end
-  
+
   # Stores the URL of the original referer URL (Used to cache page location on logout)
   def store_referer_location
     session[:forwarding_url] = request.referer
@@ -66,15 +67,13 @@ module SessionsHelper
     session[:forwarding_url] = request.original_url if request.get?
   end
 
-  # Get stored location if exists
+  # Get stored location if it exists
   def get_location
-    session[:forwarding_url] if session[:forwarding_url]
+    session[:forwarding_url]
   end
 
   # Get stored location if exists
   def clear_location
     session.delete(:forwarding_url) if session[:forwarding_url]
   end
-
 end
-

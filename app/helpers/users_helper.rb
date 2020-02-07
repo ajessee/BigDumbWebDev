@@ -1,31 +1,27 @@
 # frozen_string_literal: true
 
 module UsersHelper
-  def returnUserError(userObject, currentAttribute)
-    case currentAttribute
+  def return_user_error(userObject, current_attribute)
+    case current_attribute
     when 'first_name'
-      getMessage(userObject.errors.full_messages_for(currentAttribute))
+      get_message(userObject.errors.full_messages_for(current_attribute))
     when 'last_name'
-      getMessage(userObject.errors.full_messages_for(currentAttribute))
+      get_message(userObject.errors.full_messages_for(current_attribute))
     when 'email'
-      getMessage(userObject.errors.full_messages_for(currentAttribute))
+      get_message(userObject.errors.full_messages_for(current_attribute))
     when 'password'
-      getMessage(userObject.errors.full_messages_for(currentAttribute))
+      get_message(userObject.errors.full_messages_for(current_attribute))
     when 'password_confirmation'
-      getMessage(userObject.errors.full_messages_for(currentAttribute))
+      get_message(userObject.errors.full_messages_for(current_attribute))
     end
   end
 
-  def getMessage(errorsArray)
-    errorMessageString = ''
-    errorsArray.each do |msg|
-      errorMessageString += if msg != errorsArray.last
-                              msg + ', '
-                            else
-                              msg + '.'
-                            end
+  def get_message(errors_array)
+    error_message_string = ''
+    errors_array.each do |msg|
+      error_message_string += msg != errors_array.last ? msg + ', ' : msg + '.'
     end
-    errorMessageString
+    error_message_string
   end
 
   def logged_in_user
@@ -71,15 +67,9 @@ module UsersHelper
   end
 
   def update_guest_params(user, params)
-    if !user.guest_first_name_updated?
-      params[:first_name] == ''
-    end
-    if !user.guest_last_name_updated?
-      params[:last_name] == ''
-    end
-    if !user.guest_email_updated?
-      params[:email] == ''
-    end
+    params[:first_name] == '' unless user.guest_first_name_updated?
+    params[:last_name] == '' unless user.guest_last_name_updated?
+    params[:email] == '' unless user.guest_email_updated?
     params
   end
 

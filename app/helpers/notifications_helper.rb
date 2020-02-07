@@ -1,5 +1,6 @@
-module NotificationsHelper
+# frozen_string_literal: true
 
+module NotificationsHelper
   def store_message(message)
     session[:notification_message] = message
   end
@@ -17,5 +18,4 @@ module NotificationsHelper
       false
     end
   end
-
 end
