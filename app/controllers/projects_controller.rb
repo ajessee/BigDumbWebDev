@@ -1,13 +1,12 @@
-class ProjectsController < ApplicationController
+# frozen_string_literal: true
 
+class ProjectsController < ApplicationController
   # Since I'm the only user that can create new projects, every action except for show and index are restricted
-  before_action :logged_in_and_admin_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :logged_in_and_admin_user, only: %i[new create edit update destroy]
 
   def scroll3d
-    # Grab three random projects to show
-    @projects = Project.order("RANDOM()").limit(4)
-    # @projects = Project.all
-    
+    # Grab four random projects to show
+    @projects = Project.order('RANDOM()').limit(4)
   end
 
   def index
@@ -28,7 +27,7 @@ class ProjectsController < ApplicationController
         render @project.slug
       end
     else
-      # TODO: Figure out how to handle errors for project missing name or description. Maybe do client-side validation?
+      # I've setup client side validation for name and description inputs. Should never get to this point
       redirect_to projects_path
     end
   end
@@ -37,7 +36,11 @@ class ProjectsController < ApplicationController
     @project = Project.find_by(slug: params[:slug])
     @resources = @project.resources.order(:day).paginate(page: params[:page], per_page: 1)
     # Look in the params for the name of the slug, then render that name which show match a view template. If not, throw 404.
-    render show_post_params_name rescue redirect_to errors_not_found_path 
+    begin
+      render show_post_params_name
+    rescue StandardError
+      redirect_to errors_not_found_path
+    end
   end
 
   def edit
@@ -54,23 +57,24 @@ class ProjectsController < ApplicationController
         render @project.slug
       end
     else
-      # TODO: Figure out how to handle errors for project missing name or description. Maybe do client-side validation?
+      # I've setup client side validation for name and description inputs. Should never get to this point
       redirect_to projects_path
     end
   end
 
   def destroy
     @project = Project.find_by(slug: params[:slug])
-    store_message({
+    store_message(
       title: 'Project Deleted',
       message: "'#{@project.name}' successfully deleted",
       type: 'success'
-    })
+    )
     @project.destroy
     redirect_to projects_url
   end
 
   private
+
   def project_params
     params.require(:project).permit(:name, :description, :external_url, :url, :slug, :image)
   end
@@ -78,5 +82,4 @@ class ProjectsController < ApplicationController
   def show_post_params_name
     params.require(:slug)
   end
-
 end

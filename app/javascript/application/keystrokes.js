@@ -1,5 +1,5 @@
-var map = {}; // You could also use an array
 // TODO: Finish this up, Put in module. Figure out what functionality I want from keyboard shortcuts.
+var map = {}; // You could also use an array
 
 onkeydown = onkeyup = function(e){
     e = e || event; // to deal with IE
@@ -7,7 +7,7 @@ onkeydown = onkeyup = function(e){
     
     if (map[16] && map[91] && map[83]) {
       console.log("shift + command + s");
-      document.getElementById("signin-icon").children[0].click();
+      document.querySelector('#nav-menu-login') ? document.querySelector('#nav-menu-login').firstElementChild.click() : null;
       map = {}
     }
 
