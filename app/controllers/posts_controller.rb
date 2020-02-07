@@ -21,7 +21,6 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     @post.save
-    # TODO: Figure out how to handle errors for post missing title - its the only validation we do. Maybe do client-side validation?
     redirect_to @post
   end
 
@@ -83,12 +82,6 @@ class PostsController < ApplicationController
       render json: ActiveSupport::JSON.encode(response)
     end
   end
-
-  # TODO: When rails updates their action text to allow for static html attachments, add this back in
-  # def get_gist
-  #   @gist_url = ActiveSupport::JSON.decode(request.body.string)
-  #   render layout: false
-  # end
 
   private
   def post_params

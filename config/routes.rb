@@ -32,8 +32,6 @@ Rails.application.routes.draw do
 
   post     '/check_diffs', to: 'posts#check_diffs'
 
-  post     '/get_gist', to: 'posts#get_gist'
-
   get     '/demote_guest', to: 'users#demote_guest'
 
   # Account Activation
