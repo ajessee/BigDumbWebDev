@@ -5,8 +5,7 @@ class PostsController < ApplicationController
   before_action :delete_counts, only: [:create, :update]
   
   def index
-    # I am always the first user now that I've updated the seeds.rb file
-    @user = User.first
+    @user = User.find_by(email: Rails.application.credentials.dig(:email, :admin))
     if logged_in? && current_user.admin?
       @posts = @user.posts.paginate(page: params[:page], per_page: 1)
     else

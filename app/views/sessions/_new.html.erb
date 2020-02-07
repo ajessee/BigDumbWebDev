@@ -2,11 +2,11 @@
   <h1 id="user-login-header" class="user-form-header">Log In</h1>
   <div id="login-user-email" class="float-container">
     <%= f.label :email %>
-    <%= f.email_field :email, id: "session_email", name: "session[email]"%>
+    <%= f.email_field :email, id: "session_email", name: "session[email]", required: true %>
   </div>
   <div id="login-user-password" class="float-container">
     <%= f.label :password %>
-    <%= f.password_field :password, id: "session_password", name: "session[password]"%>
+    <%= f.password_field :password, id: "session_password", name: "session[password]", required: true %>
   </div>
   <div id="remember-me-container">
     <div id="remember-me-text">

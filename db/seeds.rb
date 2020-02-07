@@ -9,8 +9,7 @@
 admin_user = User.create!(
   first_name:  "Andre",
   last_name: "Jessee",
-  email: "andre.isaac.jessee@gmail.com",
-  # email: "dumb@bigdumbwebdev.com",
+  email: Rails.application.credentials.dig(:email, :admin),
   password:              Rails.application.credentials.dig(:password, :admin_user_password),
   password_confirmation: Rails.application.credentials.dig(:password, :admin_user_password),
   role: 'admin',

@@ -33,4 +33,4 @@ window.utils.tempVars.noUserErrors = "<%= j (@user.errors.empty?) %>";
 if (window.utils.tempVars.isGuestUserAndSetName === "true" && window.utils.tempVars.noUserErrors === "true") {
   window.utils.notifications.openNotification('alert', 'Hi again!', 'It looks like you\'ve made a comment before, so we\'ve stored your name to make it a little easier to sign up for an account' , 6000, true);
 }
-window.utils.tempVars = null;
+window.utils.tempVars = {};
