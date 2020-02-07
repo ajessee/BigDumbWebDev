@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
 module UsersHelper
-  def return_user_error(userObject, current_attribute)
+  def return_user_error(user_object, current_attribute)
     case current_attribute
     when 'first_name'
-      get_message(userObject.errors.full_messages_for(current_attribute))
+      get_error_message(user_object.errors.full_messages_for(current_attribute))
     when 'last_name'
-      get_message(userObject.errors.full_messages_for(current_attribute))
+      get_error_message(user_object.errors.full_messages_for(current_attribute))
     when 'email'
-      get_message(userObject.errors.full_messages_for(current_attribute))
+      get_error_message(user_object.errors.full_messages_for(current_attribute))
     when 'password'
-      get_message(userObject.errors.full_messages_for(current_attribute))
+      get_error_message(user_object.errors.full_messages_for(current_attribute))
     when 'password_confirmation'
-      get_message(userObject.errors.full_messages_for(current_attribute))
+      get_error_message(user_object.errors.full_messages_for(current_attribute))
     end
   end
 
-  def get_message(errors_array)
+  def get_error_message(errors_array)
     error_message_string = ''
     errors_array.each do |msg|
       error_message_string += msg != errors_array.last ? msg + ', ' : msg + '.'
