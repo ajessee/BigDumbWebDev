@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:show, :edit, :update]
-  before_action :admin_user, only: [:destroy, :index]
-  before_action :check_guest_role, only: [:create]
+  before_action :logged_in_user, only: %i[show edit update]
+  before_action :correct_user, only: %i[show edit update]
+  before_action :admin_user, only: %i[destroy index]
+  before_action :promote_guest, only: [:create]
 
   def index
     @users = User.paginate(page: params[:page], per_page: 15)
@@ -26,8 +28,8 @@ class UsersController < ApplicationController
         @user.send_activation_email
       else
         @user = User.new(user_params)
-        if !@user.save
-    
+        unless @user.save
+
           existing_guest_user?.guest_1!
           render 'new'
         end
@@ -75,11 +77,11 @@ class UsersController < ApplicationController
   def update
     # correct_user defines @user that is then passed to the view
     if @user.update(user_params)
-      store_message({
+      store_message(
         title: 'Account Updated',
         message: "You\'ve successfully updated your profile",
         type: 'success'
-      })
+      )
     else
       render 'edit'
     end
@@ -106,7 +108,8 @@ class UsersController < ApplicationController
   end
 
   def demote_guest
-    if existing_guest_user? && existing_guest_user?.guest_2?
+    # Rubocop is formatting this with ruby safe navigation operator. The period represents the existing guest user object. 
+    if existing_guest_user?&.guest_2?
       existing_guest_user?.guest_1!
       existing_guest_user?.save
       head :ok
@@ -121,6 +124,14 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :details, :image, :email, :password, :password_confirmation, :update_type)
   end
 
+  def logged_in_user
+    unless logged_in?
+      store_location
+      flash[:error_message] = 'You need to log in to do that'
+      redirect_to errors_unauthorized_path
+    end
+  end
+
   def correct_user
     @user = User.find(params[:id])
     unless current_user?(@user) || current_user&.admin?
@@ -129,24 +140,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def user_can_edit
-    @user = User.find(params[:id])
-    unless (logged_in? && current_user?(@user)) || current_user?(@user) && current_user.admin? || @user == existing_guest_user? && @user.guest_1?
-      flash[:error_message] = 'You are not authorized to edit that user'
-      redirect_to errors_forbidden_path
-    end
-  end
-
-  def user_can_update
-    @user = User.find(params[:id])
-    unless (logged_in? && current_user?(@user)) || current_user?(@user) && current_user.admin? || existing_guest_user?&.guest_2?
-      flash[:error_message] = 'You are not authorized to update that user'
-      redirect_to errors_forbidden_path
-    end
-  end
-
-  def check_guest_role
-    if existing_guest_user? && existing_guest_user?.guest_1?
+  def promote_guest
+    # Rubocop is formatting this with ruby safe navigation operator. The period represents the existing guest user object. 
+    if existing_guest_user?&.guest_1?
       existing_guest_user?.guest_2!
       existing_guest_user?.save
     end

@@ -11,6 +11,10 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def admin_user?
+    logged_in? && current_user.admin?
+  end
+
   def log_out
     # Clear out permanent stuff (remember attributes and cookies)
     forget(current_user)
@@ -57,23 +61,4 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
-  # Stores the URL of the original referer URL (Used to cache page location on logout)
-  def store_referer_location
-    session[:forwarding_url] = request.referer
-  end
-
-  # Stores the URL if GET request
-  def store_location
-    session[:forwarding_url] = request.original_url if request.get?
-  end
-
-  # Get stored location if it exists
-  def get_location
-    session[:forwarding_url]
-  end
-
-  # Get stored location if exists
-  def clear_location
-    session.delete(:forwarding_url) if session[:forwarding_url]
-  end
 end

@@ -1,16 +1,17 @@
-class PostsController < ApplicationController
+# frozen_string_literal: true
 
+class PostsController < ApplicationController
   # Since I'm the only user that can create new posts, every action except for show and index are restricted
-  before_action :logged_in_and_admin_user, only: [:new, :create, :edit, :update, :destroy]
-  before_action :delete_counts, only: [:create, :update]
-  
+  before_action :admin_user, only: %i[new create edit update destroy]
+  before_action :delete_counts, only: %i[create update]
+
   def index
     @user = User.find_by(email: Rails.application.credentials.dig(:email, :admin))
-    if logged_in? && current_user.admin?
-      @posts = @user.posts.paginate(page: params[:page], per_page: 1)
-    else
-      @posts = @user.posts.paginate(page: params[:page], per_page: 10)
-    end
+    @posts = if admin_user?
+               @user.posts.paginate(page: params[:page], per_page: 1)
+             else
+               @user.posts.paginate(page: params[:page], per_page: 10)
+             end
   end
 
   def new
@@ -25,18 +26,18 @@ class PostsController < ApplicationController
 
   def show
     store_location
-    if logged_in? && current_user.admin?
-      @post = Post.find_by(slug: params[:slug])
-    else
-      @post = Post.find_by(slug: params[:slug], published: true)
-    end
-    
-    redirect_to errors_not_found_path if !@post
+    @post = if admin_user?
+              Post.find_by(slug: params[:slug])
+            else
+              Post.find_by(slug: params[:slug], published: true)
+            end
+
+    redirect_to errors_not_found_path unless @post
   end
 
   def edit
     @post = Post.find_by(slug: params[:slug])
-    redirect_to errors_not_found_path if !@post
+    redirect_to errors_not_found_path unless @post
   end
 
   def update
@@ -51,29 +52,29 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find_by(slug: params[:slug])
-    store_message({
+    store_message(
       title: 'Post Deleted',
       message: "'#{@post.title}'' successfully deleted",
       type: 'success'
-    })
+    )
     @post.destroy
     redirect_to posts_url
   end
 
   def check_diffs
     parsed_json = ActiveSupport::JSON.decode(request.body.string)
-    @currentContent = parsed_json["currentContent"]
-    @savedContent = parsed_json["savedContent"]
+    @currentContent = parsed_json['currentContent']
+    @savedContent = parsed_json['savedContent']
     payload = helpers.create_diff_payload(@currentContent, @savedContent)
     if payload[:allEmpty]
-      render :json => {:success => "False"}, status: 204
+      render json: { success: 'False' }, status: 204
     else
-      response = { 
-        partial: 
+      response = {
+        partial:
           render_to_string(
-            partial: 'posts/check_diffs', 
-            formats: :html, 
-            layout: false, 
+            partial: 'posts/check_diffs',
+            formats: :html,
+            layout: false,
             locals: payload
           ),
         payload: payload
@@ -83,6 +84,7 @@ class PostsController < ApplicationController
   end
 
   private
+
   def post_params
     params.require(:post).permit(:title, :content, :all_tags, :published)
   end
@@ -95,5 +97,4 @@ class PostsController < ApplicationController
     # collection_select() in the post new/edit forms creates a post[counts] attribute that we have to remove from the params
     params[:post].delete :counts
   end
-
 end

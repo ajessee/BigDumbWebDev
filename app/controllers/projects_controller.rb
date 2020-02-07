@@ -2,7 +2,7 @@
 
 class ProjectsController < ApplicationController
   # Since I'm the only user that can create new projects, every action except for show and index are restricted
-  before_action :logged_in_and_admin_user, only: %i[new create edit update destroy]
+  before_action :admin_user, only: %i[new create edit update destroy]
 
   def scroll3d
     # Grab four random projects to show

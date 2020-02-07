@@ -1,5 +1,6 @@
-class NotificationsController < ApplicationController
+# frozen_string_literal: true
 
+class NotificationsController < ApplicationController
   @@forwarding_needed = false
 
   def cookie_info
@@ -13,7 +14,7 @@ class NotificationsController < ApplicationController
   end
 
   def get_notifications
-    if @@forwarding_needed 
+    if @@forwarding_needed
       @@forwarding_needed = false
       @location = get_location
       clear_location
