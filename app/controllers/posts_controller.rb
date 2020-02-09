@@ -89,10 +89,6 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :content, :all_tags, :published)
   end
 
-  def admin_params
-    params.require(:post).permit(:admin)
-  end
-
   def delete_counts
     # collection_select() in the post new/edit forms creates a post[counts] attribute that we have to remove from the params
     params[:post].delete :counts
