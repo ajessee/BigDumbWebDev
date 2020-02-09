@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Project < ApplicationRecord
   # Project belong to a user
   belongs_to :user
@@ -23,5 +25,4 @@ class Project < ApplicationRecord
   def to_param
     slug
   end
-
 end

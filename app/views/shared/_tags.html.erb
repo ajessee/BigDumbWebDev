@@ -1,11 +1,11 @@
 <div class="tag-cloud">
   <% tag_cloud Tag.counts, %w{css1 css2 css3 css4 css5 css6} do |tag, css_class| %>
     <span class="tag-link-container">
-      <% if tag.has_published_post %>
+      <% if tag.published_post? %>
         <%= link_to tag.name, tag, {class: "tag-link " + css_class, style: "color: #{generate_random_hex_color}"} %>
       <% else %>
         <% if logged_in? && current_user.admin? && show_admin %>
-        <span class="<% if !tag.has_published_post %>unpublished-tag<% end %>">
+        <span class="<% if !tag.published_post? %>unpublished-tag<% end %>">
           <%= link_to tag.name, tag, {class: "tag-link " + css_class, style: "color: transparent; text-shadow: 0 0 4px #{generate_random_hex_color};"} %>
         </span>
         <% end %>

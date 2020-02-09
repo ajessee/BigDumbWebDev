@@ -5,7 +5,7 @@ module MessagesAndCookieHelper
     session[:notification_message] = message
   end
 
-  def get_message
+  def fetch_message
     message = session[:notification_message]
     session.delete(:notification_message)
     message
@@ -30,7 +30,7 @@ module MessagesAndCookieHelper
   end
 
   # Get stored location if it exists
-  def get_location
+  def fetch_location
     session[:forwarding_url]
   end
 

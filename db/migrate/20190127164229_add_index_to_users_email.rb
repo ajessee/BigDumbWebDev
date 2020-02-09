@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddIndexToUsersEmail < ActiveRecord::Migration[6.0]
   def change
     # Add index to email column in users table and ensure uniqueness

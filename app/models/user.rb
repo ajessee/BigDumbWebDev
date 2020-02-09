@@ -90,7 +90,7 @@ class User < ApplicationRecord
     first_name != 'Anonymous'
   end
 
-  # Instance method to check if guest user has updated the default last name 
+  # Instance method to check if guest user has updated the default last name
   def guest_last_name_updated?
     last_name != 'Guest User'
   end
@@ -108,9 +108,7 @@ class User < ApplicationRecord
   # Instance method to remove the guest email from permanent cookie and convert guest user to regular user
   def convert_from_guest_account(cookies)
     if guest_2?
-      if cookies.permanent.signed[:guest_user_email]
-        cookies.delete :guest_user_email
-      end
+      cookies.delete :guest_user_email if cookies.permanent.signed[:guest_user_email]
       user!
     end
   end

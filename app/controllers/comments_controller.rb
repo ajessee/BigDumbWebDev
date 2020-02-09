@@ -12,7 +12,8 @@ class CommentsController < ApplicationController
     # In this case, a post is commentable
     @commentable = Post.find_by_id(params[:comment][:post_id])
     unless logged_in?
-      # This is where the guest user is first created if one doesn't already exist for the session (guest email stored in permanent cookies)
+      # This is where the guest user is first created if one doesn't
+      # already exist for the session (guest email stored in permanent cookies)
       guest_user.first_name = params[:comment][:first_name]
       guest_user.last_name = params[:comment][:last_name]
       guest_user.save
@@ -22,7 +23,7 @@ class CommentsController < ApplicationController
     if @comment.save
       # render create
     else
-      # TODO: Add validation for comment body presence 
+      # TODO: Add validation for comment body presence
       render 'new'
     end
   end

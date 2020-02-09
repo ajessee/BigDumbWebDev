@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       else
         @user = User.new(user_params)
         unless @user.save
-          
+
           existing_guest_user?.guest_1!
           render 'new'
         end
@@ -91,24 +91,20 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @comments = Comment.where(user_id: @user.id)
     @message = "#{@user.name} successfully deleted."
-    unless @comments.empty?
-      @message += " Deleted #{@comments.length} user #{'comment'.pluralize(@comments.length)}"
-    end
+    @message += " Deleted #{@comments.length} user #{'comment'.pluralize(@comments.length)}" unless @comments.empty?
     store_message(
       title: 'User Deleted',
       message: @message,
       type: 'success'
     )
     @comments.each(&:destroy)
-    if @user.guest_2? && cookies.permanent.signed[:guest_user_email] == @user.email
-      cookies.delete :guest_user_email
-    end
+    cookies.delete :guest_user_email if @user.guest_2? && cookies.permanent.signed[:guest_user_email] == @user.email
     @user.destroy
     redirect_to users_url
   end
 
   def demote_guest
-    # Rubocop is formatting this with ruby safe navigation operator. The period represents the existing guest user object. 
+    # Rubocop is formatting this with ruby safe navigation operator. The period represents the existing guest user object.
     if existing_guest_user?&.guest_2?
       existing_guest_user?.guest_1!
       existing_guest_user?.save
@@ -119,7 +115,7 @@ class UsersController < ApplicationController
   end
 
   private
-  
+
   def user_params
     params.require(:user).permit(:first_name, :last_name, :details, :image, :email, :password, :password_confirmation, :update_type)
   end
@@ -141,7 +137,7 @@ class UsersController < ApplicationController
   end
 
   def promote_guest
-    # Rubocop is formatting this with ruby safe navigation operator. The period represents the existing guest user object. 
+    # Rubocop is formatting this with ruby safe navigation operator. The period represents the existing guest user object.
     if existing_guest_user?&.guest_1?
       existing_guest_user?.guest_2!
       existing_guest_user?.save

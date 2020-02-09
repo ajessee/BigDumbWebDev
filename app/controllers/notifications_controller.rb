@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NotificationsController < ApplicationController
-  @@forwarding_needed = false
+  @forwarding_needed = false
 
   def cookie_info
     @type = 'cookie_info'
@@ -13,18 +13,18 @@ class NotificationsController < ApplicationController
     render :info
   end
 
-  def get_notifications
-    if @@forwarding_needed
-      @@forwarding_needed = false
-      @location = get_location
+  def fetch_notifications
+    if @forwarding_needed
+      @forwarding_needed = false
+      @location = fetch_location
       clear_location
       @location
     elsif notification_message?
-      @new_message = get_message
+      @new_message = fetch_message
     end
   end
 
   def forwarding_ready
-    @@forwarding_needed = true
+    @forwarding_needed = true
   end
 end

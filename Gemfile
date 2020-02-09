@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -25,28 +27,28 @@ gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-gem 'bcrypt'      
+gem 'bcrypt'
 gem 'mini_magick'
 # Gem to do HTML diffs
 gem 'diffy'
 # Use Active Storage variant
 gem 'image_processing'
 # AWS gem
-gem "aws-sdk-s3", require: false
+gem 'aws-sdk-s3', require: false
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
-gem 'will_paginate'
 gem 'faker'
+gem 'will_paginate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'pry-byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
@@ -60,9 +62,8 @@ group :test do
   gem 'chromedriver-helper'
 
   # adding gems from Rails 5 build for testing 1/21/19
-  gem 'rails-controller-testing' 
-  gem 'minitest-reporters'       
-  gem 'guard'                    
-  gem 'guard-minitest'   
+  gem 'guard'
+  gem 'guard-minitest'
+  gem 'minitest-reporters'
+  gem 'rails-controller-testing'
 end
-

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Post < ApplicationRecord
   include ActionText::Attachable
   # Posts belongs to a user
@@ -20,18 +22,18 @@ class Post < ApplicationRecord
   before_validation :cast_published
 
   def all_tags=(names)
-    self.tags = names.split(",").map do |name|
+    self.tags = names.split(',').map do |name|
       Tag.where(name: name.strip.downcase).first_or_create!
     end
   end
 
   def all_tags
-    self.tags.map(&:name).join(", ")
+    tags.map(&:name).join(', ')
   end
 
   def counts
-    Tag.select("tags.id, tags.name,count(taggings.tag_id) as count").
-    joins(:taggings).group("taggings.tag_id, tags.id, tags.name")
+    Tag.select('tags.id, tags.name,count(taggings.tag_id) as count')
+       .joins(:taggings).group('taggings.tag_id, tags.id, tags.name')
   end
 
   def set_slug
@@ -39,7 +41,7 @@ class Post < ApplicationRecord
   end
 
   def cast_published
-    self.published = ActiveRecord::Type::Boolean.new.cast(self.published)
+    self.published = ActiveRecord::Type::Boolean.new.cast(published)
   end
 
   def self.add_slugs
@@ -49,5 +51,4 @@ class Post < ApplicationRecord
   def to_param
     slug
   end
-
 end

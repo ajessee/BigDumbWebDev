@@ -8,7 +8,7 @@ module ErrorsHelper
     when 'description'
       get_error_message(project_object.errors.full_messages_for(current_attribute))
     end
- end
+  end
 
   def return_user_error(user_object, current_attribute)
     case current_attribute
@@ -23,7 +23,7 @@ module ErrorsHelper
     when 'password_confirmation'
       get_error_message(user_object.errors.full_messages_for(current_attribute))
     end
- end
+  end
 
   def get_error_message(errors_array)
     error_message_string = ''
@@ -35,11 +35,11 @@ module ErrorsHelper
 
   def admin_user
     unless admin_user?
-      if current_user
-        flash[:error_message] = "Only admin users are allowed to do that #{current_user.name}"
-      else
-        flash[:error_message] = 'Only admin users are allowed to do that'
-      end
+      flash[:error_message] = if current_user
+                                "Only admin users are allowed to do that #{current_user.name}"
+                              else
+                                'Only admin users are allowed to do that'
+                              end
       redirect_to errors_forbidden_path
     end
   end

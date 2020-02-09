@@ -63,9 +63,9 @@ class PostsController < ApplicationController
 
   def check_diffs
     parsed_json = ActiveSupport::JSON.decode(request.body.string)
-    @currentContent = parsed_json['currentContent']
-    @savedContent = parsed_json['savedContent']
-    payload = helpers.create_diff_payload(@currentContent, @savedContent)
+    @current_content = parsed_json['currentContent']
+    @saved_content = parsed_json['savedContent']
+    payload = helpers.create_diff_payload(@current_content, @saved_content)
     if payload[:allEmpty]
       render json: { success: 'False' }, status: 204
     else

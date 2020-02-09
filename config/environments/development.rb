@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -10,7 +12,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # BDWD: Setup custom error messages
-  config.exceptions_app = self.routes
+  config.exceptions_app = routes
 
   # Show full error reports.
   config.consider_all_requests_local = true

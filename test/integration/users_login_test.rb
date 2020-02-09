@@ -15,11 +15,11 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     # check that we get javascript back
     assert_equal 'text/javascript; charset=utf-8', @response.content_type
     post login_path, xhr: true, params: { session: { email: 'david@tengoodyears.com', password: 'password' } }
-    assert is_logged_in?
+    assert logged_in?
     # TODO: Figure out how to test for elements on the larger page. Assert select can only access the response
     delete logout_path
     # Since the delete HTTP request is not XHR, I get all the HTML back and can test it for elements
-    assert_not is_logged_in?
+    assert_not logged_in?
     assert_redirected_to root_url
     # Simulate a user clicking logout in a second window.
     delete logout_path

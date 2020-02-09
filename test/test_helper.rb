@@ -13,7 +13,7 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  def is_logged_in?
+  def logged_in?
     !session[:user_id].nil?
   end
 
@@ -29,12 +29,14 @@ end
 class ActionDispatch::IntegrationTest
   # Log in as a particular user.
   def log_in_as(user, password: 'password', remember_me: '1')
-    post login_path, xhr: true, params: { session:
-      {
-        email: user.email,
-        password: password,
-        remember_me: remember_me
-      } }
+    post login_path,
+         xhr: true,
+         params: { session:
+               {
+                 email: user.email,
+                 password: password,
+                 remember_me: remember_me
+               } }
   end
 
   def logout_user

@@ -32,3 +32,6 @@ yarn-debug.log*
 # ignore copy of DB from production that I pull down in new rake task
 latest.dump
 
+# ignore rubocop config
+.rubocop.yml
+

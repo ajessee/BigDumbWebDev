@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  # including the SessionsHelper module here (the base class of all controllers), all methods in the helper are available across all controllers
+  # Including the SessionsHelper module here (the base class of all controllers), all methods in the helper are available across all controllers
   include ErrorsHelper
   include GuestUsersHelper
   include MessagesAndCookieHelper

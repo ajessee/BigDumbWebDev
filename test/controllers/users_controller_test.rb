@@ -20,8 +20,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should redirect update to unauthorized path when not logged in' do
-    patch user_path(@david), params: { user: { name: @david.name,
-                                               email: @david.email } }
+    patch user_path(@david),
+          params: { user: { name: @david.name,
+                            email: @david.email } }
     assert_redirected_to errors_unauthorized_path
   end
 
@@ -33,8 +34,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should redirect update to forbidden path when logged in as wrong user' do
     log_in_as(@katyna)
-    patch user_path(@david), params: { user: { name: @david.name,
-                                               email: @david.email } }
+    patch user_path(@david),
+          params: { user: { name: @david.name,
+                            email: @david.email } }
     assert_redirected_to errors_forbidden_path
   end
 
@@ -46,11 +48,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should not allow the admin attribute to be edited via the web' do
     log_in_as(@katyna)
     assert_not @katyna.admin?
-    patch user_path(@katyna), xhr: true, params: {
-      user: { password: 'password',
-              password_confirmation: 'password',
-              role: 'admin' }
-    }
+    patch user_path(@katyna),
+          xhr: true,
+          params: {
+            user: { password: 'password',
+                    password_confirmation: 'password',
+                    role: 'admin' }
+          }
     assert_not @katyna.admin?
   end
 

@@ -1,9 +1,10 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   # Root
 
   root    'hello#home'
-  
+
   get     'hello/home'
 
   # iFrame for 3d scroll
@@ -11,28 +12,28 @@ Rails.application.routes.draw do
   get '/scroll3d', to: 'projects#scroll3d'
 
   # Sessions and new users
-  
+
   get     '/signup',  to: 'users#new'
-  
+
   post    '/signup',  to: 'users#create'
-  
+
   get     '/login', to: 'sessions#new'
-  
+
   post    '/login', to: 'sessions#create'
-  
+
   delete  '/logout', to: 'sessions#destroy'
-  
+
   get     '/cookie_info', to: 'notifications#cookie_info'
 
   get     '/signup_login_info', to: 'notifications#signup_login_info'
 
-  get     '/notifications', to: 'notifications#get_notifications'
+  get     '/notifications', to: 'notifications#fetch_notifications'
 
   post     '/fowarding_info', to: 'notifications#forwarding_ready'
 
   post     '/check_diffs', to: 'posts#check_diffs'
 
-  get     '/demote_guest', to: 'users#demote_guest'
+  get '/demote_guest', to: 'users#demote_guest'
 
   # Account Activation
 
@@ -40,9 +41,9 @@ Rails.application.routes.draw do
 
   # Password Resets
 
-  resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :password_resets, only: %i[new create edit update]
 
-  # Projects 
+  # Projects
 
   resources :projects, param: :slug
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # NOTE: Need to remove workers when developing in Windows environment and add back in when developing in Mac environment
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)
 threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 5)
