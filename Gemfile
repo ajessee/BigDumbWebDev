@@ -39,6 +39,10 @@ gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
 gem 'faker'
 gem 'will_paginate'
+# Use rubocop for git pre-commit hook
+gem 'rubocop'
+# Use brakeman for git pre-push hook
+gem 'brakeman'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
