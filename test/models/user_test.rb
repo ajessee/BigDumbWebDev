@@ -1,95 +1,97 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # assert( test, [msg] )	Ensures that test is true.
-  # refute( test, [msg] )	Ensures that test is false.
-  # assert_equal( expected, actual, [msg] )	Ensures that expected == actual is true.
+  # Remember that these controller tests use fixtures instead of the data that is in the database
+  # assert( test, [msg] )  Ensures that test is true.
+  # refute( test, [msg] )  Ensures that test is false.
+  # assert_equal( expected, actual, [msg] )  Ensures that expected == actual is true.
 
   def setup
-    @user = User.new(first_name: "Testy", last_name: "McTests",email: "testerDude@testy.com", password: "testThis", password_confirmation: "testThis")
+    @user = User.new(first_name: 'Testy', last_name: 'McTests', email: 'testerDude@testy.com', password: 'testThis', password_confirmation: 'testThis')
   end
 
-  test "should be a valid user" do
+  test 'should be a valid user' do
     assert @user.valid?
   end
 
-  test "user first name should be present" do
-    @user.first_name = "      "
+  test 'user first name should be present' do
+    @user.first_name = '      '
     refute @user.valid?
   end
 
-  test "user last name should be present" do
-    @user.first_name = "      "
+  test 'user last name should be present' do
+    @user.first_name = '      '
     refute @user.valid?
   end
 
-  test "user email should be present" do
-    @user.email = "      "
+  test 'user email should be present' do
+    @user.email = '      '
     refute @user.valid?
   end
 
-  test "user first name should not be longer than 50 characters" do
-    @user.first_name = "a" * 51
+  test 'user first name should not be longer than 50 characters' do
+    @user.first_name = 'a' * 51
   end
 
-  test "user last name should not be longer than 50 characters" do
-    @user.last_name = "a" * 51
+  test 'user last name should not be longer than 50 characters' do
+    @user.last_name = 'a' * 51
   end
 
-  test "user email should not be longer than 255 characters" do
-    @user.email = "a" * 244 + "@example.com"
+  test 'user email should not be longer than 255 characters' do
+    @user.email = 'a' * 244 + '@example.com'
   end
 
-  test "user email validation should accept valid user email addresses" do
+  test 'user email validation should accept valid user email addresses' do
     valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org first.last@foo.jp alice+bob@baz.cn]
     valid_addresses.each do |valid_address|
       @user.email = valid_address
-      assert @user.valid?, "#{valid_address.inspect} should be valid" #string is second parameter, lets you add custom error message
+      assert @user.valid?, "#{valid_address.inspect} should be valid" # string is second parameter, lets you add custom error message
     end
   end
 
-  test "user email validation should reject invalid user email addresses" do
+  test 'user email validation should reject invalid user email addresses' do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example. foo@bar_baz.com foo@bar+baz.com]
     invalid_addresses.each do |invalid_address|
       @user.email = invalid_address
-      refute @user.valid?, "#{invalid_address.inspect} should be valid" #string is second parameter, lets you add custom error message
+      refute @user.valid?, "#{invalid_address.inspect} should be valid" # string is second parameter, lets you add custom error message
     end
   end
 
-  test "user email should be unique" do
-    duplicate_user = @user.dup #create duplicate user
-    duplicate_user.email = @user.email.upcase #upcase the dup user email to confirm uniqueness (see user_test.rb)
-    @user.save #actually save to test database 
+  test 'user email should be unique' do
+    duplicate_user = @user.dup # create duplicate user
+    duplicate_user.email = @user.email.upcase # upcase the dup user email to confirm uniqueness (see user_test.rb)
+    @user.save # actually save to test database
     refute duplicate_user.valid?
   end
 
-  test "user email addresses should be saved as lower-case" do
-    mixed_case_email = "Foo@ExAMPle.CoM"
+  test 'user email addresses should be saved as lower-case' do
+    mixed_case_email = 'Foo@ExAMPle.CoM'
     @user.email = mixed_case_email
     @user.save
     assert_equal mixed_case_email.downcase, @user.reload.email
   end
 
-  test "user password should be present (nonblank)" do
-    @user.password = @user.password_confirmation = " " * 6 # multiple assignment, both password and password_confirmation are being assigned
+  test 'user password should be present (nonblank)' do
+    @user.password = @user.password_confirmation = ' ' * 6 # multiple assignment, both password and password_confirmation are being assigned
     refute @user.valid?
   end
 
-  test "user password should have a minimum length" do
-    @user.password = @user.password_confirmation = "a" * 7
+  test 'user password should have a minimum length' do
+    @user.password = @user.password_confirmation = 'a' * 7
     refute @user.valid?
   end
 
-  test "authenticated? should return false for a user with nil digest" do
+  test 'authenticated? should return false for a user with nil digest' do
     assert_not @user.authenticated?(:remember, '')
   end
 
-  test "associated posts should be destroyed" do
+  test 'associated posts should be destroyed' do
     @user.save
-    @user.posts.create!(title: "Thus we win", content: "Lorem ipsum")
+    @user.posts.create!(title: 'Thus we win', content: 'Lorem ipsum')
     assert_difference 'Post.count', -1 do
       @user.destroy
     end
   end
-
 end

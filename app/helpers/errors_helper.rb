@@ -34,7 +34,7 @@ module ErrorsHelper
   end
 
   def admin_user
-    unless logged_in? && current_user.admin?
+    unless admin_user?
       if current_user
         flash[:error_message] = "Only admin users are allowed to do that #{current_user.name}"
       else

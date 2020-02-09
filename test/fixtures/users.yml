@@ -9,7 +9,7 @@ david:
   email: david@tengoodyears.com
   details: A man with a plan
   password_digest: <%= User.digest('password') %>
-  admin: true
+  role: admin
   activated: true
   activated_at: <%= Time.zone.now %>
 

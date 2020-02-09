@@ -4,8 +4,10 @@ one:
   title: "The history of learning"
   content: "I'm trying really hard to learn about learning."
   created_at: <%= 10.minutes.ago %>
+  id: 1
 
 two:
   title: "The history of trying"
   content: "I'm learning really hard to try about trying."
   created_at: <%= 20.minutes.ago %>
+  id: 2

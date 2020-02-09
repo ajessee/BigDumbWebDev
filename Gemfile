@@ -1,44 +1,41 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-# NOTE: Remove Ruby version when developing on machines that have different versions
-# ruby '2.6.1' # Work laptop
-ruby '2.6.0' # Home Laptop
-# NOTE: Remove below if you are developing in Mac/Linux environment
+# TO DEVELOP ON WINDOWS, UNCOMMENT THESE GEMS
 # gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# NOTE: Remove Ruby version when developing on machines that have different versions
+# ruby '2.6.1' # Work laptop - TODO: update work laptop
+
+ruby '2.7.0' # Home Laptop
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.0.beta1'
+gem 'rails'
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem 'puma'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '>= 4.0.0.rc.3'
+gem 'webpacker'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
-gem 'bcrypt', '~> 3.1.7'        
+gem 'bcrypt'      
 gem 'mini_magick'
 # Gem to do HTML diffs
-gem 'diffy', '~> 3.3'
-# Gem to enable static ActionText attachements
-gem 'actiontext-static', git: 'https://github.com/sosodev/actiontext-static.git'
-
+gem 'diffy'
 # Use Active Storage variant
-gem 'image_processing', '~> 1.2'
-
+gem 'image_processing'
+# AWS gem
 gem "aws-sdk-s3", require: false
-
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
-
+gem 'bootsnap', require: false
 gem 'will_paginate'
-
 gem 'faker'
 
 group :development, :test do
@@ -57,7 +54,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
+  gem 'capybara'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
@@ -69,5 +66,3 @@ group :test do
   gem 'guard-minitest'   
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

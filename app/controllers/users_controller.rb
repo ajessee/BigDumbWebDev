@@ -20,8 +20,8 @@ class UsersController < ApplicationController
     end
     if existing_guest_user?
       @user = existing_guest_user?
-      user_params = update_guest_params(@user, params.require(:user).permit(:first_name, :last_name, :details, :image, :email, :password, :password_confirmation, :update_type))
-      if @user.update(user_params)
+      guest_user_params = update_guest_params(@user, params.require(:user).permit(:first_name, :last_name, :details, :image, :email, :password, :password_confirmation, :update_type))
+      if @user.update(guest_user_params)
         @user.convert_from_guest_account(cookies)
         @user.create_activation_digest
         @user.save
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       else
         @user = User.new(user_params)
         unless @user.save
-
+          
           existing_guest_user?.guest_1!
           render 'new'
         end
@@ -119,7 +119,7 @@ class UsersController < ApplicationController
   end
 
   private
-
+  
   def user_params
     params.require(:user).permit(:first_name, :last_name, :details, :image, :email, :password, :password_confirmation, :update_type)
   end

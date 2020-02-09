@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    @location = store_referer_location
+    @location = store_referer_location || root_path
     log_out if logged_in?
     clear_location
     store_message(
