@@ -121,6 +121,7 @@ GEM
     guard-minitest (2.4.6)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
+    humanize (2.4.1)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     image_processing (1.10.3)
@@ -290,6 +291,7 @@ DEPENDENCIES
   faker
   guard
   guard-minitest
+  humanize
   image_processing
   jbuilder
   listen (>= 3.0.5, < 3.2)

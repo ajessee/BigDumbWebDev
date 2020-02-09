@@ -43,6 +43,8 @@ gem 'will_paginate'
 gem 'rubocop'
 # Use brakeman for git pre-push hook
 gem 'brakeman'
+# Used for creating fixtures from dev database, see rake tasks
+gem 'humanize'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

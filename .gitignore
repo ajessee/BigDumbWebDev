@@ -35,3 +35,6 @@ latest.dump
 # ignore rubocop config
 .rubocop.yml
 
+# ignore test fixtures since there are emails in there
+/test/fixtures/*.yml
+

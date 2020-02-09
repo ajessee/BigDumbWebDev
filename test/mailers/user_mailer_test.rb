@@ -5,7 +5,7 @@ require 'test_helper'
 class UserMailerTest < ActionMailer::TestCase
   # Remember that these controller tests use fixtures instead of the data that is in the database
   test 'account_activation' do
-    user = users(:david)
+    user = users(:eight)
     user.activation_token = User.new_token
     mail = UserMailer.account_activation(user)
     assert_equal 'Welcome to Big Dumb Web Dev!', mail.subject
@@ -17,7 +17,7 @@ class UserMailerTest < ActionMailer::TestCase
   end
 
   test 'password_reset' do
-    user = users(:david)
+    user = users(:eight)
     user.reset_token = User.new_token
     mail = UserMailer.password_reset(user)
     assert_equal 'Password Reset', mail.subject

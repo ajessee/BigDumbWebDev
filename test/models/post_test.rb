@@ -5,7 +5,7 @@ require 'test_helper'
 class PostTest < ActiveSupport::TestCase
   # Remember that these controller tests use fixtures instead of the data that is in the database
   def setup
-    @user = users(:david)
+    @user = users(:eight)
     @post = @user.posts.build(title: 'Test Post', content: 'Lorem ipsum')
   end
 

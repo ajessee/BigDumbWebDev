@@ -5,8 +5,8 @@ require 'test_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
   # Remember that these controller tests use fixtures instead of the data that is in the database
   def setup
-    @david = users(:david)
-    @katyna = users(:katyna)
+    @andre = users(:eight)
+    @katyna = users(:one)
   end
 
   test 'should get new' do
@@ -15,29 +15,29 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should redirect edit to unauthorized path when not logged in' do
-    get edit_user_path(@david)
+    get edit_user_path(@andre)
     assert_redirected_to errors_unauthorized_path
   end
 
   test 'should redirect update to unauthorized path when not logged in' do
-    patch user_path(@david),
-          params: { user: { name: @david.name,
-                            email: @david.email } }
+    patch user_path(@andre),
+          params: { user: { name: @andre.name,
+                            email: @andre.email } }
     assert_redirected_to errors_unauthorized_path
   end
 
   test 'should redirect edit to forbidden path when logged in as wrong user' do
     log_in_as(@katyna)
-    get edit_user_path(@david)
-    assert_redirected_to errors_forbidden_path
+    get edit_user_path(@andre)
+    assert_redirected_to errors_unauthorized_path
   end
 
   test 'should redirect update to forbidden path when logged in as wrong user' do
     log_in_as(@katyna)
-    patch user_path(@david),
-          params: { user: { name: @david.name,
-                            email: @david.email } }
-    assert_redirected_to errors_forbidden_path
+    patch user_path(@andre),
+          params: { user: { name: @andre.name,
+                            email: @andre.email } }
+    assert_redirected_to errors_unauthorized_path
   end
 
   test 'should redirect to forbidden path if user is not admin' do
@@ -60,7 +60,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should redirect to forbidden path when user is not admin and tries to destroy user' do
     assert_no_difference 'User.count' do
-      delete user_path(@david)
+      delete user_path(@andre)
     end
     assert_redirected_to errors_forbidden_path
   end
@@ -68,7 +68,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should redirect destroy when logged in as a non-admin' do
     log_in_as(@katyna)
     assert_no_difference 'User.count' do
-      delete user_path(@david)
+      delete user_path(@andre)
     end
     assert_redirected_to errors_forbidden_path
   end
