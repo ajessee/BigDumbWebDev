@@ -12,8 +12,9 @@ Minitest::Reporters.use! [Minitest::Reporters::ProgressReporter.new(color: true)
 # Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new(color: true)]
 
 class ActiveSupport::TestCase
-  # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  # Run tests in parallel with specified workers - using more than one was crashing capybara
+  # parallelize(workers: :number_of_processors)
+  parallelize(workers: 1)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
