@@ -18,7 +18,7 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     assert page.find('a#add-new-comment-button', text: 'Add Comment').click
     assert page.find('form#new-comment')
     assert page.find('input#comment_first_name')
-    assert fill_in 'comment[first_name]', with: guest_first_name 
+    assert fill_in 'comment[first_name]', with: guest_first_name
     assert page.find('input#comment_last_name')
     assert fill_in 'comment[last_name]', with: guest_last_name
     assert page.find('trix-editor#comment_content')
@@ -64,7 +64,7 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     visit('/posts')
     first('a').click
     assert page.find('a#add-new-comment-button', text: 'Add Comment').click
-    assert fill_in 'comment[first_name]', with: guest_first_name 
+    assert fill_in 'comment[first_name]', with: guest_first_name
     assert fill_in 'comment[last_name]', with: guest_last_name
     assert page.find('trix-editor').click.set(guest_comment)
     assert page.find('#new-comment-submit-button').click
@@ -83,7 +83,7 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     assert page.find('form#new-user').find_field('Email')
     assert fill_in 'user[email]', with: guest_email
     assert page.find('form#new-user').find_field('Password')
-    assert fill_in 'user[password]', with: guest_password 
+    assert fill_in 'user[password]', with: guest_password
     assert page.find('form#new-user').find_field('Confirmation')
     assert fill_in 'user[password_confirmation]', with: guest_password
     assert page.find('form#new-user').find('input#new-user-submit-button').click
@@ -103,7 +103,7 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     visit('/posts')
     first('a').click
     assert page.find('a#add-new-comment-button', text: 'Add Comment').click
-    assert fill_in 'comment[first_name]', with: guest_first_name 
+    assert fill_in 'comment[first_name]', with: guest_first_name
     assert fill_in 'comment[last_name]', with: guest_last_name
     assert page.find('trix-editor').click.set(guest_comment)
     assert page.find('#new-comment-submit-button').click
@@ -116,7 +116,7 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     assert comment.content.body.to_plain_text.include? guest_comment
     assert page.find('a#add-new-comment-button', text: 'Add Comment').click
     assert page.find('button#get-edit-guest-user-button', text: 'Sign Up').click
-    assert fill_in 'user[email]', with: "a!@c.com"
+    assert fill_in 'user[email]', with: 'a!@c.com'
     assert fill_in 'user[password]', with: guest_password
     assert fill_in 'user[password_confirmation]', with: guest_password
     assert page.find('form#new-user').find('input#new-user-submit-button').click
@@ -132,7 +132,7 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     visit('/posts')
     first('a').click
     assert page.find('a#add-new-comment-button', text: 'Add Comment').click
-    assert fill_in 'comment[first_name]', with: guest_first_name 
+    assert fill_in 'comment[first_name]', with: guest_first_name
     assert fill_in 'comment[last_name]', with: guest_last_name
     assert page.find('trix-editor').click.set(guest_comment)
     assert page.find('#new-comment-submit-button').click
@@ -146,7 +146,7 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     assert page.find('a#add-new-comment-button', text: 'Add Comment').click
     assert page.find('button#get-edit-guest-user-button', text: 'Sign Up').click
     assert fill_in 'user[email]', with: guest_email
-    assert fill_in 'user[password]', with: "nope"
+    assert fill_in 'user[password]', with: 'nope'
     assert fill_in 'user[password_confirmation]', with: guest_password
     assert page.find('form#new-user').find('input#new-user-submit-button').click
     assert page.find('span.error_explanation', text: 'Password is too short')

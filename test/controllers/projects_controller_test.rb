@@ -5,7 +5,7 @@ require 'test_helper'
 class ProjectsControllerTest < ActionDispatch::IntegrationTest
   # Remember that these controller tests use fixtures instead of the data that is in the database
   # def setup
-  #   Capybara.current_driver = Capybara.javascript_driver 
+  #   Capybara.current_driver = Capybara.javascript_driver
   #   @base_title = '| BDWD'
   # end
 
