@@ -5,13 +5,25 @@ require 'test_helper'
 class UsersLoginTest < ActionDispatch::IntegrationTest
   # Remember that these controller tests use fixtures instead of the data that is in the database
   # This setup method will be called at the beginning of each test run
+  fixtures :users
+  
+  def setup
+    Capybara.current_driver = :selenium_chrome
+  end
+  
+  test 'Log in with valid credentials and then log out' do
+    andre = users(:andre)
+    login_as(andre, Rails.application.credentials.dig(:password, :admin_user_password))
+  end
+  
+  def login_as(user, password)
+    visit(login_path)
+    assert fill_in 'session[email]', with: user.email
+    assert fill_in 'session[password]', with: password
+    assert page.find('#login-user-submit-button').click
+  end
+  
   # TODO: Rewrite these integration tests using capybara
-
-  # def setup
-  #   # This uses the 'users' hash setup in the users.yml file
-  #   @andre = users(:eight)
-  # end
-
   # test 'Log in with valid credentials and then log out' do
   #   get login_path, xhr: true
   #   # check that we get javascript back

@@ -9,29 +9,51 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :selenium_chrome
   end
 
-  test 'Create guest comment with first and last name and comment' do
-    guest_first_name = 'John'
-    guest_last_name = 'BarleyCorn'
-    guest_comment = 'I really like what you\'ve done here!'
+  def create_guest
+    {
+      first_name: 'John',
+      last_name: 'BarleyCorn',
+      comment: 'I really like what you\'ve done here!',
+      email: 'john@barleycorn.com',
+      password: 'lovefarmers123'
+    }
+  end
+
+  def go_to_first_post
     visit('/posts')
     first('a').click
+  end
+
+  def fill_out_comment(guest)
+    assert fill_in 'comment[first_name]', with: guest[:first_name]
+    assert fill_in 'comment[last_name]', with: guest[:last_name]
+    assert page.find('trix-editor').click.set(guest[:comment])
+  end
+
+  def fill_out_sign_up_form(guest)
+    assert fill_in 'user[email]', with: guest[:email]
+    assert fill_in 'user[password]', with: guest[:password]
+    assert fill_in 'user[password_confirmation]', with: guest[:password]
+  end
+
+  test 'Create guest comment with first and last name and comment' do
+    guest = create_guest
+    go_to_first_post
     assert page.find('a#add-new-comment-button', text: 'Add Comment').click
     assert page.find('form#new-comment')
     assert page.find('input#comment_first_name')
-    assert fill_in 'comment[first_name]', with: guest_first_name
     assert page.find('input#comment_last_name')
-    assert fill_in 'comment[last_name]', with: guest_last_name
     assert page.find('trix-editor#comment_content')
-    assert page.find('trix-editor').click.set(guest_comment)
+    fill_out_comment(guest)
     assert page.find('#new-comment-submit-button').click
-    assert page.find('div.show-comment-body', text: guest_first_name + ' ' + guest_last_name)
-    assert page.find('div.trix-content', text: guest_comment)
+    assert page.find('div.show-comment-body', text: guest[:first_name] + ' ' + guest[:last_name])
+    assert page.find('div.trix-content', text: guest[:comment])
     guest_user = User.last
     comment = Comment.find_by(user_id: guest_user.id)
-    assert guest_user.first_name == guest_first_name
-    assert guest_user.last_name == guest_last_name
+    assert guest_user.first_name == guest[:first_name]
+    assert guest_user.last_name == guest[:last_name]
     assert guest_user.guest_1?
-    assert comment.content.body.to_plain_text.include? guest_comment
+    assert comment.content.body.to_plain_text.include? guest[:comment]
   end
 
   test 'Create guest comment with no first or last name provided' do
