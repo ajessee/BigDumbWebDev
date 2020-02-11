@@ -12,7 +12,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
   test 'Log in with valid credentials and then log out' do
-    andre = users(:andre)
+    andre = users(:one)
     login_as(andre, Rails.application.credentials.dig(:password, :admin_user_password))
   end
 

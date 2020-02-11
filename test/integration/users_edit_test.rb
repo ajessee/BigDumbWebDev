@@ -7,7 +7,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   # TODO: Rewrite these integration tests using capybara
 
   # def setup
-  #   @andre = users(:eight)
+  #   @andre = users(:one)
   # end
 
   # test 'unsuccessful edit' do

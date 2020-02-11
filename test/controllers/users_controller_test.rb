@@ -5,8 +5,8 @@ require 'test_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
   # Remember that these controller tests use fixtures instead of the data that is in the database
   def setup
-    @andre = users(:eight)
-    @katyna = users(:one)
+    @andre = users(:one)
+    @katyna = users(:two)
   end
 
   test 'should get new' do

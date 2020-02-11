@@ -6,7 +6,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   # Remember that these controller tests use fixtures instead of the data that is in the database
   # TODO: Rewrite these integration tests using capybara
   # def setup
-  #   @admin = users(:eight)
+  #   @admin = users(:one)
   #   @non_admin = users(:one)
   # end
 

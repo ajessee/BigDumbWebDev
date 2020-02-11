@@ -5,7 +5,7 @@ require 'test_helper'
 class SessionsHelperTest < ActionView::TestCase
   # Remember that these controller tests use fixtures instead of the data that is in the database
   def setup
-    @andre = users(:eight)
+    @andre = users(:one)
     remember(@andre)
   end
 
