@@ -9,7 +9,114 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :selenium_chrome
   end
 
-  def create_guest
+  test 'Create guest comment with first and last name and comment' do
+    guest = create_guest_user_info
+    go_to_first_post
+    open_comment_section
+    verify_comment_form_elements_ui
+    fill_and_submit_comment(guest)
+    verify_comment_created_correctly_ui(guest)
+    guest_user = pull_guest_user_from_database
+    comment = pull_guest_comment_from_database(guest_user)
+    validate_guest_user(guest, guest_user)
+    validate_comment_text(guest, comment)
+  end
+
+  test 'Create guest comment with no first or last name provided' do
+    guest = create_guest_user_info
+    go_to_first_post
+    open_comment_section
+    verify_comment_form_elements_ui
+    assert page.find('trix-editor').click.set(guest[:comment])
+    assert page.find('#new-comment-submit-button').click
+    assert page.find('div.show-comment-body', text: 'Anonymous Guest User')
+    assert page.find('div.trix-content', text: guest[:comment])
+    guest_user = pull_guest_user_from_database
+    comment = pull_guest_comment_from_database(guest_user)
+    assert guest_user.first_name == 'Anonymous'
+    assert guest_user.last_name == 'Guest User'
+    assert guest_user.guest_1?
+    validate_comment_text(guest, comment)
+  end
+
+  test 'Create guest comment with first and last name and comment, then sign up for full user account' do
+    guest = create_guest_user_info
+    go_to_first_post
+    open_comment_section
+    verify_comment_form_elements_ui
+    fill_and_submit_comment(guest)
+    verify_comment_created_correctly_ui(guest)
+    guest_user = pull_guest_user_from_database
+    comment = pull_guest_comment_from_database(guest_user)
+    validate_guest_user(guest, guest_user)
+    validate_comment_text(guest, comment)
+    open_comment_section
+    open_sign_up_section
+    verify_returning_guest_user_notification_ui
+    verify_guest_user_sign_up_form_ui(guest)
+    fill_in_and_submit_guest_user_signup_form(guest)
+    verify_guest_user_sign_up_submit_notification_ui
+    new_user = pull_new_user_from_database(guest)
+    validate_new_user(guest, new_user)
+  end
+
+  test 'Create guest comment with first and last name and comment, then sign up for full user account with bad email' do
+    guest = create_guest_user_info
+    go_to_first_post
+    open_comment_section
+    verify_comment_form_elements_ui
+    fill_and_submit_comment(guest)
+    verify_comment_created_correctly_ui(guest)
+    guest_user = pull_guest_user_from_database
+    comment = pull_guest_comment_from_database(guest_user)
+    validate_guest_user(guest, guest_user)
+    validate_comment_text(guest, comment)
+    open_comment_section
+    open_sign_up_section
+    verify_returning_guest_user_notification_ui
+    fill_in_and_submit_guest_user_signup_form(guest, 'a!@c.com')
+    assert page.find('span.error_explanation', text: 'Email is invalid')
+  end
+
+  test 'Create guest comment with first and last name and comment, then sign up for full user account with bad password' do
+    guest = create_guest_user_info
+    go_to_first_post
+    open_comment_section
+    verify_comment_form_elements_ui
+    fill_and_submit_comment(guest)
+    verify_comment_created_correctly_ui(guest)
+    guest_user = pull_guest_user_from_database
+    comment = pull_guest_comment_from_database(guest_user)
+    validate_guest_user(guest, guest_user)
+    validate_comment_text(guest, comment)
+    open_comment_section
+    open_sign_up_section
+    verify_returning_guest_user_notification_ui
+    fill_in_and_submit_guest_user_signup_form(guest, nil, 'short')
+    assert page.find('span.error_explanation', text: 'Password is too short')
+  end
+
+  test 'Create guest comment with first and last name and comment, then sign up for full user account with bad confirmation' do
+    guest = create_guest_user_info
+    go_to_first_post
+    open_comment_section
+    verify_comment_form_elements_ui
+    fill_and_submit_comment(guest)
+    verify_comment_created_correctly_ui(guest)
+    guest_user = pull_guest_user_from_database
+    comment = pull_guest_comment_from_database(guest_user)
+    validate_guest_user(guest, guest_user)
+    validate_comment_text(guest, comment)
+    open_comment_section
+    open_sign_up_section
+    verify_returning_guest_user_notification_ui
+    fill_in_and_submit_guest_user_signup_form(guest, nil, 'goodpassword', 'nomatch')
+    assert page.find('span.error_explanation', text: 'Password confirmation doesn\'t match Password')
+  end
+
+  private
+
+  def create_guest_user_info
     {
       first_name: 'John',
       last_name: 'BarleyCorn',
@@ -24,10 +131,19 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     first('a').click
   end
 
-  def fill_out_comment(guest)
+  def open_comment_section
+    assert page.find('a#add-new-comment-button', text: 'Add Comment').click
+  end
+
+  def open_sign_up_section
+    assert page.find('button#get-edit-guest-user-button', text: 'Sign Up').click
+  end
+
+  def fill_and_submit_comment(guest)
     assert fill_in 'comment[first_name]', with: guest[:first_name]
     assert fill_in 'comment[last_name]', with: guest[:last_name]
     assert page.find('trix-editor').click.set(guest[:comment])
+    assert page.find('#new-comment-submit-button').click
   end
 
   def fill_out_sign_up_form(guest)
@@ -36,141 +152,75 @@ class GuestUsersTest < ActionDispatch::IntegrationTest
     assert fill_in 'user[password_confirmation]', with: guest[:password]
   end
 
-  test 'Create guest comment with first and last name and comment' do
-    guest = create_guest
-    go_to_first_post
-    assert page.find('a#add-new-comment-button', text: 'Add Comment').click
+  def verify_comment_form_elements_ui
     assert page.find('form#new-comment')
     assert page.find('input#comment_first_name')
     assert page.find('input#comment_last_name')
     assert page.find('trix-editor#comment_content')
-    fill_out_comment(guest)
-    assert page.find('#new-comment-submit-button').click
+  end
+
+  def verify_comment_created_correctly_ui(guest)
     assert page.find('div.show-comment-body', text: guest[:first_name] + ' ' + guest[:last_name])
     assert page.find('div.trix-content', text: guest[:comment])
-    guest_user = User.last
-    comment = Comment.find_by(user_id: guest_user.id)
+  end
+
+  def verify_returning_guest_user_notification_ui
+    assert page.find('p.notifications-message', text: 'It looks like you\'ve made a comment before, so we\'ve stored your name to make it a little easier to sign up for an account')
+  end
+
+  def verify_guest_user_sign_up_submit_notification_ui
+    assert page.find('p.notifications-message', text: 'Thanks for submitting your information. Please check your email to activate your account.')
+  end
+
+  def verify_guest_user_sign_up_form_ui(guest)
+    if guest
+      assert page.find('form#new-user').find_field('First name').value == guest[:first_name]
+      assert page.find('form#new-user').find_field('Last name').value == guest[:last_name]
+    else
+      assert page.find('form#new-user').find_field('First name')
+      assert page.find('form#new-user').find_field('Last name')
+    end
+    assert page.find('form#new-user').find_field('Email')
+    assert page.find('form#new-user').find_field('Password')
+    assert page.find('form#new-user').find_field('Confirmation')
+  end
+
+  def fill_in_and_submit_guest_user_signup_form(guest, bad_email = nil, bad_password = nil, bad_confirmation = nil)
+    email = bad_email || guest[:email]
+    password = bad_password || guest[:password]
+    confirmation = bad_confirmation || guest[:password]
+    assert fill_in 'user[email]', with: email
+    assert fill_in 'user[password]', with: password
+    assert fill_in 'user[password_confirmation]', with: confirmation
+    assert page.find('form#new-user').find('input#new-user-submit-button').click
+  end
+
+  def pull_guest_user_from_database
+    User.last
+  end
+
+  def pull_new_user_from_database(guest)
+    User.find_by(email: guest[:email])
+  end
+
+  def pull_guest_comment_from_database(guest_user)
+    Comment.find_by(user_id: guest_user.id)
+  end
+
+  def validate_guest_user(guest, guest_user)
     assert guest_user.first_name == guest[:first_name]
     assert guest_user.last_name == guest[:last_name]
     assert guest_user.guest_1?
-    assert comment.content.body.to_plain_text.include? guest[:comment]
   end
 
-  test 'Create guest comment with no first or last name provided' do
-    guest_comment = 'I really like what you\'ve done here!'
-    visit('/posts')
-    first('a').click
-    assert page.find('a#add-new-comment-button', text: 'Add Comment').click
-    assert page.find('form#new-comment')
-    assert page.find('input#comment_first_name')
-    assert page.find('input#comment_last_name')
-    assert page.find('trix-editor#comment_content')
-    assert page.find('trix-editor').click.set(guest_comment)
-    assert page.find('#new-comment-submit-button').click
-    assert page.find('div.show-comment-body', text: 'Anonymous Guest User')
-    assert page.find('div.trix-content', text: guest_comment)
-    guest_user = User.last
-    comment = Comment.find_by(user_id: guest_user.id)
-    assert guest_user.first_name == 'Anonymous'
-    assert guest_user.last_name == 'Guest User'
-    assert guest_user.guest_1?
-    assert comment.content.body.to_plain_text.include? guest_comment
-  end
-
-  test 'Create guest comment with first and last name and comment, then sign up for full user account' do
-    guest_first_name = 'John'
-    guest_last_name = 'BarleyCorn'
-    guest_comment = 'I really like what you\'ve done here!'
-    guest_email = 'john@barleycorn.com'
-    guest_password = 'lovefarmers123'
-    visit('/posts')
-    first('a').click
-    assert page.find('a#add-new-comment-button', text: 'Add Comment').click
-    assert fill_in 'comment[first_name]', with: guest_first_name
-    assert fill_in 'comment[last_name]', with: guest_last_name
-    assert page.find('trix-editor').click.set(guest_comment)
-    assert page.find('#new-comment-submit-button').click
-    assert page.find('div.trix-content', text: guest_comment)
-    guest_user = User.last
-    comment = Comment.find_by(user_id: guest_user.id)
-    assert guest_user.first_name == guest_first_name
-    assert guest_user.last_name == guest_last_name
-    assert guest_user.guest_1?
-    assert comment.content.body.to_plain_text.include? guest_comment
-    assert page.find('a#add-new-comment-button', text: 'Add Comment').click
-    assert page.find('button#get-edit-guest-user-button', text: 'Sign Up').click
-    assert page.find('p.notifications-message', text: 'It looks like you\'ve made a comment before, so we\'ve stored your name to make it a little easier to sign up for an account')
-    assert page.find('form#new-user').find_field('First name').value == guest_first_name
-    assert page.find('form#new-user').find_field('Last name').value == guest_last_name
-    assert page.find('form#new-user').find_field('Email')
-    assert fill_in 'user[email]', with: guest_email
-    assert page.find('form#new-user').find_field('Password')
-    assert fill_in 'user[password]', with: guest_password
-    assert page.find('form#new-user').find_field('Confirmation')
-    assert fill_in 'user[password_confirmation]', with: guest_password
-    assert page.find('form#new-user').find('input#new-user-submit-button').click
-    assert page.find('p.notifications-message', text: 'Thanks for submitting your information. Please check your email to activate your account.')
-    new_user = User.find_by(email: guest_email)
-    assert new_user.first_name == guest_first_name
-    assert new_user.last_name == guest_last_name
-    assert new_user.email == guest_email
+  def validate_new_user(guest, new_user)
+    assert new_user.first_name == guest[:first_name]
+    assert new_user.last_name == guest[:last_name]
+    assert new_user.email == guest[:email]
     assert new_user.user?
   end
 
-  test 'Create guest comment with first and last name and comment, then sign up for full user account with bad email' do
-    guest_first_name = 'John'
-    guest_last_name = 'BarleyCorn'
-    guest_comment = 'I really like what you\'ve done here!'
-    guest_password = 'lovefarmers123'
-    visit('/posts')
-    first('a').click
-    assert page.find('a#add-new-comment-button', text: 'Add Comment').click
-    assert fill_in 'comment[first_name]', with: guest_first_name
-    assert fill_in 'comment[last_name]', with: guest_last_name
-    assert page.find('trix-editor').click.set(guest_comment)
-    assert page.find('#new-comment-submit-button').click
-    assert page.find('div.trix-content', text: guest_comment)
-    guest_user = User.last
-    comment = Comment.find_by(user_id: guest_user.id)
-    assert guest_user.first_name == guest_first_name
-    assert guest_user.last_name == guest_last_name
-    assert guest_user.guest_1?
-    assert comment.content.body.to_plain_text.include? guest_comment
-    assert page.find('a#add-new-comment-button', text: 'Add Comment').click
-    assert page.find('button#get-edit-guest-user-button', text: 'Sign Up').click
-    assert fill_in 'user[email]', with: 'a!@c.com'
-    assert fill_in 'user[password]', with: guest_password
-    assert fill_in 'user[password_confirmation]', with: guest_password
-    assert page.find('form#new-user').find('input#new-user-submit-button').click
-    assert page.find('span.error_explanation', text: 'Email is invalid')
-  end
-
-  test 'Create guest comment with first and last name and comment, then sign up for full user account with bad password' do
-    guest_first_name = 'John'
-    guest_last_name = 'BarleyCorn'
-    guest_comment = 'I really like what you\'ve done here!'
-    guest_email = 'john@barleycorn.com'
-    guest_password = 'lovefarmers123'
-    visit('/posts')
-    first('a').click
-    assert page.find('a#add-new-comment-button', text: 'Add Comment').click
-    assert fill_in 'comment[first_name]', with: guest_first_name
-    assert fill_in 'comment[last_name]', with: guest_last_name
-    assert page.find('trix-editor').click.set(guest_comment)
-    assert page.find('#new-comment-submit-button').click
-    assert page.find('div.trix-content', text: guest_comment)
-    guest_user = User.last
-    comment = Comment.find_by(user_id: guest_user.id)
-    assert guest_user.first_name == guest_first_name
-    assert guest_user.last_name == guest_last_name
-    assert guest_user.guest_1?
-    assert comment.content.body.to_plain_text.include? guest_comment
-    assert page.find('a#add-new-comment-button', text: 'Add Comment').click
-    assert page.find('button#get-edit-guest-user-button', text: 'Sign Up').click
-    assert fill_in 'user[email]', with: guest_email
-    assert fill_in 'user[password]', with: 'nope'
-    assert fill_in 'user[password_confirmation]', with: guest_password
-    assert page.find('form#new-user').find('input#new-user-submit-button').click
-    assert page.find('span.error_explanation', text: 'Password is too short')
+  def validate_comment_text(guest, comment)
+    assert comment.content.body.to_plain_text.include? guest[:comment]
   end
 end

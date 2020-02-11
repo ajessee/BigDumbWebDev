@@ -6,7 +6,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   # Remember that these controller tests use fixtures instead of the data that is in the database
   def setup
     @andre = users(:one)
-    @katyna = users(:two)
+    @natalya = users(:three)
   end
 
   test 'should get new' do
@@ -27,13 +27,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should redirect edit to forbidden path when logged in as wrong user' do
-    log_in_as(@katyna)
+    log_in_as(@natalya)
     get edit_user_path(@andre)
     assert_redirected_to errors_unauthorized_path
   end
 
   test 'should redirect update to forbidden path when logged in as wrong user' do
-    log_in_as(@katyna)
+    log_in_as(@natalya)
     patch user_path(@andre),
           params: { user: { name: @andre.name,
                             email: @andre.email } }
@@ -46,16 +46,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not allow the admin attribute to be edited via the web' do
-    log_in_as(@katyna)
-    assert_not @katyna.admin?
-    patch user_path(@katyna),
+    log_in_as(@natalya)
+    assert_not @natalya.admin?
+    patch user_path(@natalya),
           xhr: true,
           params: {
             user: { password: 'password',
                     password_confirmation: 'password',
                     role: 'admin' }
           }
-    assert_not @katyna.admin?
+    assert_not @natalya.admin?
   end
 
   test 'should redirect to forbidden path when user is not admin and tries to destroy user' do
@@ -66,7 +66,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should redirect destroy when logged in as a non-admin' do
-    log_in_as(@katyna)
+    log_in_as(@natalya)
     assert_no_difference 'User.count' do
       delete user_path(@andre)
     end
