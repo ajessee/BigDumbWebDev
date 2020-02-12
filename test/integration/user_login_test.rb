@@ -46,9 +46,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert find('input#session_password')
     assert fill_in 'session[email]', with: user.email
     assert fill_in 'session[password]', with: password
-    if remember
-      assert find('div.slider.round').click
-    end
+    assert find('div.slider.round').click if remember
     assert find('#login-user-submit-button').click
   end
 
@@ -69,8 +67,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert find('form#login-user')
     email_input_field = find('input#session_email')
     password_input_field = find('input#session_password')
-    assert email_input_field.value == ""
-    assert password_input_field.value == ""
+    assert email_input_field.value == ''
+    assert password_input_field.value == ''
     session_cookie_decrypt = fetch_session_cookie
     assert_not session_cookie_decrypt['user_id']
   end
@@ -86,8 +84,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     session_cookie_decrypt = fetch_session_cookie
     assert_not session_cookie_decrypt['user_id']
     if remember
-      assert page.driver.browser.manage.all_cookies.select {|cookie| cookie[:name] == "remember_token"}.empty?
-      assert page.driver.browser.manage.all_cookies.select {|cookie| cookie[:name] == "user_id"}.empty?
+      assert page.driver.browser.manage.all_cookies.select { |cookie| cookie[:name] == 'remember_token' }.empty?
+      assert page.driver.browser.manage.all_cookies.select { |cookie| cookie[:name] == 'user_id' }.empty?
     end
   end
 
@@ -95,5 +93,4 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     session_cookie = page.driver.browser.manage.cookie_named('_big_dumb_web_dev_session')[:value]
     verify_and_decrypt_session_cookie(session_cookie)
   end
-
 end
