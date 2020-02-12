@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
     clear_location
     store_message(
       title: 'Success',
-      message: 'Logged Out',
+      message: 'You\'ve been successfully logged out of your account',
       type: 'success'
     )
     redirect_to @location
