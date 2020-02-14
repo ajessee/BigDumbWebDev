@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'application_system_test_case'
 
 class UserLoginsTest < ApplicationSystemTestCase
-
   test 'Log in with valid credentials and then log out' do
     andre = users(:one)
     log_in_as(andre, Rails.application.credentials.dig(:password, :admin_user_password))
@@ -23,5 +24,4 @@ class UserLoginsTest < ApplicationSystemTestCase
     logout
     validate_user_logged_out(true)
   end
-
 end

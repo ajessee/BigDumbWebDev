@@ -1,5 +1,6 @@
-module UserSignup
+# frozen_string_literal: true
 
+module UserSignup
   def open_sign_up_section(guest)
     if guest
       assert find('button#get-edit-guest-user-button', text: 'Sign Up').click

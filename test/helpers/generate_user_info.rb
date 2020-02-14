@@ -1,5 +1,6 @@
-module GenerateUserInfo
+# frozen_string_literal: true
 
+module GenerateUserInfo
   def create_user_info
     {
       first_name: Faker::Name.first_name,
@@ -9,5 +10,4 @@ module GenerateUserInfo
       password: Faker::Lorem.characters(number: 10, min_alpha: 4)
     }
   end
-  
 end

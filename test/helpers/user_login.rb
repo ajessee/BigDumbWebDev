@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 module UserLogin
-  
   def log_in_as(user, password, remember = false)
     visit(login_path)
     assert find('div.modal-content')

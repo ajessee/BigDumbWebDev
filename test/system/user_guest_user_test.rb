@@ -1,7 +1,8 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class UsersGuestsTest < ApplicationSystemTestCase
-
   test 'Create guest comment with first and last name and comment' do
     guest = create_user_info
     go_to_first_post
@@ -140,8 +141,6 @@ class UsersGuestsTest < ApplicationSystemTestCase
   def verify_returning_guest_user_notification_ui
     assert find('p.notifications-message', text: 'It looks like you\'ve made a comment before, so we\'ve stored your name to make it a little easier to sign up for an account')
   end
-
-
 
   def pull_guest_comment_from_database(guest_user)
     Comment.find_by(user_id: guest_user.id)

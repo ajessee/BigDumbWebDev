@@ -61,8 +61,8 @@ group :development do
 end
 
 group :test do
-  gem 'minitest-reporters'
-  gem 'webdrivers'
   gem 'capybara'
   gem 'capybara-email'
+  gem 'minitest-reporters'
+  gem 'webdrivers'
 end
