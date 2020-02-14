@@ -1,44 +1,6 @@
-# frozen_string_literal: true
-
-require 'cgi'
-require 'json'
-require 'active_support'
-require 'openssl'
-
-require 'test_helper'
-
-class UsersLoginTest < ActionDispatch::IntegrationTest
-  # Remember that these controller tests use fixtures instead of the data that is in the database
-  # This setup method will be called at the beginning of each test run
-  fixtures :users
-
-  def setup
-    Capybara.current_driver = :selenium_chrome
-  end
-
-  test 'Log in with valid credentials and then log out' do
-    andre = users(:one)
-    login_as(andre, Rails.application.credentials.dig(:password, :admin_user_password))
-    validate_user_logged_in(andre)
-    logout
-    validate_user_logged_out
-  end
-
-  test 'Log in with invalid credentials' do
-    andre = users(:one)
-    login_as(andre, 'bad_password')
-    validate_user_logged_in_failed
-  end
-
-  test 'login with remembering and then log out' do
-    andre = users(:one)
-    login_as(andre, Rails.application.credentials.dig(:password, :admin_user_password), true)
-    validate_user_logged_in(andre, true)
-    logout
-    validate_user_logged_out(true)
-  end
-
-  def login_as(user, password, remember = false)
+module UserLogin
+  
+  def log_in_as(user, password, remember = false)
     visit(login_path)
     assert find('div.modal-content')
     assert find('form#login-user')
@@ -87,6 +49,10 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
       assert page.driver.browser.manage.all_cookies.select { |cookie| cookie[:name] == 'remember_token' }.empty?
       assert page.driver.browser.manage.all_cookies.select { |cookie| cookie[:name] == 'user_id' }.empty?
     end
+  end
+
+  def validate_user_account_not_activated_notification_ui
+    assert find('p.notifications-message', text: 'Check your email for the activation link and try again')
   end
 
   def fetch_session_cookie
