@@ -205,6 +205,7 @@ const loadPostAutoSaver = function() {
           if (userConfirm) {
             localStorage.removeItem(window.utils.postAutoSaver.blogId);
             this.hasUnsavedChanges = false;
+            window.utils.navigation.toggleNavButton(true);
           } else {
             window.utils.postAutoSaver.openModal();
             window.utils.modal.diffModal.insertAdjacentHTML('beforeend', response.partial);

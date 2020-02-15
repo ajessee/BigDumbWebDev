@@ -4,40 +4,39 @@ const setUpNav = () => {
 
   const nav = {
     mobileView: window.matchMedia('(max-width : 767px)').matches,
+    prevScrollpos: window.pageYOffset,
+    firstChromeAutoScroll: 2,
 
     onScroll: function (mainPage) {
-      let offsetHeight,
-          bounding,
-          boundingTop;
 
-      // This determines at what scrollY coordinate the nav will show / shrink. Conditional on main page or nah.
-      if (mainPage) {
-        offsetHeight = this.aboutMeContainer.offsetHeight;
-        bounding = this.aboutMeContainer.getBoundingClientRect();
-        boundingTop = bounding.top;
-      } else {
+        if (this.firstChromeAutoScroll) {
+          this.firstChromeAutoScroll -= 1;
+          return;
+        }
 
-      }
+        let currentScrollPos = window.pageYOffset;
+        if (this.prevScrollpos > currentScrollPos) {
+          this.navButtonContainer.style.top = "0";
+        } else {
+          this.navButtonContainer.style.top = "-20%";
+        }
+        this.prevScrollpos = currentScrollPos;
 
-      if (offsetHeight + boundingTop < 100 && this.slideInMenu.classList.contains('menu-closed')) {
-        this.navButtonContainer.style.display = "block";
-      } else  {
-        this.navButtonContainer.style.display = "none";
-      }
+        if (currentScrollPos == 0){
+          this.navButtonContainer.style.top = "-20%";
+        } 
     },
 
     slideInMenuToggle: function () {
       if (this.slideInMenu.classList.contains('menu-closed')) {
         this.slideInMenu.classList.remove('menu-closed');
-        this.slideInMenu.style.boxShadow ='-7px 0px 22px 0px rgba(0,0,0,0.3)';
-        this.navButtonContainer.style.display = 'none';
+        this.slideInMenu.style.boxShadow = '-7px 0px 22px 0px rgba(0,0,0,0.3)';
         this.closeNavMenuButton.style.display = 'block';
         this.navMenuOpen = true;
       } else {
         this.slideInMenu.classList.add('menu-closed');
         this.closeNavMenuButton.style.display = 'none';
         this.navMenuOpen = false;
-        
       }
     },
 
@@ -54,11 +53,11 @@ const setUpNav = () => {
       });
     },
 
-    toggleNavButton : function (show) {
+    toggleNavButton: function (show) {
       if (show) {
-        this.navButtonContainer.style.display = "block";
+        this.navButtonContainer.style.top = "0";
       } else {
-        this.navButtonContainer.style.display = "none";
+        this.navButtonContainer.style.top = "-20%";
       }
     },
 
@@ -72,35 +71,42 @@ const setUpNav = () => {
       this.slideInMenu.addEventListener("transitionend", function (e) {
         if (self.slideInMenu.classList.contains('menu-closed') && e.propertyName !== "filter") {
           self.slideInMenu.style.boxShadow = 'none';
-          self.navButtonContainer.style.display = 'block';
         }
       });
 
       this.navButtonContainer.addEventListener("click", function (e) {
+        self.navButtonContainer.style.transition = "left 0.3s";
+        self.navButtonContainer.style.left = "-20%";
         self.slideInMenuToggle();
       });
-      this.closeNavMenuButton.addEventListener("click", function(e){
+      this.closeNavMenuButton.addEventListener("click", function (e) {
+        self.navButtonContainer.style.transition = "left 0.5s";
+        self.navButtonContainer.style.left = "0";
+          self.navButtonContainer.addEventListener("transitionend", function (e) {
+            self.navButtonContainer.style.transition = "top 0.6s";
+          }, {once: true})
         self.slideInMenuToggle();
       })
-     
+
       if (this.aboutMeContainer) {
         this.setupScrollTo(['projects', 'blog']);
-        document.addEventListener("scroll", function (e) {
-          self.onScroll(true);
-        });
       } else if (this.httpErrorContainer) {
         return;
-      } else {
-        this.navButtonContainer.style.display = "block";
+      }
+      window.addEventListener("scroll", function (e) {
+        self.onScroll(true);
+      });
+      if (window.innerHeight === document.body.scrollHeight) {
+        this.toggleNavButton(true);
       }
 
     }
   };
   nav.init();
-    // If we've redirected a user to the root path with login === true params, click the login link.
-    if (document.querySelector("#nav-menu-login") && window.utils.getUrlVars().login === "true") {
-      document.querySelector("#nav-menu-login a").click();
-    }
+  // If we've redirected a user to the root path with login === true params, click the login link.
+  if (document.querySelector("#nav-menu-login") && window.utils.getUrlVars().login === "true") {
+    document.querySelector("#nav-menu-login a").click();
+  }
 
   window.utils.navigation = nav;
 }

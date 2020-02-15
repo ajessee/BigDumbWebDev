@@ -1,50 +1,50 @@
-<div class="diff-container" data-new-post="<% if newPost %>true<% else %>false<% end %>">
-  <h1 id="diff-header">Unsaved changes found. <% if !newPost %>You can restore the unsaved changes or use the last saved verison.<% else %>Please click 'Restore Unsaved Changes' or click the 'X' to discard your unsaved changes.<% end %></h1>
+<div class="diff-container" data-new-post="<% if new_post %>true<% else %>false<% end %>">
+  <h1 id="diff-header">Unsaved changes found. <% if !new_post %>You can restore the unsaved changes or use the last saved verison.<% else %>Please click 'Restore Unsaved Changes' or click the 'X' to discard your unsaved changes.<% end %></h1>
   <div id="saved-version-controls">
       <h3 id="saved-diff-header">Unsaved Changes:</h3>
       <button id="use-saved-version-button" class="submit-close-buttons submit-button">Restore Unsaved Changes</button>
   </div>
   <div id="saved-version">
-    <% if !titleDiffEmpty %>
-      <p class="title-diff">Title: <%= raw titleDiff.right %></p>
+    <% if !title_diff_empty %>
+      <p class="title-diff">Title: <%= raw title_diff.right %></p>
     <% end %>
-    <% if !contentDiffEmpty  %>
+    <% if !content_diff_empty  %>
       <p>Editor:</p>
       <form class="content-diff-display">
           <input id="saved-content-input" type="hidden" name="content">
           <trix-editor id="saved-content-trix" contenteditable="false"></trix-editor>
       </form>
-      <p>HTML diff: <%= raw contentDiff.right %></p>
+      <p>HTML diff: <%= raw content_diff.right %></p>
     <% end %>
-    <% if !tagsDiffEmpty  %>
-      <p class="tags-diff">Tags: <%= raw tagsDiff.right %></p>
+    <% if !tags_diff_empty  %>
+      <p class="tags-diff">Tags: <%= raw tags_diff.right %></p>
     <% end %>
-    <% if !publishedDiffEmpty %>
-      <p class="published-diff">Published: <%= raw publishedDiff.right %></p>
+    <% if !published_diff_empty %>
+      <p class="published-diff">Published: <%= raw published_diff.right %></p>
     <% end %>
   </div>
-  <% if !newPost %>
+  <% if !new_post %>
   <div id="current-version-controls">
     <h3 id="current-diff-header">Saved Version:</h3>
     <button id="use-current-version-button" class="submit-close-buttons submit-button">Use Saved Version</button>
   </div>
   <div id="current-version">
-    <% if !titleDiffEmpty %>
-      <p class="title-diff">Title: <%= raw titleDiff.left %></p>
+    <% if !title_diff_empty %>
+      <p class="title-diff">Title: <%= raw title_diff.left %></p>
     <% end %>
-    <% if !contentDiffEmpty  %>
+    <% if !content_diff_empty  %>
       <p>Editor:</p>
       <form class="content-diff-display">
           <input id="current-content-input" type="hidden" name="content">
           <trix-editor id="current-content-trix" contenteditable="false"></trix-editor>
       </form>
-      <p>HTML diff: <%= raw contentDiff.left %></p>
+      <p>HTML diff: <%= raw content_diff.left %></p>
     <% end %>
-    <% if !tagsDiffEmpty  %>
-      <p class="tags-diff">Tags: <%= raw tagsDiff.left %></p>
+    <% if !tags_diff_empty  %>
+      <p class="tags-diff">Tags: <%= raw tags_diff.left %></p>
     <% end %>
-    <% if !publishedDiffEmpty %>
-      <p class="published-diff">Published: <%= raw publishedDiff.left %></p>
+    <% if !published_diff_empty %>
+      <p class="published-diff">Published: <%= raw published_diff.left %></p>
     <% end %>
   </div>
   <% end %>

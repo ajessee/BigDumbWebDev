@@ -1,11 +1,12 @@
 #nav-button-container {
-    display: none;
+    display: block;
     position: fixed;
     z-index: 7;
-    top: 0;
+    top: -10%;
     left: 0;
     margin-left: 2%;
     margin-top: 2%;
+    transition: top 0.5s; /* Transition effect when sliding down (and up) */
 }
 
 #nav-button {
