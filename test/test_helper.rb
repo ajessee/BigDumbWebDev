@@ -18,7 +18,7 @@ end
 
 class ActionDispatch::IntegrationTest
   # Make `assert_*` methods behave like Minitest assertions
-  
+
   # Integration test helper methods:
   # def logged_in?
   #   !session[:user_id].nil?
