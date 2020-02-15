@@ -48,16 +48,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if flash[:success]
       store_message(
-        title: 'Account Activated',
+        title: flash[:success],
         message: "Welcome to Big Dumb Web Dev #{@user.first_name}!",
         type: 'success'
-      )
-      flash.clear
-    elsif flash[:error_message]
-      store_message(
-        title: 'Invalid activation link',
-        message: "Sorry, that didn't work. Please contact andre@bigdumbwebdev.com.",
-        type: 'failure'
       )
       flash.clear
     end

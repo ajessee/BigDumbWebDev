@@ -68,7 +68,7 @@ class UsersGuestsTest < ApplicationSystemTestCase
     open_comment_section
     open_sign_up_section(true)
     verify_returning_guest_user_notification_ui
-    fill_in_and_submit_user_signup_form(guest, false, 'a!@c.com')
+    fill_in_and_submit_user_signup_form(guest, false, nil, nil, 'a!@c.com')
     assert find('span.error_explanation', text: 'Email is invalid')
   end
 
@@ -86,7 +86,7 @@ class UsersGuestsTest < ApplicationSystemTestCase
     open_comment_section
     open_sign_up_section(true)
     verify_returning_guest_user_notification_ui
-    fill_in_and_submit_user_signup_form(guest, false, nil, 'short')
+    fill_in_and_submit_user_signup_form(guest, false, nil, nil, nil, 'short')
     assert find('span.error_explanation', text: 'Password is too short')
   end
 
@@ -104,7 +104,7 @@ class UsersGuestsTest < ApplicationSystemTestCase
     open_comment_section
     open_sign_up_section(true)
     verify_returning_guest_user_notification_ui
-    fill_in_and_submit_user_signup_form(guest, false, nil, 'goodpassword', 'nomatch')
+    fill_in_and_submit_user_signup_form(guest, false, nil, nil, nil, 'goodpassword', 'nomatch')
     assert find('span.error_explanation', text: 'Password confirmation doesn\'t match Password')
   end
 

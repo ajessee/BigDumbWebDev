@@ -11,13 +11,15 @@ module UserSignup
     end
   end
 
-  def fill_in_and_submit_user_signup_form(user, fill_names = true, bad_email = nil, bad_password = nil, bad_confirmation = nil)
+  def fill_in_and_submit_user_signup_form(user, fill_names = true, bad_first_name = nil, bad_last_name = nil, bad_email = nil, bad_password = nil, bad_confirmation = nil)
+    first_name = bad_first_name || user[:first_name]
+    last_name = bad_last_name || user[:last_name]
     email = bad_email || user[:email]
     password = bad_password || user[:password]
     confirmation = bad_confirmation || user[:password]
     if fill_names
-      assert fill_in 'user[first_name]', with: user[:first_name]
-      assert fill_in 'user[last_name]', with: user[:last_name]
+      assert fill_in 'user[first_name]', with: first_name
+      assert fill_in 'user[last_name]', with: last_name
     end
     assert fill_in 'user[email]', with: email
     assert fill_in 'user[password]', with: password
@@ -44,6 +46,10 @@ module UserSignup
 
   def verify_user_sign_up_success_notification_ui(user)
     assert find('p.notifications-message', text: "Welcome to Big Dumb Web Dev #{user.first_name}!")
+  end
+
+  def verify_user_sign_up_invalid_activation_link
+    assert find('p.notifications-message', text: "Sorry, that didn't work. Please contact andre@bigdumbwebdev.com")
   end
 
   def pull_latest_user_from_database

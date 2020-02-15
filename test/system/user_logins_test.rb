@@ -17,7 +17,7 @@ class UserLoginsTest < ApplicationSystemTestCase
     validate_user_logged_in_failed
   end
 
-  test 'login with remembering and then log out' do
+  test 'Login with remembering and then log out' do
     andre = users(:one)
     log_in_as(andre, Rails.application.credentials.dig(:password, :admin_user_password), true)
     validate_user_logged_in(andre, true)
