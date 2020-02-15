@@ -83,7 +83,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     open_sign_up_section(false)
     verify_guest_user_sign_up_form_ui
     fill_in_and_submit_user_signup_form(new_user)
-    assert page.find("input#user_first_name").native.attribute("validationMessage") == "Please fill out this field."
+    assert page.find('input#user_first_name').native.attribute('validationMessage') == 'Please fill out this field.'
   end
 
   test 'User signup fails when no last name input' do
@@ -92,7 +92,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     open_sign_up_section(false)
     verify_guest_user_sign_up_form_ui
     fill_in_and_submit_user_signup_form(new_user)
-    assert page.find("input#user_last_name").native.attribute("validationMessage") == "Please fill out this field."
+    assert page.find('input#user_last_name').native.attribute('validationMessage') == 'Please fill out this field.'
   end
 
   test 'User signup fails when no first or last name input' do
@@ -101,8 +101,8 @@ class UserSignupsTest < ApplicationSystemTestCase
     open_sign_up_section(false)
     verify_guest_user_sign_up_form_ui
     fill_in_and_submit_user_signup_form(new_user)
-    assert page.find("input#user_first_name").native.attribute("validationMessage") == "Please fill out this field."
-    assert page.find("input#user_last_name").native.attribute("validationMessage") == "Please fill out this field."
+    assert page.find('input#user_first_name').native.attribute('validationMessage') == 'Please fill out this field.'
+    assert page.find('input#user_last_name').native.attribute('validationMessage') == 'Please fill out this field.'
   end
 
   test 'User signup fails when all fields blank input' do
@@ -111,11 +111,11 @@ class UserSignupsTest < ApplicationSystemTestCase
     open_sign_up_section(false)
     verify_guest_user_sign_up_form_ui
     fill_in_and_submit_user_signup_form(new_user)
-    assert page.find("input#user_first_name").native.attribute("validationMessage") == "Please fill out this field."
-    assert page.find("input#user_last_name").native.attribute("validationMessage") == "Please fill out this field."
-    assert page.find("input#user_email").native.attribute("validationMessage") == "Please fill out this field."
-    assert page.find("input#user_password").native.attribute("validationMessage") == "Please fill out this field."
-    assert page.find("input#user_password_confirmation").native.attribute("validationMessage") == "Please fill out this field."
+    assert page.find('input#user_first_name').native.attribute('validationMessage') == 'Please fill out this field.'
+    assert page.find('input#user_last_name').native.attribute('validationMessage') == 'Please fill out this field.'
+    assert page.find('input#user_email').native.attribute('validationMessage') == 'Please fill out this field.'
+    assert page.find('input#user_password').native.attribute('validationMessage') == 'Please fill out this field.'
+    assert page.find('input#user_password_confirmation').native.attribute('validationMessage') == 'Please fill out this field.'
   end
 
   test 'User signup fails when no email input' do
@@ -124,7 +124,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     open_sign_up_section(false)
     verify_guest_user_sign_up_form_ui
     fill_in_and_submit_user_signup_form(new_user)
-    assert page.find("input#user_email").native.attribute("validationMessage") == "Please fill out this field."
+    assert page.find('input#user_email').native.attribute('validationMessage') == 'Please fill out this field.'
   end
 
   test 'User signup fails when bad email input' do
@@ -142,7 +142,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     open_sign_up_section(false)
     verify_guest_user_sign_up_form_ui
     fill_in_and_submit_user_signup_form(new_user)
-    assert page.find("input#user_password").native.attribute("validationMessage") == "Please fill out this field."
+    assert page.find('input#user_password').native.attribute('validationMessage') == 'Please fill out this field.'
   end
 
   test 'User signup fails when bad password input' do

@@ -13,7 +13,7 @@ module GenerateUserInfo
 
   def create_user_info_with_missing_first_name
     {
-      first_name: "",
+      first_name: '',
       last_name: Faker::Name.last_name,
       comment: Faker::Hipster.sentence,
       email: Faker::Internet.email,
@@ -24,7 +24,7 @@ module GenerateUserInfo
   def create_user_info_with_missing_last_name
     {
       first_name: Faker::Name.first_name,
-      last_name: "",
+      last_name: '',
       comment: Faker::Hipster.sentence,
       email: Faker::Internet.email,
       password: Faker::Lorem.characters(number: 10, min_alpha: 4)
@@ -33,8 +33,8 @@ module GenerateUserInfo
 
   def create_user_info_with_missing_first_and_last_name
     {
-      first_name: "",
-      last_name: "",
+      first_name: '',
+      last_name: '',
       comment: Faker::Hipster.sentence,
       email: Faker::Internet.email,
       password: Faker::Lorem.characters(number: 10, min_alpha: 4)
@@ -43,11 +43,11 @@ module GenerateUserInfo
 
   def create_user_info_with_everything_blank
     {
-      first_name: "",
-      last_name: "",
-      comment: "",
-      email: "",
-      password: ""
+      first_name: '',
+      last_name: '',
+      comment: '',
+      email: '',
+      password: ''
     }
   end
 
@@ -56,7 +56,7 @@ module GenerateUserInfo
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       comment: Faker::Hipster.sentence,
-      email: "",
+      email: '',
       password: Faker::Lorem.characters(number: 10, min_alpha: 4)
     }
   end
@@ -77,7 +77,7 @@ module GenerateUserInfo
       last_name: Faker::Name.last_name,
       comment: Faker::Hipster.sentence,
       email: Faker::Internet.email,
-      password: ""
+      password: ''
     }
   end
 
