@@ -6,6 +6,16 @@ const setUp3D = () => {
     // the iFrame has loaded
     const threeD = {
 
+      centerIFrame: function() {
+        window.parent.document.querySelector('#scroll3d-iframe').addEventListener("mouseenter", function(e){
+          if (window.parent.scrollY !== this.offsetTop )
+          window.parent.scrollTo({
+            top: this.offsetTop - 50,
+            behavior: 'smooth'
+          });
+        });
+      },
+
       moveCamera: function() {
         document.documentElement.querySelector('.viewport').style.backgroundColor = "#c5cdd8";
         document.documentElement.style.setProperty("--cameraZ", window.pageYOffset);
@@ -120,6 +130,7 @@ const setUp3D = () => {
           });
           window.addEventListener("mousemove", this.moveCameraAngle.bind(this));
           this.setSceneHeight();
+          this.centerIFrame();
         }
       }
     }
