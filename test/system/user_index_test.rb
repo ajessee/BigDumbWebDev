@@ -10,6 +10,7 @@ class UserIndexTest < ApplicationSystemTestCase
     @non_admin = User.create!(first_name: @non_admin_info[:first_name], last_name: @non_admin_info[:last_name], email: @non_admin_info[:email], password: @non_admin_info[:password], password_confirmation: @non_admin_info[:password_confirmation])
   end
 
+  # Happy path
   test 'Login as admin user and delete non admin user' do
     log_in_as(@andre, Rails.application.credentials.dig(:password, :admin_user_password))
     validate_user_logged_in(@andre)
@@ -23,6 +24,7 @@ class UserIndexTest < ApplicationSystemTestCase
     assert new_user_count == existing_user_count - 1
   end
 
+  # Error cases
   test 'index as non-admin' do
     log_in_as(@non_admin, @non_admin_info[:password])
     visit(users_path)

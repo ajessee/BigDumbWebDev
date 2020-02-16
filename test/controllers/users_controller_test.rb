@@ -28,13 +28,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test 'should redirect edit to forbidden path when logged in as wrong user' do
-  #   log_in_as(@natalya)
+  #   login_as(@natalya)
   #   get edit_user_path(@andre)
   #   assert_redirected_to errors_unauthorized_path
   # end
 
   # test 'should redirect update to forbidden path when logged in as wrong user' do
-  #   log_in_as(@natalya)
+  #   login_as(@natalya)
   #   patch user_path(@andre),
   #         params: { user: { name: @andre.name,
   #                           email: @andre.email } }
@@ -47,7 +47,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test 'should not allow the admin attribute to be edited via the web' do
-  #   log_in_as(@natalya)
+  #   login_as(@natalya)
   #   assert_not @natalya.admin?
   #   patch user_path(@natalya),
   #         xhr: true,
@@ -67,7 +67,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   # end
 
   # test 'should redirect destroy when logged in as a non-admin' do
-  #   log_in_as(@natalya)
+  #   login_as(@natalya)
   #   assert_no_difference 'User.count' do
   #     delete user_path(@andre)
   #   end

@@ -7,11 +7,12 @@ class UserSignupsTest < ApplicationSystemTestCase
     ActionMailer::Base.deliveries.clear
   end
 
+  # Happy path
   test 'User signup and account activation succeed when valid signup information input and user clicks link in signup email' do
     new_user = create_user_info
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     verify_user_sign_up_submit_notification_ui
     assert_equal 1, ActionMailer::Base.deliveries.size
@@ -31,11 +32,12 @@ class UserSignupsTest < ApplicationSystemTestCase
     assert session_cookie_decrypt['user_id']
   end
 
+  # Error cases
   test 'Account activation fails when passed invalid activation token' do
     new_user = create_user_info
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     verify_user_sign_up_submit_notification_ui
     assert_equal 1, ActionMailer::Base.deliveries.size
@@ -48,7 +50,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     current_email.click_link 'here'
     assert find('#main-body-container')
     assert page.current_path == '/'
-    verify_user_sign_up_invalid_activation_link
+    verify_user_sign_up_invalid_activation_link_ui
     assert_not user.reload.activated?
     session_cookie_decrypt = fetch_session_cookie
     assert_not session_cookie_decrypt['user_id']
@@ -58,7 +60,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     verify_user_sign_up_submit_notification_ui
     assert_equal 1, ActionMailer::Base.deliveries.size
@@ -71,7 +73,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     current_email.click_link 'here'
     assert find('#main-body-container')
     assert page.current_url == "http://localhost:#{Capybara.server_port}/"
-    verify_user_sign_up_invalid_activation_link
+    verify_user_sign_up_invalid_activation_link_ui
     assert_not user.reload.activated?
     session_cookie_decrypt = fetch_session_cookie
     assert_not session_cookie_decrypt['user_id']
@@ -81,7 +83,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info_with_missing_first_name
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     assert page.find('input#user_first_name').native.attribute('validationMessage') == 'Please fill out this field.'
   end
@@ -90,7 +92,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info_with_missing_last_name
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     assert page.find('input#user_last_name').native.attribute('validationMessage') == 'Please fill out this field.'
   end
@@ -99,7 +101,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info_with_everything_blank
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     assert page.find('input#user_first_name').native.attribute('validationMessage') == 'Please fill out this field.'
     assert page.find('input#user_last_name').native.attribute('validationMessage') == 'Please fill out this field.'
@@ -109,7 +111,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info_with_everything_blank
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     assert page.find('input#user_first_name').native.attribute('validationMessage') == 'Please fill out this field.'
     assert page.find('input#user_last_name').native.attribute('validationMessage') == 'Please fill out this field.'
@@ -122,7 +124,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info_with_missing_email
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     assert page.find('input#user_email').native.attribute('validationMessage') == 'Please fill out this field.'
   end
@@ -131,7 +133,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info_with_invalid_email
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     assert find('span.error_explanation', text: 'Email is invalid')
   end
@@ -140,7 +142,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info_with_missing_password
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     assert page.find('input#user_password').native.attribute('validationMessage') == 'Please fill out this field.'
   end
@@ -149,7 +151,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info_with_invalid_password
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
     assert find('span.error_explanation', text: 'Password is too short (minimum is 8 characters)')
   end
@@ -158,7 +160,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info_with_invalid_password
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user, true, nil, nil, nil, nil, 'notamatch1')
     assert find('span.error_explanation', text: 'Password is too short (minimum is 8 characters)')
     assert find('span.error_explanation', text: 'Password confirmation doesn\'t match Password')
@@ -168,7 +170,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user, true, nil, nil, nil, nil, 'notamatch1')
     assert find('span.error_explanation', text: 'Password confirmation doesn\'t match Password')
   end
@@ -177,7 +179,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     new_user = create_user_info
     visit(root_path)
     open_sign_up_section(false)
-    verify_guest_user_sign_up_form_ui
+    verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user, true, nil, nil, nil, nil, '')
   end
 end

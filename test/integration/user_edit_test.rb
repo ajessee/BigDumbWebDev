@@ -9,24 +9,6 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   # def setup
   #   @andre = users(:one)
   # end
-
-  # test 'unsuccessful edit' do
-  #   log_in_as(@andre)
-  #   get edit_user_path(@andre), xhr: true
-  #   assert_equal 'text/html; charset=utf-8', @response.content_type
-  #   assert_template 'users/_edit'
-  #   patch user_path(@andre),
-  #         xhr: true,
-  #         params: { user: { first_name: '',
-  #                           last_name: '',
-  #                           email: 'foo@invalid',
-  #                           password: 'foo',
-  #                           password_confirmation: 'bar' } }
-
-  #   assert_template 'users/_edit'
-  #   assert_template 'shared/_single_user_error_message'
-  # end
-
   # test 'successful edit' do
   #   log_in_as(@andre)
   #   get edit_user_path(@andre), xhr: true
@@ -49,6 +31,24 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   #   assert_equal last_name, @andre.last_name
   #   assert_equal email, @andre.email
   # end
+
+  # test 'unsuccessful edit' do
+  #   log_in_as(@andre)
+  #   get edit_user_path(@andre), xhr: true
+  #   assert_equal 'text/html; charset=utf-8', @response.content_type
+  #   assert_template 'users/_edit'
+  #   patch user_path(@andre),
+  #         xhr: true,
+  #         params: { user: { first_name: '',
+  #                           last_name: '',
+  #                           email: 'foo@invalid',
+  #                           password: 'foo',
+  #                           password_confirmation: 'bar' } }
+
+  #   assert_template 'users/_edit'
+  #   assert_template 'shared/_single_user_error_message'
+  # end
+
 
   # test 'successful edit with friendly forwarding' do
   #   get edit_user_path(@andre)

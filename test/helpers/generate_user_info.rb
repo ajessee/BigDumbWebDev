@@ -5,6 +5,16 @@ module GenerateUserInfo
     {
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
+      details: Faker::Quote.most_interesting_man_in_the_world,
+      email: Faker::Internet.email,
+      password: Faker::Lorem.characters(number: 10, min_alpha: 4)
+    }
+  end
+
+  def create_user_info_with_comment
+    {
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
       comment: Faker::Hipster.sentence,
       email: Faker::Internet.email,
       password: Faker::Lorem.characters(number: 10, min_alpha: 4)

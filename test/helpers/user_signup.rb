@@ -29,17 +29,32 @@ module UserSignup
     assert find('form#new-user').find('input#new-user-submit-button').click
   end
 
-  def verify_guest_user_sign_up_form_ui(guest = nil)
+  def fill_in_and_submit_user_edit_form(user, new_first_name = nil, new_last_name = nil, new_email = nil, new_password = nil, new_confirmation = nil)
+    first_name = new_first_name || user[:first_name]
+    last_name = new_last_name || user[:last_name]
+    email = new_email || user[:email]
+    password = new_password || user[:password]
+    confirmation = new_confirmation || user[:password]
+    assert fill_in 'user[first_name]', with: first_name
+    assert fill_in 'user[last_name]', with: last_name
+    assert fill_in 'user[email]', with: email
+    assert fill_in 'user[password]', with: password
+    assert fill_in 'user[password_confirmation]', with: confirmation
+    assert find('form#edit-user').find('input#edit-user-submit-button').click
+  end
+
+  def verify_user_sign_up_or_edit_form_ui(guest = nil, edit_user = false)
+    form_selector = edit_user ? 'form#edit-user' : 'form#new-user'
     if guest
-      assert find('form#new-user').find_field('First name').value == guest[:first_name]
-      assert find('form#new-user').find_field('Last name').value == guest[:last_name]
+      assert find(form_selector).find_field('First name').value == guest[:first_name]
+      assert find(form_selector).find_field('Last name').value == guest[:last_name]
     else
-      assert find('form#new-user').find_field('First name')
-      assert find('form#new-user').find_field('Last name')
+      assert find(form_selector).find_field('First name')
+      assert find(form_selector).find_field('Last name')
     end
-    assert find('form#new-user').find_field('Email')
-    assert find('form#new-user').find_field('Password')
-    assert find('form#new-user').find_field('Confirmation')
+    assert find(form_selector).find_field('Email')
+    assert find(form_selector).find_field('Password')
+    assert find(form_selector).find_field('Confirmation')
   end
 
   def verify_user_sign_up_submit_notification_ui
@@ -50,8 +65,34 @@ module UserSignup
     assert find('p.notifications-message', text: "Welcome to Big Dumb Web Dev #{user.first_name}!")
   end
 
-  def verify_user_sign_up_invalid_activation_link
+  def verify_user_sign_up_invalid_activation_link_ui
     assert find('p.notifications-message', text: "Sorry, that didn't work. Please contact andre@bigdumbwebdev.com")
+  end
+
+  # edit user
+  def verify_user_edit_success_notification_ui
+    assert find('p.notifications-message', text: "You\'ve successfully updated your profile")
+  end
+
+  def verify_user_show_details_ui(user)
+    assert find('h2', text: "First Name: #{user.first_name}")
+    assert find('h2', text: "Last Name: #{user.last_name}")
+    assert find('h2', text: "Email Address: #{user.email}")
+  end
+
+  def verify_update_user_details_form_elements_ui(user)
+    assert find('form#add-user-details')
+    assert find("input#user_details_trix_input_user_#{user.id}", visible: false)
+    assert find('trix-editor#user_details')
+  end
+
+  def fill_and_submit_updated_user_details(new_user_info)
+    assert find('trix-editor').click.set(new_user_info[:details])
+    assert find('#new-user-details-submit-button').click
+  end
+
+  def verify_user_edit_details_updated(user)
+    assert find('div#user-show-details-container').find('div.trix-content').find('div', text: user.details.body.to_plain_text)
   end
 
   def pull_latest_user_from_database

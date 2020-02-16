@@ -2,6 +2,7 @@
 
 require 'test_helper'
 require 'helpers/user_login'
+require 'helpers/user_comment'
 require 'helpers/user_signup'
 require 'helpers/cookie_decrypter'
 require 'helpers/generate_user_info'
@@ -9,6 +10,7 @@ require 'capybara/email'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include UserLogin
+  include UserComment
   include UserSignup
   include CookieDecrypter
   include GenerateUserInfo
