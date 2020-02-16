@@ -49,7 +49,6 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   #   assert_template 'shared/_single_user_error_message'
   # end
 
-
   # test 'successful edit with friendly forwarding' do
   #   get edit_user_path(@andre)
   #   log_in_as(@andre)

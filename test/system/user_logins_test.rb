@@ -3,7 +3,6 @@
 require 'application_system_test_case'
 
 class UserLoginsTest < ApplicationSystemTestCase
-  
   # Happy paths
   test 'Log in with valid credentials and then log out' do
     andre = users(:one)
@@ -27,5 +26,4 @@ class UserLoginsTest < ApplicationSystemTestCase
     log_in_as(andre, 'bad_password')
     validate_user_logged_in_failed
   end
-
 end
