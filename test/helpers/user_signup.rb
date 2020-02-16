@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'helpers/nav_menu'
 
 module UserSignup
@@ -60,5 +61,4 @@ module UserSignup
   def pull_user_from_database(guest)
     User.find_by(email: guest[:email])
   end
-
 end

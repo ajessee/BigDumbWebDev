@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'helpers/nav_menu'
 
 module UserLogin
