@@ -7,7 +7,7 @@ class UserIndexTest < ApplicationSystemTestCase
     @andre = users(:one)
     @natalya = users(:three)
     @non_admin_info = create_user_info_no_comment
-    @non_admin = User.create!(first_name: @non_admin_info[:first_name], last_name: @non_admin_info[:last_name], email:@non_admin_info[:email], password: @non_admin_info[:password], password_confirmation: @non_admin_info[:password_confirmation])
+    @non_admin = User.create!(first_name: @non_admin_info[:first_name], last_name: @non_admin_info[:last_name], email: @non_admin_info[:email], password: @non_admin_info[:password], password_confirmation: @non_admin_info[:password_confirmation])
   end
 
   test 'Login as admin user and delete non admin user' do
@@ -29,8 +29,8 @@ class UserIndexTest < ApplicationSystemTestCase
     assert find('section.http-error-container')
     assert find('p', text: 'Only admin users are allowed to do that')
     assert find('h3', text: 'HTTP Status Code: 403')
-    assert page.current_path == "/errors/forbidden"
+    assert page.current_path == '/errors/forbidden'
     assert find('a', text: 'Take Me Home').click
-    assert page.current_path == "/"
+    assert page.current_path == '/'
   end
 end
