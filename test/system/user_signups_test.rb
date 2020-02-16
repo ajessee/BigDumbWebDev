@@ -47,7 +47,7 @@ class UserSignupsTest < ApplicationSystemTestCase
     current_email = open_email(user.email)
     current_email.click_link 'here'
     assert find('#main-body-container')
-    assert page.current_url == "http://localhost:#{Capybara.server_port}/"
+    assert page.current_path == "/"
     verify_user_sign_up_invalid_activation_link
     assert_not user.reload.activated?
     session_cookie_decrypt = fetch_session_cookie

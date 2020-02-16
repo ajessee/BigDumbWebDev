@@ -11,6 +11,15 @@ module GenerateUserInfo
     }
   end
 
+  def create_user_info_no_comment
+    {
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      email: Faker::Internet.email,
+      password: Faker::Lorem.characters(number: 10, min_alpha: 4)
+    }
+  end
+
   def create_user_info_with_missing_first_name
     {
       first_name: '',
