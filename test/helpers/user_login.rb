@@ -1,6 +1,8 @@
 # frozen_string_literal: true
+require 'helpers/nav_menu'
 
 module UserLogin
+  include NavMenu
   def log_in_as(user, password, remember = false)
     visit(login_path)
     assert find('div.modal-content')
@@ -37,8 +39,7 @@ module UserLogin
   end
 
   def logout
-    assert find('div#blog-icon').click
-    assert find('button#nav-button').click
+    open_nav_menu
     assert find('li#nav-menu-logout').find('a').click
   end
 

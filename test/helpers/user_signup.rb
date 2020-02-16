@@ -1,12 +1,13 @@
 # frozen_string_literal: true
+require 'helpers/nav_menu'
 
 module UserSignup
+  include NavMenu
   def open_sign_up_section(guest)
     if guest
       assert find('button#get-edit-guest-user-button', text: 'Sign Up').click
     else
-      assert find('div#blog-icon').click
-      assert find('button#nav-button').click
+      open_nav_menu
       assert find('li#nav-menu-signup').find('a').click
     end
   end
@@ -59,4 +60,5 @@ module UserSignup
   def pull_user_from_database(guest)
     User.find_by(email: guest[:email])
   end
+
 end
