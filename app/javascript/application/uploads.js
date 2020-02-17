@@ -36,8 +36,6 @@ const loadUploads = () => {
     watchChooseFile: function() {
       const chooseFile = document.querySelector('input#user-image-choose-file') ? document.querySelector('input#user-image-choose-file') : null;
 
-
-
       if (chooseFile) {
         let self = this;
         const uploadButton = document.querySelector('#edit-user-picture-button');

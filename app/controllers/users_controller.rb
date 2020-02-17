@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: %i[show edit update]
-  before_action :correct_user, only: %i[show edit update]
+  before_action :logged_in_user, only: %i[show edit update remove_image]
+  before_action :correct_user, only: %i[show edit update remove_image]
   before_action :admin_user, only: %i[destroy index]
   before_action :promote_guest, only: [:create]
 

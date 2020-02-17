@@ -22,9 +22,11 @@ const setUpNav = () => {
         }
         this.prevScrollpos = currentScrollPos;
 
-        if (currentScrollPos == 0){
-          this.navButtonContainer.style.top = "-20%";
-        } 
+        if (mainPage) {
+          if (currentScrollPos == 0){
+            this.navButtonContainer.style.top = "-20%";
+          } 
+        }
     },
 
     slideInMenuToggle: function () {
@@ -94,7 +96,7 @@ const setUpNav = () => {
         return;
       }
       window.addEventListener("scroll", function (e) {
-        self.onScroll(true);
+        self.onScroll(this.aboutMeContainer);
       });
       if (window.innerHeight === document.body.scrollHeight) {
         this.toggleNavButton(true);
