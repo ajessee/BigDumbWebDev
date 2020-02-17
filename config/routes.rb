@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post '/fowarding_info', to: 'notifications#forwarding_ready'
   post '/check_diffs', to: 'posts#check_diffs'
   get '/demote_guest', to: 'users#demote_guest'
+  get '/remove_user_image/:id', to: 'users#remove_image', as: 'remove_user_image'
 
   # Account Activation
   resources :account_activations, only: [:edit]

@@ -32,5 +32,8 @@ class UserEditTest < ApplicationSystemTestCase
     fill_and_submit_updated_user_details(@new_user_updated_info)
     verify_user_edit_success_notification_ui
     verify_user_edit_details_updated(@new_user)
+    assert attach_file('user[image]', Rails.root + 'app/assets/images/ruby.png', make_visible: true)
+    assert find('#edit-user-picture-button').click
+    assert find('div#user-show-picture').find('img')['src'].include? 'ruby.png'
   end
 end

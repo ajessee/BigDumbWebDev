@@ -96,6 +96,15 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def remove_image
+    @user = User.find(params[:id])
+    if @user.image.attached?
+      @user.image.detach
+      @user.save
+    end
+    render 'show'
+  end
+
   def demote_guest
     # Rubocop is formatting this with ruby safe navigation operator. The period represents the existing guest user object.
     if existing_guest_user?&.guest_2?

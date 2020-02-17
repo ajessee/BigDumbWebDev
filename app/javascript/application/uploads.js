@@ -13,7 +13,6 @@ const loadUploads = () => {
             if (mutation.type == 'childList') {
               const uploadButton = document.querySelector('#edit-user-picture-button');
               self.disableUploadButton(uploadButton);
-              self.watchChooseFile();
             }
         }
         };
@@ -30,27 +29,41 @@ const loadUploads = () => {
     },
 
     disableUploadButton: function (uploadButton) {
+      uploadButton.classList.add('disabled-button');
       uploadButton.disabled = true;
     },
 
     watchChooseFile: function() {
-      const chooseFile = document.querySelector('#user-image-choose-file') ? document.querySelector('#user-image-choose-file') : null;
+      const chooseFile = document.querySelector('input#user-image-choose-file') ? document.querySelector('input#user-image-choose-file') : null;
+
+
 
       if (chooseFile) {
         let self = this;
         const uploadButton = document.querySelector('#edit-user-picture-button');
         this.disableUploadButton(uploadButton);
-        chooseFile.addEventListener('input', function() {
+        chooseFile.addEventListener('change', function() {
           self.enableUploadButton(uploadButton);
+          if (this.files.length) {
+            let cancelButton = document.querySelector('#cancel-user-picure-edit');
+            cancelButton.style.display = "inline-block";
+            cancelButton.addEventListener('click', function(e){
+              event.preventDefault();
+              document.querySelector('#add-user-image').reset();
+              this.style.display = "none";
+              self.disableUploadButton(uploadButton);
+            })
+          }
         })
       }
     },
 
     init: function() {
+      let self = this;
       const userShowPartial = document.querySelector('#user-show-partial') ? document.querySelector('#user-show-partial') : null;
-
       if (userShowPartial) {
         this.watchShowPicture();
+        this.watchChooseFile();
       }
     }
 
