@@ -43,7 +43,7 @@ const loadUploads = () => {
         chooseFile.addEventListener('change', function() {
           self.enableUploadButton(uploadButton);
           if (this.files.length) {
-            let cancelButton = document.querySelector('#cancel-user-picure-edit');
+            let cancelButton = document.querySelector('#cancel-user-picture-edit');
             cancelButton.style.display = "inline-block";
             cancelButton.addEventListener('click', function(e){
               event.preventDefault();

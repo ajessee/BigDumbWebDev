@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'helpers/authentication_errors'
 require 'helpers/user_login'
+require 'helpers/user_edit'
 require 'helpers/user_comment'
 require 'helpers/user_signup'
 require 'helpers/cookie_decrypter'
@@ -9,8 +11,10 @@ require 'helpers/generate_user_info'
 require 'capybara/email'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  include AuthenticationErrors
   include UserLogin
   include UserComment
+  include UserEdit
   include UserSignup
   include CookieDecrypter
   include GenerateUserInfo

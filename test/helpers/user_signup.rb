@@ -69,32 +69,6 @@ module UserSignup
     assert find('p.notifications-message', text: "Sorry, that didn't work. Please contact andre@bigdumbwebdev.com")
   end
 
-  # edit user
-  def verify_user_edit_success_notification_ui
-    assert find('p.notifications-message', text: "You\'ve successfully updated your profile")
-  end
-
-  def verify_user_show_details_ui(user)
-    assert find('h2', text: "First Name: #{user.first_name}")
-    assert find('h2', text: "Last Name: #{user.last_name}")
-    assert find('h2', text: "Email Address: #{user.email}")
-  end
-
-  def verify_update_user_details_form_elements_ui(user)
-    assert find('form#add-user-details')
-    assert find("input#user_details_trix_input_user_#{user.id}", visible: false)
-    assert find('trix-editor#user_details')
-  end
-
-  def fill_and_submit_updated_user_details(new_user_info)
-    assert find('trix-editor').click.set(new_user_info[:details])
-    assert find('#new-user-details-submit-button').click
-  end
-
-  def verify_user_edit_details_updated(user)
-    assert find('div#user-show-details-container').find('div.trix-content').find('div', text: user.details.body.to_plain_text)
-  end
-
   def pull_latest_user_from_database
     User.last
   end
