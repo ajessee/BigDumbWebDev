@@ -96,7 +96,7 @@ const setUpNav = () => {
         return;
       }
       window.addEventListener("scroll", function (e) {
-        self.onScroll(this.aboutMeContainer);
+        self.onScroll(self.aboutMeContainer);
       });
       if (window.innerHeight === document.body.scrollHeight) {
         this.toggleNavButton(true);
