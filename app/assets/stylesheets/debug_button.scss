@@ -27,6 +27,8 @@
 .debug_dump {
   font-family: 'VT323', monospace;
   font-size: 1em;
+  white-space: pre-wrap;
+  margin: 5%;
 }
 
 pre {
@@ -62,5 +64,9 @@ pre {
 @media only screen and (max-width: 767px) {
   #debug-button {
     font-size: 0.4em;
+  }
+
+  .debug_dump {
+    font-size: 0.3em;
   }
 }
