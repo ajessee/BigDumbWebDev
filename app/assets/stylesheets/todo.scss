@@ -31,8 +31,7 @@
   text-align: center;
   grid-column: 2/8;
   grid-row: 1;
-  margin-top: 2%;
-  z-index: 1;
+  align-self: center;
 }
 
 #todo-task-form {
@@ -111,7 +110,7 @@
   justify-self: center;
   grid-column: 2 / 8;
   grid-row: 1;
-  margin-top: 2%
+  align-self: center;
 }
 
 #todo-tasks-filter {
@@ -197,5 +196,134 @@
 
 // Phones
 @media only screen and (max-width: 767px) {
-  // placeholder
+  
+  #todo-project-container {
+
+    grid-template-columns: 5% auto 5%;
+    grid-template-rows: 10% 20% 65% 5%;
+    grid-template-areas: none;
+
+    #todo-add-task {
+
+      grid-row: 2;
+      grid-template-rows: auto auto;
+      grid-template-columns: auto;
+
+      #todo-title {
+        grid-row: 1;
+        grid-column: 1;
+        font-size: 1.5em;
+      }
+
+      #todo-highlight-star {
+        grid-row: 1;
+        grid-column: 1;
+
+        #highlight-star {
+          height: 4em;
+          width: auto;  
+        }
+ 
+        justify-self: end;
+      }
+
+      #todo-task-form {
+        grid-row: 2;
+        grid-column: 1;
+        text-align: center;
+        margin: 0 2% 0 2%;
+
+        #todo-inputs {
+          grid-column: 1;
+
+          #todo-task-label {
+        
+          }
+
+          #todo-task-input {
+
+          }
+
+        }
+
+        #todo-submit {
+          grid-column: 1;
+
+          #todo-project-submit {
+            font-size: 0.8em;
+          }
+
+        }
+
+      }
+
+    }
+
+    #todo-list-tasks {
+
+      grid-row: 3;
+      grid-template-rows: 15% 15% auto;
+      grid-template-columns: auto;
+      
+      #todo-tasks-title {
+        grid-row: 1;
+        grid-column: 1;
+      }
+
+      #todo-tasks-filter {
+
+        grid-row: 2;
+        grid-column: 1;
+        margin: 0 2% 0 2%;
+
+        #todo-filter-label {
+
+        }
+
+        #todo-filter {
+
+        }
+
+      }
+
+      #todo-clear-tasks {
+
+        grid-row: 2;
+        grid-column: 1;
+        margin-right: 2%;
+        align-self: start;
+
+        #todo-clear-tasks-button {
+          font-size: 0.8em;
+        }
+
+      }
+
+      #tasks-collection {
+        grid-row: 3;
+        grid-column: 1;
+        margin: 0 2% 0 2%;
+
+        .collection-item {
+          font-size: 1em;
+          .delete-task > svg {
+            font-size: 1.5em;
+          }
+        }
+      }
+
+    }
+  }
+
+  #todo-task-input,
+  #todo-filter  {
+    font-size: 1em;
+    padding: 0 2% 0 2%;
+  }
+
+  #todo-title,
+  #todo-tasks-title {
+    font-size: 1.5em;
+  }
+
 }
