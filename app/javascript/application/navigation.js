@@ -98,7 +98,8 @@ const setUpNav = () => {
       window.addEventListener("scroll", function (e) {
         self.onScroll(self.aboutMeContainer);
       });
-      if (window.innerHeight === document.body.scrollHeight) {
+      if (window.innerHeight === document.body.scrollHeight || document.body.scrollHeight <= window.innerHeight + 300 ) {
+        self.navButtonContainer.style.transition = "none";
         this.toggleNavButton(true);
       }
 
