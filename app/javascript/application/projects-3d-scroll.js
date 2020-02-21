@@ -6,21 +6,36 @@ const setUp3D = () => {
     // the iFrame has loaded
     const threeD = {
 
-      centerIFrame: function() {
-        window.parent.document.querySelector('#scroll3d-iframe').addEventListener("mouseenter", function(e){
-          if (window.parent.scrollY !== this.offsetTop )
-          window.parent.scrollTo({
-            top: this.offsetTop - 50,
-            behavior: 'smooth'
-          });
+      centerIFrame: function () {
+
+        let iFrame = window.parent.document.querySelector('#scroll3d-iframe');
+
+        // For desktop
+        iFrame.addEventListener("mouseenter", function (e) {
+          if (window.parent.scrollY !== this.offsetTop)
+            window.parent.scrollTo({
+              top: this.offsetTop - 50,
+              behavior: 'smooth'
+            });
         });
+
+        // For mobile and iPad
+        if (window.utils.weMobile.matches || window.utils.weTablet.matches) {
+          window.addEventListener("touchmove", function (e) {
+            window.parent.scrollTo({
+              top: iFrame.offsetTop - 50,
+              behavior: 'smooth'
+            });
+          });
+        }
+        
       },
 
-      moveCamera: function() {
+      moveCamera: function () {
         document.documentElement.querySelector('.viewport').style.backgroundColor = "#c5cdd8";
         document.documentElement.style.setProperty("--cameraZ", window.pageYOffset);
       },
-      
+
       setSceneHeight: function () {
         const self = this;
         const numberOfItems = document.querySelector('.scene3D').children.length;
@@ -35,12 +50,12 @@ const setUp3D = () => {
         const cameraSpeed = parseFloat(
           getComputedStyle(this.projectsIFrame.contentDocument.documentElement).getPropertyValue("--cameraSpeed")
         );
-      
+
         const height =
           window.innerHeight +
           scenePerspective * cameraSpeed +
           itemZ * cameraSpeed * numberOfItems;
-      
+
         // Update --viewportHeight value
         this.projectsIFrame.contentDocument.documentElement.style.setProperty("--viewportHeight", height);
       },
@@ -58,7 +73,7 @@ const setUp3D = () => {
         ),
         maxGap: 10
       },
-      
+
       moveCameraAngle: function (event) {
         const xGap =
           (((event.clientX - window.innerWidth / 2) * 100) /
@@ -69,10 +84,10 @@ const setUp3D = () => {
             (window.innerHeight / 2)) *
           -1;
         const newPerspectiveOriginX =
-        this.perspectiveOrigin.x + (xGap * this.perspectiveOrigin.maxGap) / 100;
+          this.perspectiveOrigin.x + (xGap * this.perspectiveOrigin.maxGap) / 100;
         const newPerspectiveOriginY =
-        this.perspectiveOrigin.y + (yGap * this.perspectiveOrigin.maxGap) / 100;
-      
+          this.perspectiveOrigin.y + (yGap * this.perspectiveOrigin.maxGap) / 100;
+
         document.documentElement.style.setProperty(
           "--scenePerspectiveOriginX",
           newPerspectiveOriginX
@@ -82,7 +97,7 @@ const setUp3D = () => {
           newPerspectiveOriginY
         );
       },
-  
+
       setUpIFrame: function () {
         const contentDocument = this.projectsIFrame.contentDocument;
         if (contentDocument.querySelector('#nav-button-container')) {
@@ -105,11 +120,11 @@ const setUp3D = () => {
           top.window.location.replace('/projects');
         });
         const allCardLinksArray = contentDocument.querySelectorAll('.project-card-link');
-        allCardLinksArray.forEach(function(linkEl) {
+        allCardLinksArray.forEach(function (linkEl) {
           let replaceHref = linkEl.getAttribute('data-replace-href');
           if (replaceHref === "true") {
             let newHref = linkEl.getAttribute('href');
-            linkEl.addEventListener('click', function(e) {
+            linkEl.addEventListener('click', function (e) {
               e.preventDefault();
               linkEl.setAttribute('target', "")
               top.window.location.replace(newHref);
@@ -117,7 +132,7 @@ const setUp3D = () => {
           }
         })
       },
-  
+
       init: function () {
         let self = this;
         this.projectsContainer = top.document.querySelector('#projects-container') ? top.document.querySelector('#projects-container') : null;
@@ -125,7 +140,7 @@ const setUp3D = () => {
         if (this.projectsContainer && this.projectsIFrame) {
           this.setUpIFrame();
           window.addEventListener("scroll", this.moveCamera.bind(this));
-          top.window.addEventListener("scroll", function(){
+          top.window.addEventListener("scroll", function () {
             self.projectsIFrame.contentDocument.querySelector('.viewport').style.backgroundColor = "aliceblue";
           });
           window.addEventListener("mousemove", this.moveCameraAngle.bind(this));
@@ -134,7 +149,7 @@ const setUp3D = () => {
         }
       }
     }
-  
+
     threeD.init();
 
   }
@@ -144,4 +159,3 @@ const setUp3D = () => {
 }
 
 document.addEventListener("DOMContentLoaded", setUp3D);
-
