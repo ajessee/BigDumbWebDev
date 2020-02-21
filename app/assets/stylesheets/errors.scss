@@ -5,6 +5,7 @@
   background-color: aliceblue;
   font-family: 'Oxygen', sans-serif;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   justify-items: center;
   text-align: center;
 

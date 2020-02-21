@@ -17,6 +17,7 @@
   grid-column: 1/11;
   font-family: 'Oxygen', sans-serif;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: grid;
   background-image: image-url("cloud.svg");
   background-position: center;

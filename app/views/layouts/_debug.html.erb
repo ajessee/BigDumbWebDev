@@ -5,17 +5,17 @@
 </div>
 <div class="debug-panel">
   <div>
-    <p class="debug_dump">Debug:</p>
-    <pre><%= debug(params)  %></pre>
+    <p class="debug-dump debug-title">Debug:</p>
+    <pre><%= debug(params) %></pre>
   </div>
   <div>
-    <p class="debug_dump">BDWD Encrypted Cookie:</p>
-    <pre class="debug_dump"><%= session.to_h %></pre>
+    <p class="debug-dump debug-title">BDWD Encrypted Cookie:</p>
+    <pre class="debug-dump"><%= session.to_h %></pre>
   </div>
   <% if cookies.permanent.signed[:guest_user_email] %>
   <div>
-    <p class="debug_dump">Guest User Email Cookie:</p>
-    <pre class="debug_dump"><%= cookies.permanent.signed[:guest_user_email] %></pre>
+    <p class="debug-dump">Guest User Email Cookie:</p>
+    <pre class="debug-dump"><%= cookies.permanent.signed[:guest_user_email] %></pre>
   </div>
   <% end %>
 </div>

@@ -19,6 +19,7 @@
   grid-template-columns: 100%;
   grid-template-rows: 10% 5% 38% 5% 38%;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   padding: 0% 2% 0% 2%;
 }
 

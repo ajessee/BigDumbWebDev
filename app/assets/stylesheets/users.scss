@@ -110,6 +110,7 @@
   font-family: 'Oxygen', sans-serif;
   background-color: aliceblue;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 #user-show-partial {
@@ -175,6 +176,7 @@
   background-color: aliceblue;
   text-align: center;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: grid;
 
   ul {

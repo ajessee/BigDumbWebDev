@@ -24,6 +24,7 @@
 
 }
 
+.debug-dump,
 .debug_dump {
   font-family: 'VT323', monospace;
   font-size: 1em;
@@ -66,7 +67,18 @@ pre {
     font-size: 0.4em;
   }
 
+  .debug-dump,
   .debug_dump {
-    font-size: 0.3em;
+    font-size: 0.8em;
   }
+
+  .debug-title {
+    font-size: 1em;
+    font-weight: bold;
+  }
+
+  .modal-content {
+    width: 100vw;
+  }
+
 }

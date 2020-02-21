@@ -35,12 +35,15 @@
 }
 
 #nav-menu-items {
+    overscroll-behavior: contain ;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     list-style-type: none;
     display: grid;
-    height: 100vh;
+    margin: 0;
     grid-template-rows: 5% repeat(11, 1fr);
     grid-template-columns: repeat(3, 1fr);
-    padding: 0% 2% 0% 2%;
+    padding: 3%;
 }
 
 .nav-menu-row {
@@ -183,7 +186,7 @@
 
 .nav-bottom-border {
     border-bottom: 1px solid darkgrey;
-    padding-bottom: 5%;
+    padding-bottom: 3%;
 }
 
 #welcome-nav {
@@ -252,7 +255,9 @@
 
 // iPads and tablets
 @media only screen and (min-width : 768px) and (max-width : 1024px) {
-    // placeholder
+    #nav-slide-in-menu {
+        width: 30vw !important;
+    }
 }
 
 // Phones
@@ -306,9 +311,5 @@
 
     .icon-grow:hover {
         transform: scale(1);
-    }
-
-    #nav-menu-items {
-        height: 98vh;
     }
 }

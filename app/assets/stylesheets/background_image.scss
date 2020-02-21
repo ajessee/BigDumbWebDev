@@ -4,6 +4,7 @@
   grid-template-rows: 20vh 70vh 10vh;
   background-color: aliceblue;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
 }
 
@@ -186,6 +187,11 @@
   #fade-in-web,
   #fade-in-dev {
     font-size: 4em;
+  }
+
+  #bigDumbWebDevSVG {
+    visibility: hidden;
+    height: 50vh;
   }
 }
 

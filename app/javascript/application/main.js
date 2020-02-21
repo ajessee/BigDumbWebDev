@@ -30,4 +30,14 @@ window.utils = {
 
 window.utils.elements = {};
 
-window.utils.tempVars = {};
+window.utils.tempVars = {
+  vh: window.innerHeight * 0.01
+};
+
+document.documentElement.style.setProperty('--vh', `${window.utils.tempVars.vh}px`);
+
+// recalculate the --vh viewHeight CSS variable on window resize
+window.addEventListener('resize', () => {
+  window.utils.tempVars.vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${window.utils.tempVars.vh}px`);
+});
