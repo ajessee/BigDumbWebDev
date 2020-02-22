@@ -2,27 +2,12 @@
   <% comment = @comment  %>
 <% end %>
 <div class="show-comment-container" id="comment-container-<%= comment.id %>">
-  <div class="show-comment-body">
-    <% if comment.author.image.attached?%>
-    <span class="user-profile-pic-small"><%= image_tag comment.author.image.variant(resize_to_limit: [100, 100]) %></span>
-    <% else %>
-    <span class="user-profile-avatar"><i class="fas fa-user-astronaut"></i></span>
-    
-    <% end%>
-    <p class="gray-content"><%= comment.author.name %> said:</p>
-     <%= comment.content %>
-    <p class="gray-content"><%= time_ago_in_words(comment.created_at).capitalize %> ago</p>
-  </div>
-  <div class="show-comment-controls">
-      <% if logged_in? && current_user?(comment.author) %>
-        <%= link_to edit_comment_path(comment), class: "no-link-color", title: "Edit comment", remote: true do %>
-        <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit Comment</button>
-        <% end %>
-      <% end %>
-      <% if logged_in? && current_user?(comment.author) || current_user && current_user.admin? %>
-        <%= link_to comment_path(comment), class: "no-link-color", title: "Delete comment", method: "delete" do %>
-        <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Comment</button>
-        <% end %>
-      <% end %>
-    </div>
+  <%= render 'comments/show_comment', comment: comment %>
 </div>
+  <% if !comment.comments.empty?  %>
+    <% comment.comments.each do |child_comment| %>
+    <div class="show-comment-container nested-comment" id="comment-container-<%= child_comment.id %>" data-comment-parent-id="<%= child_comment.commentable_id %>">
+      <%= render 'comments/show_comment', comment: child_comment %>
+      </div>
+    <% end %>
+  <% end %>

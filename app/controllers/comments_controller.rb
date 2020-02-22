@@ -5,12 +5,16 @@ class CommentsController < ApplicationController
 
   def new
     @comment = Comment.new
-    @post = Post.find_by_id(new_params)
+    if new_params[:comment_id]
+      @existing_comment = Comment.find_by_id(new_params[:comment_id])
+    elsif new_params[:post_id]
+      @existing_post = Post.find_by_id(new_params[:post_id])
+    end
   end
 
   def create
     # In this case, a post is commentable
-    @commentable = Post.find_by_id(params[:comment][:post_id])
+    @commentable = Post.find_by_id(params[:comment][:post_id]) || Comment.find_by_id(params[:comment][:comment_id])
     unless logged_in?
       # This is where the guest user is first created if one doesn't
       # already exist for the session (guest email stored in permanent cookies)
@@ -55,7 +59,7 @@ class CommentsController < ApplicationController
   private
 
   def new_params
-    params.require(:post_id)
+    params.permit(:post_id, :comment_id)
   end
 
   def comment_params

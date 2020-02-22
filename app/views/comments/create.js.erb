@@ -1,4 +1,3 @@
-
 if (window.utils.elements.postCommentsContainer) {
   window.utils.elements.tempCommentsContainer = document.createElement('div');
   window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create') %>";
@@ -9,4 +8,8 @@ if (window.utils.elements.postCommentsContainer) {
   window.utils.elements.newCommentContainer.innerHTML = "<%= j (render 'create') %>"
 }
 
+<% if @comment.commentable_type == "Post" %>
 window.utils.elements.newCommentButton.style.display = "block";
+
+<% elsif @comment.commentable_type == "Comment" %>
+<% end %>

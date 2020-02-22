@@ -1,7 +1,12 @@
-<div id="post-comments-container">
+<div id="new-comment-container" data-comment-id="<%= @existing_post ? @existing_post.id : @existing_comment.id %>">
   <%= form_with model: @comment, id: "new-comment", class: "comment-form" do |f| %>
-    <%= f.hidden_field :post_id, value: @post.id %>
-    <h1 id="new-comment-header" class="comment-form-header">Got any feedback or thoughts?</h1>
+    <% if @existing_post %>
+      <%= f.hidden_field :post_id, value: @existing_post.id %>
+      <h1 id="new-comment-header" class="comment-form-header">Got any feedback or thoughts?</h1>
+    <% elsif @existing_comment %>
+      <h1 id="new-comment-header" class="comment-form-header">Reply to this comment:</h1>
+      <%= f.hidden_field :comment_id, value: @existing_comment.id %>
+    <% end %>
     <% if logged_in? %>
       <%= f.hidden_field :user_id, value: current_user.id %>
     <% else %>
@@ -26,13 +31,22 @@
       <%= f.rich_text_area :content, class: "trix-content" %>
     </div>
     <div id="new-comment-submit" class="comment-submit">
-      <%= f.submit logged_in? ? "Create Comment" : "Add Comment As Guest", id: "new-comment-submit-button", class: "submit-close-buttons submit-button" %>
-      <button id="new-comment-close-button" class="submit-close-buttons close-button all-close">Cancel</button>
+     <% if @existing_post %>
+       <%= f.submit logged_in? ? "Create Comment" : "Add Comment As Guest", id: "new-comment-submit-button", class: "submit-close-buttons submit-button" %>
+      <button id="new-comment-close-button" data-post-id="<%= @existing_post.id %>" class="submit-close-buttons close-button all-close">Cancel</button>
+    <% elsif @existing_comment %>
+       <%= f.submit logged_in? ? "Reply To Comment" : "Reply To Comment As Guest", id: "new-comment-submit-button", class: "submit-close-buttons submit-button" %>
+       <button id="new-comment-close-button" data-comment-id="<%= @existing_comment.id %>" class="submit-close-buttons close-button all-close">Cancel</button>
+    <% end %>
     </div>
   <% end %>
   <% if !logged_in? %>
     <div id="sign-up-login-container">
-      <h1 id="" class="comment-form-header">Or to comment as a user:</h1>
+     <% if @existing_post %>
+       <h1 id="" class="comment-form-header">Or to comment as a user:</h1>
+    <% elsif @existing_comment %>
+       <h1 id="" class="comment-form-header">Or to reply to comment as a user:</h1>
+    <% end %>
       <%= link_to login_path, class: "no-link-color", title: "Login", remote: true do %>
         <button id="login-user-submit-button" class="submit-close-buttons submit-button">Login</button>
       <% end %>
