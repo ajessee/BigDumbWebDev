@@ -2,9 +2,9 @@ if (window.utils.modal.editProjectModal) {
   window.utils.modal.editProjectModal.innerHTML = "";
   window.utils.modal.editProjectModal.insertAdjacentHTML('beforeend', "<%= j (render 'edit') %>");
 } else {
-  if (window.utils.weLargeScreen.matches) {
+  if (window.utils.usingFullScreenDevice) {
     window.utils.modal.editProjectModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, false);
-  } else if (window.utils.weTablet.matches || window.utils.weMobile.matches) {
+  } else if (window.utils.usingTabletDevice || window.utils.usingMobileDevice) {
     window.utils.modal.editProjectModal = window.utils.modal.openModal('block', '0%', 1, 1, 16, 16, null, null, false);
   } else {
     window.utils.modal.editProjectModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, false);

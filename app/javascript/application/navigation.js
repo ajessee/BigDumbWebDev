@@ -34,7 +34,7 @@ const setUpNav = () => {
         this.slideInMenu.classList.remove('menu-closed');
         this.slideInMenu.style.boxShadow = '-7px 0px 22px 0px rgba(0,0,0,0.3)';
         this.closeNavMenuButton.style.display = 'block';
-        if (window.utils.weMobile.matches) {
+        if (window.utils.usingMobileDevice) {
           document.body.style.top = `-${window.scrollY}px`;
           document.body.style.position = 'fixed';
         }
@@ -42,7 +42,7 @@ const setUpNav = () => {
       } else {
         this.slideInMenu.classList.add('menu-closed');
         this.closeNavMenuButton.style.display = 'none';
-        if (window.utils.weMobile.matches) {
+        if (window.utils.usingMobileDevice) {
           const scrollY = document.body.style.top;
           document.body.style.position = '';
           document.body.style.top = '';

@@ -20,7 +20,7 @@ const setUp3D = () => {
         });
 
         // For mobile and iPad
-        if (window.utils.weMobile.matches || window.utils.weTablet.matches) {
+        if (window.utils.usingMobileDevice || window.utils.usingTabletDevice) {
           window.addEventListener("touchmove", function (e) {
             window.parent.scrollTo({
               top: iFrame.offsetTop - 50,

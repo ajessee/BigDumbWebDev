@@ -156,9 +156,9 @@ const loadPostAutoSaver = function() {
   }
 
   saver.openModal = function() {
-    if (window.utils.weLargeScreen.matches) {
+    if (window.utils.usingFullScreenDevice) {
       window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);
-    } else if (window.utils.weTablet.matches || window.utils.weMobile.matches) {
+    } else if (window.utils.usingTabletDevice || window.utils.usingMobileDevice) {
       window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 1, 1, 16, 16, null, null, true);
     } else {
       window.utils.modal.diffModal = window.utils.modal.openModal('block', '0%', 3, 3, 12, 12, null, null, true);

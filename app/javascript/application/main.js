@@ -16,9 +16,9 @@ window.utils = {
     return doc.documentElement.textContent;
   },
 
-  weMobile: window.matchMedia("(max-width: 767px)"),
-  weTablet: window.matchMedia("(min-width: 768px)"),
-  weLargeScreen: window.matchMedia("(min-width: 1501px)"),
+  usingMobileDevice: window.matchMedia("(max-width: 767px)").matches,
+  usingTabletDevice: window.matchMedia("(min-width: 768px)").matches,
+  usingFullScreenDevice: window.matchMedia("(min-width: 1501px)").matches,
   
   createGUID: function() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
