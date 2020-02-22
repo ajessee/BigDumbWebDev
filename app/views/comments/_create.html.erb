@@ -3,6 +3,12 @@
 <% end %>
 <div class="show-comment-container" id="comment-container-<%= comment.id %>">
   <div class="show-comment-body">
+    <% if comment.author.image.attached?%>
+    <span class="user-profile-pic-small"><%= image_tag comment.author.image.variant(resize_to_limit: [100, 100]) %></span>
+    <% else %>
+    <span class="user-profile-avatar"><i class="fas fa-user-astronaut"></i></span>
+    
+    <% end%>
     <p class="gray-content"><%= comment.author.name %> said:</p>
      <%= comment.content %>
     <p class="gray-content"><%= time_ago_in_words(comment.created_at).capitalize %> ago</p>

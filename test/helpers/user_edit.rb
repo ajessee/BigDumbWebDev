@@ -30,23 +30,26 @@ module UserEdit
 
   def verify_user_show_picture_ui(_user)
     assert find('h2', text: 'Your Picture')
+    assert find('#edit-user-picture-button').click
     assert find('form#add-user-image')
     assert find('div#new-user-image').find('input#user-image-choose-file')
     assert attach_file('user[image]', Rails.root + 'app/assets/images/ruby.png', make_visible: true)
-    assert_not find('#edit-user-picture-button').disabled?
-    assert find('#edit-user-picture-button').click
+    assert_not find('#upload-user-picture-button').disabled?
+    assert find('#upload-user-picture-button').click
     assert find('div#user-show-picture').find('img')['src'].include? 'ruby.png'
-    assert_not find('#edit-user-picture-button').disabled?
     assert find('#edit-user-picture-button').click
+    assert find('#upload-user-picture-button').disabled?
     assert find('#remove-user-image-button').click
     accept_confirm
     assert find('h2', text: 'Your Picture')
+    assert find('#edit-user-picture-button').click
     assert find('form#add-user-image')
     assert find('div#new-user-image').find('input#user-image-choose-file')
     assert attach_file('user[image]', Rails.root + 'app/assets/images/ruby.png', make_visible: true)
     assert find('#cancel-user-picture-edit').click
+    assert find('#edit-user-picture-button').click
     assert find('form#add-user-image')
     assert find('div#new-user-image').find('input#user-image-choose-file')
-    assert find('#edit-user-picture-button').disabled?
+    assert find('#upload-user-picture-button').disabled?
   end
 end

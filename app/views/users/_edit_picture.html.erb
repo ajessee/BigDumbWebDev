@@ -1,11 +1,11 @@
-<div>
+<div id="edit-user-picture-controls">
   <%= form_with model: @user, id: "add-user-image", class: "", local: true do |f| %>
     <%= f.label "Attach image here and then upload" %>
-    <div id="new-user-image" class="">
+    <div id="new-user-image">
       <%= f.file_field :image, id: 'user-image-choose-file' %>
     </div>
     <div id="new-user-image-submit" class="post-submit">
-      <%= f.submit "Upload Picture", id: "edit-user-picture-button", class: "disabled-button submit-button" %>
+      <%= f.submit "Upload Picture", id: "upload-user-picture-button", class: "disabled-button submit-button" %>
       <button id="cancel-user-picture-edit" class="submit-close-buttons close-button all-close">Cancel</button>
     </div>
   <% end %>

@@ -24,19 +24,22 @@ const setUpTrixHelper = () => {
 
     trixAddAttachmentButtonToToolbar: function() {
       let trixBlockButtons = document.querySelector(".trix-button-group--block-tools");
-      let self = this;
-      const buttonHTML = `
-          <button
-            type="button"
-            class="trix-button trix-button--icon trix-button--icon-attach-files"
-            data-trix-action="x-attach" title="Attach Files"
-            tabindex="-1"
-          >Attach Files</button>
-        `;
-      trixBlockButtons.innerHTML += buttonHTML;
-    
-      document.querySelector(".trix-button--icon-attach-files")
-        .addEventListener("click", self.trixAddAttachment)
+      let inShowUserForm = trixBlockButtons.closest('div#user-show-details-container');
+      if (!inShowUserForm) {
+        let self = this;
+        const buttonHTML = `
+            <button
+              type="button"
+              class="trix-button trix-button--icon trix-button--icon-attach-files"
+              data-trix-action="x-attach" title="Attach Files"
+              tabindex="-1"
+            >Attach Files</button>
+          `;
+        trixBlockButtons.innerHTML += buttonHTML;
+      
+        document.querySelector(".trix-button--icon-attach-files")
+          .addEventListener("click", self.trixAddAttachment)
+      }
     },
 
     trixAddAttachment: function() {

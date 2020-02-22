@@ -37,6 +37,10 @@
   background-color: white;
 }
 
+.show-comment-body {
+  display: grid;
+}
+
 .show-comment-container .trix-content {
   box-shadow: none;
   background-color: white !important;
@@ -93,6 +97,10 @@
 
   #new-comment-header, .comment-form-header {
     font-size: 1.5em;
+    text-align: center;
+  }
+
+  .gray-content {
     text-align: center;
   }
 }

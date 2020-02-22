@@ -1,0 +1,46 @@
+
+#remember-me-container {
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+}
+
+#remember-me-text {
+  text-align: center;
+  margin-right: 1%;
+}
+
+#remember-me-text-content {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+#remember-me-text-link {
+  margin: 0;
+  font-size: 0.8em;
+}
+
+
+
+// Huge screen
+@media only screen and (min-width : 1501px) {
+  // placeholder
+}
+
+// Most screens
+@media only screen and (min-width : 1025px) and (max-width : 1500px) {
+  // placeholder
+}
+
+// iPads and tablets
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+  // placeholder
+}
+
+// Phones
+@media only screen and (max-width: 767px) {
+  // placeholder
+}

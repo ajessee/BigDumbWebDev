@@ -14,12 +14,12 @@
       <% end %>
     <% end %>
   </div>
-   <%= render 'user_show_details' %>
+  <%= render 'user_show_details' %>
   <div id="user-show-picture">
     <h2>Your Picture</h2>
     <% if @user.image.attached? %>
-      <%= image_tag @user.image %>
-      <div>
+      <%= image_tag @user.image.variant(resize_to_limit: [500, 500]) %>
+      <div id="edit-user-picture-button-container">
         <% if logged_in? && current_user?(@user) %>
           <%= link_to edit_user_path(@user, update_type: 'picture'), class: "no-link-color", id: "edit-user-picture-button", title: "Edit User Picture", remote: "true" do %>
             <button class="submit-close-buttons submit-button">Edit Picture</button>
@@ -27,7 +27,11 @@
         <% end %>
       </div>
     <% else %>
-      <%= render 'edit_picture' %>
-    <% end %>
+      <div id="edit-user-picture-button-container">
+        <%= link_to edit_user_path(@user, update_type: 'picture'), class: "no-link-color", id: "edit-user-picture-button", title: "Edit User Picture", remote: "true" do %>
+          <button class="submit-close-buttons submit-button">Add Picture</button>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
