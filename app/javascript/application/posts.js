@@ -261,6 +261,7 @@ function setupPosts() {
             let childAbsMiddle = childContainer.offsetTop + (childContainer.getBoundingClientRect().height / 2);
 
             let ctx = window.utils.posts.postCommentsCanvas.getContext('2d');
+            // ctx.globalCompositeOperation='destination-over';
             ctx.lineWidth = 5;  
             ctx.beginPath();
             ctx.strokeStyle = 'white';
@@ -289,26 +290,24 @@ function setupPosts() {
       this.replaceUrlForAnimatedElements();
       if (this.showPostBody) {
         this.applyFormattingToPreBlocks();
-
+        // this.setPostCommentsCanvas();
+        // this.drawConnectingLinesBetweenComments();
       }
     }
-
   };
 
   window.utils.posts = posts;
   posts.init();
-
-  
 }
 
 document.addEventListener("DOMContentLoaded", setupPosts);
 
-window.onload = function () {
-  window.utils.posts.setPostCommentsCanvas();
-  window.utils.posts.drawConnectingLinesBetweenComments();
-}
+// window.onload = function () {
+//   window.utils.posts.setPostCommentsCanvas();
+//   window.utils.posts.drawConnectingLinesBetweenComments();
+// }
 
-window.onresize = function () {
-  window.utils.posts.setPostCommentsCanvas();
-  window.utils.posts.drawConnectingLinesBetweenComments();
-}
+// window.onresize = function () {
+//   window.utils.posts.setPostCommentsCanvas();
+//   window.utils.posts.drawConnectingLinesBetweenComments();
+// }

@@ -59,10 +59,10 @@ class CommentsController < ApplicationController
   private
 
   def find_comment_post(comment)
-    if comment.commentable_type == "Comment"
+    if comment.commentable_type == 'Comment'
       parent_comment = Comment.find(comment.commentable_id)
       find_comment_post(parent_comment)
-    elsif comment.commentable_type == "Post"
+    elsif comment.commentable_type == 'Post'
       post = Post.find(comment.commentable_id)
     end
   end
