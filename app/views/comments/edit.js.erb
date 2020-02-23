@@ -1,4 +1,4 @@
-window.utils.elements.thisCommentContainer = document.querySelector("#comment-container-" + "<%= j (@comment.id) %>");
+window.utils.elements.thisCommentContainer = document.querySelector(".show-comment-container[data-comment-container-id='<%= j (@comment.id) %>']");
 window.utils.elements.thisCommentContainerClone = window.utils.elements.thisCommentContainer.cloneNode(true);
 window.utils.elements.editCommentContainer = document.createElement('div');
 window.utils.elements.editCommentContainer.innerHTML = "<%= j (render 'edit') %>";

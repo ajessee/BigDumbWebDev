@@ -15,7 +15,7 @@ window.utils.elements.newCommentContainer = window.utils.elements.newCommentCont
   window.utils.labels.init();
   window.utils.elements.cancelAddNewCommentButton.addEventListener('click', function (e) {
     e.preventDefault();
-    window.utils.elements.newCommentButton.style.display = "block";
+    window.utils.elements.newCommentButton.style.display = "inline-block";
     window.utils.elements.newCommentContainer.remove();
     window.utils.elements.newCommentButton.scrollIntoView();
     window.utils.elements.postContainer.style.gridTemplateRows = window.utils.elements.cachedGridValue;
@@ -27,6 +27,7 @@ window.utils.elements.replyCommentButton = document.querySelector("#reply-to-com
   window.utils.elements.replyCommentButton.style.display = "none";
   window.utils.elements.existingCommentContainer = document.querySelector(".show-comment-wrapper[data-comment-wrapper-id='<%= @existing_comment.id %>']");
   if (window.utils.elements.existingCommentContainer.nextElementSibling) {
+    window.utils.elements.newCommentContainer.style.gridColumn = "2";
   window.utils.elements.existingCommentContainer.parentNode.insertBefore(window.utils.elements.newCommentContainer, window.utils.elements.existingCommentContainer.nextElementSibling);
   } else {
     window.utils.elements.existingCommentContainer.firstElementChild.parentNode.insertBefore(window.utils.elements.newCommentContainer, window.utils.elements.existingCommentContainer.firstElementChild.nextElementSibling);
@@ -36,7 +37,7 @@ window.utils.elements.replyCommentButton = document.querySelector("#reply-to-com
   window.utils.elements.cancelAddNewCommentButton.addEventListener('click', function (e) {
     e.preventDefault();
     window.utils.elements.replyCommentButton = document.querySelector("#reply-to-comment-button[data-comment-id='<%= @existing_comment.id %>']");
-    window.utils.elements.replyCommentButton.style.display = "block";
+    window.utils.elements.replyCommentButton.style.display = "inline-block";
     window.utils.elements.newCommentContainer = document.querySelector("#new-comment-container[data-comment-id='<%= @existing_comment.id %>']");
     window.utils.elements.newCommentContainer.remove();
     window.utils.elements.replyCommentButton.scrollIntoView();

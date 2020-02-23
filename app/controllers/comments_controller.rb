@@ -33,11 +33,11 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(@comment.commentable_id)
+    @post = find_comment_post(@comment)
   end
 
   def update
-    @post = Post.find(@comment.commentable_id)
+    @post = find_comment_post(@comment)
     if @comment.update(comment_params)
       # render update js
     else

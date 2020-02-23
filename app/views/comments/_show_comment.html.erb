@@ -6,7 +6,7 @@
       <% else %>
         <span class="user-profile-avatar"><i class="fas fa-user-astronaut"></i></span>
       <% end%>
-      <p class="gray-content"><%= comment.author.name %> said:</p>
+      <p class="gray-content"><%= comment.author.name %> <% if nested %> replied: <% else %> said:<% end %></p>
       <%= comment.content %>
       <p class="gray-content"><%= time_ago_in_words(comment.created_at).capitalize %> ago</p>
     </div>
@@ -17,7 +17,7 @@
         <% end %>
       <% end %>
       <% if logged_in? && current_user?(comment.author) || current_user && current_user.admin? %>
-        <%= link_to comment_path(comment), class: "no-link-color", title: "Delete comment", method: "delete" do %>
+        <%= link_to comment_path(comment), class: "no-link-color", title: "Delete comment", method: "delete", data: { confirm: "Are you sure?" } do %>
           <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Comment</button>
         <% end %>
       <% end %>

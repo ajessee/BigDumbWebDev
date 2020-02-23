@@ -1,3 +1,8 @@
 window.utils.elements.tempCommentsContainer = document.createElement('div');
-window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create') %>";
-window.utils.elements.thisCommentContainer.parentNode.replaceChild(window.utils.elements.tempCommentsContainer.firstChild, window.utils.elements.thisCommentContainer)
+<% if @comment.commentable_type == "Post" %>
+window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create', nested: false) %>";
+<% elsif @comment.commentable_type == "Comment" %>
+window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create', nested: true) %>";
+<% end %>
+window.utils.elements.thisCommentWrapper = window.utils.elements.thisCommentContainer.parentElement;
+window.utils.elements.thisCommentWrapper.parentNode.replaceChild(window.utils.elements.tempCommentsContainer.firstElementChild, window.utils.elements.thisCommentWrapper)

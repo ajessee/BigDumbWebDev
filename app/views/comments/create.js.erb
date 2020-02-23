@@ -15,7 +15,7 @@
   window.utils.elements.tempCommentsContainer = window.utils.elements.tempCommentsContainer.firstElementChild;
   window.utils.elements.existingCommentsContainer = document.querySelector(".show-comment-wrapper[data-comment-wrapper-id='<%= @comment.commentable_id %>']");
   window.utils.elements.replyCommentButton = document.querySelector("#reply-to-comment-button[data-comment-id='<%= @comment.commentable_id %>']");
-  window.utils.elements.replyCommentButton.style.display = "block";
+  window.utils.elements.replyCommentButton.style.display = "inline-block";
   window.utils.elements.newCommentContainer.remove();
   window.utils.elements.existingCommentsContainer.append(window.utils.elements.tempCommentsContainer)
 
