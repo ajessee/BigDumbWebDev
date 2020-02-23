@@ -3,7 +3,7 @@ window.utils.elements.newCommentButton = document.querySelector('#add-new-commen
 window.utils.elements.postCommentsContainer = document.querySelector('#post-comments-container') ? document.querySelector('#post-comments-container') : null;
 window.utils.elements.newCommentContainer = document.createElement('div');
 window.utils.elements.newCommentContainer.innerHTML = "<%= j (render 'new') %>"
-window.utils.elements.newCommentContainer = window.utils.elements.newCommentContainer.firstChild;
+window.utils.elements.newCommentContainer = window.utils.elements.newCommentContainer.firstElementChild;
 <% if @existing_post %>
   window.utils.elements.newCommentButton.style.display = "none";
   window.utils.elements.cachedGridValue = window.utils.elements.postContainer.style.gridTemplateRows;
@@ -25,8 +25,12 @@ window.utils.elements.newCommentContainer = window.utils.elements.newCommentCont
 <% elsif @existing_comment %>
 window.utils.elements.replyCommentButton = document.querySelector("#reply-to-comment-button[data-comment-id='<%= @existing_comment.id %>']");
   window.utils.elements.replyCommentButton.style.display = "none";
-  window.utils.elements.existingCommentContainer = document.querySelector('#comment-container-<%= @existing_comment.id %>');
-  window.utils.elements.existingCommentContainer.parentNode.insertBefore(window.utils.elements.newCommentContainer, window.utils.elements.existingCommentContainer.nextSibling);
+  window.utils.elements.existingCommentContainer = document.querySelector(".show-comment-wrapper[data-comment-wrapper-id='<%= @existing_comment.id %>']");
+  if (window.utils.elements.existingCommentContainer.nextElementSibling) {
+  window.utils.elements.existingCommentContainer.parentNode.insertBefore(window.utils.elements.newCommentContainer, window.utils.elements.existingCommentContainer.nextElementSibling);
+  } else {
+    window.utils.elements.existingCommentContainer.firstElementChild.parentNode.insertBefore(window.utils.elements.newCommentContainer, window.utils.elements.existingCommentContainer.firstElementChild.nextElementSibling);
+  }
   window.utils.elements.cancelAddNewCommentButton = document.querySelector("button[data-comment-id='<%= @existing_comment.id %>']");
   window.utils.labels.init();
   window.utils.elements.cancelAddNewCommentButton.addEventListener('click', function (e) {

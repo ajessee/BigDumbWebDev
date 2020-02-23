@@ -1,5 +1,5 @@
 <div id="edit-user-picture-controls">
-  <%= form_with model: @user, id: "add-user-image", class: "", local: true do |f| %>
+  <%= form_with model: @user, id: "add-user-image", local: true do |f| %>
     <%= f.label "Attach image here and then upload" %>
     <div id="new-user-image">
       <%= f.file_field :image, id: 'user-image-choose-file' %>

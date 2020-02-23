@@ -1,13 +1,8 @@
 <% if @comment  %>
   <% comment = @comment  %>
 <% end %>
-<div class="show-comment-container" id="comment-container-<%= comment.id %>">
-  <%= render 'comments/show_comment', comment: comment %>
-</div>
-  <% if !comment.comments.empty?  %>
-    <% comment.comments.each do |child_comment| %>
-    <div class="show-comment-container nested-comment" id="comment-container-<%= child_comment.id %>" data-comment-parent-id="<%= child_comment.commentable_id %>">
-      <%= render 'comments/show_comment', comment: child_comment %>
-      </div>
-    <% end %>
-  <% end %>
+
+<% nested = nested ? true : false  %>
+
+<%= render 'comments/show_comment', comment: comment, nested: nested %>
+

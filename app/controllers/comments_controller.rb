@@ -46,7 +46,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(@comment.commentable_id)
+    @post = find_comment_post(@comment)
     store_message(
       title: 'Comment Deleted',
       message: "Comment by #{@comment.author.name} successfully deleted",
@@ -57,6 +57,15 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def find_comment_post(comment)
+    if comment.commentable_type == "Comment"
+      parent_comment = Comment.find(comment.commentable_id)
+      find_comment_post(parent_comment)
+    elsif comment.commentable_type == "Post"
+      post = Post.find(comment.commentable_id)
+    end
+  end
 
   def new_params
     params.permit(:post_id, :comment_id)

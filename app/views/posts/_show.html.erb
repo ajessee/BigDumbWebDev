@@ -1,4 +1,5 @@
  <div id="show-post-container">
+ <canvas id="post-comments-canvas"></canvas>
 
     <h1 id="show-post-title"><%= @post.title%></h1>
     
@@ -45,6 +46,7 @@
             <% @post.comments.each do |comment| %>
               <%= render 'comments/create', comment: comment %>
             <% end %>
+        
         </div>
       <% end %>
 

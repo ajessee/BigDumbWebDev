@@ -1,15 +1,22 @@
-if (window.utils.elements.postCommentsContainer) {
+
+  
+  
   window.utils.elements.tempCommentsContainer = document.createElement('div');
-  window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create') %>";
-  window.utils.elements.postCommentsContainer.prepend(window.utils.elements.tempCommentsContainer.firstChild);
+<% if @comment.commentable_type == "Post" %>
+  window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create', nested: false) %>";
+  window.utils.elements.tempCommentsContainer = window.utils.elements.tempCommentsContainer.firstElementChild;
+  window.utils.elements.postCommentsContainer.prepend(window.utils.elements.tempCommentsContainer);
+  window.utils.elements.commentsContainerCanvasWidth = window.utils.elements.tempCommentsContainer.style.width;
   window.utils.elements.newCommentContainer.remove();
   window.utils.elements.postCommentsContainer.firstChild.scrollIntoView();
-} else {
-  window.utils.elements.newCommentContainer.innerHTML = "<%= j (render 'create') %>"
-}
-
-<% if @comment.commentable_type == "Post" %>
-window.utils.elements.newCommentButton.style.display = "block";
-
+  window.utils.elements.newCommentButton.style.display = "block";
 <% elsif @comment.commentable_type == "Comment" %>
+  window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create', nested: true) %>";
+  window.utils.elements.tempCommentsContainer = window.utils.elements.tempCommentsContainer.firstElementChild;
+  window.utils.elements.existingCommentsContainer = document.querySelector(".show-comment-wrapper[data-comment-wrapper-id='<%= @comment.commentable_id %>']");
+  window.utils.elements.replyCommentButton = document.querySelector("#reply-to-comment-button[data-comment-id='<%= @comment.commentable_id %>']");
+  window.utils.elements.replyCommentButton.style.display = "block";
+  window.utils.elements.newCommentContainer.remove();
+  window.utils.elements.existingCommentsContainer.append(window.utils.elements.tempCommentsContainer)
+
 <% end %>

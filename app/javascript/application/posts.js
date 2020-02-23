@@ -232,6 +232,52 @@ function setupPosts() {
         }
       })
     },
+    setPostCommentsCanvas: function () {
+      this.showPostsContainer = document.querySelector('#show-post-container') ? document.querySelector('#show-post-container') : null;
+      this.postCommentsCanvas = document.querySelector('#post-comments-canvas') ? document.querySelector('#post-comments-canvas') : null;
+      if (this.showPostsContainer && this.postCommentsCanvas) {
+        let containerWidth = this.showPostsContainer.offsetWidth;
+        let containerHeight = this.showPostsContainer.offsetHeight;
+        this.postCommentsCanvas.setAttribute("width", containerWidth);
+        this.postCommentsCanvas.setAttribute("height", containerHeight);
+      }
+    },
+    drawConnectingLinesBetweenComments: function () {
+      if (this.postCommentsCanvas) {
+        let allCommentWrappers = document.querySelectorAll('.show-comment-wrapper');
+        let drawIt = function(wrapper){
+          let childWrappers = wrapper.querySelectorAll('.show-comment-wrapper.nested-wrapper') ? wrapper.querySelectorAll('.show-comment-wrapper.nested-wrapper') : null;
+          if (childWrappers && childWrappers.length === 0) {
+            return;
+          }
+          else if (childWrappers) {
+            let selfContainer = wrapper.querySelector('.show-comment-container');
+            let childContainer = selfContainer.nextElementSibling.querySelector('.show-comment-container');
+
+            let selfX = selfContainer.getBoundingClientRect().x;
+            let selfAbsBottom = selfContainer.offsetTop + selfContainer.getBoundingClientRect().height;
+
+            let childX = childContainer.getBoundingClientRect().x;
+            let childAbsMiddle = childContainer.offsetTop + (childContainer.getBoundingClientRect().height / 2);
+
+            let ctx = window.utils.posts.postCommentsCanvas.getContext('2d');
+            ctx.lineWidth = 5;  
+            ctx.beginPath();
+            ctx.strokeStyle = 'white';
+            ctx.moveTo(selfX + 5, selfAbsBottom - 5);
+            ctx.lineTo(selfX + 5, childAbsMiddle + 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.strokeStyle = 'white';
+            ctx.moveTo(selfX + 5, childAbsMiddle);
+            ctx.lineTo(childX, childAbsMiddle);
+            ctx.stroke();
+          } 
+        }
+        allCommentWrappers.forEach(drawIt)
+
+      }
+    },
 
     init: function() {
       this.showPostBody = document.querySelector('#show-post-body') ? document.querySelector('#show-post-body') : null;
@@ -243,6 +289,7 @@ function setupPosts() {
       this.replaceUrlForAnimatedElements();
       if (this.showPostBody) {
         this.applyFormattingToPreBlocks();
+
       }
     }
 
@@ -255,3 +302,13 @@ function setupPosts() {
 }
 
 document.addEventListener("DOMContentLoaded", setupPosts);
+
+window.onload = function () {
+  window.utils.posts.setPostCommentsCanvas();
+  window.utils.posts.drawConnectingLinesBetweenComments();
+}
+
+window.onresize = function () {
+  window.utils.posts.setPostCommentsCanvas();
+  window.utils.posts.drawConnectingLinesBetweenComments();
+}

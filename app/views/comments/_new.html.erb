@@ -31,22 +31,22 @@
       <%= f.rich_text_area :content, class: "trix-content" %>
     </div>
     <div id="new-comment-submit" class="comment-submit">
-     <% if @existing_post %>
-       <%= f.submit logged_in? ? "Create Comment" : "Add Comment As Guest", id: "new-comment-submit-button", class: "submit-close-buttons submit-button" %>
-      <button id="new-comment-close-button" data-post-id="<%= @existing_post.id %>" class="submit-close-buttons close-button all-close">Cancel</button>
-    <% elsif @existing_comment %>
-       <%= f.submit logged_in? ? "Reply To Comment" : "Reply To Comment As Guest", id: "new-comment-submit-button", class: "submit-close-buttons submit-button" %>
-       <button id="new-comment-close-button" data-comment-id="<%= @existing_comment.id %>" class="submit-close-buttons close-button all-close">Cancel</button>
-    <% end %>
+      <% if @existing_post %>
+        <%= f.submit logged_in? ? "Create Comment" : "Add Comment As Guest", id: "new-comment-submit-button", class: "submit-close-buttons submit-button" %>
+        <button id="new-comment-close-button" data-post-id="<%= @existing_post.id %>" class="submit-close-buttons close-button all-close">Cancel</button>
+      <% elsif @existing_comment %>
+        <%= f.submit logged_in? ? "Reply To Comment" : "Reply To Comment As Guest", id: "new-comment-submit-button", class: "submit-close-buttons submit-button" %>
+        <button id="new-comment-close-button" data-comment-id="<%= @existing_comment.id %>" class="submit-close-buttons close-button all-close">Cancel</button>
+      <% end %>
     </div>
   <% end %>
   <% if !logged_in? %>
     <div id="sign-up-login-container">
-     <% if @existing_post %>
-       <h1 id="" class="comment-form-header">Or to comment as a user:</h1>
-    <% elsif @existing_comment %>
-       <h1 id="" class="comment-form-header">Or to reply to comment as a user:</h1>
-    <% end %>
+      <% if @existing_post %>
+        <h1 id="" class="comment-form-header">Or to comment as a user:</h1>
+      <% elsif @existing_comment %>
+        <h1 id="" class="comment-form-header">Or to reply to comment as a user:</h1>
+      <% end %>
       <%= link_to login_path, class: "no-link-color", title: "Login", remote: true do %>
         <button id="login-user-submit-button" class="submit-close-buttons submit-button">Login</button>
       <% end %>
