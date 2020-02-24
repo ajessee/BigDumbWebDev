@@ -1,26 +1,6 @@
  <div id="show-post-container">
  <canvas id="post-comments-canvas"></canvas>
     <h1 id="show-post-title"><%= @post.title%></h1>
-    
-    <% if logged_in? && current_user.admin? %>
-      <p id="show-post-details">Post ID: <%= @post.id %> | Published: <%= @post.published.to_s.capitalize %> | 
-        <%= @post.created_at.strftime("Posted: %m/%d/%Y") %>
-      </p>
-      <div id="post-controls">
-        <%= link_to post_path(@post), class: "no-link-color", title: "Go To Post" do %>
-          <button id="login-user-close-button" class="submit-close-buttons submit-button">Go To Post</button>
-        <% end %>
-
-        <%= link_to edit_post_path(@post), class: "no-link-color", title: "Edit Post" do %>
-          <button id="login-user-close-button" class="submit-close-buttons submit-button">Edit Post</button>
-        <% end %>
-        <%= link_to post_path(@post), class: "no-link-color", title: "Delete Post", method: "delete" do %>
-          <button id="login-user-submit-button" class="submit-close-buttons close-button all-close">Delete Post</button>
-        <% end %>
-      </div>
-    <% else %>
-      <p class="post-date-posted"><%= @post.created_at.strftime("Posted %m/%d/%Y") %></p>
-    <% end %>
 
     <% if @post.tags %>
       <div id="tag-container">
