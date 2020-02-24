@@ -66,7 +66,7 @@ module UserSignup
   end
 
   def verify_user_sign_up_invalid_activation_link_ui
-    assert find('p.notifications-message', text: "Sorry, that didn't work. Please contact andre@bigdumbwebdev.com")
+    assert find('p.notifications-message', text: "Sorry, that didn't work. Please contact andre@bigdumbweb.dev")
   end
 
   def pull_latest_user_from_database

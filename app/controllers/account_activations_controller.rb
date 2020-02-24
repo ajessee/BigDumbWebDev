@@ -11,7 +11,7 @@ class AccountActivationsController < ApplicationController
     else
       store_message(
         title: 'Invalid Account Activation Link',
-        message: "Sorry, that didn't work. Please contact andre@bigdumbwebdev.com.",
+        message: "Sorry, that didn't work. Please contact andre@bigdumbweb.dev.",
         type: 'failure'
       )
       flash.clear

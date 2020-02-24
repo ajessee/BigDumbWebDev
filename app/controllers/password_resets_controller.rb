@@ -21,7 +21,7 @@ class PasswordResetsController < ApplicationController
     else
       @error = true
       @error_title = 'Oops'
-      @error_message = 'Email address not found. Please contact help@bigdumbwebdev.com'
+      @error_message = 'Email address not found. Please contact help@bigdumbweb.dev'
       render 'new'
     end
   end

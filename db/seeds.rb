@@ -47,7 +47,7 @@ end
 # guest_user = User.create!(
 #   first_name:  "Guest",
 #   last_name: "User",
-#   email: "guest@bigdumbwebdev.com",
+#   email: "guest@bigdumbweb.dev",
 #   password:              Rails.application.credentials.dig(:seed, :guest_user_password),
 #   password_confirmation: Rails.application.credentials.dig(:seed, :guest_user_password),
 #   admin: false,
