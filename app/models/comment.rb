@@ -22,8 +22,8 @@ class Comment < ApplicationRecord
       UserMailer.new_comment_on_post(author, post, new_comment, new_comment_author).deliver_now
     elsif commentable_type == 'Comment'
       reply = self
-      new_comment_author = User.find_by_id(self.user_id)
-      original_comment = Comment.find_by_id(self.commentable_id)
+      new_comment_author = User.find_by_id(user_id)
+      original_comment = Comment.find_by_id(commentable_id)
       original_comment_author = User.find_by_id(original_comment.user_id)
       post = find_comment_post
       UserMailer.new_comment_on_comment(original_comment_author, new_comment_author, original_comment, reply, post).deliver_now

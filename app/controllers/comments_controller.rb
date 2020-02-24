@@ -54,7 +54,7 @@ class CommentsController < ApplicationController
       type: 'success'
     )
     @comment.destroy
-    redirect_to post_url(@post) + "#post-comments-container"
+    redirect_to post_url(@post) + '#post-comments-container'
   end
 
   private
