@@ -1,0 +1,10 @@
+<div class="main-container">
+  <h3>Hi <%= @author.first_name %></h3>
+  
+  <p><%= @new_comment_author.name %> just wrote a comment on your <%= link_to @post.title, post_url(@post) + "#post-comments-container" %> post</p>
+
+  <p>They said: "<%= @new_comment.content.to_plain_text %>"</p>
+  
+  <p>Big Dumb Web Dev</p>
+  <img src="https://s3.amazonaws.com/andre-pictures/BDWD_email_icon.png" alt="Big Dumb Web Dev Logo" class="BDWD-icon">
+</div>

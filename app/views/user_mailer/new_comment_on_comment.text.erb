@@ -1,0 +1,11 @@
+Hi <%= @original_comment_author.first_name %>
+
+Looks like <%= @new_comment_author.name %> has replied to your comment.
+
+You said: "<%= @original_comment.content.to_plain_text %>"
+
+And they replied: "<%= @reply.content.to_plain_text %>"
+
+Take a look at the post <%= @post.title %> to see all the action!
+
+Big Dumb Web Dev

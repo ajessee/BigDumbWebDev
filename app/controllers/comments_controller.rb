@@ -25,6 +25,7 @@ class CommentsController < ApplicationController
     end
     @comment = @commentable.comments.build(comment_params)
     if @comment.save
+      @comment.send_notification_email
       # render create
     else
       # TODO: Add validation for comment body presence
@@ -33,11 +34,11 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @post = find_comment_post(@comment)
+    @post = @comment.find_comment_post
   end
 
   def update
-    @post = find_comment_post(@comment)
+    @post = @comment.find_comment_post
     if @comment.update(comment_params)
       # render update js
     else
@@ -46,26 +47,17 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @post = find_comment_post(@comment)
+    @post = @comment.find_comment_post
     store_message(
       title: 'Comment Deleted',
       message: "Comment by #{@comment.author.name} successfully deleted",
       type: 'success'
     )
     @comment.destroy
-    redirect_to @post
+    redirect_to post_url(@post) + "#post-comments-container"
   end
 
   private
-
-  def find_comment_post(comment)
-    if comment.commentable_type == 'Comment'
-      parent_comment = Comment.find(comment.commentable_id)
-      find_comment_post(parent_comment)
-    elsif comment.commentable_type == 'Post'
-      post = Post.find(comment.commentable_id)
-    end
-  end
 
   def new_params
     params.permit(:post_id, :comment_id)

@@ -11,4 +11,31 @@ class Comment < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   # Comments have rich text content
   has_rich_text :content
+
+  # Instance method to send email that new comment has been posted.
+  def send_notification_email
+    if commentable_type == 'Post'
+      post = Post.find_by_id(commentable_id)
+      author = post.user
+      new_comment = self
+      new_comment_author = User.find_by_id(user_id)
+      UserMailer.new_comment_on_post(author, post, new_comment, new_comment_author).deliver_now
+    elsif commentable_type == 'Comment'
+      reply = self
+      new_comment_author = User.find_by_id(self.user_id)
+      original_comment = Comment.find_by_id(self.commentable_id)
+      original_comment_author = User.find_by_id(original_comment.user_id)
+      post = find_comment_post
+      UserMailer.new_comment_on_comment(original_comment_author, new_comment_author, original_comment, reply, post).deliver_now
+    end
+  end
+
+  def find_comment_post
+    if commentable_type == 'Comment'
+      parent_comment = Comment.find(commentable_id)
+      parent_comment.find_comment_post
+    elsif commentable_type == 'Post'
+      post = Post.find(commentable_id)
+    end
+  end
 end

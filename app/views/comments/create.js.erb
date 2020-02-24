@@ -1,7 +1,4 @@
-
-  
-  
-  window.utils.elements.tempCommentsContainer = document.createElement('div');
+window.utils.elements.tempCommentsContainer = document.createElement('div');
 <% if @comment.commentable_type == "Post" %>
   window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create', nested: false) %>";
   window.utils.elements.tempCommentsContainer = window.utils.elements.tempCommentsContainer.firstElementChild;
@@ -18,5 +15,4 @@
   window.utils.elements.replyCommentButton.style.display = "inline-block";
   window.utils.elements.newCommentContainer.remove();
   window.utils.elements.existingCommentsContainer.append(window.utils.elements.tempCommentsContainer)
-
 <% end %>

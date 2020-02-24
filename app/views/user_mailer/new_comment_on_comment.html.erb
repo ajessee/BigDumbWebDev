@@ -1,0 +1,14 @@
+<div class="main-container">
+  <h3>Hi <%= @original_comment_author.first_name %></h3>
+  
+  <p><%= @new_comment_author.name %> just replied to your comment.</p>
+
+  <p>You said: "<%= @original_comment.content.to_plain_text %>"</p>
+
+  <p>And they replied: "<%= @reply.content.to_plain_text %>"</p>
+  
+  <p>Take a look at the post <%= link_to @post.title, post_url(@post) + "#post-comments-container" %> to see all the action!</p>
+  
+  <p>Big Dumb Web Dev</p>
+  <img src="https://s3.amazonaws.com/andre-pictures/BDWD_email_icon.png" alt="Big Dumb Web Dev Logo" class="BDWD-icon">
+</div>
