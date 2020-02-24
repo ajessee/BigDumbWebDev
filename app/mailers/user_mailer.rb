@@ -8,7 +8,7 @@ class UserMailer < ApplicationMailer
   #
   def account_activation(user)
     @user = user
-    mail from: 'welcome@bigdumbweb.dev', to: user.email, subject: 'Welcome to Big Dumb Web Dev!'
+    mail from: 'welcome@bigdumbweb.dev', to: user.email, subject: 'Welcome to bigdumbweb.dev!'
   end
 
   def password_reset(user)
@@ -22,7 +22,7 @@ class UserMailer < ApplicationMailer
     @original_comment = original_comment
     @reply = reply
     @post = post
-    mail from: 'comments@bigdumbweb.dev', to: original_comment_author.email, subject: 'Someone replied to your comment on Big Dumb Web Dev'
+    mail from: 'comments@bigdumbweb.dev', to: original_comment_author.email, subject: 'Someone replied to your comment on bigdumbweb.dev'
   end
 
   def new_comment_on_post(author, post, new_comment, new_comment_author)
@@ -30,6 +30,6 @@ class UserMailer < ApplicationMailer
     @post = post
     @new_comment = new_comment
     @new_comment_author = new_comment_author
-    mail from: 'comments@bigdumbweb.dev', to: author.email, subject: 'Someone commented on your post on Big Dumb Web Dev'
+    mail from: 'comments@bigdumbweb.dev', to: author.email, subject: 'Someone commented on your post on bigdumbweb.dev'
   end
 end

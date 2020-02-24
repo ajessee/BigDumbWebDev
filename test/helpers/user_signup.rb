@@ -62,7 +62,7 @@ module UserSignup
   end
 
   def verify_user_sign_up_success_notification_ui(user)
-    assert find('p.notifications-message', text: "Welcome to Big Dumb Web Dev #{user.first_name}!")
+    assert find('p.notifications-message', text: "Welcome to bigdumbweb.dev #{user.first_name}!")
   end
 
   def verify_user_sign_up_invalid_activation_link_ui

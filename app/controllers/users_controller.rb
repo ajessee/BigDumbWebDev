@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     if flash[:success]
       store_message(
         title: flash[:success],
-        message: "Welcome to Big Dumb Web Dev #{@user.first_name}!",
+        message: "Welcome to bigdumbweb.dev #{@user.first_name}!",
         type: 'success'
       )
       flash.clear

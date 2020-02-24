@@ -8,7 +8,7 @@ class UserMailerTest < ActionMailer::TestCase
     user = users(:one)
     user.activation_token = User.new_token
     mail = UserMailer.account_activation(user)
-    assert_equal 'Welcome to Big Dumb Web Dev!', mail.subject
+    assert_equal 'Welcome to bigdumbweb.dev!', mail.subject
     assert_equal [user.email], mail.to
     assert_equal ['welcome@bigdumbweb.dev'], mail.from
     assert_match user.first_name,         mail.body.encoded
