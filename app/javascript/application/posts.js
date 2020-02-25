@@ -256,27 +256,38 @@ function setupPosts() {
                 let childX = childContainer.getBoundingClientRect().x;
                 let childAbsMiddle = childContainer.offsetTop + (childContainer.getBoundingClientRect().height / 2);
                 let ctx = window.utils.posts.postCommentsCanvas.getContext('2d');
-                ctx.lineWidth = 5;
+                let lineWidth, horizontalLineStart, verticalLineStart;
+                if (window.utils.mobileScreenDetected) {
+                  lineWidth = 3;
+                  horizontalLineStart = selfX - 9;
+                  verticalLineStart = selfX - 8;
+                } else {
+                  lineWidth = 5;
+                  horizontalLineStart = selfX - 32;
+                  verticalLineStart = selfX - 30;
+                }
+
+                ctx.lineWidth = lineWidth;
                 // Horizontal line from middle of parent elemtent to 32 pixels to the left
                 ctx.beginPath();
                 ctx.strokeStyle = '#b2becf';
                 // line start
                 ctx.moveTo(selfX, selfAbsMiddle);
                 // line end
-                ctx.lineTo(selfX - 32, selfAbsMiddle);
+                ctx.lineTo(horizontalLineStart, selfAbsMiddle);
                 ctx.stroke();
                 // Vertical line from parent horizontal line down to middle of child element
                 ctx.beginPath();
                 ctx.strokeStyle = '#b2becf';
                 // Line start (30 pixels instead of 32 to get seamless juncture)
-                ctx.moveTo(selfX - 30, selfAbsMiddle);
+                ctx.moveTo(verticalLineStart, selfAbsMiddle);
                 // Line end
-                ctx.lineTo(selfX - 30, childAbsMiddle);
+                ctx.lineTo(verticalLineStart, childAbsMiddle);
                 ctx.stroke();
                 // Horizontal line from parent element X coordinate (left edge) to left edge of child element
                 ctx.beginPath();
                 ctx.strokeStyle = '#b2becf';
-                ctx.moveTo(selfX - 32, childAbsMiddle);
+                ctx.moveTo(horizontalLineStart, childAbsMiddle);
                 ctx.lineTo(childX, childAbsMiddle);
                 ctx.stroke();
               }
