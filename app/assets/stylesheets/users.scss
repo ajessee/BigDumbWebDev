@@ -5,11 +5,11 @@
 
 .user-form {
   display: grid;
-  background-color: aliceblue;
   font-family: 'Oxygen', sans-serif;
   align-items: center;
   align-content: center;
   height: 100%;
+  background-color: aliceblue;
 }
 
 .user-submit {
@@ -121,14 +121,12 @@
 
 .users-container {
   font-family: 'Oxygen', sans-serif;
-  background-color: aliceblue;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
 
   // User Index
   #users-show-partial {
     font-family: 'Oxygen', sans-serif;
-    background-color: aliceblue;
     text-align: center;
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
@@ -148,7 +146,6 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     text-align: center;
-    background-color: aliceblue;
 
     #user-show-title {
       text-align: center;

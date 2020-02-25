@@ -1,5 +1,5 @@
- <canvas id="post-comments-canvas"></canvas>
- <div id="show-post-container">
+  <canvas id="post-comments-canvas"></canvas>
+  <div id="show-post-container">
     <h1 id="show-post-title"><%= @post.title%></h1>
     <% if @post.tags %>
       <div id="tag-container">
@@ -22,7 +22,6 @@
           <% @post.comments.each do |comment| %>
             <%= render 'comments/create', comment: comment %>
           <% end %>
-      
       </div>
     <% end %>
     <div id="add-comment-to-post">

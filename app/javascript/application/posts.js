@@ -287,6 +287,11 @@ function setupPosts() {
       }
     },
 
+    redrawCommentLines: function() {
+      this.setPostCommentsCanvas();
+      this.drawConnectingLinesBetweenComments();
+    },
+
     init: function () {
       this.showPostBody = document.querySelector('#show-post-body') ? document.querySelector('#show-post-body') : null;
       this.postContainer = document.querySelector('.post-container') ? document.querySelector('.post-container') : null;
@@ -308,11 +313,9 @@ function setupPosts() {
 document.addEventListener("DOMContentLoaded", setupPosts);
 
 window.onload = function () {
-  window.utils.posts.setPostCommentsCanvas();
-  window.utils.posts.drawConnectingLinesBetweenComments();
+  window.utils.posts.redrawCommentLines();
 }
 
 window.onresize = function () {
-  window.utils.posts.setPostCommentsCanvas();
-  window.utils.posts.drawConnectingLinesBetweenComments();
+  window.utils.posts.redrawCommentLines();
 }

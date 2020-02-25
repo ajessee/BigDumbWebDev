@@ -3,7 +3,6 @@ window.utils.elements.tempCommentsContainer = document.createElement('div');
   window.utils.elements.tempCommentsContainer.innerHTML = "<%= j (render 'create', nested: false) %>";
   window.utils.elements.tempCommentsContainer = window.utils.elements.tempCommentsContainer.firstElementChild;
   window.utils.elements.postCommentsContainer.prepend(window.utils.elements.tempCommentsContainer);
-  window.utils.elements.commentsContainerCanvasWidth = window.utils.elements.tempCommentsContainer.style.width;
   window.utils.elements.newCommentContainer.remove();
   window.utils.elements.postCommentsContainer.firstChild.scrollIntoView();
   window.utils.elements.newCommentButton.style.display = "block";
@@ -16,3 +15,4 @@ window.utils.elements.tempCommentsContainer = document.createElement('div');
   window.utils.elements.newCommentContainer.remove();
   window.utils.elements.existingCommentsContainer.append(window.utils.elements.tempCommentsContainer)
 <% end %>
+window.utils.posts.redrawCommentLines();

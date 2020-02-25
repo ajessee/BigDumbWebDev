@@ -10,7 +10,7 @@
     </div>
   <% end %>
   <% if @user.image.attached? %>
-    <%= link_to remove_user_image_path(@user), class: "no-link-color", id: "remove-user-image-button", title: "Remove User Image", data: { confirm: "Are you sure?" } do %>
+    <%= link_to remove_user_image_path(@user), class: "no-link-color", id: "remove-user-image-button", title: "Remove User Image", data: { confirm: "Are you sure you want to remove this picture?" } do %>
       <button id="remove-user-picture" class="submit-close-buttons close-button all-close">Remove Picture</button>
     <% end %>
   <% end%>

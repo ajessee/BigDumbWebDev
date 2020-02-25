@@ -7,7 +7,6 @@
   grid-template-columns: 10% 80% 10%;
   grid-template-rows: 5% 30% 60% 5%;
   grid-template-areas: "topBorder topBorder topBorder""leftBorder addTask rightBorder""leftBorder listTask rightBorder""bottomBorder bottomBorder bottomBorder";
-  background-color: aliceblue;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   width: 100vw;

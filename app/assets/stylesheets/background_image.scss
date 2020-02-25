@@ -2,7 +2,6 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 20vh 70vh 10vh;
-  background-color: aliceblue;
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
