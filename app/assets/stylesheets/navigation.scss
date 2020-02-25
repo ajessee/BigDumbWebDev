@@ -28,6 +28,7 @@
     transform: translateX(0);
     transition: transform .35s ease-in-out;
     width: 25%;
+    z-index: 3;
 }
 
 #nav-slide-in-menu.menu-closed {

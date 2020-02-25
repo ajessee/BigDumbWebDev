@@ -1,4 +1,8 @@
 #show-post-container {
+  * {
+    z-index: 2;
+  }
+  
 }
 
 .post-container {

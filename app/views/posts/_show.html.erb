@@ -1,7 +1,6 @@
- <div id="show-post-container">
  <canvas id="post-comments-canvas"></canvas>
+ <div id="show-post-container">
     <h1 id="show-post-title"><%= @post.title%></h1>
-
     <% if @post.tags %>
       <div id="tag-container">
         <% @post.tags.each do |tag| %>
@@ -11,7 +10,6 @@
         <% end %>
       </div>
     <% end %>
-
     <div id="show-post-body" class="show-post-container">
         <a href="#" class="no-link-color" id="post-toggle-fullscreen">
             <i id="expand-post-icon" class="fas fa-expand fa-2x nav-menu-icon"></i>
@@ -19,20 +17,18 @@
         </a>
         <%= @post.content %>
     </div>
-      
-      <% if @post.comments %>
-        <div id="post-comments-container">
-            <% @post.comments.each do |comment| %>
-              <%= render 'comments/create', comment: comment %>
-            <% end %>
-        
-        </div>
-      <% end %>
-
-      <div id="add-comment-to-post">
-          <%= link_to new_comment_path(post_id: @post.id), class: "no-link-color", id: "add-new-comment-button", title: "Create Comment", remote: true do %>
-          <button class="submit-close-buttons submit-button">Add Comment</button>
+    <% if @post.comments %>
+      <div id="post-comments-container">
+          <% @post.comments.each do |comment| %>
+            <%= render 'comments/create', comment: comment %>
           <% end %>
+      
       </div>
+    <% end %>
+    <div id="add-comment-to-post">
+        <%= link_to new_comment_path(post_id: @post.id), class: "no-link-color", id: "add-new-comment-button", title: "Create Comment", remote: true do %>
+        <button class="submit-close-buttons submit-button">Add Comment</button>
+        <% end %>
+    </div>
 
 </div>

@@ -11,7 +11,7 @@ const setUpDebug = () => {
       if (window.utils.debug.debugButton && window.utils.debug.debugPanel && !window.utils.debug.debugPanelOpen) {
         let modal;
         if (window.utils.mobileScreenDetected) {
-          modal = window.utils.modal.openModal('block', '0%', 8, 1, 8, 14, null, null, true);
+          modal = window.utils.modal.openModal('block', '0%', 4, 1, 12, 14, null, null, true);
         } else {
           modal = window.utils.modal.openModal('block', '0%', 14, 2, 1, 14, null, null, true);
         }

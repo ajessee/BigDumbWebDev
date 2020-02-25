@@ -4,17 +4,17 @@ function setupPosts() {
 
   const posts = {
 
-    setupFullScreen: function() {
+    setupFullScreen: function () {
 
       let self = this;
 
       if (this.showPostBody) {
 
-        this.applyFormattingToPreBlocks = function() {
+        this.applyFormattingToPreBlocks = function () {
           const preElements = this.showPostBody.querySelector('.trix-content').querySelectorAll('pre');
-          preElements.forEach(function(preElement) {
+          preElements.forEach(function (preElement) {
             const regex = /(?!lang\-\\w\*)lang-\w*\W*/gm;
-            const codeElement = document.createElement('code'); 
+            const codeElement = document.createElement('code');
             if (preElement.childNodes.length > 1) {
               console.error('<pre> element contained nested inline elements (probably styling) and could not be processed. Please remove them and try again.')
             }
@@ -32,7 +32,7 @@ function setupPosts() {
 
         this.toggleLink = document.querySelector('#post-toggle-fullscreen');
 
-        this.toggleIcons = function(expand) {
+        this.toggleIcons = function (expand) {
           const expandIcon = document.querySelector('#expand-post-icon');
           const shrinkIcon = document.querySelector('#shrink-post-icon');
           if (expand) {
@@ -43,8 +43,8 @@ function setupPosts() {
             shrinkIcon.style.display = "block";
           }
         };
-    
-        this.toggleLink.addEventListener('click', function(e) {
+
+        this.toggleLink.addEventListener('click', function (e) {
           if (
             document.fullscreenElement ||
             document.webkitFullscreenElement ||
@@ -82,7 +82,7 @@ function setupPosts() {
         });
 
         ['webkitfullscreenchange', 'mozfullscreenchange', 'fullscreenchange', 'msfullscreenchange'].forEach(
-          eventName => document.addEventListener(eventName, function(e) {
+          eventName => document.addEventListener(eventName, function (e) {
             const state = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
             if (!state) {
               self.toggleIcons(true);
@@ -91,8 +91,8 @@ function setupPosts() {
             }
           })
         );
-        
-    
+
+
       };
 
     },
@@ -101,7 +101,7 @@ function setupPosts() {
 
       if (this.postContainer) {
         const tagDropDown = document.querySelector('#post_counts');
-        tagDropDown.addEventListener('change', function(e){
+        tagDropDown.addEventListener('change', function (e) {
           let selectionText = e.target.options[e.target.selectedIndex].text;
           let existingTagsInput = document.querySelector('#existing-tags-input');
           let existingTagsInputArr;
@@ -121,7 +121,7 @@ function setupPosts() {
 
     },
 
-    highlightInvalidInputs: function() {
+    highlightInvalidInputs: function () {
       let input = document.querySelector('input#post_title') ? document.querySelector('input#post_title') : null;
       if (input) {
         let wrapperDiv = input.parentElement;
@@ -137,16 +137,15 @@ function setupPosts() {
         input.addEventListener("change", function (event) {
           if (!input.validity.valueMissing) {
             wrapperDiv.style.border = 'none';
-          } 
+          }
         });
       }
     },
 
-    redirectToPost: function(postID) {
+    redirectToPost: function (postID) {
       if (postID) {
         window.location.href = '/posts/' + postID;
-      }
-      else {
+      } else {
         window.location.href = '/posts'
       }
     },
@@ -158,7 +157,7 @@ function setupPosts() {
         const newPostCancelButton = document.querySelector('#new-post-cancel-button') ? document.querySelector('#new-post-cancel-button') : null;
 
         if (editPostCancelButton) {
-          editPostCancelButton.addEventListener('click', function(e){
+          editPostCancelButton.addEventListener('click', function (e) {
             e.preventDefault()
             let postId = e.target.getAttribute('data-post-id');
             if (window.utils.postAutoSaver && window.utils.postAutoSaver.hasUnsavedChanges) {
@@ -169,15 +168,14 @@ function setupPosts() {
               } else {
                 return
               }
-            }
-            else {
+            } else {
               window.utils.posts.redirectToPost(postId);
             }
           })
         }
 
         if (newPostCancelButton) {
-          newPostCancelButton.addEventListener('click', function(e){
+          newPostCancelButton.addEventListener('click', function (e) {
             e.preventDefault()
             if (window.utils.postAutoSaver && window.utils.postAutoSaver.hasUnsavedChanges) {
               let choice = confirm("You have unsaved changes, are you sure?");
@@ -188,8 +186,7 @@ function setupPosts() {
               } else {
                 return
               }
-            }
-            else {
+            } else {
               window.utils.posts.redirectToPost();
             }
           })
@@ -199,9 +196,9 @@ function setupPosts() {
     },
 
     // This is an ugly hack to work around the fact that I don't know how to configure active storage files/attachements to preview correctly
-    replaceUrlForAnimatedElements: function() {
+    replaceUrlForAnimatedElements: function () {
       let attachments = document.querySelectorAll('action-text-attachment');
-      attachments.forEach(function(attachment){
+      attachments.forEach(function (attachment) {
         let contentType = attachment.getAttribute("content-type");
         if (contentType === "image/gif") {
           const url = attachment.getAttribute("url");
@@ -245,42 +242,52 @@ function setupPosts() {
     drawConnectingLinesBetweenComments: function () {
       if (this.postCommentsCanvas) {
         let allCommentWrappers = document.querySelectorAll('.show-comment-wrapper');
-        let drawIt = function(wrapper){
+        let drawIt = function (wrapper) {
           let childWrappers = wrapper.querySelectorAll('.show-comment-wrapper.nested-wrapper') ? wrapper.querySelectorAll('.show-comment-wrapper.nested-wrapper') : null;
           if (childWrappers && childWrappers.length === 0) {
             return;
-          }
-          else if (childWrappers) {
+          } else if (childWrappers) {
             let selfContainer = wrapper.querySelector('.show-comment-container');
-            let childContainer = selfContainer.nextElementSibling.querySelector('.show-comment-container');
-
             let selfX = selfContainer.getBoundingClientRect().x;
-            let selfAbsBottom = selfContainer.offsetTop + selfContainer.getBoundingClientRect().height;
-
-            let childX = childContainer.getBoundingClientRect().x;
-            let childAbsMiddle = childContainer.offsetTop + (childContainer.getBoundingClientRect().height / 2);
-
-            let ctx = window.utils.posts.postCommentsCanvas.getContext('2d');
-            // ctx.globalCompositeOperation='destination-over';
-            ctx.lineWidth = 5;  
-            ctx.beginPath();
-            ctx.strokeStyle = 'white';
-            ctx.moveTo(selfX + 5, selfAbsBottom - 5);
-            ctx.lineTo(selfX + 5, childAbsMiddle + 2);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.strokeStyle = 'white';
-            ctx.moveTo(selfX + 5, childAbsMiddle);
-            ctx.lineTo(childX, childAbsMiddle);
-            ctx.stroke();
-          } 
+            let selfAbsMiddle = selfContainer.offsetTop + (selfContainer.getBoundingClientRect().height / 2);
+            for (let child of selfContainer.parentElement.children) {
+              if (child.classList.contains('nested-wrapper')) {
+                let childContainer = child.querySelector('.show-comment-container');
+                let childX = childContainer.getBoundingClientRect().x;
+                let childAbsMiddle = childContainer.offsetTop + (childContainer.getBoundingClientRect().height / 2);
+                let ctx = window.utils.posts.postCommentsCanvas.getContext('2d');
+                ctx.lineWidth = 5;
+                // Horizontal line from middle of parent elemtent to 32 pixels to the left
+                ctx.beginPath();
+                ctx.strokeStyle = '#b2becf';
+                // line start
+                ctx.moveTo(selfX, selfAbsMiddle);
+                // line end
+                ctx.lineTo(selfX - 32, selfAbsMiddle);
+                ctx.stroke();
+                // Vertical line from parent horizontal line down to middle of child element
+                ctx.beginPath();
+                ctx.strokeStyle = '#b2becf';
+                // Line start (30 pixels instead of 32 to get seamless juncture)
+                ctx.moveTo(selfX - 30, selfAbsMiddle);
+                // Line end
+                ctx.lineTo(selfX - 30, childAbsMiddle);
+                ctx.stroke();
+                // Horizontal line from parent element X coordinate (left edge) to left edge of child element
+                ctx.beginPath();
+                ctx.strokeStyle = '#b2becf';
+                ctx.moveTo(selfX - 32, childAbsMiddle);
+                ctx.lineTo(childX, childAbsMiddle);
+                ctx.stroke();
+              }
+            }
+          }
         }
         allCommentWrappers.forEach(drawIt)
-
       }
     },
 
-    init: function() {
+    init: function () {
       this.showPostBody = document.querySelector('#show-post-body') ? document.querySelector('#show-post-body') : null;
       this.postContainer = document.querySelector('.post-container') ? document.querySelector('.post-container') : null;
       this.setupFullScreen();
@@ -290,8 +297,6 @@ function setupPosts() {
       this.replaceUrlForAnimatedElements();
       if (this.showPostBody) {
         this.applyFormattingToPreBlocks();
-        // this.setPostCommentsCanvas();
-        // this.drawConnectingLinesBetweenComments();
       }
     }
   };
@@ -302,12 +307,12 @@ function setupPosts() {
 
 document.addEventListener("DOMContentLoaded", setupPosts);
 
-// window.onload = function () {
-//   window.utils.posts.setPostCommentsCanvas();
-//   window.utils.posts.drawConnectingLinesBetweenComments();
-// }
+window.onload = function () {
+  window.utils.posts.setPostCommentsCanvas();
+  window.utils.posts.drawConnectingLinesBetweenComments();
+}
 
-// window.onresize = function () {
-//   window.utils.posts.setPostCommentsCanvas();
-//   window.utils.posts.drawConnectingLinesBetweenComments();
-// }
+window.onresize = function () {
+  window.utils.posts.setPostCommentsCanvas();
+  window.utils.posts.drawConnectingLinesBetweenComments();
+}

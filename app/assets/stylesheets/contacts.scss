@@ -31,7 +31,6 @@
   grid-column: 2/8;
   grid-row: 1;
   margin-top: 2%;
-  z-index: 1;
 }
 
 #contact-add-form {
@@ -134,7 +133,7 @@
 #contact-modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 8;
   left: 0;
   top: 0;
   width: 100%;
