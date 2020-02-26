@@ -37,7 +37,7 @@ class PasswordResetsController < ApplicationController
       @user.update_attribute(:reset_digest, nil)
       store_message(
         title: 'Nice!',
-        message: 'Your password has been successfully reset.',
+        message: 'Your password has been successfully reset',
         type: 'success'
       )
       redirect_to @user
@@ -60,6 +60,17 @@ class PasswordResetsController < ApplicationController
   def valid_user
     unless @user&.activated? &&
            @user&.authenticated?(:reset, params[:id])
+      @message = ''
+      if !@user&.activated?
+        @message = 'Your account has not been activated yet. Please check your email and activate your account before trying to reset your password'
+      elsif !@user&.authenticated?(:reset, params[:id])
+        @message = 'It looks like your reset token has changed. Please contact thebigdummy@bigdumbweb.dev to resolve this issue'
+       end
+      store_message(
+        title: 'Oops!',
+        message: @message,
+        type: 'failure'
+      )
       redirect_to root_url
     end
   end
