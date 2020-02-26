@@ -3,7 +3,6 @@
 require 'application_system_test_case'
 
 class UserPasswordResetTest < ApplicationSystemTestCase
-
   def setup
     ActionMailer::Base.deliveries.clear
   end
@@ -110,5 +109,4 @@ class UserPasswordResetTest < ApplicationSystemTestCase
     validate_user_password_reset_user_token_expired_failed_notification_ui
     validate_user_logged_out(false, false)
   end
-
 end

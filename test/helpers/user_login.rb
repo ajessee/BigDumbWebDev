@@ -17,9 +17,7 @@ module UserLogin
   end
 
   def validate_user_logged_in(user, remember = false, check_notification = true)
-    if check_notification
-      assert find('p.notifications-message', text: 'You\'ve been logged in to your account.')
-    end
+    assert find('p.notifications-message', text: 'You\'ve been logged in to your account.') if check_notification
     session_cookie = page.driver.browser.manage.cookie_named('_big_dumb_web_dev_session')[:value]
     session_cookie_decrypt = verify_and_decrypt_session_cookie(session_cookie)
     assert User.find(session_cookie_decrypt['user_id']) == user
@@ -47,9 +45,7 @@ module UserLogin
   end
 
   def validate_user_logged_out(remember = false, check_notification = true)
-    if check_notification 
-      assert find('p.notifications-message', text: 'You\'ve been successfully logged out of your account')
-    end
+    assert find('p.notifications-message', text: 'You\'ve been successfully logged out of your account') if check_notification
     session_cookie_decrypt = fetch_session_cookie
     assert_not session_cookie_decrypt['user_id']
     if remember
@@ -59,7 +55,7 @@ module UserLogin
   end
 
   def validate_user_get_reset_form_and_fill(user, bad_email = nil)
-    user_email = bad_email ? bad_email : user.email
+    user_email = bad_email || user.email
     assert find('#new-password-reset')
     assert find('#new-password-reset-header', text: 'Submit Email For Password Reset')
     assert find('#new-password-reset-email').find('input#password_reset_email')
@@ -69,14 +65,14 @@ module UserLogin
   end
 
   def validate_user_password_reset_form_and_fill(new_password, bad_password = nil, bad_confirm = nil)
-    password = bad_password ? bad_password : new_password
-    password_confirm = bad_confirm ? bad_confirm : new_password
+    password = bad_password || new_password
+    password_confirm = bad_confirm || new_password
     assert find('#password-reset-form')
     assert find('#password-reset-header', text: 'Reset Password')
     assert find('#password-reset-password').find('#user_password')
     assert find('#password-reset-password-confirm').find('#user_password_confirmation')
     assert fill_in 'user[password]', with: password
-    assert fill_in 'user[password_confirmation]', with: password_confirm 
+    assert fill_in 'user[password_confirmation]', with: password_confirm
     assert find('#password-reset-submit').find('#password-reset-submit-button').click
   end
 
@@ -133,5 +129,4 @@ module UserLogin
   def validate_user_password_reset_success_notification_ui
     assert find('p.notifications-message', text: 'We just sent you an email with password reset instructions')
   end
-
 end
