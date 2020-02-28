@@ -13,9 +13,9 @@ namespace :db do
     dumpfile = "#{Rails.root}/latest.dump"
     File.delete(dumpfile) if File.exist?(dumpfile)
     puts 'heroku pg:backups:capture'
-    system 'heroku pg:backups:capture'
+    system 'heroku pg:backups:capture --app big-dumb-web-dev'
     puts 'heroku pg:backups:download'
-    system 'heroku pg:backups:download'
+    system 'heroku pg:backups:download --app big-dumb-web-dev'
     puts 'Done'
   end
 
