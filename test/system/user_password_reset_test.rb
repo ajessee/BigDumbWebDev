@@ -28,7 +28,7 @@ class UserPasswordResetTest < ApplicationSystemTestCase
   end
 
   # Error paths
-  test 'User can\'t reset password if they use bad email' do
+  test 'User cannot reset password if they use bad email' do
     andre = users(:one)
     log_in_as(andre, 'bad_password')
     validate_user_bad_login_info_notification_ui
@@ -37,7 +37,7 @@ class UserPasswordResetTest < ApplicationSystemTestCase
     validate_user_logged_out(false, false)
   end
 
-  test 'Inactive user can\'t reset password' do
+  test 'Inactive user cannot reset password' do
     andre = users(:one)
     log_in_as(andre, 'bad_password')
     validate_user_bad_login_info_notification_ui
@@ -52,7 +52,7 @@ class UserPasswordResetTest < ApplicationSystemTestCase
     validate_user_logged_out(false, false)
   end
 
-  test 'User with correct email but wrong reset token can\'t reset password' do
+  test 'User with correct email but wrong reset token cannot reset password' do
     andre = users(:one)
     log_in_as(andre, 'bad_password')
     validate_user_bad_login_info_notification_ui
@@ -67,7 +67,7 @@ class UserPasswordResetTest < ApplicationSystemTestCase
     validate_user_logged_out(false, false)
   end
 
-  test 'User can\'t change password if password and confirm do not match' do
+  test 'User cannot change password if password and confirm do not match' do
     andre = users(:one)
     new_password = 'qqqq1111'
     log_in_as(andre, 'bad_password')
@@ -81,7 +81,7 @@ class UserPasswordResetTest < ApplicationSystemTestCase
     validate_user_password_reset_form_bad_confirm_error
   end
 
-  test 'User can\'t change password if password is blank' do
+  test 'User cannot change password if password is blank' do
     andre = users(:one)
     new_password = 'qqqq1111'
     log_in_as(andre, 'bad_password')
@@ -95,7 +95,7 @@ class UserPasswordResetTest < ApplicationSystemTestCase
     validate_user_password_reset_form_empty_password_error
   end
 
-  test 'User with expired reset token can\'t reset password' do
+  test 'User with expired reset token cannot reset password' do
     andre = users(:one)
     log_in_as(andre, 'bad_password')
     validate_user_bad_login_info_notification_ui
