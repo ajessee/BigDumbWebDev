@@ -15,9 +15,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    respond_to do |format|
-      format.js
-    end
     if existing_guest_user?
       @user = existing_guest_user?
       guest_user_params = update_guest_params(@user, params.require(:user).permit(:first_name, :last_name, :details, :image, :email, :password, :password_confirmation, :update_type))
