@@ -1,4 +1,3 @@
-<% provide(:title, "A Year In NYC") %>
 <section id="nyc-project-container">
 
   <% if mobile_device == "mobile" %>
@@ -8,6 +7,7 @@
   <% end %> 
   
   <% @resources.each do |r| %>
+  <% provide(:title, "A Year In NYC | Day #{r.day}") %>
   <div id="nyc-project-caption">
     <%= r.caption.match(/[^#]*/) %>
       <% r.caption.match(/\#(.*)/).to_s.split(" ").each do |tag| %>

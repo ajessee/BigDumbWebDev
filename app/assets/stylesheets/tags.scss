@@ -47,22 +47,20 @@
   font-size: 3em;
 }
 
-
-.post-tag-button {
-  background-color: lightslategrey;
-  font-size: 1.2em;
-  padding: 10px 15px;
-  margin: 0.5%;
-}
-
 .tag-link-container {
   margin: 2%;
+}
+
+.post-tag-link {
+  font-size: 2.5em;
+  margin: 0.3%;
 }
 
 .tag-link {
   text-decoration: none;
   transition: all .2s ease-in-out;
   display: inline-block;
+  color: darkgray;
 }
 
 .tag-delete {
@@ -90,7 +88,6 @@
 
 #tag-container {
   text-align: center;
-  padding: 2%;
 }
 
 .css1 {
@@ -168,10 +165,13 @@
     font-size: 2.7em;
   }
 
-  .post-tag-button {
-    font-size: 0.7em;
-    margin: 1%;
-    padding: 8px 13px;
+  .post-tag-link {
+    font-size: 1em;
+    margin: 0.3%;
+  }
+
+  #tag-container {
+    padding: 3%;
   }
 
   #tag-show-header {

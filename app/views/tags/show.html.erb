@@ -1,9 +1,9 @@
-<% provide(:title, @tag.name) %>
+<% provide(:title, "\##{@tag.name}") %>
 <div id="all-tags-container">
   <div id="tag-show-container">
 
     <div id="tag-show-header">
-      <h1><%= @tag.name.capitalize %></h1>
+      <h1><%= "\##{@tag.name}" %></h1>
     </div>
 
     <% @tag.posts.each do |post| %>
