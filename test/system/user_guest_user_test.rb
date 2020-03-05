@@ -19,18 +19,18 @@ class UsersGuestsTest < ApplicationSystemTestCase
 
   # Error cases
   test 'Create guest comment with no first or last name provided' do
-    guest = create_user_info_with_comment
+    guest = create_user_info_with_missing_first_and_last_name
     go_to_first_post
     open_comment_section
     verify_comment_form_elements_ui
     assert find('trix-editor').click.set(guest[:comment])
     assert find('#new-comment-submit-button').click
-    assert find('div.show-comment-body', text: 'Anonymous Guest User')
+    assert find('div.show-comment-body', text: 'Anonymous User')
     assert find('div.trix-content', text: guest[:comment])
     guest_user = pull_latest_user_from_database
     comment = pull_guest_comment_from_database(guest_user)
     assert guest_user.first_name == 'Anonymous'
-    assert guest_user.last_name == 'Guest User'
+    assert guest_user.last_name == 'User'
     assert guest_user.guest_1?
     validate_comment_text(guest, comment)
   end

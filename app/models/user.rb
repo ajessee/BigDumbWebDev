@@ -93,7 +93,7 @@ class User < ApplicationRecord
 
   # Instance method to check if guest user has updated the default last name
   def guest_last_name_updated?
-    last_name != 'Guest User'
+    last_name != 'User'
   end
 
   # Instance method to check if guest user has updated the randomly assigned guest email (they've created an account)

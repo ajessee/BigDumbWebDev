@@ -79,42 +79,12 @@ class UserSignupsTest < ApplicationSystemTestCase
     assert_not session_cookie_decrypt['user_id']
   end
 
-  test 'User signup fails when no first name input' do
-    new_user = create_user_info_with_missing_first_name
-    visit(root_path)
-    open_sign_up_section(false)
-    verify_user_sign_up_or_edit_form_ui
-    fill_in_and_submit_user_signup_form(new_user)
-    assert page.find('input#user_first_name').native.attribute('validationMessage') == 'Please fill out this field.'
-  end
-
-  test 'User signup fails when no last name input' do
-    new_user = create_user_info_with_missing_last_name
-    visit(root_path)
-    open_sign_up_section(false)
-    verify_user_sign_up_or_edit_form_ui
-    fill_in_and_submit_user_signup_form(new_user)
-    assert page.find('input#user_last_name').native.attribute('validationMessage') == 'Please fill out this field.'
-  end
-
-  test 'User signup fails when no first or last name input' do
-    new_user = create_user_info_with_everything_blank
-    visit(root_path)
-    open_sign_up_section(false)
-    verify_user_sign_up_or_edit_form_ui
-    fill_in_and_submit_user_signup_form(new_user)
-    assert page.find('input#user_first_name').native.attribute('validationMessage') == 'Please fill out this field.'
-    assert page.find('input#user_last_name').native.attribute('validationMessage') == 'Please fill out this field.'
-  end
-
   test 'User signup fails when all fields blank input' do
     new_user = create_user_info_with_everything_blank
     visit(root_path)
     open_sign_up_section(false)
     verify_user_sign_up_or_edit_form_ui
     fill_in_and_submit_user_signup_form(new_user)
-    assert page.find('input#user_first_name').native.attribute('validationMessage') == 'Please fill out this field.'
-    assert page.find('input#user_last_name').native.attribute('validationMessage') == 'Please fill out this field.'
     assert page.find('input#user_email').native.attribute('validationMessage') == 'Please fill out this field.'
     assert page.find('input#user_password').native.attribute('validationMessage') == 'Please fill out this field.'
     assert page.find('input#user_password_confirmation').native.attribute('validationMessage') == 'Please fill out this field.'
