@@ -89,5 +89,4 @@ class UserEditTest < ApplicationSystemTestCase
     fill_in_and_submit_user_edit_form(@new_user_info_invalid_email)
     assert find('span.error_explanation', text: 'Email is invalid')
   end
-
 end

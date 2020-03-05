@@ -109,9 +109,7 @@ class User < ApplicationRecord
   # Instance method to remove the guest email from permanent cookie and convert guest user to regular user
   def convert_from_guest_account(cookies)
     if guest_2?
-      if cookies.permanent.signed[:guest_user_email]
-        cookies.delete :guest_user_email
-      end
+      cookies.delete :guest_user_email if cookies.permanent.signed[:guest_user_email]
       user!
     end
   end
@@ -136,9 +134,9 @@ class User < ApplicationRecord
 
   # Set default name if no name given
   def set_default_name
-    if self.first_name.empty? && self.last_name.empty?
-      self.first_name = "Anonymous" if self.first_name.empty? 
-      self.last_name = "User" if self.last_name.empty?
+    if first_name.empty? && last_name.empty?
+      self.first_name = 'Anonymous' if first_name.empty?
+      self.last_name = 'User' if last_name.empty?
     end
   end
 
