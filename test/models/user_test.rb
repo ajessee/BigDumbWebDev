@@ -16,15 +16,15 @@ class UserTest < ActiveSupport::TestCase
     assert @user.valid?
   end
 
-  test 'user first name should be present' do
-    @user.first_name = '      '
-    refute @user.valid?
-  end
+  # test 'user first name should be present' do
+  #   @user.first_name = '      '
+  #   refute @user.valid?
+  # end
 
-  test 'user last name should be present' do
-    @user.first_name = '      '
-    refute @user.valid?
-  end
+  # test 'user last name should be present' do
+  #   @user.first_name = '      '
+  #   refute @user.valid?
+  # end
 
   test 'user email should be present' do
     @user.email = '      '
