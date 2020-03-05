@@ -17,13 +17,14 @@ class User < ApplicationRecord
   after_initialize :set_default_role, if: :new_record?
   # before_save is a callback that gets invoked before the user model is saved to the database
   before_save :downcase_email
+  before_save :set_default_name
 
   # Regex to test email validity
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
   # Model validation constraints that are run on save
-  validates :first_name, presence: true, length: { maximum: 50 }
-  validates :last_name, presence: true, length: { maximum: 50 }
+  validates :first_name, length: { maximum: 50 }
+  validates :last_name, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
   validates :password, length: { minimum: 8 }, allow_nil: true
 
@@ -131,6 +132,14 @@ class User < ApplicationRecord
   # Converts email to all lower-case.
   def downcase_email
     self.email = email.downcase
+  end
+
+  # Set default name if no name given
+  def set_default_name
+    if self.first_name.empty? && self.last_name.empty?
+      self.first_name = "Anonymous" if self.first_name.empty? 
+      self.last_name = "User" if self.last_name.empty?
+    end
   end
 
   # This is an idiomatic way to define class methods in Ruby. The 'self' is the user class, and it allows you to define methods without having to prepend them with 'User.' or 'self.'

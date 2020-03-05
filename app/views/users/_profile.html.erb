@@ -4,8 +4,8 @@
     <h2>Here are the details we have on file for you. This is all of the data we collect, nothing more.</h2>
   </div>
   <div id="user-show-data">
-    <h2>First Name: <%= @user.first_name%></h2>
-    <h2>Last Name: <%= @user.last_name%></h2>
+    <h2>First Name: <%= !@user.first_name.empty?  ? @user.first_name : "[Not set]"%></h2>
+    <h2>Last Name: <%= !@user.last_name.empty? ? @user.last_name : "[Not set]"%></h2>
     <h2>Email Address: <%= @user.email%></h2>
     <h2>Password: [hidden]</h2>
     <% if logged_in? && current_user?(@user)%>

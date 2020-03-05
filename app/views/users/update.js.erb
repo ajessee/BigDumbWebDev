@@ -1,2 +1,3 @@
 window.utils.modal.closeModal()
+window.location.replace("<%= j (user_path(@user)) %>");
 window.utils.notifications.openNotification('success', 'Success', 'You\'ve successfully updated your profile. Click <%= j (link_to "here", user_path(@user)) %> to see your new user profile.', 6000, true);

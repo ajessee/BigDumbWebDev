@@ -5,7 +5,7 @@
     <% if existing_guest_user? && existing_guest_user?.guest_first_name_updated? %>
       <%= f.text_field :first_name, value: existing_guest_user?.first_name, class: "input-error" %>
     <% else %>
-      <%= f.text_field :first_name, required: true  %>
+      <%= f.text_field :first_name %>
     <% end %>
     <%= render "shared/single_user_error_message", attr: :first_name.to_s%>
   </div>
@@ -14,7 +14,7 @@
     <% if existing_guest_user? && existing_guest_user?.guest_last_name_updated? %>
       <%= f.text_field :last_name, value: existing_guest_user?.last_name, class: "input-error"  %>
     <% else %>
-      <%= f.text_field :last_name, required: true   %>
+      <%= f.text_field :last_name %>
     <% end %>
     <%= render "shared/single_user_error_message", attr: :last_name.to_s%>
   </div>
