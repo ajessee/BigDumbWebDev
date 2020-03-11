@@ -17,7 +17,9 @@ module UserLogin
   end
 
   def validate_user_logged_in(user, remember = false, check_notification = true)
-    assert find('p.notifications-message', text: 'You\'ve been logged in to your account.') if check_notification
+    if check_notification
+      assert find('p.notifications-message', text: 'You\'ve been logged in to your account.')
+    end
     session_cookie = page.driver.browser.manage.cookie_named('_big_dumb_web_dev_session')[:value]
     session_cookie_decrypt = verify_and_decrypt_session_cookie(session_cookie)
     assert User.find(session_cookie_decrypt['user_id']) == user
@@ -45,7 +47,9 @@ module UserLogin
   end
 
   def validate_user_logged_out(remember = false, check_notification = true)
-    assert find('p.notifications-message', text: 'You\'ve been successfully logged out of your account') if check_notification
+    if check_notification
+      assert find('p.notifications-message', text: 'You\'ve been successfully logged out of your account')
+    end
     session_cookie_decrypt = fetch_session_cookie
     assert_not session_cookie_decrypt['user_id']
     if remember

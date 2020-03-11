@@ -81,14 +81,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @comments = Comment.where(user_id: @user.id)
     @message = "#{@user.name} successfully deleted."
-    @message += " Deleted #{@comments.length} user #{'comment'.pluralize(@comments.length)}" unless @comments.empty?
+    unless @comments.empty?
+      @message += " Deleted #{@comments.length} user #{'comment'.pluralize(@comments.length)}"
+    end
     store_message(
       title: 'User Deleted',
       message: @message,
       type: 'success'
     )
     @comments.each(&:destroy)
-    cookies.delete :guest_user_email if @user.guest_2? && cookies.permanent.signed[:guest_user_email] == @user.email
+    if @user.guest_2? && cookies.permanent.signed[:guest_user_email] == @user.email
+      cookies.delete :guest_user_email
+    end
     @user.destroy
     redirect_to users_url
   end
