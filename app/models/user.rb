@@ -17,13 +17,14 @@ class User < ApplicationRecord
   after_initialize :set_default_role, if: :new_record?
   # before_save is a callback that gets invoked before the user model is saved to the database
   before_save :downcase_email
+  before_save :set_default_name
 
   # Regex to test email validity
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
   # Model validation constraints that are run on save
-  validates :first_name, presence: true, length: { maximum: 50 }
-  validates :last_name, presence: true, length: { maximum: 50 }
+  validates :first_name, length: { maximum: 50 }
+  validates :last_name, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
   validates :password, length: { minimum: 8 }, allow_nil: true
 
@@ -92,7 +93,7 @@ class User < ApplicationRecord
 
   # Instance method to check if guest user has updated the default last name
   def guest_last_name_updated?
-    last_name != 'Guest User'
+    last_name != 'User'
   end
 
   # Instance method to check if guest user has updated the randomly assigned guest email (they've created an account)
@@ -108,9 +109,7 @@ class User < ApplicationRecord
   # Instance method to remove the guest email from permanent cookie and convert guest user to regular user
   def convert_from_guest_account(cookies)
     if guest_2?
-      if cookies.permanent.signed[:guest_user_email]
-        cookies.delete :guest_user_email
-      end
+      cookies.delete :guest_user_email if cookies.permanent.signed[:guest_user_email]
       user!
     end
   end
@@ -131,6 +130,14 @@ class User < ApplicationRecord
   # Converts email to all lower-case.
   def downcase_email
     self.email = email.downcase
+  end
+
+  # Set default name if no name given
+  def set_default_name
+    if first_name.empty? && last_name.empty?
+      self.first_name = 'Anonymous' if first_name.empty?
+      self.last_name = 'User' if last_name.empty?
+    end
   end
 
   # This is an idiomatic way to define class methods in Ruby. The 'self' is the user class, and it allows you to define methods without having to prepend them with 'User.' or 'self.'

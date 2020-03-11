@@ -6,8 +6,8 @@ module UserEdit
   end
 
   def verify_user_show_data_ui(user)
-    assert find('h2', text: "First Name: #{user.first_name}")
-    assert find('h2', text: "Last Name: #{user.last_name}")
+    assert find('h2', text: "First Name: #{!user.first_name.empty? ? user.first_name : '[Not set]'}")
+    assert find('h2', text: "Last Name: #{!user.last_name.empty? ? user.last_name : '[Not set]'}")
     assert find('h2', text: "Email Address: #{user.email}")
   end
 
