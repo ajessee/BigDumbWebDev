@@ -229,6 +229,7 @@ function setupPosts() {
         }
       })
     },
+
     setPostCommentsCanvas: function () {
       this.showPostsContainer = document.querySelector('#show-post-container') ? document.querySelector('#show-post-container') : null;
       this.postCommentsCanvas = document.querySelector('#post-comments-canvas') ? document.querySelector('#post-comments-canvas') : null;
@@ -239,6 +240,7 @@ function setupPosts() {
         this.postCommentsCanvas.setAttribute("height", containerHeight);
       }
     },
+    
     drawConnectingLinesBetweenComments: function () {
       if (this.postCommentsCanvas) {
         let allCommentWrappers = document.querySelectorAll('.show-comment-wrapper');

@@ -80,53 +80,57 @@ const setUpNotifications = () => {
     },
 
     openNotification: function (type, title, message, closeTime, closeButton) {
-      // create notification element
-      let elementsObject = this.createNotificationElements();
-      let self = this;
-      // set color, title, message
-      switch (type) {
-        case 'success':
-          elementsObject.container.style.backgroundColor = '#6cbf28';
-          break;
-        case 'failure':
-          elementsObject.container.style.backgroundColor = '#fe3b19';
-          break;
-        case 'alert':
-          elementsObject.container.style.backgroundColor = '#ffff00';
-          break;
-        default:
-          elementsObject.container.style.backgroundColor = '#6cbf28';
-      }
+      return new Promise((resolve, reject) => {
+        // create notification element
+        let elementsObject = this.createNotificationElements();
+        let self = this;
+        // set color, title, message
+        switch (type) {
+          case 'success':
+            elementsObject.container.style.backgroundColor = '#6cbf28';
+            break;
+          case 'failure':
+            elementsObject.container.style.backgroundColor = '#fe3b19';
+            break;
+          case 'alert':
+            elementsObject.container.style.backgroundColor = '#ffff00';
+            break;
+          default:
+            elementsObject.container.style.backgroundColor = '#6cbf28';
+        }
 
-      elementsObject.title.innerHTML = title;
-      elementsObject.message.innerHTML = message;
-      if (closeButton) {
-        elementsObject.container.appendChild(elementsObject.closeButton);
-        elementsObject.closeButton.addEventListener("click", function (e) {
-          self.closeNotification(elementsObject.container, true);
+        elementsObject.title.innerHTML = title;
+        elementsObject.message.innerHTML = message;
+        if (closeButton) {
+          elementsObject.container.appendChild(elementsObject.closeButton);
+          elementsObject.closeButton.addEventListener("click", function (e) {
+            self.closeNotification(elementsObject.container, true);
+            resolve('Notification closed');
+          });
+        }
+        // add to notifications array
+        this.notificationsArray.push(elementsObject.container);
+        // add to main body
+        this.mainBody.appendChild(elementsObject.container);
+        // remove blur
+        elementsObject.container.style.webkitFilter = "blur(0)";
+        // update position
+        this.updateNotificationsY();
+        // add event listener
+        elementsObject.container.addEventListener("webkitAnimationEnd", function (e) {
+          self.animationDone(e, elementsObject.container);
         });
-      }
-      // add to notifications array
-      this.notificationsArray.push(elementsObject.container);
-      // add to main body
-      this.mainBody.appendChild(elementsObject.container);
-      // remove blur
-      elementsObject.container.style.webkitFilter = "blur(0)";
-      // update position
-      this.updateNotificationsY();
-      // add event listener
-      elementsObject.container.addEventListener("webkitAnimationEnd", function (e) {
-        self.animationDone(e, elementsObject.container)
-      });
-      // add slide-in class to bring notification into view and remove slide-out class if its still there.
-      elementsObject.container.classList.add('slide-in');
-      elementsObject.container.classList.contains('slide-out') ? elementsObject.container.classList.remove('slide-out') : null;
-      // if we want to close it automatically, set timer for that
-      if (closeTime) {
-        setTimeout(function () {
-          self.closeNotification(elementsObject.container);
-        }, closeTime);
-      }
+        // add slide-in class to bring notification into view and remove slide-out class if its still there.
+        elementsObject.container.classList.add('slide-in');
+        elementsObject.container.classList.contains('slide-out') ? elementsObject.container.classList.remove('slide-out') : null;
+        // if we want to close it automatically, set timer for that
+        if (closeTime) {
+          setTimeout(function () {
+            self.closeNotification(elementsObject.container);
+            resolve('Notification closed');
+          }, closeTime);
+        }
+      })
     },
 
     closeNotification: function (container, immediate) {
@@ -173,7 +177,7 @@ const setUpNotifications = () => {
         .then(function (response) {
           return response.text();
         })
-        .then(function(text) {
+        .then(function (text) {
           let notification = JSON.parse(text);
           if (notification.newMessage.present) {
             self.openNotification(notification.newMessage.type, notification.newMessage.title, notification.newMessage.message, 6000, true);

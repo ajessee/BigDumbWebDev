@@ -6,7 +6,9 @@ function setProjects() {
 
   const projects = {
 
-    container: document.getElementById('all-projects-container') ? document.getElementById('all-projects-container') : null,
+    allProjectsContainer: document.getElementById('all-projects-container'),
+
+    projectsIFrame: document.getElementById('scroll3d-iframe'),
 
     setupUrlSlider: function() {
       let sliderInput = document.querySelector('input#project_external_url');
@@ -37,19 +39,87 @@ function setProjects() {
       const numberOfCards = projectCards.length;
       const numberOfRows = Math.ceil(numberOfCards / 3);
   
-      this.container.style.setProperty('grid-template-rows', `repeat(${numberOfRows}, auto)`)
+      this.allProjectsContainer.style.setProperty('grid-template-rows', `repeat(${numberOfRows}, auto)`)
     },
 
+    wakeSleepingHerokuProjects: function (iframe) {
+      let nyCycleLink = document.querySelector('#nycycle-link');
+      let headUpLink = document.querySelector('#headup-link');
+      if (iframe) {
+        nyCycleLink = event.target.body.querySelector('#nycycle-link');
+        headUpLink = event.target.body.querySelector('#headup-link');
+      } 
+
+      if (nyCycleLink) {
+        // Ping server to wake up
+        fetch('https://nycycle-1.herokuapp.com/', {
+          method: 'GET',
+          mode: 'no-cors'
+        })
+      }
+
+      
+      if (headUpLink) {
+        // Ping server to wake up
+        fetch('https://head-up.herokuapp.com/', {
+          method: 'GET',
+          mode: 'no-cors'
+        })
+      }
+    },
+
+    // I've replaced this with just pinging the server on load. This should reduce the amount of time a user has to wait. Will test and then remove this.
+    // setUpNotificationForArchivedHerokuProjects: function (iframe) {
+    //   let nyCycleLink, headUpLink;
+    //   let mainWindow = window;
+    //   // Get links based on in main doc or iframe
+    //   if (iframe) {
+    //     nyCycleLink = event.target.body.querySelector('#nycycle-link');
+    //     headUpLink = event.target.body.querySelector('#headup-link');
+    //     mainWindow = window.parent;
+    //   } else {
+    //     nyCycleLink = document.querySelector('#nycycle-link');
+    //     headUpLink = document.querySelector('#headup-link');
+    //   }
+    //   const notifications = mainWindow.utils.notifications;
+
+    //   if (nyCycleLink) {
+    //     nyCycleLink.addEventListener('click', function (e){
+    //       e.preventDefault();
+    //       notifications.openNotification('alert', 'This will take a second...', `NYCycle is hosted on a free service, so it can take up to 10 seconds to load initially. Close this notification and we\'ll take you there`, 6000, true)
+    //       .then(function() {
+    //         mainWindow.location.assign(nyCycleLink.href);
+    //       })
+    //     });
+    //   }
+
+      
+    //   if (headUpLink) {
+    //     headUpLink.addEventListener('click', function (e){
+    //       e.preventDefault();
+    //       notifications.openNotification('alert', 'This will take a second...', `Head Up is hosted on a free service, so it can take up to 10 seconds to load initially. Close this notification and we\'ll take you there`, 6000, true)
+    //       .then(function() {
+    //         mainWindow.location.assign(headUpLink.href);
+    //       })
+    //     });
+    //   }
+    // },
+
     init: function() {
-      if (this.container) {
+      if (this.allProjectsContainer) {
         this.setUpProjectGrid();
+        this.wakeSleepingHerokuProjects();
       };
+
+      if (event.target.location.pathname === '/scroll3d') {
+        this.wakeSleepingHerokuProjects(true);
+      }
       
     }
   };
 
-  projects.init();
   window.utils.projects = projects;
+  projects.init();
 
 }
 
