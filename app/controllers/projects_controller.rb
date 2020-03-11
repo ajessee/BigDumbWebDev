@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
 
   def scroll3d
     # Grab four random projects to show
-    @projects = Project.where(id: [1,2,3,11]).order('RANDOM()')
+    @projects = Project.where(id: [1, 2, 3, 11]).order('RANDOM()')
   end
 
   def index
