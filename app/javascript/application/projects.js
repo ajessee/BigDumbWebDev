@@ -2,7 +2,9 @@
 // All this logic will automatically be available in application.js.
 
 function setProjects() {
+
   if (event.target.location.pathname === '/scroll3d') return;
+
   console.info("Loading Projects Module");
 
   const projects = {
@@ -44,67 +46,57 @@ function setProjects() {
     },
 
     wakeSleepingHerokuProjects: function (iframe) {
+      let mainWindow = window;
       let nyCycleLink = document.querySelector('#nycycle-link');
       let headUpLink = document.querySelector('#headup-link');
       if (iframe) {
         nyCycleLink = event.target.body.querySelector('#nycycle-link');
         headUpLink = event.target.body.querySelector('#headup-link');
+        mainWindow = window.parent;
       } 
+      const notifications = mainWindow.utils.notifications;
 
       if (nyCycleLink) {
+        this.nyCycleLinkReady = false;
         // Ping server to wake up
         fetch('https://nycycle-1.herokuapp.com/', {
           method: 'GET',
           mode: 'no-cors'
-        })
+        }).then(function(){
+          this.nyCycleLinkReady = true;
+        }.bind(this))
+        // Setup notification to run if server is not ready
+        nyCycleLink.addEventListener('click', function (e){
+          if (window.utils.projects.nyCycleLinkReady) return;
+          e.preventDefault();
+          notifications.openNotification('alert', 'This will take a second...', `NYCycle is hosted on a free service, so it can take up to 10 seconds to load initially. Close this notification and we\'ll take you there`, 6000, true)
+          .then(function() {
+            mainWindow.location.assign(nyCycleLink.href);
+          })
+        });
       }
 
       
       if (headUpLink) {
+        this.headUpLinkReady = false;
         // Ping server to wake up
         fetch('https://head-up.herokuapp.com/', {
           method: 'GET',
           mode: 'no-cors'
-        })
+        }).then(function(){
+          this.headUpLinkReady = true;
+        }.bind(this))
+        // Setup notification to run if server is not ready
+        headUpLink.addEventListener('click', function (e){
+          if (window.utils.projects.headUpLinkReady) return;
+          e.preventDefault();
+          notifications.openNotification('alert', 'This will take a second...', `Head Up is hosted on a free service, so it can take up to 10 seconds to load initially. Close this notification and we\'ll take you there`, 6000, true)
+          .then(function() {
+            mainWindow.location.assign(headUpLink.href);
+          })
+        });
       }
     },
-
-    // I've replaced this with just pinging the server on load. This should reduce the amount of time a user has to wait. Will test and then remove this.
-    // setUpNotificationForArchivedHerokuProjects: function (iframe) {
-    //   let nyCycleLink, headUpLink;
-    //   let mainWindow = window;
-    //   // Get links based on in main doc or iframe
-    //   if (iframe) {
-    //     nyCycleLink = event.target.body.querySelector('#nycycle-link');
-    //     headUpLink = event.target.body.querySelector('#headup-link');
-    //     mainWindow = window.parent;
-    //   } else {
-    //     nyCycleLink = document.querySelector('#nycycle-link');
-    //     headUpLink = document.querySelector('#headup-link');
-    //   }
-    //   const notifications = mainWindow.utils.notifications;
-
-    //   if (nyCycleLink) {
-    //     nyCycleLink.addEventListener('click', function (e){
-    //       e.preventDefault();
-    //       notifications.openNotification('alert', 'This will take a second...', `NYCycle is hosted on a free service, so it can take up to 10 seconds to load initially. Close this notification and we\'ll take you there`, 6000, true)
-    //       .then(function() {
-    //         mainWindow.location.assign(nyCycleLink.href);
-    //       })
-    //     });
-    //   }
-
-      
-    //   if (headUpLink) {
-    //     headUpLink.addEventListener('click', function (e){
-    //       e.preventDefault();
-    //       notifications.openNotification('alert', 'This will take a second...', `Head Up is hosted on a free service, so it can take up to 10 seconds to load initially. Close this notification and we\'ll take you there`, 6000, true)
-    //       .then(function() {
-    //         mainWindow.location.assign(headUpLink.href);
-    //       })
-    //     });
-    //   }
-    // },
 
     init: function() {
       if (this.allProjectsContainer) {

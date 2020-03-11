@@ -2,7 +2,7 @@
 <section id="all-projects-container" class="projects-container">
   <h1 class="projects-header">All Projects</h1>
 
-  <% @user.projects.each do |project| %>
+  <% @user.projects.sort_by(&:created_at).each do |project| %>
   <div class="project-card">
       <% if logged_in? && current_user.admin? %>
       <div class="project-card-controls">
