@@ -1,10 +1,11 @@
 const loadUploads = () => {
-  console.log("Loading Uploads Module");
+  if (event.target.location.pathname === '/scroll3d') return;
+  console.info("Loading Uploads Module");
 
   uploads = {
 
     watchShowPicture: function () {
-      const showPicture = document.querySelector('#user-show-picture') ? document.querySelector('#user-show-picture') : null;
+      const showPicture = document.querySelector('#user-show-picture');
       let self = this;
 
       if (showPicture) {
@@ -54,7 +55,7 @@ const loadUploads = () => {
 
 
     watchChooseFile: function() {
-      const chooseFile = document.querySelector('input#user-image-choose-file') ? document.querySelector('input#user-image-choose-file') : null;
+      const chooseFile = document.querySelector('input#user-image-choose-file');
 
       if (chooseFile) {
         let self = this;
@@ -68,11 +69,11 @@ const loadUploads = () => {
 
     init: function() {
       let self = this;
-      const userShowPartial = document.querySelector('#user-show-partial') ? document.querySelector('#user-show-partial') : null;
+      const userShowPartial = document.querySelector('#user-show-partial');
       if (userShowPartial) {
         this.watchShowPicture();
         this.watchChooseFile();
-        this.editUserPictureButton = document.querySelector('#edit-user-picture-button') ? document.querySelector('#edit-user-picture-button') : null;
+        this.editUserPictureButton = document.querySelector('#edit-user-picture-button');
       }
     }
 

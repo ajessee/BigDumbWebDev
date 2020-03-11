@@ -1,5 +1,8 @@
 const passwordReset = () => {
 
+  if (event.target.location.pathname === '/scroll3d') return;
+  console.info("Loading Password Reset Module");
+
   if (document.querySelector('.edit-password-container')) {
     let modal = window.utils.modal;
     let labels = window.utils.labels;

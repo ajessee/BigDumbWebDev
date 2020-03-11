@@ -1,6 +1,8 @@
 function setupPosts() {
 
-  console.log("Setup Posts");
+  if (event.target.location.pathname === '/scroll3d') return;
+
+  console.info("Loading Posts Module");
 
   const posts = {
 
@@ -122,7 +124,7 @@ function setupPosts() {
     },
 
     highlightInvalidInputs: function () {
-      let input = document.querySelector('input#post_title') ? document.querySelector('input#post_title') : null;
+      let input = document.querySelector('input#post_title');
       if (input) {
         let wrapperDiv = input.parentElement;
         input.addEventListener("invalid", function (event) {
@@ -153,8 +155,8 @@ function setupPosts() {
     setupCancelButtons: function () {
 
       if (this.postContainer) {
-        const editPostCancelButton = document.querySelector('#edit-post-cancel-button') ? document.querySelector('#edit-post-cancel-button') : null;
-        const newPostCancelButton = document.querySelector('#new-post-cancel-button') ? document.querySelector('#new-post-cancel-button') : null;
+        const editPostCancelButton = document.querySelector('#edit-post-cancel-button');
+        const newPostCancelButton = document.querySelector('#new-post-cancel-button');
 
         if (editPostCancelButton) {
           editPostCancelButton.addEventListener('click', function (e) {
@@ -231,8 +233,8 @@ function setupPosts() {
     },
 
     setPostCommentsCanvas: function () {
-      this.showPostsContainer = document.querySelector('#show-post-container') ? document.querySelector('#show-post-container') : null;
-      this.postCommentsCanvas = document.querySelector('#post-comments-canvas') ? document.querySelector('#post-comments-canvas') : null;
+      this.showPostsContainer = document.querySelector('#show-post-container');
+      this.postCommentsCanvas = document.querySelector('#post-comments-canvas');
       if (this.showPostsContainer && this.postCommentsCanvas) {
         let containerWidth = this.showPostsContainer.offsetWidth;
         let containerHeight = this.showPostsContainer.offsetHeight;
@@ -240,7 +242,7 @@ function setupPosts() {
         this.postCommentsCanvas.setAttribute("height", containerHeight);
       }
     },
-    
+
     drawConnectingLinesBetweenComments: function () {
       if (this.postCommentsCanvas) {
         let allCommentWrappers = document.querySelectorAll('.show-comment-wrapper');
@@ -306,8 +308,8 @@ function setupPosts() {
     },
 
     init: function () {
-      this.showPostBody = document.querySelector('#show-post-body') ? document.querySelector('#show-post-body') : null;
-      this.postContainer = document.querySelector('.post-container') ? document.querySelector('.post-container') : null;
+      this.showPostBody = document.querySelector('#show-post-body');
+      this.postContainer = document.querySelector('.post-container');
       this.setupFullScreen();
       this.setupTags();
       this.setupCancelButtons();
@@ -321,14 +323,15 @@ function setupPosts() {
 
   window.utils.posts = posts;
   posts.init();
+
+  window.onload = function () {
+    window.utils.posts.redrawCommentLines();
+  }
+  
+  window.onresize = function () {
+    window.utils.posts.redrawCommentLines();
+  }
 }
 
 document.addEventListener("DOMContentLoaded", setupPosts);
 
-window.onload = function () {
-  window.utils.posts.redrawCommentLines();
-}
-
-window.onresize = function () {
-  window.utils.posts.redrawCommentLines();
-}

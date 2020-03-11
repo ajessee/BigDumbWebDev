@@ -15,7 +15,7 @@
 */
 
 const loadContactsProject = () => {
-  console.log("Loading Contacts Project");
+  console.info("Loading Contacts Project");
   // Create object
   c = {};
 

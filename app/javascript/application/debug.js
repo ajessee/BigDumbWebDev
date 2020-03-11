@@ -1,11 +1,12 @@
 const setUpDebug = () => {
+  if (event.target.location.pathname === '/scroll3d') return;
 
-  console.log("Loading Debug Module");
+  console.info("Loading Debug Module");
 
   const debug = {
     // Check if elements exist, because if we are not in development enviornment (production), these elements will not be created.
-    debugButton: document.querySelector('#debug-button-container') ? document.querySelector('#debug-button-container') : null,
-    debugPanel: document.querySelector('.debug-panel') ? document.querySelector('.debug-panel') : null,
+    debugButton: document.querySelector('#debug-button-container'),
+    debugPanel: document.querySelector('.debug-panel'),
     debugPanelOpen: false,
     openDebugPanel: (e) => {
       if (window.utils.debug.debugButton && window.utils.debug.debugPanel && !window.utils.debug.debugPanelOpen) {

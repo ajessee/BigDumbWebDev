@@ -1,5 +1,7 @@
 const loadPostAutoSaver = function() {
 
+  if (event.target.location.pathname === '/scroll3d') return;
+
   console.info("Loading Post Auto Saver Module");
   // Set up main object
   saver = {}

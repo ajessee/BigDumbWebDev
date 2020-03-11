@@ -1,6 +1,8 @@
 const setUpNav = () => {
 
-  console.log("Loading Navigation Module");
+  if (event.target.location.pathname === '/scroll3d') return;
+
+  console.info("Loading Navigation Module");
 
   const nav = {
     mobileView: window.matchMedia('(max-width : 767px)').matches,
@@ -78,8 +80,8 @@ const setUpNav = () => {
       this.navButtonContainer = document.querySelector('#nav-button-container');
       this.slideInMenu = document.querySelector('#nav-slide-in-menu');
       this.closeNavMenuButton = document.querySelector('#close-nav-menu-button');
-      this.aboutMeContainer = document.querySelector('#about-me-container') ? document.querySelector('#about-me-container') : null;
-      this.httpErrorContainer = document.querySelector(".http-error-container") ? document.querySelector(".http-error-container") : null;
+      this.aboutMeContainer = document.querySelector('#about-me-container');
+      this.httpErrorContainer = document.querySelector(".http-error-container");
       this.slideInMenu.addEventListener("transitionend", function (e) {
         if (self.slideInMenu.classList.contains('menu-closed') && e.propertyName !== "filter") {
           self.slideInMenu.style.boxShadow = 'none';

@@ -1,5 +1,8 @@
 const setUpLabels = () => {
-  console.log("Loading Floating Labels Module");
+  
+  if (event.target.location.pathname === '/scroll3d') return;
+
+  console.info("Loading Floating Labels Module");
 
   const labels = {
 

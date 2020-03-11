@@ -1,6 +1,8 @@
 const setUpDragAndDrop = () => {
 
-  console.log("Loading Drag and Drop Module");
+  if (event.target.location.pathname === '/scroll3d') return;
+
+  console.info("Loading Drag and Drop Module");
 
   const drag = {
 

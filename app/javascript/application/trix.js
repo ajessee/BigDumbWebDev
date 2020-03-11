@@ -1,5 +1,6 @@
 const setUpTrixHelper = () => {
-  console.log("Loading Trix Helper Module");
+  if (event.target.location.pathname === '/scroll3d') return;
+  console.info("Loading Trix Helper Module");
 
   const trix = {
     

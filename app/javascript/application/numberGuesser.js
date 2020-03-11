@@ -17,7 +17,7 @@
 */
 
 const loadNumberGuesserProject = () => {
-  console.log("Loading Number Guesser Project");
+  console.info("Loading Number Guesser Project");
   ng = {};
 
   // Get stored data, UI elements

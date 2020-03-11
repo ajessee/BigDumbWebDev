@@ -2,7 +2,8 @@
 // All this logic will automatically be available in application.js.
 
 function setProjects() {
-  console.log("Setup Projects Utils");
+  if (event.target.location.pathname === '/scroll3d') return;
+  console.info("Loading Projects Module");
 
   const projects = {
 

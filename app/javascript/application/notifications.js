@@ -1,7 +1,9 @@
 // Notifications module that allows for disappearing onscreen notifications
 const setUpNotifications = () => {
 
-  console.log("Loading Notifications Module");
+  if (event.target.location.pathname === '/scroll3d') return;
+
+  console.info("Loading Notifications Module");
 
   const notifications = {
 

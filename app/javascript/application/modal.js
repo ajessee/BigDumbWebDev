@@ -1,6 +1,8 @@
 const setUpModal = () => {
 
-  console.log("Loading Modal Module");
+  if (event.target.location.pathname === '/scroll3d') return;
+
+  console.info("Loading Modal Module");
 
   const modal = {
 

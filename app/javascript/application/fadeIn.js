@@ -2,7 +2,9 @@ const fadeIn = (array) => {
 
   if (document.querySelector('#landing-page-container')) {
 
-    console.log("Loading Landing Page Animations");
+    if (event.target.location.pathname === '/scroll3d') return;
+
+    console.info("Loading Landing Page Animations Module");
 
     const introElements = [
       ['fade-in-big', 'bigDumbWebDev'],

@@ -1,6 +1,8 @@
 const setUp3D = () => {
+  
+  if (event.target.location.pathname === '/') return;
 
-  console.log("Loading 3D Projects Scene");
+  console.info("Loading 3D Projects Module");
 
   if (window.frameElement) {
     // the iFrame has loaded
