@@ -3,11 +3,7 @@
 
 function setProjects() {
 
-  if (event.target.location.pathname === '/scroll3d') return;
-
-  console.info("Loading Projects Module");
-
-  const projects = {
+  const projects = window.utils.projects || {
 
     allProjectsContainer: document.getElementById('all-projects-container'),
 
@@ -99,14 +95,18 @@ function setProjects() {
     },
 
     init: function() {
+      if (event.target.location.pathname === '/scroll3d') {
+        this.wakeSleepingHerokuProjects(true);
+        return;
+      }
+
+      console.info("Loading Projects Module")
       if (this.allProjectsContainer) {
         this.setUpProjectGrid();
         this.wakeSleepingHerokuProjects();
       };
 
-      if (event.target.location.pathname === '/scroll3d') {
-        this.wakeSleepingHerokuProjects(true);
-      }
+
       
     }
   };
