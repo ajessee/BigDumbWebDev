@@ -77,7 +77,7 @@ class PostsController < ApplicationController
             layout: false,
             locals: payload
           ),
-        payload: payload
+        payload: payload.deep_transform_keys! { |key| key.to_s.camelize(:lower) }
       }
       render json: ActiveSupport::JSON.encode(response)
     end

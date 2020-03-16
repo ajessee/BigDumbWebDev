@@ -1,77 +1,242 @@
-const setUpTrixHelper = () => {
-  if (event.target.location.pathname === '/scroll3d') return;
-  console.info("Loading Trix Helper Module");
+// TODO: Should I refactor all my javascript to use classes?
 
-  const trix = {
-    
-    trixOnEditorReady: function() {
-      this.trixAddAttachmentButtonToToolbar();
-      this.trixAddUnlineButtonToToolbar();
-    },
+import Trix from "trix"
 
-    trixAddUnlineButtonToToolbar: function() {
-      window.utils.Trix.config.textAttributes.underline = {
-        style: { "textDecoration": "underline" },
-        inheritable: true,
-        parser: function(element) {
-          var style = window.getComputedStyle(element);
-          return style.textDecoration === "underline";
-        }
-      }
-      let trixTextTools = document.querySelector(".trix-button-group--text-tools");
-      let buttonHTML = '<button type="button" class="trix-button trix-button--icon trix-button--icon-underline" data-trix-attribute="underline" data-trix-action="underline" data-trix-key="u" title="Underline" tabindex="-1">Underline</button>'
-      trixTextTools.children[1].insertAdjacentHTML("afterend", buttonHTML);  
-    },
+console.info("Loading Trix Helper Module");
 
-    trixAddAttachmentButtonToToolbar: function() {
-      let trixBlockButtons = document.querySelector(".trix-button-group--block-tools");
-      let inShowUserForm = trixBlockButtons.closest('div#user-show-details-container');
-      if (!inShowUserForm) {
-        let self = this;
-        const buttonHTML = `
-            <button
-              type="button"
-              class="trix-button trix-button--icon trix-button--icon-attach-files"
-              data-trix-action="x-attach" title="Attach Files"
-              tabindex="-1"
-            >Attach Files</button>
-          `;
-        trixBlockButtons.innerHTML += buttonHTML;
-      
-        document.querySelector(".trix-button--icon-attach-files")
-          .addEventListener("click", self.trixAddAttachment)
-      }
-    },
+addHeadingAttributes()
+addForegroundColorAttributes()
+addBackgroundColorAttributes()
+addUnderlineAttributes()
 
-    trixAddAttachment: function() {
-      const fileInput = document.createElement("input");
-    
-      fileInput.setAttribute("type", "file");
-      fileInput.setAttribute("accept", ".jpg, .png, .gif, .mp4");
-      fileInput.setAttribute("multiple", "");
-    
-      fileInput.addEventListener("change", () => {
-        const {files} = fileInput;
-        Array.from(files).forEach(window.utils.trixHelper.insertAttachment)
-      });
-    
-      fileInput.click()
-    },
+addEventListener("trix-initialize", function (event) {
+    new RichText(event.target)
+})
 
-    insertAttachment: (file) => {
-      const trixEditor = document.querySelector("trix-editor").editor;
-      trixEditor.insertFile(file);
-    },
+addEventListener("trix-action-invoke", function (event) {
+  if (event.actionName == "x-horizontal-rule") insertHorizontalRule()
 
-    init: function() {
-      if (document.querySelector('trix-toolbar')) {
-        this.trixOnEditorReady();
-      }
-    }
+  if (event.actionName == "x-attach") trixAddAttachment()
 
+  function insertHorizontalRule() {
+    event.target.editor.insertAttachment(buildHorizontalRule())
   }
-  trix.init();
-  window.utils.trixHelper = trix;
+
+  function buildHorizontalRule() {
+    return new Trix.Attachment({ content: "<hr>", contentType: "vnd.rubyonrails.horizontal-rule.html" })
+  }
+
+  function trixAddAttachment() {
+    const fileInput = document.createElement("input");
+  
+    fileInput.setAttribute("type", "file");
+    fileInput.setAttribute("accept", ".jpg, .png, .gif, .mp4");
+    fileInput.setAttribute("multiple", "");
+  
+    fileInput.addEventListener("change", () => {
+      const {files} = fileInput;
+      Array.from(files).forEach(insertAttachment)
+    });
+  
+    fileInput.click()
+  }
+
+  function insertAttachment(file) {
+    event.target.editor.insertFile(file);
+  }
+
+})
+
+class RichText {
+  constructor(element) {
+    this.element = element
+
+    this.insertHeadingElements()
+    this.insertDividerElements()
+    this.insertColorElements()
+  }
+
+  insertHeadingElements() {
+    this.removeOriginalHeadingButton()
+    this.insertNewHeadingButton()
+    this.insertHeadingDialog()
+    this.insertAttachmentButton()
+    this.insertUnderlineButton()
+  }
+
+  removeOriginalHeadingButton() {
+    this.buttonGroupBlockTools.removeChild(this.originalHeadingButton)
+  }
+
+  insertNewHeadingButton() {
+    this.buttonGroupBlockTools.insertAdjacentHTML("afterbegin", this.headingButtonTemplate)
+  }
+
+  insertHeadingDialog() {
+    this.dialogsElement.insertAdjacentHTML("beforeend", this.dialogHeadingTemplate)
+  }
+
+  insertDividerElements() {
+    this.quoteButton.insertAdjacentHTML("afterend", this.horizontalButtonTemplate)
+  }
+
+  insertColorElements() {
+    this.insertColorButton()
+    this.insertDialogColor()
+  }
+
+  insertColorButton() {
+    this.buttonGroupTextTools.insertAdjacentHTML("beforeend", this.colorButtonTemplate)
+  }
+
+  insertDialogColor() {
+    this.dialogsElement.insertAdjacentHTML("beforeend", this.dialogColorTemplate)
+  }
+
+  insertUnderlineButton() {
+      this.italicButton.insertAdjacentHTML("afterend", this.underlineButtonTemplate)
+  }
+
+  insertAttachmentButton() {
+    if (document.querySelector('#user-show-details-container')) {
+        return;
+    }
+    this.increaseNestingButton.insertAdjacentHTML("afterend", this.attachmentButtonTemplate)
+  }
+
+  get buttonGroupBlockTools() {
+    return this.toolbarElement.querySelector("[data-trix-button-group=block-tools]")
+  }
+
+  get buttonGroupTextTools() {
+    return this.toolbarElement.querySelector("[data-trix-button-group=text-tools]")
+  }
+
+  get dialogsElement() {
+    return this.toolbarElement.querySelector("[data-trix-dialogs]")
+  }
+
+  get originalHeadingButton() {
+    return this.toolbarElement.querySelector("[data-trix-attribute=heading1]")
+  }
+
+  get quoteButton() {
+    return this.toolbarElement.querySelector("[data-trix-attribute=quote]")
+  }
+
+  get boldButton() {
+    return this.toolbarElement.querySelector("[data-trix-attribute=bold]")
+  }
+
+  get italicButton() {
+    return this.toolbarElement.querySelector("[data-trix-attribute=italic]")
+  }
+
+  get increaseNestingButton() {
+    return this.toolbarElement.querySelector("[data-trix-action=increaseNestingLevel]")
+  }
+
+  get toolbarElement() {
+    return this.element.toolbarElement
+  }
+
+  get horizontalButtonTemplate() {
+    return '<button type="button" class="trix-button trix-button--icon trix-button--icon-horizontal-rule" data-trix-action="x-horizontal-rule" tabindex="-1" title="Divider">Divider</button>'
+  }
+
+  get headingButtonTemplate() {
+    return '<button type="button" class="trix-button trix-button--icon trix-button--icon-heading-1" data-trix-action="x-heading" title="Heading" tabindex="-1">Heading</button>'
+  }
+
+  get colorButtonTemplate() {
+    return '<button type="button" class="trix-button trix-button--icon trix-button--icon-color" data-trix-action="x-color" title="Color" tabindex="-1">Color</button>'
+  }
+
+  get dialogHeadingTemplate() {
+    return `
+      <div class="trix-dialog trix-dialog--heading" data-trix-dialog="x-heading" data-trix-dialog-attribute="x-heading">
+        <div class="trix-dialog__link-fields">
+          <input type="text" name="x-heading" class="trix-dialog-hidden__input" data-trix-input>
+          <div class="trix-button-group">
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="heading1">H1</button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="heading2">H2</button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="heading3">H3</button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="heading4">H4</button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="heading5">H5</button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="heading6">H6</button>
+          </div>
+        </div>
+      </div>
+    `
+  }
+
+  get dialogColorTemplate() {
+    return `
+      <div class="trix-dialog trix-dialog--color" data-trix-dialog="x-color" data-trix-dialog-attribute="x-color">
+        <div class="trix-dialog__link-fields">
+          <input type="text" name="x-color" class="trix-dialog-hidden__input" data-trix-input>
+          <div class="trix-button-group">
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="fgColor1" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="fgColor2" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="fgColor3" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="fgColor4" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="fgColor5" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="fgColor6" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="fgColor7" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="fgColor8" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="fgColor9" data-trix-method="hideDialog"></button>
+          </div>
+          <div class="trix-button-group">
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="bgColor1" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="bgColor2" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="bgColor3" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="bgColor4" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="bgColor5" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="bgColor6" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="bgColor7" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="bgColor8" data-trix-method="hideDialog"></button>
+            <button type="button" class="trix-button trix-button--dialog" data-trix-attribute="bgColor9" data-trix-method="hideDialog"></button>
+          </div>
+        </div>
+      </div>
+    `
+  }
+
+  get underlineButtonTemplate() {
+    return '<button type="button" class="trix-button trix-button--icon trix-button--icon-underline" data-trix-attribute="underline" data-trix-action="underline" data-trix-key="u" title="Underline" tabindex="-1">Underline</button>'
+  }
+
+  get attachmentButtonTemplate() {
+    return '<button type="button" class="trix-button trix-button--icon trix-button--icon-attach-files" data-trix-action="x-attach" title="Attach Files" tabindex="-1">Attach Files</button>'
+  }
+
 }
 
-document.addEventListener("DOMContentLoaded", setUpTrixHelper);
+function addHeadingAttributes() {
+  Array.from(["h1", "h2", "h3", "h4", "h5", "h6"]).forEach((tagName, i) => {
+    Trix.config.blockAttributes[`heading${(i + 1)}`] = { tagName: tagName, terminal: true, breakOnReturn: true, group: false }
+  })
+}
+
+function addForegroundColorAttributes() {
+  Array.from(["rgb(136, 118, 38)", "rgb(185, 94, 6)", "rgb(207, 0, 0)", "rgb(216, 28, 170)", "rgb(144, 19, 254)", "rgb(5, 98, 185)", "rgb(17, 138, 15)", "rgb(148, 82, 22)", "rgb(102, 102, 102)"]).forEach((color, i) => {
+    Trix.config.textAttributes[`fgColor${(i + 1)}`] = { style: { color: color }, inheritable: true, parser: e => e.style.color == color }
+  })
+}
+
+function addBackgroundColorAttributes() {
+  Array.from(["rgb(250, 247, 133)", "rgb(255, 240, 219)", "rgb(255, 229, 229)", "rgb(255, 228, 247)", "rgb(242, 237, 255)", "rgb(225, 239, 252)", "rgb(228, 248, 226)", "rgb(238, 226, 215)", "rgb(242, 242, 242)"]).forEach((color, i) => {
+    Trix.config.textAttributes[`bgColor${(i + 1)}`] = { style: { backgroundColor: color }, inheritable: true, parser: e => e.style.backgroundColor == color }
+  })
+}
+
+function addUnderlineAttributes() {
+    Trix.config.textAttributes.underline = {
+    style: { "textDecoration": "underline" },
+    inheritable: true,
+    parser: function(element) {
+        var style = window.getComputedStyle(element);
+        return style.textDecoration === "underline";
+    }
+  }
+}

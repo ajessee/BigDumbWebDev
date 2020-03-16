@@ -9,7 +9,81 @@
 * images in galleries will be squished by the max-width: 33%; rule.
 */
 
+trix-toolbar {
+  // TODO: This is inconsistent. I'm using SVGs here and base64 converted SVGs below.
+  .trix-button--icon-horizontal-rule::before { background-image: image-url("trix_horizontal_rule.svg"); }
+  .trix-button--icon-color::before { background-image: image-url("trix_color.svg"); }
+
+  .trix-dialog--heading { max-width: 180px; }
+
+  .trix-dialog--color {
+    max-width: 265px;
+
+    .trix-dialog__link-fields { flex-direction: column; }
+    .trix-button-group {
+      margin: 1px;
+
+      button {
+        width: 28px;
+        &:after { content: "Ab"; }
+        &.trix-active::after { content: "✓"; }
+      }
+
+      [data-trix-attribute=fgColor1] { color: rgb(136, 118, 38) }
+      [data-trix-attribute=fgColor2] { color: rgb(136, 118, 38) }
+      [data-trix-attribute=fgColor3] { color: rgb(207, 0, 0) }
+      [data-trix-attribute=fgColor4] { color: rgb(216, 28, 170) }
+      [data-trix-attribute=fgColor5] { color: rgb(144, 19, 254) }
+      [data-trix-attribute=fgColor6] { color: rgb(5, 98, 185) }
+      [data-trix-attribute=fgColor7] { color: rgb(17, 138, 15) }
+      [data-trix-attribute=fgColor8] { color: rgb(148, 82, 22) }
+      [data-trix-attribute=fgColor9] { color: rgb(102, 102, 102) }
+
+      [data-trix-attribute=bgColor1] { background-color: rgb(250, 247, 133) }
+      [data-trix-attribute=bgColor2] { background-color: rgb(255, 240, 219) }
+      [data-trix-attribute=bgColor3] { background-color: rgb(255, 229, 229) }
+      [data-trix-attribute=bgColor4] { background-color: rgb(255, 228, 247) }
+      [data-trix-attribute=bgColor5] { background-color: rgb(242, 237, 255) }
+      [data-trix-attribute=bgColor6] { background-color: rgb(225, 239, 252) }
+      [data-trix-attribute=bgColor7] { background-color: rgb(228, 248, 226) }
+      [data-trix-attribute=bgColor8] { background-color: rgb(238, 226, 215) }
+      [data-trix-attribute=bgColor9] { background-color: rgb(242, 242, 242) }
+    }
+  }
+
+  .trix-dialog {
+    padding: 5px;
+    .trix-dialog-hidden__input {
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+    }
+  }
+}
+
+trix-editor {
+  [data-trix-mutable] {
+    &.attachment {
+      &[data-trix-content-type~="vnd.rubyonrails.horizontal-rule.html"] {
+        box-shadow: 0 0 0 2px highlight;
+      }
+    }
+  }
+}
+
 .trix-content {
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  h1 { font-size: 2.2em; }
+  h2 { font-size: 2em; }
+  h3 { font-size: 1.9em; }
+  h4 { font-size: 1.8em; }
+  h5 { font-size: 1.7em; }
+  h6 { font-size: 1em; }
+
   .attachment-gallery {
     > action-text-attachment,
     > .attachment {
@@ -34,6 +108,21 @@
       max-width: 100% !important;
     }
   }
+
+  .attachment { width: 100%; }
+
+  .attachment--content.attachment--horizontal-rule,
+  .attachment--content[data-trix-content-type~='vnd.rubyonrails.horizontal-rule.html'] {
+    padding: 1.5em 0 0.5em !important;
+    margin-bottom: 0.5em
+  }
+
+  .attachment--content.attachment--horizontal-rule hr,
+  .attachment--content[data-trix-content-type~='vnd.rubyonrails.horizontal-rule.html'] hr {
+    margin: 0;
+    width: 100%;
+    border-color: currentColor
+  }
 }
 
 .trix-button--icon-attach-files::before {
@@ -45,3 +134,4 @@
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDM0IDQ2IiBoZWlnaHQ9IjQ2cHgiIGlkPSJMYXllcl8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzNCA0NiIgd2lkdGg9IjM0cHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxnPjxwYXRoIGQ9Ik0zLjcyLDI4LjAyMWMwLjM2MywxLjEyMSwwLjg3OCwyLjE0NSwxLjU0NCwzLjA3M3MxLjUyOSwxLjcyMSwyLjU4OSwyLjM3NiAgIGMxLjA2LDAuNjU2LDIuMzQ2LDEuMTY2LDMuODU5LDEuNTI5czMuMzEsMC41NDUsNS4zODksMC41NDVjMi4xOCwwLDQuMDQ3LTAuMjA3LDUuNi0wLjYyMWMxLjU1NS0wLjQxMywyLjg1NS0wLjk4MywzLjkwNi0xLjcxICAgYzEuMDQ5LTAuNzI3LDEuODkzLTEuNTc0LDIuNTI3LTIuNTQzYzAuNjM3LTAuOTY5LDEuMTE1LTIuMDE5LDEuNDM4LTMuMTQ4YzAuMzI0LTEuMTMsMC4zNTUtMi4zMDEsMC40NTYtMy41MTIgICBTMzEsMjEuNTg5LDMxLDIwLjM3OFYwaC03djIwLjM3OGMwLDEuNjM1LTAuMTA5LDMuMDE4LTAuMzYxLDQuMTQ3Yy0wLjI1MywxLjEzMS0wLjY1MiwyLjA0My0xLjIxOCwyLjc0ICAgYy0wLjU2NSwwLjY5NS0xLjI4MiwxLjIwMS0yLjE2LDEuNTE0cy0xLjkzMSwwLjQ2OS0zLjE2MiwwLjQ2OWMtMS4zMTIsMC0yLjQxMS0wLjE2MS0zLjI5OS0wLjQ4NCAgIGMtMC44ODgtMC4zMjItMS42MDQtMC44NDItMi4xNDktMS41NTlzLTEuMDAyLTEuNjM1LTEuMjM0LTIuNzU2QzEwLjE4NSwyMy4zMywxMCwyMS45NzMsMTAsMjAuMzc4VjBIM3YyMC4zNzggICBjMCwxLjM5My0wLjA0NCwyLjczNSwwLjA4OCw0LjAyNkMzLjIxOSwyNS42OTYsMy4zNTcsMjYuOTAyLDMuNzIsMjguMDIxeiIgZmlsbD0iIzIzMUYyMCIvPjxyZWN0IGZpbGw9IiMyMzFGMjAiIGhlaWdodD0iOCIgd2lkdGg9IjM0IiB5PSIzOCIvPjwvZz48L3N2Zz4=);
   transform: scale(0.7);
 }
+
