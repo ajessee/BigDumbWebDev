@@ -94,7 +94,11 @@
   font-size: 2.5em;
   text-align: center;
   margin: 0;
-  padding: 8% 5% 5% 5%;
+  padding: 8% 5% 0% 5%;
+}
+
+#show-post-metadata {
+  text-align: center;
 }
 
 #show-post-details {
@@ -270,6 +274,10 @@ div#all-posts-container>div.pagination {
 
   #show-post-title {
     font-size: 1.5em;
+  }
+
+  #show-post-metadata {
+    font-size: 0.7em;
   }
 
   #show-post-container #show-post-title {

@@ -20,6 +20,9 @@ class Post < ApplicationRecord
 
   before_validation :set_slug
   before_validation :cast_published
+  # TODO: Switch this back after all blogs loaded in production to set word count
+  # before_validation :set_word_count
+  after_find :set_word_count
 
   def all_tags=(names)
     self.tags = names.split(',').map do |name|
@@ -40,8 +43,17 @@ class Post < ApplicationRecord
     self.slug = title.parameterize.truncate(80, omission: '')
   end
 
+  def set_word_count
+    self.word_count = self.content.to_plain_text.scan(/[\w-]+/).size
+  end
+
   def cast_published
     self.published = ActiveRecord::Type::Boolean.new.cast(published)
+  end
+
+  def reading_time
+    words_per_minute = 150
+    self.word_count / words_per_minute = 150
   end
 
   def self.add_slugs

@@ -2,6 +2,7 @@
   <canvas id="post-comments-canvas"></canvas>
   <div id="show-post-container">
     <h1 id="show-post-title"><%= @post.title%></h1>
+    <h3 id="show-post-metadata">Reading time: <span id="show-post-reading time"><%=pluralize(@post.reading_time, 'minute')%></span> | <span id="show-post-published-date"><%= @post.updated_at.strftime("Published: %m/%d/%Y") %></span></h3>
     <% if @post.tags %>
       <div id="tag-container">
         <% @post.tags.each do |tag| %>
