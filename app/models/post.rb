@@ -44,7 +44,7 @@ class Post < ApplicationRecord
   end
 
   def set_word_count
-    self.word_count = self.content.to_plain_text.scan(/[\w-]+/).size
+    self.word_count = content.to_plain_text.scan(/[\w-]+/).size
   end
 
   def cast_published
@@ -53,7 +53,7 @@ class Post < ApplicationRecord
 
   def reading_time
     words_per_minute = 150
-    self.word_count / words_per_minute = 150
+    word_count / words_per_minute = 150
   end
 
   def self.add_slugs
