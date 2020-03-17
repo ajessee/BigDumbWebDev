@@ -18,7 +18,6 @@ class User < ApplicationRecord
   # before_save is a callback that gets invoked before the user model is saved to the database
   before_save :downcase_email
   before_save :set_default_name
-  after_find :fetch_ip
 
   # Regex to test email validity
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
@@ -129,9 +128,8 @@ class User < ApplicationRecord
   end
 
   # Get user IP address from request 
-  def fetch_ip
-    # TODO: Not saving this to the database. I kinda like that. Should I save this info, and if so, do I need to think about performance
-    # doing it in an after_find callback. (Probably not at my scale). If not, get rid of column in DB and turn into instance variable
+  def fetch_ip(request)
+    # TODO: Not saving this to the database. I kinda like that. Should I save this info? If not, get rid of column in DB and turn into instance variable
     if Rails.env.production?
       self.ip_address = request.remote_ip
     else
@@ -139,7 +137,7 @@ class User < ApplicationRecord
     end
     @location_info ||= Geocoder.search(self.ip_address).first
   end
-  
+
   # Guess the users city
   def guess_city
     @location_info.city

@@ -43,6 +43,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @user.fetch_ip(request)
     if flash[:success]
       store_message(
         title: flash[:success],
