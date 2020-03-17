@@ -20,8 +20,7 @@ class Post < ApplicationRecord
 
   before_validation :set_slug
   before_validation :cast_published
-  # before_validation :set_word_count
-  after_find :set_word_count
+  before_validation :set_word_count
 
   def all_tags=(names)
     self.tags = names.split(',').map do |name|
@@ -44,7 +43,6 @@ class Post < ApplicationRecord
 
   def set_word_count
     self.word_count = content.to_plain_text.scan(/[\w-]+/).size
-    self.save
   end
 
   def cast_published
