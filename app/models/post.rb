@@ -20,7 +20,6 @@ class Post < ApplicationRecord
 
   before_validation :set_slug
   before_validation :cast_published
-  # TODO: Switch this back after all blogs loaded in production to set word count
   # before_validation :set_word_count
   after_find :set_word_count
 
@@ -45,6 +44,7 @@ class Post < ApplicationRecord
 
   def set_word_count
     self.word_count = content.to_plain_text.scan(/[\w-]+/).size
+    self.save
   end
 
   def cast_published
@@ -52,8 +52,7 @@ class Post < ApplicationRecord
   end
 
   def reading_time
-    words_per_minute = 150
-    word_count / words_per_minute = 150
+    word_count / 150 # words per minute that the average person reads
   end
 
   def self.add_slugs
