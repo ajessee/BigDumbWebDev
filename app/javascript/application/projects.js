@@ -105,9 +105,6 @@ function setProjects() {
         this.setUpProjectGrid();
         this.wakeSleepingHerokuProjects();
       };
-
-
-      
     }
   };
 

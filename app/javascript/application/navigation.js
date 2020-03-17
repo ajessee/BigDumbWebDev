@@ -59,6 +59,10 @@ const setUpNav = () => {
         let button = document.querySelector(`#${label}-icon`);
         let container = document.querySelector(`#${label}-container`);
         button.addEventListener("click", function (e) {
+          window.utils.tempVars.scrolling = true;
+          window.setTimeout(function () {
+            window.utils.tempVars.scrolling = null;
+          }, 500)
           container.scrollIntoView({
             behavior: 'smooth',
             block: 'start'

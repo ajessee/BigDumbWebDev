@@ -14,7 +14,7 @@ const setUp3D = () => {
 
         // For desktop
         iFrame.addEventListener("mouseenter", function (e) {
-          if (window.parent.scrollY !== this.offsetTop)
+          if (window.parent.scrollY !== this.offsetTop && !e.target.contentWindow.parent.utils.tempVars.scrolling)
             window.parent.scrollTo({
               top: this.offsetTop - 50,
               behavior: 'smooth'
