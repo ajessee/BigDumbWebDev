@@ -1,13 +1,16 @@
 <div id="user-show-partial">
   <div id="user-show-title">
-    <h1 id="">Hi <%= @user.first_name%>!</h1>
-    <h2>Here are the details we have on file for you. This is all of the data we collect, nothing more.</h2>
+    <h1 id="">Your Account Details</h1>
+    <h2>Here is the data we have on file for you.</h2>
   </div>
   <div id="user-show-data">
     <h2>First Name: <%= !@user.first_name.empty?  ? @user.first_name : "[Not set]"%></h2>
     <h2>Last Name: <%= !@user.last_name.empty? ? @user.last_name : "[Not set]"%></h2>
+    <h2><%= @user.created_at.strftime("Signup Date: %m/%d/%Y")%></h2>
     <h2>Email Address: <%= @user.email%></h2>
     <h2>Password: [hidden]</h2>
+    <h2>IP Address: <%= @user.ip_address %></h2>
+    <h2>Physical Address (Based on IP Address): <%= @user.guess_city %>, <%= @user.guess_region %> <%= @user.guess_country %></h2>
     <% if logged_in? && current_user?(@user)%>
       <%= link_to edit_user_path(@user), class: "no-link-color", id: "edit-user-data-button", title: "Edit User", remote: "true" do %>
         <button class="submit-close-buttons submit-button">Edit User Information</button>
@@ -28,10 +31,14 @@
       </div>
     <% else %>
       <div id="edit-user-picture-button-container">
-        <%= link_to edit_user_path(@user, update_type: 'picture'), class: "no-link-color", id: "edit-user-picture-button", title: "Edit User Picture", remote: "true" do %>
-          <button class="submit-close-buttons submit-button">Add Picture</button>
+        <% if logged_in? && current_user?(@user) %>
+          <%= link_to edit_user_path(@user, update_type: 'picture'), class: "no-link-color", id: "edit-user-picture-button", title: "Edit User Picture", remote: "true" do %>
+            <button class="submit-close-buttons submit-button">Add Picture</button>
+          <% end %>
+        <% else %>
+          <h2>[NO PICTURE ADDED]</h2>
         <% end %>
-      <% end %>
+    <% end %>
     </div>
   </div>
 </div>

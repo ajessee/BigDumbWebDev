@@ -43,6 +43,8 @@ gem 'rubocop'
 gem 'brakeman'
 # Used for creating fixtures from dev database, see rake tasks
 gem 'humanize'
+# Gem to do all kinds of geolocation magic
+gem 'geocoder'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
