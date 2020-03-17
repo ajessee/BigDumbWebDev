@@ -127,32 +127,34 @@ class User < ApplicationRecord
     self.activation_digest = User.digest(activation_token)
   end
 
-  # Get user IP address from request 
+  # Get user IP address from request
   def fetch_ip(request)
-    # TODO: Not saving this to the database. I kinda like that. Should I save this info? If not, get rid of column in DB and turn into instance variable
     if Rails.env.production?
       self.ip_address = request.remote_ip
     else
       self.ip_address = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
     end
-    @location_info ||= Geocoder.search(self.ip_address).first
+    save
   end
 
   # Guess the users city
   def guess_city
-    @location_info.city
+    Geocoder.search(ip_address).first.city
   end
+
   # Guess the users region
   def guess_region
-    @location_info.region
+    Geocoder.search(ip_address).first.region
   end
+
   # Guess the users country
   def guess_country
-    @location_info.country
+    Geocoder.search(ip_address).first.country
   end
+
   # Guess the users address
   def guess_address
-    @location_info.address
+    Geocoder.search(ip_address).first.address
   end
 
   private
