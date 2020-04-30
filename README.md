@@ -1,24 +1,18 @@
-# README
+![BigDumbWebDev](https://github.com/ajessee/BigDumbWebDev/blob/master/app/assets/images/BDWD_email_icon.png)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# [BigDumbWebDev](https://www.bigdumbweb.dev/) 
 
-Things you may want to cover:
+My personal portfolio site where I share projects that I've built, and a blog that I use to document what I've learned in my path towards becoming a web developer.
 
-* Ruby version
+The app is written in Rails 6 and currently deployed in production using Heroku. 
 
-* System dependencies
+## Features:
 
-* Configuration
+* Mobile-first design.
+* Full featured blog that supports editing with rich text content, images and videos. Full comment feature with nested comments
+* Portfolio of personal projects
 
-* Database creation
+## Technical Specifications:
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Written in Rails 6.
+* Hosted on Heroku, using PostgresQL database.
