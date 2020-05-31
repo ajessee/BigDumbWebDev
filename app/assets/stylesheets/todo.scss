@@ -98,7 +98,6 @@
   background-color: white;
   align-self: end;
   height: 90%;
-  overflow-y: auto;
   border-radius: 4px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
@@ -148,6 +147,7 @@
   display: flex;
   flex-flow: column;
   height: auto;
+  overflow-y: auto;
 }
 
 .delete-task {
@@ -197,26 +197,25 @@
 @media only screen and (max-width: 767px) {
   
   #todo-project-container {
-
+    display: grid;
     grid-template-columns: 5% auto 5%;
-    grid-template-rows: 10% 20% 65% 5%;
-    grid-template-areas: none;
+    grid-template-rows: 8% 20% 2% 65% 7%;
+    width: 100vw;
 
     #todo-add-task {
-
+      display: grid;
       grid-row: 2;
       grid-template-rows: auto auto;
-      grid-template-columns: auto;
+      grid-column: 2;
+      align-self: flex-start;
 
       #todo-title {
         grid-row: 1;
-        grid-column: 1;
         font-size: 1.5em;
       }
 
       #todo-highlight-star {
         grid-row: 1;
-        grid-column: 1;
 
         #highlight-star {
           height: 4em;
@@ -227,26 +226,36 @@
       }
 
       #todo-task-form {
+        grid-column: 1 / 9;
         grid-row: 2;
-        grid-column: 1;
         text-align: center;
-        margin: 0 2% 0 2%;
+        margin: 1% 3% 3% 3%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
 
         #todo-inputs {
-          grid-column: 1;
-
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          flex-grow: 3;
+          
           #todo-task-label {
-        
+            padding: 0%;
+            text-align: start;
+            width: 95%;
           }
 
           #todo-task-input {
-
+            height: auto;
+            width: 90%;
+            padding: 0%;
           }
 
         }
 
         #todo-submit {
-          grid-column: 1;
+          align-self: flex-end;
 
           #todo-project-submit {
             font-size: 0.8em;
@@ -259,20 +268,19 @@
     }
 
     #todo-list-tasks {
-
-      grid-row: 3;
-      grid-template-rows: 15% 15% auto;
-      grid-template-columns: auto;
+      grid-template-rows: 10% 10% auto;
+      grid-row: 4;
+      grid-column: 2;
+      height: 100%;
+      align-self: start;
       
       #todo-tasks-title {
         grid-row: 1;
-        grid-column: 1;
       }
 
       #todo-tasks-filter {
 
         grid-row: 2;
-        grid-column: 1;
         margin: 0 2% 0 2%;
 
         #todo-filter-label {
@@ -288,9 +296,8 @@
       #todo-clear-tasks {
 
         grid-row: 2;
-        grid-column: 1;
         margin-right: 2%;
-        align-self: start;
+        align-self: center;
 
         #todo-clear-tasks-button {
           font-size: 0.8em;
@@ -300,11 +307,16 @@
 
       #tasks-collection {
         grid-row: 3;
-        grid-column: 1;
-        margin: 0 2% 0 2%;
+        padding: 0 2% 0% 2%;
 
         .collection-item {
           font-size: 1em;
+          height: auto;
+          display: flex;
+          justify-content: space-between;
+          margin: 2% 2% 2% 2%;
+          padding: 1%;
+          overflow-wrap: anywhere;
           .delete-task > svg {
             font-size: 1.5em;
           }
