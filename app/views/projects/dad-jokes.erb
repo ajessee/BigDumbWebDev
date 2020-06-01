@@ -1,0 +1,26 @@
+<% provide(:title, "Dad Joke Generator") %>
+<section id="dad-joke-project-container">
+
+  <h1 id="dad-joke-title">Dad Joke Generator</h1>
+
+  <div id="dad-joke-row">
+    <div id="dad-joke-image">
+      <%= show_svg('dad_jokes.svg') %>
+    </div>
+  
+    <div id="dad-joke-joke">
+      <h1 id="dad-joke-setup"></h1>
+      <h1 id="dad-joke-punchline" class="dad-joke-fade-in"></h1>
+    </div>
+  </div>
+
+  <div id="new-joke-button-container">
+    <button id="dad-joke-hit-me" class="dad-joke-fade-in">Hit Me Again</button>
+  </div>
+
+  <div id="dad-jokes-audio">
+    <%= audio_tag("rimshot.mp3", id: "dad-jokes-audio-player") %>
+  </div>
+  
+
+</section>

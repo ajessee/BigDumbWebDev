@@ -1,0 +1,121 @@
+#dad-joke-project-container {
+  display: grid;
+  grid-template-rows: 15% auto 15%;
+  height: 100vh;
+
+  #dad-joke-title {
+    align-self: center;
+    justify-self: center;
+    font-family: "Permanent Marker", cursive;
+    font-size: 4.5em;
+  }
+
+  #dad-joke-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    #dad-joke-image {
+    }
+
+    #dad-joke-joke {
+      display: flex;
+      flex-direction: column;
+      min-width: 50%;
+      align-items: center;
+      text-align: center;
+      font-size: 2em;
+      font-family: "Montserrat", sans-serif;
+
+      #dad-joke-setup {
+        margin: 2%;
+      }
+      #dad-joke-punchline {
+        margin: 2%;
+      }
+
+      .dad-joke-fade-in {
+        -webkit-animation: 4s ease 0s normal forwards 1 fadein;
+        animation: 4s ease 0s normal forwards 1 fadein;
+      }
+
+      @keyframes fadein {
+        0% {
+          opacity: 0;
+        }
+        66% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @-webkit-keyframes fadein {
+        0% {
+          opacity: 0;
+        }
+        66% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  #new-joke-button-container {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    -webkit-animation: 4s ease 0s normal forwards 1 fadein;
+    animation: 4s ease 0s normal forwards 1 fadein;
+
+    #dad-joke-hit-me {
+      box-shadow: inset 0px 1px 0px 0px #ffffff;
+      background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+      background-color: #ffffff;
+      border-radius: 6px;
+      border: 1px solid #dcdcdc;
+      display: inline-block;
+      cursor: pointer;
+      color: #666666;
+      font-family: Arial;
+      font-size: 2em;
+      font-weight: bold;
+      padding: 6px 24px;
+      text-decoration: none;
+      text-shadow: 0px 1px 0px #ffffff;
+    }
+
+    #dad-joke-hit-me:hover {
+      background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+      background-color: #f6f6f6;
+    }
+  }
+  #dad-jokes-audio {
+      display: none;
+  }
+}
+
+// Huge screen
+@media only screen and (min-width: 1501px) {
+  // placeholder
+}
+
+// Most screens
+@media only screen and (min-width: 1025px) and (max-width: 1500px) {
+  // placeholder
+}
+
+// iPads and tablets
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  // placeholder
+}
+
+// Phones
+@media only screen and (max-width: 767px) {
+  // placeholder
+}
