@@ -15,6 +15,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    margin: 0% 2% 0% 2%;
 
     #dad-joke-image {
     }
@@ -74,6 +75,7 @@
     animation: 4s ease 0s normal forwards 1 fadein;
 
     #dad-joke-hit-me {
+      font-family: "Montserrat", sans-serif;
       box-shadow: inset 0px 1px 0px 0px #ffffff;
       background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
       background-color: #ffffff;
@@ -96,7 +98,7 @@
     }
   }
   #dad-jokes-audio {
-      display: none;
+    display: none;
   }
 }
 
@@ -112,10 +114,44 @@
 
 // iPads and tablets
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
-  // placeholder
+  #dad-joke-project-container {
+    grid-template-rows: 20% auto 15%;
+
+    #dad-joke-row {
+      margin: 0% 2% 0% 2%;
+    }
+  }
 }
 
 // Phones
 @media only screen and (max-width: 767px) {
-  // placeholder
+  #dad-joke-project-container {
+    height: 100vh;
+    width: 100vw;
+    grid-template-rows: 15% auto 10%;
+
+    #dad-joke-title {
+      font-size: 2.2em;
+      margin: 10% 0 0 0;
+    }
+
+    #dad-joke-row {
+      margin: 0% 2% 0% 2%;
+      flex-direction: column;
+
+      #dad-joke-image > svg {
+        height: 12em;
+        width: auto;
+      }
+
+      #dad-joke-joke {
+        font-size: 1.5em;
+      }
+    }
+    #new-joke-button-container {
+      #dad-joke-hit-me {
+        font-size: 1.5em;
+      }
+    }
+  }
 }
