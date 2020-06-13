@@ -41,7 +41,8 @@ development:
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-  port: 5433
+  # TODO: Change postgres port to 5432 (from 5433) on home computer
+  port: 5432
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
@@ -60,7 +61,8 @@ test:
   database: big_dumb_web_dev_test
   username: andre
   host: localhost
-  port: 5433
+  # TODO: Change postgres port to 5432 (from 5433) on home computer
+  port: 5432
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
