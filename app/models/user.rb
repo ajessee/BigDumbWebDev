@@ -109,9 +109,7 @@ class User < ApplicationRecord
   # Instance method to remove the guest email from permanent cookie and convert guest user to regular user
   def convert_from_guest_account(cookies)
     if guest_2?
-      if cookies.permanent.signed[:guest_user_email]
-        cookies.delete :guest_user_email
-      end
+      cookies.delete :guest_user_email if cookies.permanent.signed[:guest_user_email]
       user!
     end
   end
@@ -129,11 +127,11 @@ class User < ApplicationRecord
 
   # Get user IP address from request
   def fetch_ip(request)
-    if Rails.env.production?
-      self.ip_address = request.remote_ip
-    else
-      self.ip_address = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
-    end
+    self.ip_address = if Rails.env.production?
+                        request.remote_ip
+                      else
+                        Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
+                      end
     save
   end
 
