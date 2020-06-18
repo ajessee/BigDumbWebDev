@@ -16,3 +16,4 @@ The app is written in Rails 6 and currently deployed in production using Heroku.
 
 * Written in Rails 6.
 * Hosted on Heroku, using PostgresQL database.
+* Email features using SendGrid
