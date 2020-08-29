@@ -1,0 +1,17 @@
+<div id="edit-user-resume-controls">
+  <%= form_with model: @user, id: "add-user-resume", local: true do |f| %>
+  <%= f.label "Choose File And Upload" %>
+  <div id="new-user-resume">
+    <%= f.file_field :resume, accept: 'application/pdf', id: 'user-resume-choose-file' %>
+  </div>
+  <div id="new-user-resume-submit" class="post-submit">
+    <%= f.submit "Upload Resume", id: "upload-user-resume-button", class: "disabled-button submit-button" %>
+    <button id="cancel-user-resume-edit" class="submit-close-buttons close-button all-close">Cancel</button>
+  </div>
+  <% end %>
+  <% if @user.resume.attached? %>
+  <%= link_to remove_user_resume_path(@user), class: "no-link-color", id: "remove-user-resume-button", title: "Remove User Resume", data: { confirm: "Are you sure you want to remove this resume?" } do %>
+  <button id="remove-user-resume" class="submit-close-buttons close-button all-close">Remove Resume</button>
+  <% end %>
+  <% end%>
+</div>

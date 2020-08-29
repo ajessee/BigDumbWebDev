@@ -1,0 +1,5 @@
+document.querySelector('#edit-user-resume-button').remove();
+newEl = document.createElement('div');
+newEl.innerHTML = "<%= j render 'edit_resume' %>";
+document.querySelector('#user-show-resume').appendChild(newEl.firstChild);
+delete newEl;

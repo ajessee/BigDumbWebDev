@@ -30,15 +30,39 @@
         <% end %>
       </div>
     <% else %>
-      <div id="edit-user-picture-button-container">
-        <% if logged_in? && current_user?(@user) %>
+    <h2>[NO PICTURE ADDED]</h2>
+    <div id="edit-user-picture-button-container">
+      <% if logged_in? && current_user?(@user) %>
           <%= link_to edit_user_path(@user, update_type: 'picture'), class: "no-link-color", id: "edit-user-picture-button", title: "Edit User Picture", remote: "true" do %>
             <button class="submit-close-buttons submit-button">Add Picture</button>
           <% end %>
-        <% else %>
-          <h2>[NO PICTURE ADDED]</h2>
-        <% end %>
-    <% end %>
+      <% end %>
     </div>
+    <% end %>
   </div>
+  <% if @user.admin? %>
+  <div id="user-show-resume">
+    <h2>Your Resume</h2>
+    <% if @user.resume.attached? %>
+    <%= show_pdf(@user.resume) %>
+    <% else %>
+      <h2>[NO RESUME ADDED]</h2>
+    <% end %>
+    <% if logged_in? && current_user?(@user) %>
+      <div id="edit-user-resume-button-container">
+          <%= link_to edit_user_path(@user, update_type: 'resume'), class: "no-link-color", id: "edit-user-resume-button", title: "Edit User Resume", remote: "true" do %>
+          <button class="submit-close-buttons submit-button">Edit Resume</button>
+          <% end %>
+      </div>
+    <% else %>
+      <div id="edit-user-resume-button-container">
+        <% if logged_in? && current_user?(@user) %>
+          <%= link_to edit_user_path(@user, update_type: 'resume'), class: "no-link-color", id: "edit-user-resume-button", title: "Add User Resume", remote: "true" do %>
+            <button class="submit-close-buttons submit-button">Add Resume</button>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
 </div>

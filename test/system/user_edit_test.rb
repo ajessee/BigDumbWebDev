@@ -9,6 +9,7 @@ class UserEditTest < ApplicationSystemTestCase
     @new_user_info_no_email = create_user_info_with_missing_email
     @new_user_info_invalid_email = create_user_info_with_invalid_email
     @new_user_info_no_password = create_user_info_with_missing_password
+    @andre = users(:one)
     @natalya = users(:three)
     @new_user = User.create!(first_name: @new_user_info[:first_name], last_name: @new_user_info[:last_name], email: @new_user_info[:email], details: @new_user_info[:details], password: @new_user_info[:password], password_confirmation: @new_user_info[:password_confirmation], activated: true)
   end
@@ -51,6 +52,14 @@ class UserEditTest < ApplicationSystemTestCase
     verify_user_show_data_ui(@new_user)
     verify_user_show_details_ui(@new_user, @new_user_info)
     verify_user_show_picture_ui(@new_user)
+  end
+
+  test 'Admin user can login, update user resume' do
+    log_in_as(@andre, Rails.application.credentials.dig(:password, :admin_user_password))
+    validate_user_logged_in(@andre)
+    visit user_path(@andre)
+    verify_user_show_data_ui(@andre)
+    verify_user_show_resume_ui(@andre)
   end
 
   # Error paths

@@ -58,6 +58,8 @@ class UsersController < ApplicationController
     # correct_user defines @user that is then passed to the view
     if params[:update_type] == 'picture'
       render :edit_picture
+    elsif params[:update_type] == 'resume'
+      render :edit_resume
     elsif params[:update_type] == 'details'
       render :edit_details
     elsif params[:update_type] == 'cancel_details'
@@ -103,6 +105,15 @@ class UsersController < ApplicationController
     render 'show'
   end
 
+  def remove_resume
+    @user = User.find(params[:id])
+    if @user.resume.attached?
+      @user.resume.detach
+      @user.save
+    end
+    render 'show'
+  end
+
   def demote_guest
     # Rubocop is formatting this with ruby safe navigation operator. The period represents the existing guest user object.
     if existing_guest_user?&.guest_2?
@@ -117,7 +128,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :details, :image, :email, :password, :password_confirmation, :update_type)
+    params.require(:user).permit(:first_name, :last_name, :details, :image, :resume, :email, :password, :password_confirmation, :update_type)
   end
 
   def logged_in_user

@@ -143,7 +143,7 @@
   // User Show
   #user-show-partial {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 10% 80% 10%;
     text-align: center;
 
     #user-show-title {
@@ -162,6 +162,8 @@
     #user-show-details {
       grid-column: 2;
       grid-row: 3;
+      width: 50%;
+      justify-self: center;
 
       #user-show-details-container .trix-content {
         margin: 5%;
@@ -193,10 +195,38 @@
         height: auto;
       }
 
-      #add-user-image {
+      #add-user-picture {
         height: 100%;
 
-        #new-user-image {
+        #new-user-picture {
+          height: 80%;
+          margin-left: 2%;
+        }
+      }
+    }
+
+    #user-show-resume {
+      text-align: center;
+      grid-column: 2/3;
+      grid-row: 5;
+
+      #resume-pdf {
+        min-height: 57em;
+        width: 50%;
+      }
+
+      #cancel-user-resume-edit {
+        display: none;
+      }
+      
+      #remove-user-resume {
+        margin-bottom: 2%;
+      }
+
+      #add-user-resume {
+        height: 100%;
+
+        #new-user-resume {
           height: 80%;
           margin-left: 2%;
         }
@@ -206,7 +236,7 @@
 }
 
 #edit-user-picture-button>button,
-#new-user-image-submit>input,
+#new-user-picture-submit>input,
 #new-user-details-submit-button {
   margin: 2% 0 2% 0;
 }
@@ -383,7 +413,7 @@ body {
           width: auto;
         }
 
-        #new-user-image-submit {
+        #new-user-picture-submit {
           #upload-user-picture-button {
             font-size: 1em !important;
             padding: 6px 12px !important;
@@ -402,15 +432,31 @@ body {
           
         }
   
-        #add-user-image {
+        #add-user-picture {
           
   
-          #new-user-image {
+          #new-user-picture {
             
           }
   
         }
   
+      }
+
+      #user-show-resume {
+        grid-column: 1;
+
+        #resume-pdf {
+          min-height: 57em;
+          width: 90%;
+        }
+
+        #new-user-resume-submit {
+          #upload-user-resume-button {
+            font-size: 1em !important;
+            padding: 6px 12px !important;
+          }
+        }
       }
   
     }

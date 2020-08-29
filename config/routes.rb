@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   post '/check_diffs', to: 'posts#check_diffs'
   get '/demote_guest', to: 'users#demote_guest'
   get '/remove_user_image/:id', to: 'users#remove_image', as: 'remove_user_image'
+  get '/remove_user_resume/:id', to: 'users#remove_resume', as: 'remove_user_resume'
 
   # Account Activation
   resources :account_activations, only: [:edit]
