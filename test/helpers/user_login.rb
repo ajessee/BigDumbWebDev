@@ -45,9 +45,7 @@ module UserLogin
   end
 
   def validate_user_logged_out(remember = false, check_notification = true)
-    if check_notification
-      assert find('p.notifications-message', text: 'You\'ve been successfully logged out of your account')
-    end
+    assert find('p.notifications-message', text: 'You\'ve been successfully logged out of your account') if check_notification
     session_cookie_decrypt = fetch_session_cookie
     assert_not session_cookie_decrypt['user_id']
     if remember
