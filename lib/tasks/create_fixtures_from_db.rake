@@ -23,7 +23,7 @@ namespace :db do
         new_m = model.all.to_a.map do |m|
           model_key = m.id.humanize
           model_attributes = m.attributes.except('created_at', 'updated_at', 'activated_at', 'reset_sent_at')
-          model_attributes["caption"].gsub!(/\n+/, ' ') if (model_name == "resources")
+          model_attributes['caption'].gsub!(/\n+/, ' ') if model_name == 'resources'
           { model_key => model_attributes.compact }
         end
         file.write new_m.to_yaml.lines[1..-1].join.gsub(/-\s{1}/, '').gsub(/\s{4}/, "\n ")
