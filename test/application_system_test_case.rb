@@ -24,6 +24,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   Capybara.server_port = 3001
   Capybara.app_host = 'http://localhost:3001'
 
-  driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+  driven_by :selenium, using: :chrome, screen_size: [1920, 1080], options: {args: ['--auto-open-devtools-for-tabs']}
   # driven_by :selenium, using: :headless_chrome
 end

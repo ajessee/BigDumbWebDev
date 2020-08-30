@@ -45,6 +45,9 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  # set this to true if you want to debug in test environment. set to false as default to speed up tests (but may break some tests that depend non-minified selectors!)
+  config.assets.debug = true
+
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 

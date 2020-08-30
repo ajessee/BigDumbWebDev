@@ -12,6 +12,7 @@ class ActiveSupport::TestCase
   # Run tests in parallel with specified workers - using more than one was crashing capybara
   # parallelize(workers: :number_of_processors)
 
+  Capybara.default_max_wait_time = 10
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 end

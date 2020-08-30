@@ -7,5 +7,6 @@ echo "Running pre-push hook"
 # $? stores exit value of the last command
 if [ $? -ne 0 ]; then
  echo "Brakeman and Minitests must pass before pushing!"
+ echo "Make sure you pull the prod DB and create new fixtures prod DB or you'll get weird errors"
  exit 1
 fi
