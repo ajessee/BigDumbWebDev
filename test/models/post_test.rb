@@ -29,6 +29,6 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test 'order should be most recent first' do
-    assert_equal posts(:one), Post.first
+    assert_equal posts.first, Post.first
   end
 end
