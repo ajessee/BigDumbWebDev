@@ -66,27 +66,34 @@
     justify-items: center;
     display: grid;
     grid-template-columns: 100vw;
-    grid-template-rows: repeat(4, minmax(max-content, auto));
+    grid-template-rows: 7% 5% repeat(2, minmax(max-content, auto));
     min-height: 100vh;
     
     .pagination {
       grid-row: 1;
       grid-column: 1;
-
+      padding: 5% 0% 2% 0% !important;
+      
       .next_page, .previous_page {
         font-size: 1.5em;
         font-family: 'Indie Flower', cursive;
       }
     }
-  
+    
+    #nyc-project-date-picker-wrapper {
+      grid-row: 2;
+      grid-column: 1;
+      padding: 2% 0% 2% 0%;
+    }
+
     #nyc-project-caption{
-      grid-row: 3;
+      grid-row: 4;
       grid-column: 1;
       text-align: center;
     }
   
     #nyc-project-media {
-      grid-row: 2;
+      grid-row: 3;
       grid-column: 1;
       justify-items: center;
 

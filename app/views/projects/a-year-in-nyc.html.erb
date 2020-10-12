@@ -5,10 +5,17 @@
   <% else %>
     <%= will_paginate @resources %>
   <% end %> 
+
+  <% if mobile_device == "mobile" %>
+  <div id="nyc-project-date-picker-wrapper">
+    <div id="nyc-project-date-picker"></div>
+  </div>
+  <% end %> 
   
   <% @resources.each do |r| %>
   <% provide(:title, "A Year In NYC | Day #{r.day}") %>
   <div id="nyc-project-caption">
+    <%= hidden_field_tag(:current_date, r.day, id: 'nyc-pic-current-date') %>
     <%= r.caption.match(/[^#]*/) %>
       <% r.caption.match(/\#(.*)/).to_s.split(" ").each do |tag| %>
       <% if (tag[0]== "#") %>
