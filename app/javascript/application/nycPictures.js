@@ -21,6 +21,7 @@ const nycPicturesLoader = () => {
       });
   
       flatPickerElement.addEventListener("change", (e) => {
+        if (e.target.value === "" || e.target.value === null || e.target.value === undefined) return;
         let oneDay = 1000 * 60 * 60 * 24;
         let selectedDay = new Date(e.target.value);
         let startDay = new Date(2016, 0, 0);
