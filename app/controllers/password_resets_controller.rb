@@ -65,7 +65,7 @@ class PasswordResetsController < ApplicationController
         @message = 'Your account has not been activated yet. Please check your email and activate your account before trying to reset your password'
       elsif !@user&.authenticated?(:reset, params[:id])
         @message = 'It looks like your reset token has changed. Please contact thebigdummy@bigdumbweb.dev to resolve this issue'
-       end
+      end
       store_message(
         title: 'Oops!',
         message: @message,
