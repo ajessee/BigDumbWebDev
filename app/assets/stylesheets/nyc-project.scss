@@ -1,19 +1,45 @@
+.flatpickr-calendar.open {
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.2em;
+  background-color: aliceblue;
+}
+
 #nyc-project-container {
   display: grid;
-  grid-template-columns: 35vw 65vw;
+  grid-template-columns: 50vw 50vw;
   grid-template-rows: 90vh 10vh;
   min-height: 100vh;
-  
-  .pagination {
+
+
+  #nyc-project-navigation {
+    grid-column: 1;
     grid-row: 2;
-    grid-column: 1/3;
+    font-family: 'Indie Flower', cursive;
+    justify-self: center;
+    align-self: center;
+
+    a {
+      text-decoration: none;
+      color: black;
+      font-size: 1.5em;
+    }
+
+    input {
+      text-align: center;
+      font-family: 'Indie Flower', cursive;
+      font-size: 1.5em;
+    }
+
+    a[disabled] {
+      color: #aaaaaa;
+    }
   }
 
   #nyc-project-caption{
     grid-column: 1;
     font-family: 'Indie Flower', cursive;
-    font-size: 1.5em;
-    text-align: right;
+    font-size: 1.8em;
+    text-align: center;
     justify-self: center;
     align-self: center;
     padding: 2%;
@@ -21,7 +47,7 @@
 
   #nyc-project-media {
     grid-column: 2;
-    justify-items: left;
+    grid-row: 1 / span 2;
     display: grid;
     text-align: center;
   
@@ -66,29 +92,46 @@
     justify-items: center;
     display: grid;
     grid-template-columns: 100vw;
-    grid-template-rows: 10% 5% repeat(2, minmax(max-content, auto));
+    grid-template-rows: repeat(3, minmax(max-content, auto));
     min-height: 100vh;
     
-    .pagination {
-      grid-row: 1;
-      grid-column: 1;
+    #nyc-project-navigation {
+
       padding: 5% !important;
+      grid-row: 1;
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-template-rows: auto auto;
+      column-gap: 1em;
+      row-gap: 1em;
+
+  
+      .nyc-project-date-picker-container {
+        font-size: 1.2em;
+        grid-row: 2;
+        grid-column: 1 / span 2;
+        input {
+          font-size: 1em;
+        }
+      }
       
-      .next_page, .previous_page {
-        font-size: 1.5em;
-        font-family: 'Indie Flower', cursive;
+      a {
+        font-size: 1.2em;
+        grid-row: 1;
+        .prev-page {
+          grid-column: 1;
+        }
+        .next-page {
+          grid-column: 2;
+        }
+        
       }
     }
     
-    #nyc-project-date-picker-wrapper {
-      grid-row: 2;
-      grid-column: 1;
-      align-self: center;
-    }
-
     #nyc-project-caption{
       grid-row: 4;
       grid-column: 1;
+      font-size: 1.5em;
       text-align: center;
     }
   

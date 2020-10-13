@@ -1,16 +1,11 @@
 <section id="nyc-project-container">
-
-  <% if mobile_device == "mobile" %>
-    <%= will_paginate @resources, :page_links => false %>
-  <% else %>
-    <%= will_paginate @resources %>
-  <% end %> 
-
-  <% if mobile_device == "mobile" %>
-  <div id="nyc-project-date-picker-wrapper">
-    <div id="nyc-project-date-picker"></div>
+  
+  <div id="nyc-project-navigation">
+    <%= content_tag(:a, "← Previous", class: "previous-page", rel: "prev", href: (@previous_page != nil ? "/projects/a-year-in-nyc?page=" + @previous_page : nil), disabled: (@previous_page == nil ? "true": nil) ) %>
+    <span class="nyc-project-date-picker-container"><%= text_field_tag(:nyc_project_date_picker, nil,  id: 'nyc-project-date-picker') %></span>
+    <%= content_tag(:a, "Next →", class: "next-page", rel: "next", href: (@next_page != nil ? "/projects/a-year-in-nyc?page=" + @next_page : nil), disabled: (@next_page == nil ? "true": nil) ) %>
   </div>
-  <% end %> 
+
   
   <% @resources.each do |r| %>
   <% provide(:title, "A Year In NYC | Day #{r.day}") %>

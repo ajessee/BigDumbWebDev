@@ -35,6 +35,8 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find_by(slug: params[:slug])
     @resources = @project.resources.order(:day).paginate(page: params[:page], per_page: 1)
+    @previous_page = params[:page] != '1' && !params[:page].nil? ? (params[:page].to_i - 1).to_s : nil
+    @next_page = params[:page] != @project.resources.length.to_s ? (params[:page].to_i + 1).to_s : nil
     # Look in the params for the name of the slug, then render that name which show match a view template. If not, throw 404.
     begin
       render show_post_params_name
