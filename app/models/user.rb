@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_one_attached :resume
   has_rich_text :details
   attr_accessor :remember_token, :activation_token, :reset_token
+
   # Attributes: first_name, last_name, email, details, picture, password_digest
   # Virtual attributes: password, password_confirmation (from has_secure_password), remember_token, activation_token, reset_token, name
 
@@ -21,7 +22,7 @@ class User < ApplicationRecord
   before_save :set_default_name
 
   # Regex to test email validity
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   # Model validation constraints that are run on save
   validates :first_name, length: { maximum: 50 }
