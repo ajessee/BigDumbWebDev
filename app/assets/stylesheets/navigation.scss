@@ -166,14 +166,9 @@
     grid-column: 1;
 }
 
-#nav-menu-twitter {
-    grid-row: 12;
-    grid-column: 2;
-}
-
 #nav-menu-linkedin {
     grid-row: 12;
-    grid-column: 3;
+    grid-column: 2;
 }
 
 .social-icons {
@@ -214,18 +209,13 @@
     grid-row: 1 / 2;
 }
 
-#twitter-icon {
+#linkedin-icon {
     grid-column: 5;
     grid-row: 1 / 2;
 }
 
-#linkedin-icon {
-    grid-column: 6;
-    grid-row: 1 / 2;
-}
-
 #resume-icon {
-    grid-column: 7;
+    grid-column: 6;
     grid-row: 1 / 2;
 }
 
@@ -305,18 +295,13 @@
         grid-row: 2;
     }
 
-    #twitter-icon {
+    #linkedin-icon {
         grid-column: 1;
         grid-row: 3;
     }
 
-    #linkedin-icon {
-        grid-column: 2;
-        grid-row: 3;
-    }
-
     #resume-icon {
-        grid-column: 3;
+        grid-column: 2;
         grid-row: 3;
     }
 
