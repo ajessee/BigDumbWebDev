@@ -89,3 +89,16 @@ These came out of the source audit and don't need to wait for or block any phase
 - Remove the dead `Geocoder`-based `User` methods and decide on the two orphaned `versions`/`version_associations` schema tables.
 - Set up scheduled database backups and an actual restore test — the last manual backup was 2021-03-08, and restoration has never been verified.
 - Resolve the ~$15/month of Heroku account charges not yet attributed to a specific app.
+
+## Considered and deferred: folding RDJesseeBlog into this app
+
+Evaluated 2026-09-12, deferred rather than scheduled. The idea: one Rails app/repo, one Postgres database, one Heroku dyno, serving both `www.bigdumbweb.dev` and `ralphdonaldjessee.com` via host-based routing, to cut costs.
+
+**It's technically straightforward and the savings are real, not marginal.** Rails routes cleanly on `request.host`; Heroku attaches multiple custom domains to one app for free; RDJesseeBlog's content (stories/pictures/recordings) and this app's content (posts/projects/tags) never overlap, so they could share one database as two independent sets of tables with no multi-tenant scoping needed. Confirmed via `heroku ps:type`/`heroku addons`: RDJesseeBlog is its own Basic dyno ($7/mo) + its own Postgres essential-0 ($5/mo) = $12/mo (~$144/year), fully eliminated by merging.
+
+**Deferred anyway, for two reasons:**
+
+1. **The engineering cost is bigger than it looks.** Both apps already have their own complete, independently-designed `User` model, `SessionsController`, and `ApplicationController` — RDJesseeBlog's for family-memorial readers/admins, this app's for guest-commenter portfolio visitors. Merging means reconciling two already-finished auth systems, not copy-pasting one into the other. Realistically comparable in size to one of the Rails upgrades on this roadmap, not a quick follow-on step.
+2. **Shared blast radius.** Today, a bad deploy or crashed dyno on one site doesn't touch the other. After merging, they'd share one dyno and one database — an incident on this portfolio site could take down RDJesseeBlog (a site the extended family actually relies on) with it, and vice versa. That's a real ongoing cost independent of engineering time, not just a one-time migration risk.
+
+**Decision:** do the cheap, low-risk cost cuts first — retire `sql-tutor-upgrade`, decide on NYCycle/head-up (see above) — after Phase 1 lands, and see how much of the "$15/month unattributed" that actually resolves on its own. Only revisit this merge if the remaining savings still feel worth the reliability tradeoff and the real engineering lift once that's known.
