@@ -2,7 +2,7 @@
 
 Updated September 12, 2026. Status: no upgrade steps have been taken yet. This plan was fleshed out from a full source-level audit (Gemfile/Gemfile.lock, package.json/both lockfiles, `config/routes.rb`, every controller and model, the test suite, and deployment config) rather than the September 9 external assessment alone — every claim below was verified by reading the actual code, not inferred from RDJesseeBlog's experience.
 
-Implementation handoff: [RDJesseeBlog upgrade lessons and repeatable roadmap](UPGRADE-LEARNINGS.md). Read this before implementation — RDJesseeBlog's own upgrade is now complete and deployed, so treat its plan/roadmap as a finished reference, not a work-in-progress.
+Implementation handoff: [RDJesseeBlog upgrade lessons and repeatable roadmap](UPGRADE-LEARNINGS.md). Read this before implementation — RDJesseeBlog's own upgrade is now complete and deployed, so treat its plan/roadmap as a finished reference, not a work-in-progress. This upgrade is Phase 1 of a three-phase plan — see [ROADMAP.md](ROADMAP.md) for what comes after it (adopting Rails 8+ frontend capabilities, then a UI/UX redesign).
 
 ## Scope and deployment approach
 
