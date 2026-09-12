@@ -22,7 +22,7 @@ Working recommendation, matching RDJesseeBlog: retain Heroku buildpacks on the l
 | Action Text / Trix | `actiontext` gem locked to exactly `6.1.3`; npm `trix@1.3.0` / `@rails/actiontext@6.0.3` (resolved from loose ranges in `package.json`). Three models use rich text: `User#details`, `Post#content`, `Comment#content`. A custom `config/initializers/action_text.rb` allow-lists the `style` HTML attribute so the custom Trix color-swatch/heading extensions survive sanitization — **this must be re-verified after the Rails/rails-html-sanitizer/loofah upgrade**, since a lost allow-list would silently un-style every existing colored/heading rich-text record. Prism (code syntax highlighting) is **CDN-loaded** (`cdnjs.cloudflare.com`, pinned to Prism **1.17.1**, from 2019), not npm-managed — untouched by the Webpacker migration but worth upgrading and worth allow-listing explicitly if a CSP is ever added (see below). |
 | Active Storage | `db/schema.rb` (version `20210305030844`) and `db/migrate/20210305030844_create_active_storage_variant_records.active_storage.rb` are present and consistent with each other — **unlike RDJesseeBlog, this app does not have the "missing migration" gap** that broke image serving there under Rails 8.1's `VariantWithRecord`. Still worth a `db:migrate:status` check against the live app before/after the eventual cutover rather than trusting this source-level read alone. `config.active_storage.service` is `:amazon` in **both development and production** — local development is configured to hit real S3 by default (a deliberate historical choice, per an inline comment, to work against production-pulled data), which needs an explicit decision before Docker/local-dev work begins so a fresh dev environment doesn't need real AWS credentials just to boot. |
 | Auth / roles | Custom `has_secure_password`, no Devise/Sorcery. `User#role` uses the **old keyword-arg `enum role: [...]` syntax** (`guest_1=0, guest_2=1, user=2, admin=3` implicitly) — needs migrating to the modern positional `enum :role, [...]` form while preserving the exact same integer mapping. A two-stage anonymous-guest system (`guest_1`/`guest_2`) backs anonymous commenting before signup. |
-| Tests | Minitest (not RSpec) confirmed. Real coverage exists for `User` (97 lines) and `Post` (34 lines) models plus six user-flow system tests and one integration test. **`Comment`, `Project`, `Resource`, `Tag`, and `Tagging` model tests are empty scaffold stubs** — zero real coverage. **No controller tests exist at all for `PostsController` or `CommentsController`** — the two controllers with the most business logic, and the one (`Comments`) with a confirmed authorization gap (see below). System tests run non-headless Chrome via `selenium-webdriver 3.142.7` + the deprecated `webdrivers` 4.6.0 gem (Selenium 3 protocol; needs replacing with Selenium 4's built-in Selenium Manager). |
+| Tests | Minitest (not RSpec) confirmed. **A file existing is not evidence of coverage here** — counted live (non-commented) `test` blocks directly: models have 18 real assertions (`user`: 13, `post`: 5); `Comment`/`Project`/`Resource`/`Tag`/`Tagging` model tests are empty stubs (0). Controllers have 7 real assertions total (`errors`: 5, `sessions`: 1, `tags`: 1); **`users_controller_test.rb`, `projects_controller_test.rb`, and `hello_controller_test.rb` are 100% commented out** (0 live tests each) despite existing as files; no test file exists at all for `PostsController` or `CommentsController` — the two controllers with the most business logic, and the one (`Comments`) with a confirmed authorization gap (see below). The one integration test file (`user_edit_test.rb`) is also 100% commented out. **Total live, non-system-test assertions in the whole app: 25.** The only substantial real coverage is 6 Capybara system tests, but they run non-headless Chrome via `selenium-webdriver 3.142.7` + the deprecated `webdrivers` 4.6.0 gem and can't run in CI/Docker until that driver is replaced — meaning there is currently no coverage runnable in an automated environment at all. See the dedicated Testing strategy section below rather than treating "run the suite" as sufficient. |
 | Deployment | No Dockerfile, Compose config, or CI workflow exists. `Procfile` is already present and correct (`web: bundle exec puma -C config/puma.rb`) — one less thing to add versus RDJesseeBlog, which had to create this. |
 | Content/domain | Portfolio + blog site (posts, projects, tags, nested comments), `www.bigdumbweb.dev`, automatic cert management. No audio/video processing (no ffmpeg dependency needed, unlike RDJesseeBlog) — image-only media via `has_one_attached :image` (User, Project, Resource) and `:resume` (User). |
 
@@ -52,6 +52,33 @@ These were confirmed by reading the actual source, not inferred — treat them a
 - `will_paginate` is currently `3.3.0`, not yet on the `4.x` line that broke RDJesseeBlog's Bootstrap pagination renderer — so that specific break hasn't happened yet here, but will need the same renderer check whenever this app's `will_paginate` gets bumped to 4.x.
 - `sass-rails`/`sassc` (native extension) will need replacing alongside Webpacker, same as RDJesseeBlog's Sass/Bootstrap asset pipeline.
 
+## Testing strategy
+
+Current coverage is smaller and less capable than a file listing suggests (see the Tests row above: 25 live assertions total, and no coverage at all that can currently run in CI/Docker). "Run the existing suite and record failures" — RDJesseeBlog's actual first step — doesn't work as-is here, because most of what looks like test infrastructure will report 0 examples rather than failing ones. This section replaces that assumption with a sequenced plan, gated the way RDJesseeBlog's version climb was (build a real baseline *before* advancing, not after).
+
+**Step 0 — make the suite runnable at all (blocking prework, not a Phase 2 nice-to-have):**
+
+- [ ] Replace `selenium-webdriver 3.142.7` + the deprecated `webdrivers 4.6.0` gem with current Selenium 4 (built-in Selenium Manager). Nothing else below matters until system tests can run headlessly in Docker/CI — this is currently filed under Phase 2's general dependency modernization; treat it as a prerequisite instead.
+- [ ] Switch `ApplicationSystemTestCase` to a headless Chrome driver (it currently forces a visible window with devtools forced open, and hardcodes port 3001).
+- [ ] Resolve the missing fixture data — `test/fixtures/users.yml` doesn't exist despite being referenced by (dead) tests. Decide fixtures vs. a builder pattern now, rather than resurrecting broken references later.
+
+**Step 1 — establish the true baseline (don't trust a pass/fail count until you've checked what's actually running):**
+
+- [ ] Count live, executable assertions directly rather than trusting file presence (already done above: 18 model + 7 controller + 0 integration = 25, plus 6 system tests blocked on Step 0).
+- [ ] Decide, file by file, whether to resurrect the fully-commented-out test files (`users_controller_test.rb`, `projects_controller_test.rb`, `hello_controller_test.rb`, `user_edit_test.rb`) or replace them outright — don't just uncomment and hope, since some reference fixtures that don't exist.
+
+**Step 2 — close the highest-value coverage gaps before touching any Rails version:**
+
+- [ ] `CommentsController` — no test file exists at all, and it has a confirmed authorization bug (trusted client `user_id`, see Known issues). Write the regression test alongside that fix, not after.
+- [ ] `PostsController` — no test file exists at all; this is the richest business logic in the app (`check_diffs`, admin-only actions, publish/draft visibility).
+- [ ] A regression test for `remove_resume`'s corrected guard (the code fix already shipped; it's still untested — add the test once Step 0 makes a runnable environment possible).
+- [ ] The five empty model stubs (`Comment`, `Project`, `Resource`, `Tag`, `Tagging`) — at minimum, validation and association coverage matching the depth already present for `User`/`Post`.
+
+**Step 3 — gate the version climb on a concrete number, not a vibe:**
+
+- [ ] Set an explicit completion bar before starting any Rails version bump — e.g., "every controller has at least one test per authorization boundary; zero fully-commented-out test files remain." RDJesseeBlog's equivalent gate was concrete and measured (82 → 107 passing examples before advancing past Rails 6.1); pick BDWD's number now rather than deciding "good enough" mid-upgrade.
+- [ ] From then on, run the full suite (headless system tests included) after every Rails version step, same method RDJesseeBlog used — but this only provides real protection once Steps 0–2 are done. Running "the suite" today would silently pass while testing almost nothing.
+
 ## Implementation checklist
 
 ### 1. Reproduce and protect the existing app
@@ -60,19 +87,20 @@ These were confirmed by reading the actual source, not inferred — treat them a
 - [ ] Arrange a fresh private database backup and a separate S3 media-inventory check; prove restoration before any production change. Exclude secrets/personal data from Git and Docker build contexts.
 - [ ] Decide `config.active_storage.service` for local development explicitly — currently `:amazon` in both dev and production, meaning a fresh Docker environment would need real AWS credentials just to boot. Switching development to `:local` (Disk service, already defined in `config/storage.yml`) is the safer default unless there's a specific reason to keep pulling real media locally.
 - [ ] Boot locally with isolated Postgres, local media, and non-delivering mail (own Compose project/volume names — do not reuse RDJesseeBlog's). Stub `User#fetch_ip`'s outbound network call before relying on test results; it currently fires on every non-production request.
-- [ ] Run the existing Minitest suite, record failures, and note the coverage gaps directly rather than assuming they'll surface naturally: no `PostsController`/`CommentsController` tests exist, and `Comment`/`Project`/`Resource`/`Tag`/`Tagging` model tests are empty stubs. Add targeted tests for the authorization boundaries in `CommentsController#create` (the trusted `user_id` finding) and the corrected `remove_resume` guard before/alongside fixing it.
+- [ ] Work through the Testing strategy section above (Steps 0–3) — this *is* the detailed version of "get a real baseline," broken out separately because the naive version of that step doesn't apply here.
 - [ ] Capture desktop/mobile examples of the 3D portfolio scroll, the animated landing page, the blog autosave, and Trix's custom toolbar (heading levels, color swatches, underline, horizontal rule, attach-files) — these are all hand-rolled and easy to silently break during the Webpacker replacement.
 
 ### 2. Update Ruby, Rails and dependencies
 
+(The `selenium-webdriver`/`webdrivers` replacement is Step 0 of the Testing strategy section above, done in Phase 1 — not listed again here since it's a prerequisite for testing, not a dependency-modernization nice-to-have.)
+
 - [ ] Recheck current stable Rails/Ruby releases at implementation time (RDJesseeBlog's target was Rails 8.1.3.1 / Ruby 4.0.6 — don't assume those numbers are still current without checking).
 - [ ] First, flip `config.load_defaults 6.0` → `6.1` on its own and get the suite green — this is an unstarted step independent of any gem-version bump, since the app has been running Rails 6.1.3's gem with Rails 6.0 defaults the whole time.
-- [ ] Then work through 6.1 → 7.0 → 7.1 → 7.2 → 8.0 → 8.1 (or newer stable), one version at a time, changing Ruby only at compatible steps. Run the suite + eager loading + asset compilation after every step.
+- [ ] Then work through 6.1 → 7.0 → 7.1 → 7.2 → 8.0 → 8.1 (or newer stable), one version at a time, changing Ruby only at compatible steps, only after the Testing strategy section's Step 3 completion bar is met. Run the full suite (headless system tests included) + eager loading + asset compilation after every step.
 - [ ] Migrate `User#role`'s `enum role: [...]` keyword-arg syntax to the modern positional `enum :role, [...]` form, explicitly preserving the `guest_1=0, guest_2=1, user=2, admin=3` integer mapping.
 - [ ] Replace Webpacker. This app's specific blockers: the git-sourced `@rails/webpacker` npm dependency, Node 12 (`.nvmrc`), and 27 files under `app/javascript/application/` with an implicit load order via global `window.utils`/`window.projects` objects that a bundler migration must preserve. Consolidate `package-lock.json` and `yarn.lock` into one lockfile as part of this, not before (there's no reason to pick a package manager before knowing what the replacement build tool needs).
 - [ ] Update Action Text/Trix together with Rails; specifically re-verify the `style`-attribute sanitizer allow-list in `config/initializers/action_text.rb` survives, and manually smoke-test the custom Trix toolbar (it manipulates Trix's internal DOM structure directly, so even a Trix patch bump needs a visual check).
 - [ ] Replace `sass-rails`/`sassc` and consolidate the two JS lockfiles into one package manager's workflow as part of the same Webpacker-removal step.
-- [ ] Replace `selenium-webdriver 3.142.7` + `webdrivers 4.6.0` with a current Selenium 4 setup (built-in Selenium Manager), and switch `ApplicationSystemTestCase` to a headless driver for CI/Docker use (it currently forces a visible Chrome window with devtools open).
 - [ ] Move `rubocop`, `brakeman`, `pry-byebug`, `faker`, and `humanize` out of the Gemfile's default group into `:development`/`:test`.
 - [ ] Update Puma, Bundler, Node LTS, and remaining gems (`pg`, `bcrypt`, `mini_magick`/`image_processing`, `aws-sdk-s3`, `jbuilder`, `bootsnap`, `diffy`). Pin resolved versions and regenerate the lockfile with the final toolchain, targeting Linux platforms explicitly.
 
@@ -118,7 +146,7 @@ Docker on Heroku is for portability and repeatability, not direct savings. Keep 
 - The `remove_resume` authorization gap and the `CommentsController` trusted-`user_id` issue fixed, whether as part of this upgrade or independently before it.
 - Latest validated Heroku stack actually deployed, not merely selected for the next build.
 - Reproducible Docker setup and clear local/build/deploy documentation.
-- Real test coverage for `PostsController`, `CommentsController`, and the currently-empty `Comment`/`Project`/`Resource`/`Tag`/`Tagging` model stubs — not just "critical features covered," since today several of them have zero coverage at all.
+- The Testing strategy section's Step 3 completion bar actually met before the version climb started, not retrofitted afterward: `PostsController`/`CommentsController` have real tests, the five empty model stubs have real assertions, zero test files remain fully commented-out, and system tests run headlessly in CI/Docker.
 - Verified recovery path, scheduled backups, and basic monitoring.
 - Documented app-level recurring costs and the remaining account-level billing discrepancy.
 
