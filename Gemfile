@@ -14,9 +14,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-# Version climb step: 6.1 -> 7.0 (gem only; config.load_defaults stays 6.1 for now,
-# bumped separately once this step is green - see UPGRADE-PLAN.md).
-gem 'rails', '~> 7.0.0'
+# Version climb step: 7.0 -> 7.1 (gem only; config.load_defaults stays 6.1 for now).
+gem 'rails', '~> 7.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -60,6 +59,10 @@ gem 'pry-byebug', platforms: %i[mri mingw x64_mingw]
 # group. Versions match Ruby 3.0.7's own bundled defaults.
 gem 'logger', '1.4.3'
 gem 'mutex_m', '0.1.1'
+# Psych 5 (pulled in transitively once Rails 7.1's irb/rdoc got bumped) changed YAML.load's
+# default to disallow aliases, breaking config/database.yml's `<<: *default` merge keys
+# (Psych::AliasesNotEnabled). Pinned to match Ruby 3.0.7's own bundled default version.
+gem 'psych', '3.3.2'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
