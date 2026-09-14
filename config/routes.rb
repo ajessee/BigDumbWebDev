@@ -19,9 +19,13 @@ Rails.application.routes.draw do
   get '/notifications', to: 'notifications#fetch_notifications'
   post '/fowarding_info', to: 'notifications#forwarding_ready'
   post '/check_diffs', to: 'posts#check_diffs'
-  get '/demote_guest', to: 'users#demote_guest'
-  get '/remove_user_image/:id', to: 'users#remove_image', as: 'remove_user_image'
-  get '/remove_user_resume/:id', to: 'users#remove_resume', as: 'remove_user_resume'
+  # These three were originally GET (state-changing routes shouldn't be - see
+  # UPGRADE-PLAN.md): demote_guest reverts a guest_2 back to guest_1, remove_image/
+  # remove_resume detach an attachment. PATCH for the former (an update), DELETE for the
+  # latter two (a removal).
+  patch '/demote_guest', to: 'users#demote_guest'
+  delete '/remove_user_image/:id', to: 'users#remove_image', as: 'remove_user_image'
+  delete '/remove_user_resume/:id', to: 'users#remove_resume', as: 'remove_user_resume'
 
   # Account Activation
   resources :account_activations, only: [:edit]

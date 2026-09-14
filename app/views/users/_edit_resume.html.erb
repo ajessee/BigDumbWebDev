@@ -10,7 +10,7 @@
   </div>
   <% end %>
   <% if @user.resume.attached? %>
-  <%= link_to remove_user_resume_path(@user), class: "no-link-color", id: "remove-user-resume-button", title: "Remove User Resume", data: { confirm: "Are you sure you want to remove this resume?" } do %>
+  <%= link_to remove_user_resume_path(@user), class: "no-link-color", id: "remove-user-resume-button", title: "Remove User Resume", data: { confirm: "Are you sure you want to remove this resume?", method: :delete } do %>
   <button id="remove-user-resume" class="submit-close-buttons close-button all-close">Remove Resume</button>
   <% end %>
   <% end%>

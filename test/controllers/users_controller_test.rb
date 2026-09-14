@@ -74,15 +74,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   # Regression test for a since-fixed authorization gap (see UPGRADE-PLAN.md's Known
   # issues): remove_resume was missing from logged_in_user/correct_user's before_action
-  # lists, so anyone could detach any user's resume. Mirrors remove_image's coverage.
+  # lists, so anyone could detach any user's resume. Mirrors remove_image's coverage below.
   test 'should redirect remove_resume to unauthorized path when not logged in' do
-    get remove_user_resume_path(@andre)
+    delete remove_user_resume_path(@andre)
     assert_redirected_to errors_unauthorized_path
   end
 
   test 'should redirect remove_resume to forbidden path when logged in as wrong user' do
     login_as(@natalya, @natalya_password)
-    get remove_user_resume_path(@andre)
+    delete remove_user_resume_path(@andre)
     assert_redirected_to errors_forbidden_path
   end
 
@@ -94,8 +94,53 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @andre.update!(ip_address: '127.0.0.1')
     @andre.resume.attach(io: StringIO.new('fake pdf content'), filename: 'resume.pdf', content_type: 'application/pdf')
     assert @andre.resume.attached?
-    get remove_user_resume_path(@andre)
+    delete remove_user_resume_path(@andre)
     assert_response :success
     assert_not @andre.reload.resume.attached?
+  end
+
+  # remove_image had no dedicated test coverage at all before this - added alongside
+  # converting it from a state-changing GET to a DELETE route (see UPGRADE-PLAN.md).
+  test 'should redirect remove_image to unauthorized path when not logged in' do
+    delete remove_user_image_path(@andre)
+    assert_redirected_to errors_unauthorized_path
+  end
+
+  test 'should redirect remove_image to forbidden path when logged in as wrong user' do
+    login_as(@natalya, @natalya_password)
+    delete remove_user_image_path(@andre)
+    assert_redirected_to errors_forbidden_path
+  end
+
+  test 'correct user can remove their own image' do
+    login_as(@andre, Rails.application.credentials.dig(:password, :admin_user_password))
+    @andre.update!(ip_address: '127.0.0.1')
+    @andre.image.attach(io: StringIO.new('fake image content'), filename: 'avatar.png', content_type: 'image/png')
+    assert @andre.image.attached?
+    delete remove_user_image_path(@andre)
+    assert_response :success
+    assert_not @andre.reload.image.attached?
+  end
+
+  # demote_guest had no test coverage at all before this - added alongside converting it
+  # from a state-changing GET to a PATCH route (see UPGRADE-PLAN.md). Creating a guest
+  # comment is the app's own path to a real guest_1 user with the signed guest_user_email
+  # cookie already set on this integration session, which existing_guest_user? depends on.
+  test 'demote_guest reverts a guest_2 user back to guest_1' do
+    post comments_path,
+         params: { comment: { post_id: posts(:most_recent).id, content: 'Hi there', first_name: 'Gary', last_name: 'Guest' } },
+         xhr: true
+    guest = User.last
+    assert guest.guest_1?
+    guest.guest_2!
+
+    patch demote_guest_path
+    assert_response :success
+    assert guest.reload.guest_1?
+  end
+
+  test 'demote_guest is a no-op when there is no guest_2 user on this session' do
+    patch demote_guest_path
+    assert_response :no_content
   end
 end

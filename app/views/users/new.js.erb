@@ -16,7 +16,14 @@ window.utils.modal.signupModal.insertAdjacentHTML('beforeend', "<%= j (render 'n
 window.utils.modal.newUserCloseButton = document.querySelector("#new-user-close-button");
 window.utils.modal.newUserCloseButton.addEventListener('click', function(e) {
   e.preventDefault();
-  fetch('/demote_guest');
+  // /demote_guest is a PATCH route (see config/routes.rb) - needs an explicit method and
+  // the CSRF token, unlike a plain GET fetch.
+  fetch('/demote_guest', {
+    method: 'PATCH',
+    headers: {
+      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+    }
+  });
   window.utils.modal.closeModal(e);
   window.utils.modal.signupModal = null;
 })
