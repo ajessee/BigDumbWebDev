@@ -8,14 +8,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# Bumped 3.0.0 -> 3.0.7 as an interim step (not yet the version-climb): needed for a
-# Debian base image with glibc >= 2.29 for Nokogiri's precompiled binary. RDJesseeBlog
-# made this identical move at this identical starting point - see UPGRADE-LEARNINGS.md.
-ruby '3.0.7'
+# Bumped 3.0.7 -> 3.3.9 as part of this version-climb step: Rails 7.2 requires Ruby
+# >= 3.1. Matches RDJesseeBlog's own path through this transition (3.0.7 -> 3.3.12 ->
+# 4.0.6); 4.x deferred until the Rails 8.x steps.
+ruby '3.3.9'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-# Version climb step: 7.0 -> 7.1 (gem only; config.load_defaults stays 6.1 for now).
-gem 'rails', '~> 7.1.0'
+# Version climb step: 7.1 -> 7.2 (gem only; config.load_defaults stays 6.1 for now).
+gem 'rails', '~> 7.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -56,13 +56,10 @@ gem 'pry-byebug', platforms: %i[mri mingw x64_mingw]
 # already active by default, or every boot hits "already activated X, but Gemfile
 # requires Y" (Bundler treats default gems specially). Both are genuine activesupport
 # dependencies now (not just brought in by a test-only gem), so pinned here, not in a
-# group. Versions match Ruby 3.0.7's own bundled defaults.
-gem 'logger', '1.4.3'
-gem 'mutex_m', '0.1.1'
-# Psych 5 (pulled in transitively once Rails 7.1's irb/rdoc got bumped) changed YAML.load's
-# default to disallow aliases, breaking config/database.yml's `<<: *default` merge keys
-# (Psych::AliasesNotEnabled). Pinned to match Ruby 3.0.7's own bundled default version.
-gem 'psych', '3.3.2'
+# group. Versions must track whatever Ruby itself currently bundles by default - update
+# these whenever Ruby is bumped (currently Ruby 3.3.9's own bundled defaults).
+gem 'logger', '1.6.0'
+gem 'mutex_m', '0.2.0'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -82,6 +79,10 @@ group :test do
   gem 'capybara', '~> 3.40'
   gem 'capybara-email'
   gem 'minitest-reporters'
+  # minitest-reporters' loose upper bound (< 7) let bundler pick minitest 6.x, which
+  # Rails 7.2.3's test_unit integration isn't compatible with yet (ArgumentError in
+  # railties/test_unit/line_filtering.rb). Pin to the 5.x line Rails actually supports.
+  gem 'minitest', '~> 5.0'
   # Selenium 4's built-in Selenium Manager replaces the deprecated `webdrivers` gem
   # (which pinned selenium-webdriver < 4.0 and can't drive a current Chrome/Chromedriver).
   gem 'selenium-webdriver', '~> 4.0'
