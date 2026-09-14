@@ -15,7 +15,11 @@ class CommentsController < ApplicationController
   def create
     # In this case, a post is commentable
     @commentable = Post.find_by_id(params[:comment][:post_id]) || Comment.find_by_id(params[:comment][:comment_id])
-    unless logged_in?
+    if logged_in?
+      # Always attribute the comment to the actual logged-in user - user_id is client-
+      # submitted (see comment_params) and must never be trusted for this.
+      params[:comment] = params[:comment].merge(user_id: current_user.id)
+    else
       # This is where the guest user is first created if one doesn't
       # already exist for the session (guest email stored in permanent cookies)
       guest_user.first_name = params[:comment][:first_name]

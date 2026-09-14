@@ -66,7 +66,7 @@ class PostsController < ApplicationController
     @current_content = parsed_json['currentContent']
     @saved_content = parsed_json['savedContent']
     payload = helpers.create_diff_payload(@current_content, @saved_content)
-    if payload[:allEmpty]
+    if payload[:all_empty]
       render json: { success: 'False' }, status: 204
     else
       response = {

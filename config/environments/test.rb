@@ -59,3 +59,20 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 end
+
+# Geocoder isn't dead code - app/views/users/_profile.html.erb calls User#guess_city et al
+# on every own-profile view, unconditionally (see UPGRADE-PLAN.md's Known issues, which
+# had flagged these methods as apparently uncalled). With no lookup configured, Geocoder
+# makes a real outbound HTTP call by default, which would fail for a private IP like the
+# test-only '127.0.0.1' fetch_ip already stubs in - same class of live-network flakiness,
+# fixed the same way (a stub), just for a different gem.
+Geocoder.configure(ip_lookup: :test, lookup: :test)
+Geocoder::Lookup::Test.set_default_stub(
+  [
+    {
+      'city' => 'Test City',
+      'region' => 'Test Region',
+      'country' => 'Test Country'
+    }
+  ]
+)
