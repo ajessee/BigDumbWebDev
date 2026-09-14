@@ -1,4 +1,4 @@
-<%= form_with model: @user, id: "new-user", class: "user-form" do |f| %>
+<%= form_with model: @user, id: "new-user", class: "user-form", local: false do |f| %>
   <h1 id="user-signup-header" class="user-form-header">Sign up</h1>
   <div id="new-user-first-name" class="float-container">
     <%= f.label :first_name %>

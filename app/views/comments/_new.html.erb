@@ -1,5 +1,5 @@
 <div id="new-comment-container" data-comment-id="<%= @existing_post ? @existing_post.id : @existing_comment.id %>">
-  <%= form_with model: @comment, id: "new-comment", class: "comment-form" do |f| %>
+  <%= form_with model: @comment, id: "new-comment", class: "comment-form", local: false do |f| %>
     <% if @existing_post %>
       <%= f.hidden_field :post_id, value: @existing_post.id %>
       <h1 id="new-comment-header" class="comment-form-header">Got any feedback or thoughts?</h1>

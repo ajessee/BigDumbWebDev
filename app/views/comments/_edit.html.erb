@@ -1,4 +1,4 @@
-<%= form_with model: @comment, id: "edit-comment", class: "comment-form" do |f| %>
+<%= form_with model: @comment, id: "edit-comment", class: "comment-form", local: false do |f| %>
   <h1 id="new-comment-header" class="comment-form-header">Edit Comment</h1>
   <% if logged_in? %>
     <%= f.hidden_field :user_id, value: current_user.id %>

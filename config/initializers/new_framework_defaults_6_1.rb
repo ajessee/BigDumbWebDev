@@ -46,6 +46,13 @@
 
 # Make `form_with` generate non-remote forms by default.
 # Rails.application.config.action_view.form_with_generates_remote_forms = false
+#
+# Accepted this new default rather than reverting it app-wide: six views relied on the
+# old implicit remote:true (their controllers only implement a `.js` response format) and
+# got explicit `local: false` added directly instead - see comments/_new.html.erb,
+# comments/_edit.html.erb, sessions/_new.html.erb, users/_new.html.erb, users/_edit.html.erb,
+# password_resets/_submit_email.html.erb. Everything else in the app already specified
+# local:/remote: explicitly and was unaffected.
 
 # Set the default queue name for the analysis job to the queue adapter default.
 # Rails.application.config.active_storage.queues.analysis = nil

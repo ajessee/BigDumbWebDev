@@ -1,4 +1,4 @@
-<%= form_with url: password_resets_path, id: "new-password-reset", class: "user-form" do |f| %>
+<%= form_with url: password_resets_path, id: "new-password-reset", class: "user-form", local: false do |f| %>
   <h1 id="new-password-reset-header" class="user-form-header">Submit Email For Password Reset</h1>
   <div id="new-password-reset-email" class="float-container">
     <%= f.label :email %>
