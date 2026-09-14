@@ -86,7 +86,13 @@ test:
 #
 production:
   <<: *default
-  database: big_dumb_web_dev_production
-  username: big_dumb_web_dev
-  password: <%= ENV['BIG_DUMB_WEB_DEV_DATABASE_PASSWORD'] %>
+  # Reconciled 2026-09-14 (see UPGRADE-PLAN.md): this used to hardcode database/username
+  # plus a password from a BIG_DUMB_WEB_DEV_DATABASE_PASSWORD env var that has never
+  # existed on Heroku. Confirmed directly (a Rails runner check with a fake DATABASE_URL
+  # set) that any explicit database/username/password/host/port here is fully overridden
+  # by DATABASE_URL when it's present, not merged with it - so those hardcoded values were
+  # never actually used; Heroku's Postgres add-on sets DATABASE_URL, and that's what this
+  # app has really been connecting with the whole time. Using it explicitly now, matching
+  # the guidance already in this file's own comments above.
+  url: <%= ENV['DATABASE_URL'] %>
 
