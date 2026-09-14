@@ -65,18 +65,9 @@ gem 'image_processing'
 gem 'aws-sdk-s3', require: false
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
-gem 'faker'
 gem 'will_paginate'
-# Use rubocop for git pre-commit hook
-gem 'rubocop'
-# Use brakeman for git pre-push hook
-gem 'brakeman'
-# Used for creating fixtures from dev database, see rake tasks
-gem 'humanize'
 # Gem to do all kinds of geolocation magic
 gem 'geocoder'
-# Call 'byebug' anywhere in the code to stop execution and get a debugger console
-gem 'pry-byebug', platforms: %i[mri mingw x64_mingw]
 
 # Ruby default gems that Bundler must never activate a different version of than the one
 # already active by default, or every boot hits "already activated X, but Gemfile
@@ -102,6 +93,29 @@ group :development do
   # ActiveSupport::Dependencies.mechanism=, removed under Rails 7's Zeitwerk-only
   # autoloading. No newer Spring release exists to fix this - it's unmaintained relative
   # to current Rails. bin/rails and bin/rake no longer load it.
+  #
+  # Moved out of the default group, 2026-09-14: none of these four are needed at runtime
+  # (production or otherwise) - they were only in the default group because that's where
+  # they started out, not for any actual boot-time dependency. `require: false` on
+  # rubocop/brakeman since both are invoked as external CLI commands
+  # (`bundle exec rubocop`/`bin/rubocop`, `bundle exec brakeman`), never `require`d by
+  # app code.
+  # Use rubocop for git pre-commit hook
+  gem 'rubocop', require: false
+  # Use brakeman for git pre-push hook
+  gem 'brakeman', require: false
+  # Used for creating fixtures from dev database, see lib/tasks/create_fixtures_from_db.rake
+  # - genuinely dev-only, not referenced anywhere else in app/lib.
+  gem 'humanize'
+end
+
+# faker is also used by test/helpers/generate_user_info.rb (not just db/seeds.rb), and
+# pry-byebug is as useful for dropping a breakpoint inside a failing test as inside a
+# dev-server request - hence :development, :test rather than :development alone.
+group :development, :test do
+  gem 'faker'
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'pry-byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :test do
