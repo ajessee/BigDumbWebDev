@@ -23,8 +23,24 @@ gem 'pg'
 gem 'puma'
 # Use SCSS for stylesheets
 gem 'sass-rails'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker'
+# Webpacker's maintained successor (webpacker itself is EOL and no longer accepted by
+# Rails/its own bugs). Kept deliberately, not a jsbundling-rails/esbuild swap: it's still
+# genuinely webpack under the hood, so app/javascript/application/index.js's
+# require.context-based dynamic loading (a webpack-only API this app's whole hand-rolled
+# JS load order depends on) keeps working unchanged. Functional parity only this phase -
+# the idiomatic import-map/Turbo/Stimulus rewrite is Phase 2's job.
+gem 'shakapacker', '~> 8.0'
+# Shakapacker's DevServerProxy relies on rack-proxy's old dynamic-backend-by-default
+# behavior to proxy /packs/* to the dev server, based on env["HTTP_HOST"] etc, which it
+# sets directly but never pairs with rack-proxy's own :backend/allow_dynamic_backend
+# opts (Shakapacker::Engine's "shakapacker.proxy" initializer only passes
+# ssl_verify_none: true). Per rack-proxy's own source comment ("Since 1.0 that dynamic
+# mode is refused (502) unless explicitly opted into"), this SSRF-hardening default
+# actually landed AT 1.0.0, not 2.0 as first suspected from the 2.0.0 changelog alone -
+# confirmed by reading 1.0.2's perform_request, which still unconditionally 502s here.
+# Shakapacker's gemspec has no upper bound on rack-proxy (>= 0.6.1), so Bundler
+# resolves the newest incompatible line unless pinned to the last pre-1.0 release here.
+gem 'rack-proxy', '~> 0.8.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production

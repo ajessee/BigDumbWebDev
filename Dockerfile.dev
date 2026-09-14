@@ -27,11 +27,12 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
       git \
     && rm -rf /var/lib/apt/lists/*
 
-# Node 12.19.0 per .nvmrc. Node 12 is EOL and no longer in NodeSource's apt repos, so
-# install straight from the official (still-hosted) release tarball instead. Picks the
+# Node 24.21.0 per .nvmrc (bumped from the EOL Node 12 pin as part of replacing
+# Webpacker - Shakapacker needs a modern Node; 24 "Krypton" is the current active LTS,
+# not just the next number up). Installed from the official release tarball; picks the
 # right arch tarball so this also works on Apple Silicon dev machines.
 RUN NODE_ARCH=$(case "$(uname -m)" in aarch64|arm64) echo arm64 ;; *) echo x64 ;; esac) \
-    && curl -fsSL "https://nodejs.org/dist/v12.19.0/node-v12.19.0-linux-${NODE_ARCH}.tar.xz" -o /tmp/node.tar.xz \
+    && curl -fsSL "https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-${NODE_ARCH}.tar.xz" -o /tmp/node.tar.xz \
     && tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 \
     && rm /tmp/node.tar.xz \
     && npm install -g yarn@1.22.19
@@ -55,7 +56,7 @@ COPY . .
 # activestorage -> marcel -> mimemagic 0.3.5, which was yanked from RubyGems. nokogiri is
 # re-resolved too so its precompiled binary matches this platform's glibc, not a stale
 # platform pin from an earlier lock attempt.
-RUN bundle lock --update rexml selenium-webdriver rails logger nokogiri bootsnap minitest-reporters capybara mutex_m listen puma pg pry pry-byebug byebug minitest jbuilder json \
+RUN bundle lock --update rexml selenium-webdriver rails logger nokogiri bootsnap minitest-reporters capybara mutex_m listen puma pg pry pry-byebug byebug minitest jbuilder json rack-proxy \
     && bundle install
 
 RUN yarn install

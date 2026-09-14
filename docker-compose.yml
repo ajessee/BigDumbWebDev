@@ -30,20 +30,20 @@ services:
       RAILS_ENV: development
       DB_HOST: db
       DB_USERNAME: andre
-      # Webpacker's dev-server "is it running?" check happens from inside this
-      # container, so it needs the "webpack" service's Compose DNS name, not
-      # config/webpacker.yml's "localhost" (which is what browsers use instead).
-      WEBPACKER_DEV_SERVER_HOST: webpack
+      # Shakapacker's dev-server "is it running?" check happens from inside this
+      # container, so it needs the "shakapacker" service's Compose DNS name, not
+      # config/shakapacker.yml's "localhost" (which is what browsers use instead).
+      SHAKAPACKER_DEV_SERVER_HOST: shakapacker
     depends_on:
       - db
     stdin_open: true
     tty: true
 
-  webpack:
+  shakapacker:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: bin/webpack-dev-server
+    command: bin/shakapacker-dev-server
     volumes:
       - .:/app
       - bigdumbwebdev_bundle:/usr/local/bundle

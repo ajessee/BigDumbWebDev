@@ -1,17 +1,45 @@
 {
   "name": "big_dumb_web_dev",
   "private": true,
+  "packageManager": "yarn@1.22.19",
   "dependencies": {
+    "@babel/core": "7",
+    "@babel/plugin-transform-runtime": "7",
+    "@babel/preset-env": "7",
+    "@babel/runtime": "7",
     "@rails/actioncable": "^6.0.0-alpha",
     "@rails/actiontext": "^6.0.0-beta1",
     "@rails/activestorage": "^6.0.0-alpha",
     "@rails/ujs": "^6.0.0-alpha",
-    "@rails/webpacker": "git+https://github.com/rails/webpacker.git",
+    "@types/babel__core": "7",
+    "@types/webpack": "5",
+    "babel-loader": "10",
+    "compression-webpack-plugin": "11",
     "flatpickr": "^4.6.6",
-    "trix": "^1.0.0"
+    "shakapacker": "8.4.0",
+    "terser-webpack-plugin": "5",
+    "trix": "^1.0.0",
+    "webpack-assets-manifest": "6",
+    "webpack-merge": "6",
+    "webpack-subresource-integrity": "5"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.1.14"
-  }
+    "css-loader": "^7",
+    "mini-css-extract-plugin": "^2",
+    "sass": "^1.77",
+    "sass-loader": "^16",
+    "style-loader": "^4",
+    "webpack": "5",
+    "webpack-cli": "6",
+    "webpack-dev-server": "5"
+  },
+  "babel": {
+    "presets": [
+      "./node_modules/shakapacker/package/babel/preset.js"
+    ]
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }

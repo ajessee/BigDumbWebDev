@@ -190,6 +190,7 @@ GEM
     nokogiri (1.19.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
+    package_json (0.2.0)
     parallel (1.20.1)
     parser (3.0.0.0)
       ast (~> 2.4.1)
@@ -210,7 +211,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.7)
-    rack-proxy (0.6.5)
+    rack-proxy (0.8.3)
       rack
     rack-session (2.1.2)
       base64 (>= 0.1.0)
@@ -299,7 +300,13 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
+    semantic_range (3.1.1)
+    shakapacker (8.4.0)
+      activesupport (>= 5.2)
+      package_json
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     sprockets (4.4.1)
       concurrent-ruby (~> 1.1)
       logger
@@ -322,11 +329,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webpacker (5.2.1)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket (1.2.11)
     websocket-driver (0.8.2)
       base64
@@ -363,12 +365,13 @@ DEPENDENCIES
   pg
   pry-byebug
   puma
+  rack-proxy (~> 0.8.3)
   rails (~> 8.1.0)
   rubocop
   sass-rails
   selenium-webdriver (~> 4.0)
+  shakapacker (~> 8.0)
   web-console (>= 3.3.0)
-  webpacker
   will_paginate
 
 RUBY VERSION
