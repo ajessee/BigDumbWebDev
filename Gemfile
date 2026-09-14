@@ -14,11 +14,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-# Pinned to the latest 6.1.x patch (not yet a version-climb step) because the original
-# 6.1.3 lockfile depends on mimemagic 0.3.5, which was yanked from RubyGems; a newer
-# 6.1.x patch pulls in a newer activestorage -> marcel requirement that avoids it
-# entirely, same fix RDJesseeBlog used at this identical starting point.
-gem 'rails', '~> 6.1.0'
+# Version climb step: 6.1 -> 7.0 (gem only; config.load_defaults stays 6.1 for now,
+# bumped separately once this step is green - see UPGRADE-PLAN.md).
+gem 'rails', '~> 7.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -55,13 +53,24 @@ gem 'geocoder'
 # Call 'byebug' anywhere in the code to stop execution and get a debugger console
 gem 'pry-byebug', platforms: %i[mri mingw x64_mingw]
 
+# Ruby default gems that Bundler must never activate a different version of than the one
+# already active by default, or every boot hits "already activated X, but Gemfile
+# requires Y" (Bundler treats default gems specially). Both are genuine activesupport
+# dependencies now (not just brought in by a test-only gem), so pinned here, not in a
+# group. Versions match Ruby 3.0.7's own bundled defaults.
+gem 'logger', '1.4.3'
+gem 'mutex_m', '0.1.1'
+
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  # Rails 7.0's ActiveSupport::EventedFileUpdateChecker requires listen ~> 3.5; the old
+  # '< 3.2' ceiling was just the original rails-new-generated default, not a deliberate pin.
+  gem 'listen', '~> 3.5'
   gem 'web-console', '>= 3.3.0'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  # Spring removed as part of the Rails 6.1 -> 7.0 step: 2.1.1 (the latest release) calls
+  # ActiveSupport::Dependencies.mechanism=, removed under Rails 7's Zeitwerk-only
+  # autoloading. No newer Spring release exists to fix this - it's unmaintained relative
+  # to current Rails. bin/rails and bin/rake no longer load it.
 end
 
 group :test do
@@ -73,10 +82,4 @@ group :test do
   # Selenium 4's built-in Selenium Manager replaces the deprecated `webdrivers` gem
   # (which pinned selenium-webdriver < 4.0 and can't drive a current Chrome/Chromedriver).
   gem 'selenium-webdriver', '~> 4.0'
-  # selenium-webdriver depends on logger ~> 1.4, which resolves to the newest 1.x by
-  # default. Pinned to exactly match Ruby's own bundled default logger gem version so
-  # Bundler never activates a different version than what's already active by default -
-  # a mismatch there caused "already activated logger 1.4.3, but Gemfile requires ..."
-  # conflicts in binstubs that require 'bundler/setup' directly (e.g. webpack-dev-server).
-  gem 'logger', '1.4.3'
 end

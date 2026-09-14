@@ -45,6 +45,11 @@ ENV BUNDLE_PATH=/usr/local/bundle
 
 WORKDIR /app
 
+# Ruby 3.0.7 ships RubyGems 3.2.33, too old to install newer gems' precompiled native
+# extensions (e.g. ffi 1.17.4 needs RubyGems >= 3.3.22, pulled in once spring/spring-
+# watcher-listen get bumped for Rails 7.0 compatibility below).
+RUN gem update --system 3.4.22
+
 RUN gem install bundler -v 2.2.6
 
 # Copy full source (not just Gemfile/Gemfile.lock) before bundle/yarn install, since the
@@ -58,7 +63,7 @@ COPY . .
 # activestorage -> marcel -> mimemagic 0.3.5, which was yanked from RubyGems. nokogiri is
 # re-resolved too so its precompiled binary matches this platform's glibc, not a stale
 # platform pin from an earlier lock attempt.
-RUN bundle lock --update rexml selenium-webdriver rails logger nokogiri bootsnap minitest-reporters capybara \
+RUN bundle lock --update rexml selenium-webdriver rails logger nokogiri bootsnap minitest-reporters capybara mutex_m listen \
     && bundle install
 
 RUN yarn install
