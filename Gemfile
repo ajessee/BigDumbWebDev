@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # TO DEVELOP ON WINDOWS, UNCOMMENT THESE GEMS
 # gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:windows, :jruby]
 
 # Bumped 3.0.7 -> 3.3.9 as part of this version-climb step: Rails 7.2 requires Ruby
 # >= 3.1. Matches RDJesseeBlog's own path through this transition (3.0.7 -> 3.3.12 ->
@@ -115,7 +115,9 @@ end
 group :development, :test do
   gem 'faker'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'pry-byebug', platforms: %i[mri mingw x64_mingw]
+  # Bundler 2.7+ deprecates :mingw/:x64_mingw in favor of the consolidated :windows
+  # platform (bumped as part of the Bundler 2.5.22 -> 2.7.2 update below).
+  gem 'pry-byebug', platforms: %i[mri windows]
 end
 
 group :test do

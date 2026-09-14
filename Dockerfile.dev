@@ -44,6 +44,19 @@ WORKDIR /app
 
 # Ruby 3.3.9 ships a modern RubyGems/Bundler already (3.5.22 / 2.5.22) - the
 # gem update --system / bundler 2.2.6 pin that Ruby 3.0.7 needed is no longer necessary.
+# Bundler itself isn't a Gemfile-declared runtime dependency (it's the tool that reads the
+# Gemfile, and boots before any Gemfile-declared gem activates), so bumping it doesn't hit
+# the same "already activated X, but Gemfile requires Y" class of conflict the logger/
+# mutex_m/psych pins above exist to avoid - just install the newer version directly.
+# Latest 2.x, not 4.x (Bundler skipped 3.x entirely): no reason found yet to chase a new
+# major, matching this app's own stance on Ruby 4.x.
+RUN gem install bundler -v 2.7.2
+# Ruby's own bundled default (2.5.22) still wins for a bare `bundle` invocation even with
+# 2.7.2 also installed - BUNDLER_VERSION forces every `bundle` command in this image
+# (including the lock/install below) to actually activate 2.7.2, so a from-scratch image
+# build keeps recording BUNDLED WITH 2.7.2 in Gemfile.lock rather than silently reverting
+# to the Ruby-bundled default on every rebuild.
+ENV BUNDLER_VERSION=2.7.2
 
 # Copy full source (not just Gemfile/Gemfile.lock) before bundle/yarn install, since the
 # lockfile update below needs to persist into this layer rather than be clobbered by a
@@ -55,8 +68,12 @@ COPY . .
 # (still Rails 6.1, not a version-climb step) since the original 6.1.3 lockfile pins
 # activestorage -> marcel -> mimemagic 0.3.5, which was yanked from RubyGems. nokogiri is
 # re-resolved too so its precompiled binary matches this platform's glibc, not a stale
-# platform pin from an earlier lock attempt.
-RUN bundle lock --update rexml selenium-webdriver rails logger nokogiri bootsnap minitest-reporters capybara mutex_m listen puma pg pry pry-byebug byebug minitest jbuilder json rack-proxy \
+# platform pin from an earlier lock attempt. bcrypt/mini_magick/image_processing/
+# aws-sdk-s3/diffy bumped to current as part of the "remaining gems" pass at the end of
+# the Rails/Ruby version climb - pg/jbuilder/bootsnap were already at latest, included
+# here anyway so the lockfile is regenerated with the full final toolchain in one pass.
+RUN bundle lock --update rexml selenium-webdriver rails logger nokogiri bootsnap minitest-reporters capybara mutex_m listen puma pg pry pry-byebug byebug minitest jbuilder json rack-proxy bcrypt mini_magick image_processing aws-sdk-s3 diffy \
+    && bundle lock --add-platform x86_64-linux --add-platform aarch64-linux \
     && bundle install
 
 RUN yarn install
