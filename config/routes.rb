@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # Health check endpoint for uptime monitors / Heroku, matching Rails 8's own generator default.
+  get "up" => "rails/health#show", as: :rails_health_check
+
   # Root
   root    'hello#home'
   get     'hello/home'
