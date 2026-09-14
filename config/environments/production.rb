@@ -69,18 +69,17 @@ Rails.application.configure do
 
   # Email Config
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :ses
   host = 'www.bigdumbweb.dev'
   config.action_mailer.default_url_options = { host: host }
-  ActionMailer::Base.smtp_settings = {
-    address: 'smtp.sendgrid.net',
-    port: '587',
-    authentication: :plain,
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY'],
-    domain: 'heroku.com',
-    enable_starttls_auto: true
-  }
+  # Deferred: SesDeliveryMethod is app/lib-autoloaded, not yet resolvable while
+  # this environment config file itself is being evaluated (Zeitwerk isn't ready yet).
+  config.after_initialize do
+    ActionMailer::Base.add_delivery_method :ses, SesDeliveryMethod,
+      region: Rails.application.credentials.dig(:ses, :region),
+      access_key_id: Rails.application.credentials.dig(:ses, :access_key_id),
+      secret_access_key: Rails.application.credentials.dig(:ses, :secret_access_key)
+  end
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

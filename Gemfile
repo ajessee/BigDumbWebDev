@@ -63,6 +63,8 @@ gem 'diffy'
 gem 'image_processing'
 # AWS gem
 gem 'aws-sdk-s3', require: false
+# SES mail delivery (see app/lib/ses_delivery_method.rb)
+gem 'aws-sdk-sesv2', require: false
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 gem 'will_paginate'
