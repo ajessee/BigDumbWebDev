@@ -21,8 +21,17 @@ gem 'rails', '~> 8.1.0'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma'
-# Use SCSS for stylesheets
-gem 'sass-rails'
+# sass-rails -> sassc-rails -> sassc (LibSass, a native extension) was replaced with
+# dartsass-rails, the Rails-team-maintained successor. LibSass itself has been
+# deprecated upstream since 2020 (superseded by Dart Sass); Rails 7+ app generators no
+# longer offer sass-rails at all. Functional parity only - Sprockets still serves the
+# compiled CSS via stylesheet_link_tag 'application' exactly as before.
+gem 'dartsass-rails'
+# sass-rails was the only thing pulling in sprockets-rails - Rails 7+ no longer bundles
+# it by default (the asset pipeline is opt-in via an explicit gem now). This app still
+# needs it directly for app/assets/{images,audio,stylesheets} and asset_path/
+# stylesheet_link_tag, independent of whichever Sass compiler is in use.
+gem 'sprockets-rails'
 # Webpacker's maintained successor (webpacker itself is EOL and no longer accepted by
 # Rails/its own bugs). Kept deliberately, not a jsbundling-rails/esbuild swap: it's still
 # genuinely webpack under the hood, so app/javascript/application/index.js's

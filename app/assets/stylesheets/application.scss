@@ -1,0 +1,41 @@
+// dartsass-rails entry point, replacing sass-rails' Sprockets `*= require_tree .` /
+// `*= require_self` directives (no direct dartsass-rails equivalent - Dart Sass has no
+// directory-wide auto-require, only explicit @import/@use). These files have zero
+// cross-file Sass state (no shared $variables/@mixins/@import between them - verified
+// before this migration), so a flat, alphabetically-ordered @import list is an exact
+// functional match for what `require_tree .` produced. The body rule stays last,
+// matching the old `require_self` position (this file's own styles processed after the
+// tree, so they can still override anything above).
+
+@import "background_image";
+@import "blog";
+@import "calculator";
+@import "code_parallax";
+@import "comments";
+@import "contacts";
+@import "dad_joke_generator";
+@import "debug_button";
+@import "diff";
+@import "errors";
+@import "footer";
+@import "hello";
+@import "modal";
+@import "navigation";
+@import "notifications";
+@import "number_guesser";
+@import "nyc-project";
+@import "pagination";
+@import "posts";
+@import "projects";
+@import "projects_3d_scroll";
+@import "sessions";
+@import "tags";
+@import "todo";
+@import "trix";
+@import "users";
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: aliceblue;
+}

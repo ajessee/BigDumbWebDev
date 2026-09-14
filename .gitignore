@@ -49,3 +49,6 @@ latest.dump
 !/test/fixtures/posts.yml
 !/test/fixtures/projects.yml
 
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
