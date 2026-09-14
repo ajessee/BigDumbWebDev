@@ -56,27 +56,27 @@ These were confirmed by reading the actual source, not inferred — treat them a
 
 Current coverage is smaller and less capable than a file listing suggests (see the Tests row above: 25 live assertions total, and no coverage at all that can currently run in CI/Docker). "Run the existing suite and record failures" — RDJesseeBlog's actual first step — doesn't work as-is here, because most of what looks like test infrastructure will report 0 examples rather than failing ones. This section replaces that assumption with a sequenced plan, gated the way RDJesseeBlog's version climb was (build a real baseline *before* advancing, not after).
 
-**Step 0 — make the suite runnable at all (blocking prework, not a Phase 2 nice-to-have):**
+**Step 0 — make the suite runnable at all (blocking prework, not a Phase 2 nice-to-have):** DONE (2026-09-13/14).
 
-- [ ] Replace `selenium-webdriver 3.142.7` + the deprecated `webdrivers 4.6.0` gem with current Selenium 4 (built-in Selenium Manager). Nothing else below matters until system tests can run headlessly in Docker/CI — this is currently filed under Phase 2's general dependency modernization; treat it as a prerequisite instead.
-- [ ] Switch `ApplicationSystemTestCase` to a headless Chrome driver (it currently forces a visible window with devtools forced open, and hardcodes port 3001).
-- [ ] Resolve the missing fixture data — `test/fixtures/users.yml` doesn't exist despite being referenced by (dead) tests. Decide fixtures vs. a builder pattern now, rather than resurrecting broken references later.
+- [x] Replace `selenium-webdriver 3.142.7` + the deprecated `webdrivers 4.6.0` gem with current Selenium 4 (built-in Selenium Manager). Nothing else below matters until system tests can run headlessly in Docker/CI — this is currently filed under Phase 2's general dependency modernization; treat it as a prerequisite instead.
+- [x] Switch `ApplicationSystemTestCase` to a headless Chrome driver (it currently forces a visible window with devtools forced open, and hardcodes port 3001).
+- [x] Resolve the missing fixture data — `test/fixtures/users.yml` doesn't exist despite being referenced by (dead) tests. Decide fixtures vs. a builder pattern now, rather than resurrecting broken references later. Decided fixtures; done in Step 1 below once needed for actual test content.
 
-**Step 1 — establish the true baseline (don't trust a pass/fail count until you've checked what's actually running):**
+**Step 1 — establish the true baseline (don't trust a pass/fail count until you've checked what's actually running):** DONE.
 
-- [ ] Count live, executable assertions directly rather than trusting file presence (already done above: 18 model + 7 controller + 0 integration = 25, plus 6 system tests blocked on Step 0).
-- [ ] Decide, file by file, whether to resurrect the fully-commented-out test files (`users_controller_test.rb`, `projects_controller_test.rb`, `hello_controller_test.rb`, `user_edit_test.rb`) or replace them outright — don't just uncomment and hope, since some reference fixtures that don't exist.
+- [x] Count live, executable assertions directly rather than trusting file presence (already done above: 18 model + 7 controller + 0 integration = 25, plus 6 system tests blocked on Step 0).
+- [x] Decide, file by file, whether to resurrect the fully-commented-out test files (`users_controller_test.rb`, `projects_controller_test.rb`, `hello_controller_test.rb`, `user_edit_test.rb`) or replace them outright — don't just uncomment and hope, since some reference fixtures that don't exist. `user_edit_test.rb` deleted (superseded by the real, active `test/system/user_edit_test.rb` its own TODO called for); the other three resurrected, with real fixes where the original commented-out code no longer matched current behavior (stale `name:` param, a `login_as` helper that doesn't work in `ActionDispatch::IntegrationTest`). Added `test/fixtures/{users,posts,projects}.yml`, hand-written and synthetic rather than generated from a prod-synced dev DB.
 
-**Step 2 — close the highest-value coverage gaps before touching any Rails version:**
+**Step 2 — close the highest-value coverage gaps before touching any Rails version:** DONE.
 
-- [ ] `CommentsController` — no test file exists at all, and it has a confirmed authorization bug (trusted client `user_id`, see Known issues). Write the regression test alongside that fix, not after.
-- [ ] `PostsController` — no test file exists at all; this is the richest business logic in the app (`check_diffs`, admin-only actions, publish/draft visibility).
-- [ ] A regression test for `remove_resume`'s corrected guard (the code fix already shipped; it's still untested — add the test once Step 0 makes a runnable environment possible).
-- [ ] The five empty model stubs (`Comment`, `Project`, `Resource`, `Tag`, `Tagging`) — at minimum, validation and association coverage matching the depth already present for `User`/`Post`.
+- [x] `CommentsController` — no test file exists at all, and it has a confirmed authorization bug (trusted client `user_id`, see Known issues). Write the regression test alongside that fix, not after. Fixed and tested.
+- [x] `PostsController` — no test file exists at all; this is the richest business logic in the app (`check_diffs`, admin-only actions, publish/draft visibility). Tested; also found and fixed a real bug surfaced by writing the `check_diffs` test (`payload[:allEmpty]` checked before the snake_case→camelCase key transform, so the "no differences" 204 branch was dead code).
+- [x] A regression test for `remove_resume`'s corrected guard (the code fix already shipped; it's still untested — add the test once Step 0 makes a runnable environment possible). Added; also surfaced that `Geocoder` is *not* dead code as this doc previously claimed (`app/views/users/_profile.html.erb` calls `User#guess_city` et al on every own-profile view) — stubbed in `config/environments/test.rb` for now; the live-lookup fragility for a nil/private `ip_address` is still present outside test and is not yet fixed.
+- [x] The five empty model stubs (`Comment`, `Project`, `Resource`, `Tag`, `Tagging`) — at minimum, validation and association coverage matching the depth already present for `User`/`Post`. Done.
 
-**Step 3 — gate the version climb on a concrete number, not a vibe:**
+**Step 3 — gate the version climb on a concrete number, not a vibe:** DONE.
 
-- [ ] Set an explicit completion bar before starting any Rails version bump — e.g., "every controller has at least one test per authorization boundary; zero fully-commented-out test files remain." RDJesseeBlog's equivalent gate was concrete and measured (82 → 107 passing examples before advancing past Rails 6.1); pick BDWD's number now rather than deciding "good enough" mid-upgrade.
+- [x] Set an explicit completion bar before starting any Rails version bump — e.g., "every controller has at least one test per authorization boundary; zero fully-commented-out test files remain." RDJesseeBlog's equivalent gate was concrete and measured (82 → 107 passing examples before advancing past Rails 6.1); pick BDWD's number now rather than deciding "good enough" mid-upgrade. **Bar set 2026-09-14: 125 passing examples, 0 failures, 0 errors** (`bin/rails test`: 88 tests / 147 assertions; `bin/rails test:system`: 37 tests / 749 assertions), zero fully-commented-out test files remaining (the unmodified default `test/channels/application_cable/connection_test.rb` scaffold doesn't count as one of these - it was never part of this app's own test suite). This is the number to match or exceed after every Rails version step from here on.
 - [ ] From then on, run the full suite (headless system tests included) after every Rails version step, same method RDJesseeBlog used — but this only provides real protection once Steps 0–2 are done. Running "the suite" today would silently pass while testing almost nothing.
 
 ## Implementation checklist
