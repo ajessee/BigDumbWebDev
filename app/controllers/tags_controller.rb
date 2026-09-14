@@ -17,8 +17,8 @@ class TagsController < ApplicationController
     @posts = @tag.posts
     @posts.each do |post|
       post.tags.destroy(@tag)
-      @tag.destroy
     end
+    @tag.destroy
     store_message(
       title: 'Tag Deleted',
       message: "'#{@tag.name}' successfully deleted from #{@posts.length} #{'post'.pluralize(@posts.length)}",

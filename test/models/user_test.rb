@@ -94,4 +94,26 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test 'guess_city/guess_region/guess_country/guess_address return nil, not raise, with no ip_address' do
+    @user.ip_address = nil
+    assert_nil @user.guess_city
+    assert_nil @user.guess_region
+    assert_nil @user.guess_country
+    assert_nil @user.guess_address
+  end
+
+  test 'guess_city/guess_region/guess_country/guess_address return nil, not raise, when Geocoder finds nothing' do
+    # A blank result set (e.g. a private/reserved IP Geocoder can't resolve) used to crash
+    # every one of these with NoMethodError on nil - see UPGRADE-PLAN.md.
+    Geocoder::Lookup::Test.add_stub('0.0.0.0', [])
+    @user.ip_address = '0.0.0.0'
+
+    assert_nil @user.guess_city
+    assert_nil @user.guess_region
+    assert_nil @user.guess_country
+    assert_nil @user.guess_address
+  ensure
+    Geocoder::Lookup::Test.delete_stub('0.0.0.0')
+  end
 end

@@ -145,25 +145,36 @@ class User < ApplicationRecord
 
   # Guess the users city
   def guess_city
-    Geocoder.search(ip_address).first.city
+    geocoder_result&.city
   end
 
   # Guess the users region
   def guess_region
-    Geocoder.search(ip_address).first.region
+    geocoder_result&.region
   end
 
   # Guess the users country
   def guess_country
-    Geocoder.search(ip_address).first.country
+    geocoder_result&.country
   end
 
   # Guess the users address
   def guess_address
-    Geocoder.search(ip_address).first.address
+    geocoder_result&.address
   end
 
   private
+
+  # Shared, memoized Geocoder lookup behind guess_city/guess_region/guess_country/
+  # guess_address - a nil ip_address, or an IP Geocoder can't resolve (e.g. a private/
+  # reserved address), previously crashed every one of those with NoMethodError on nil
+  # (see UPGRADE-PLAN.md). Memoized so rendering all three/four on one profile view
+  # (app/views/users/_profile.html.erb) makes one lookup, not three.
+  def geocoder_result
+    return nil if ip_address.blank?
+
+    @geocoder_result ||= Geocoder.search(ip_address).first
+  end
 
   # Converts email to all lower-case.
   def downcase_email
