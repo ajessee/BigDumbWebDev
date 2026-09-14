@@ -8,7 +8,7 @@ Welcome to Big Dumb Web Dev, a site by and for new web developers. My name is An
 
 My hope is that this site can serve as a resource for others who are embarking on a similar journey. There is no way I would have been able to do this on my own; I've been helped by countless people along the way. Now it's my turn to try make a contribution. By sharing my projects and trying to explain them, I hope I can show other people that they are capable of doing the same thing.
 
-The app is written in Rails 6 and currently deployed in production using Heroku. 
+The app is written in Rails 8 and deployed in production using Heroku. 
 
 ## Features:
 
@@ -34,9 +34,10 @@ The app is written in Rails 6 and currently deployed in production using Heroku.
 
 ## Technical Specifications:
 
-* Written in Rails 6
+* Written in Rails 8, Ruby 3.3
 * Hosted on Heroku
 * Uses Heroku SendGrid to deliver send user activation emails, password reset emails, or any other communication
 * Uses Heroku Postgres and PostgresQL database for data persistence to store user information
 * Uses AWS Simple Storage Service (S3) to store web application assets
 * Uses Google Analytics to monitor and analyze traffic, bounce rates, and page views
+* Docker-based local dev environment, with Shakapacker (webpack) for JS and dartsass-rails (Dart Sass) for the Sprockets-served CSS
