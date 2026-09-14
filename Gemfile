@@ -14,8 +14,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.9'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-# Version climb step: 7.1 -> 7.2 (gem only; config.load_defaults stays 6.1 for now).
-gem 'rails', '~> 7.2.0'
+# Version climb step: 7.2 -> 8.0 (gem only; config.load_defaults stays 6.1 for now).
+gem 'rails', '~> 8.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server

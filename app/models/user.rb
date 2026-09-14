@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  enum role: %i[guest_1 guest_2 user admin]
+  # Positional form (Rails 8 removed the old `enum role: [...]` keyword-arg syntax
+  # outright, not just deprecated it). Same array, same order - preserves the existing
+  # guest_1=0, guest_2=1, user=2, admin=3 integer mapping already in the database.
+  enum :role, %i[guest_1 guest_2 user admin]
   has_many :posts, dependent: :destroy
   has_many :projects, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy

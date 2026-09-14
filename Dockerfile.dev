@@ -55,7 +55,7 @@ COPY . .
 # activestorage -> marcel -> mimemagic 0.3.5, which was yanked from RubyGems. nokogiri is
 # re-resolved too so its precompiled binary matches this platform's glibc, not a stale
 # platform pin from an earlier lock attempt.
-RUN bundle lock --update rexml selenium-webdriver rails logger nokogiri bootsnap minitest-reporters capybara mutex_m listen puma pg pry pry-byebug byebug minitest \
+RUN bundle lock --update rexml selenium-webdriver rails logger nokogiri bootsnap minitest-reporters capybara mutex_m listen puma pg pry pry-byebug byebug minitest jbuilder \
     && bundle install
 
 RUN yarn install
