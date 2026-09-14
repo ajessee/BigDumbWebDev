@@ -1,3 +1,11 @@
-<figure class="attachment attachment--content attachment--<%= content_attachment.name %>">
-  <%= render "action_text/attachables/content_attachments/#{content_attachment.name.underscore}" %>
+<%
+  # ActionText::Attachables::ContentAttachment has no #name (and none of the actiontext
+  # versions this app has run under ever defined one - verified against the installed
+  # 8.1.3.1 gem source) - only #content_type, e.g. "vnd.rubyonrails.horizontal-rule.html".
+  # Derive the same dispatch name from that instead, so the trix.js-side content type
+  # ("vnd.rubyonrails.<name>.html") still selects content_attachments/_<name>.html.erb.
+  content_attachment_name = content_attachment.content_type.to_s.remove("vnd.rubyonrails.").remove(".html")
+%>
+<figure class="attachment attachment--content attachment--<%= content_attachment_name %>">
+  <%= render "action_text/attachables/content_attachments/#{content_attachment_name.underscore}" %>
 </figure>
