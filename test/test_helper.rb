@@ -24,8 +24,12 @@ class ActionDispatch::IntegrationTest
     !session[:user_id].nil?
   end
 
-  def login_as(user)
-    session[:user_id] = user.id
+  def login_as(user, password)
+    # Directly poking session[:user_id] doesn't work here: ActionDispatch::IntegrationTest
+    # only commits session state back out through a real response's Set-Cookie header, so
+    # a later request wouldn't see it. Log in for real, the same way the UI's login modal
+    # does (an XHR POST - SessionsController#create only has a format.js branch).
+    post login_path, params: { session: { email: user.email, password: password } }, xhr: true
   end
 
   def logout

@@ -1,0 +1,19 @@
+# Minimal fixtures - just enough for PostTest's ordering assertion (Post.default_scope
+# orders by created_at desc). Real Post/Comment/Tag coverage is Step 2's job, not this one.
+most_recent:
+  title: The Most Recent Post
+  slug: the-most-recent-post
+  word_count: 150
+  user: one
+  published: true
+  created_at: <%= 10.minutes.ago %>
+  updated_at: <%= 10.minutes.ago %>
+
+older_post:
+  title: An Older Post
+  slug: an-older-post
+  word_count: 150
+  user: one
+  published: true
+  created_at: <%= 3.days.ago %>
+  updated_at: <%= 3.days.ago %>

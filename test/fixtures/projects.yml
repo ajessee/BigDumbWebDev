@@ -1,0 +1,25 @@
+# Slugs must match the real project pages under app/views/projects/, which
+# ProjectsControllerTest exercises directly (Project.find_by(slug: params[:slug])).
+todo_list:
+  name: Todo List
+  description: A simple todo list application.
+  slug: todo-list
+  user: one
+
+loan_calculator:
+  name: Loan Calculator
+  description: Calculates loan payments.
+  slug: loan-calculator
+  user: one
+
+number_guesser:
+  name: Yoda Number Guesser
+  description: Guess a number, Yoda-style.
+  slug: yoda-number-guesser
+  user: one
+
+contacts_list:
+  name: Contacts List
+  description: A simple contacts list application.
+  slug: contacts-list
+  user: one

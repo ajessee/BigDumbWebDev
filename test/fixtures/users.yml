@@ -1,0 +1,23 @@
+# Andre: the real admin account. Password digest is computed from the actual encrypted
+# credential at fixture-load time (never written to disk in plain or hashed form here) so
+# system tests can log in with Rails.application.credentials.dig(:password, :admin_user_password),
+# and so HelloController's User.find_by(email: credentials admin email) finds this user.
+one:
+  first_name: Andre
+  last_name: Jessee
+  email: <%= Rails.application.credentials.dig(:email, :admin) %>
+  password_digest: <%= User.digest(Rails.application.credentials.dig(:password, :admin_user_password)) %>
+  role: <%= User.roles[:admin] %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+# Natalya: an ordinary, non-admin second user for cross-user/authorization tests. Not tied
+# to any real credentials - the password below is fixture-only.
+three:
+  first_name: Natalya
+  last_name: Petrova
+  email: natalya@example.com
+  password_digest: <%= User.digest('password') %>
+  role: <%= User.roles[:user] %>
+  activated: true
+  activated_at: <%= Time.zone.now %>

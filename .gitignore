@@ -38,6 +38,14 @@ latest.dump
 # ignore rubocop config
 .rubocop.yml
 
-# ignore test fixtures since there are emails in there
+# Ignore test fixtures by default - `rake db:create_fixtures` dumps real user data
+# (emails, password digests) from a dev DB that's often synced from production via
+# `rake db:pull_prod_db`. The few fixtures below are hand-written and synthetic (no
+# real user data at rest - Andre's real email/password are looked up from encrypted
+# credentials at fixture-load time), so they're tracked deliberately. Don't run
+# `rake db:create_fixtures` and commit its output over these without reviewing the diff.
 /test/fixtures/*.yml
+!/test/fixtures/users.yml
+!/test/fixtures/posts.yml
+!/test/fixtures/projects.yml
 
