@@ -37,8 +37,10 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  # Update 1/23/20 - I've changed this to amazon since I'm now pulling the DB from production
-  config.active_storage.service = :amazon
+  # Switched from :amazon back to :local for the upgrade's Docker dev environment, so a
+  # fresh container doesn't need real AWS credentials just to boot (see UPGRADE-PLAN.md).
+  # Set to :amazon locally (e.g. via an env var) if you need to work against pulled prod media.
+  config.active_storage.service = ENV.fetch("ACTIVE_STORAGE_SERVICE", "local").to_sym
   config.active_job.queue_adapter = :inline
 
   # Email in development

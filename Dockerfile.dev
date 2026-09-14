@@ -1,0 +1,66 @@
+# Development-only image pinned close to the app's CURRENT baseline (Ruby 3.0.x, Node 12,
+# Rails 6.1.x, Webpacker). This exists to get a runnable local environment before any
+# version-climb work starts; it gets rebuilt at each Rails/Ruby step per the upgrade plan
+# (see docs/development/UPGRADE-PLAN.md), not maintained as a long-term image.
+#
+# Ruby 3.0.7 (not the exact pinned 3.0.0) on Debian Bullseye, not Buster: Buster's glibc
+# (2.28) is too old for the Nokogiri version this Rails resolves to (needs >= 2.29), and
+# Buster itself is EOL with dead live repos. RDJesseeBlog hit the same install problem at
+# this identical starting point and moved Ruby 3.0.0 -> 3.0.7 as the same kind of interim
+# fix (see docs/development/UPGRADE-LEARNINGS.md) - same move, here for the same reason.
+FROM ruby:3.0.7-bullseye
+
+# Bullseye's security channel has moved off deb.debian.org's live mirror; the image ships
+# commented-out snapshot.debian.org lines pinned to its own build date, so use those
+# instead (same fix as Buster needed, one Debian release later).
+RUN sed -i \
+      -e '/^deb http:\/\/deb.debian.org\/debian bullseye main/d' \
+      -e '/^deb http:\/\/deb.debian.org\/debian-security/d' \
+      -e '/^deb http:\/\/deb.debian.org\/debian bullseye-updates/d' \
+      -e 's/^# //' \
+      /etc/apt/sources.list \
+    && echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
+
+RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+      build-essential \
+      libpq-dev \
+      postgresql-client \
+      chromium \
+      chromium-driver \
+      curl \
+      git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Node 12.19.0 per .nvmrc. Node 12 is EOL and no longer in NodeSource's apt repos, so
+# install straight from the official (still-hosted) release tarball instead. Picks the
+# right arch tarball so this also works on Apple Silicon dev machines.
+RUN NODE_ARCH=$(case "$(uname -m)" in aarch64|arm64) echo arm64 ;; *) echo x64 ;; esac) \
+    && curl -fsSL "https://nodejs.org/dist/v12.19.0/node-v12.19.0-linux-${NODE_ARCH}.tar.xz" -o /tmp/node.tar.xz \
+    && tar -xJf /tmp/node.tar.xz -C /usr/local --strip-components=1 \
+    && rm /tmp/node.tar.xz \
+    && npm install -g yarn@1.22.19
+
+ENV CHROME_BIN=/usr/bin/chromium
+ENV BUNDLE_PATH=/usr/local/bundle
+
+WORKDIR /app
+
+RUN gem install bundler -v 2.2.6
+
+# Copy full source (not just Gemfile/Gemfile.lock) before bundle/yarn install, since the
+# lockfile update below needs to persist into this layer rather than be clobbered by a
+# later COPY of the host's stale copy.
+COPY . .
+
+# Adding selenium-webdriver ~> 4.0 (replacing webdrivers) needs rexml >= 3.2.5, newer
+# than the lockfile's pinned 3.2.4. Rails also needs bumping to its latest 6.1.x patch
+# (still Rails 6.1, not a version-climb step) since the original 6.1.3 lockfile pins
+# activestorage -> marcel -> mimemagic 0.3.5, which was yanked from RubyGems. nokogiri is
+# re-resolved too so its precompiled binary matches this platform's glibc, not a stale
+# platform pin from an earlier lock attempt.
+RUN bundle lock --update rexml selenium-webdriver rails logger nokogiri bootsnap minitest-reporters capybara \
+    && bundle install
+
+RUN yarn install
+
+EXPOSE 3000 3001 3035

@@ -59,7 +59,9 @@ development:
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
     https: false
-    host: localhost
+    # 0.0.0.0 so the dev server is reachable from the host when run inside Docker;
+    # disable_host_check below already allows the browser to reach it as "localhost".
+    host: 0.0.0.0
     port: 3035
     public: localhost:3035
     hmr: false

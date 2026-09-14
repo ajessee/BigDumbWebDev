@@ -131,6 +131,9 @@ class User < ApplicationRecord
   def fetch_ip(request)
     self.ip_address = if Rails.env.production?
                         request.remote_ip
+                      elsif Rails.env.test?
+                        # Avoid a live outbound call on every test run (see UPGRADE-PLAN.md).
+                        '127.0.0.1'
                       else
                         Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
                       end

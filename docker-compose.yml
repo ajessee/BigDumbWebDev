@@ -1,0 +1,61 @@
+# Isolated dev environment for the Rails 6.1 -> 8.1 upgrade (Phase 1 / Step 0).
+# Own project name and volume names deliberately, per the upgrade playbook, so this
+# never collides with RDJesseeBlog's separate Compose setup.
+name: bigdumbwebdev_dev
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: andre
+    volumes:
+      - bigdumbwebdev_pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+    volumes:
+      - .:/app
+      - bigdumbwebdev_bundle:/usr/local/bundle
+      - bigdumbwebdev_node_modules:/app/node_modules
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    environment:
+      RAILS_ENV: development
+      DB_HOST: db
+      DB_USERNAME: andre
+      # Webpacker's dev-server "is it running?" check happens from inside this
+      # container, so it needs the "webpack" service's Compose DNS name, not
+      # config/webpacker.yml's "localhost" (which is what browsers use instead).
+      WEBPACKER_DEV_SERVER_HOST: webpack
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+
+  webpack:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bin/webpack-dev-server
+    volumes:
+      - .:/app
+      - bigdumbwebdev_bundle:/usr/local/bundle
+      - bigdumbwebdev_node_modules:/app/node_modules
+    ports:
+      - "3035:3035"
+    environment:
+      RAILS_ENV: development
+    depends_on:
+      - app
+
+volumes:
+  bigdumbwebdev_pgdata:
+  bigdumbwebdev_bundle:
+  bigdumbwebdev_node_modules:

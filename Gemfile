@@ -8,10 +8,17 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-ruby '3.0.0' # Home Laptop and Work Laptop now too
+# Bumped 3.0.0 -> 3.0.7 as an interim step (not yet the version-climb): needed for a
+# Debian base image with glibc >= 2.29 for Nokogiri's precompiled binary. RDJesseeBlog
+# made this identical move at this identical starting point - see UPGRADE-LEARNINGS.md.
+ruby '3.0.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
+# Pinned to the latest 6.1.x patch (not yet a version-climb step) because the original
+# 6.1.3 lockfile depends on mimemagic 0.3.5, which was yanked from RubyGems; a newer
+# 6.1.x patch pulls in a newer activestorage -> marcel requirement that avoids it
+# entirely, same fix RDJesseeBlog used at this identical starting point.
+gem 'rails', '~> 6.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
@@ -58,8 +65,18 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
+  # Bumped alongside selenium-webdriver: 3.35.3 predates Selenium 4.26's logger API
+  # changes and calls into it incompatibly (ArgumentError inside logger_suppressor.rb).
+  gem 'capybara', '~> 3.40'
   gem 'capybara-email'
   gem 'minitest-reporters'
-  gem 'webdrivers'
+  # Selenium 4's built-in Selenium Manager replaces the deprecated `webdrivers` gem
+  # (which pinned selenium-webdriver < 4.0 and can't drive a current Chrome/Chromedriver).
+  gem 'selenium-webdriver', '~> 4.0'
+  # selenium-webdriver depends on logger ~> 1.4, which resolves to the newest 1.x by
+  # default. Pinned to exactly match Ruby's own bundled default logger gem version so
+  # Bundler never activates a different version than what's already active by default -
+  # a mismatch there caused "already activated logger 1.4.3, but Gemfile requires ..."
+  # conflicts in binstubs that require 'bundler/setup' directly (e.g. webpack-dev-server).
+  gem 'logger', '1.4.3'
 end

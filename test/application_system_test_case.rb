@@ -24,6 +24,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   Capybara.server_port = 3001
   Capybara.app_host = 'http://localhost:3001'
 
-  driven_by :selenium, using: :chrome, screen_size: [1920, 1080], options: { args: ['--auto-open-devtools-for-tabs'] }
-  # driven_by :selenium, using: :headless_chrome
+  driven_by :selenium, using: :headless_chrome, screen_size: [1920, 1080] do |options|
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+  end
 end
