@@ -36,8 +36,12 @@ default: &default
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
-  # Select loader to use, available options are 'babel' (default), 'swc' or 'esbuild'
-  webpack_loader: 'babel'
+  # Select transpiler to use, available options are 'babel' (default), 'swc' or 'esbuild'.
+  # Renamed from `webpack_loader` in shakapacker 9.0 (old key still works with a
+  # deprecation warning, renamed here rather than left implicit - shakapacker 9/10 will
+  # otherwise sometimes default to swc if this isn't set explicitly, and swc-loader isn't
+  # installed here).
+  javascript_transpiler: 'babel'
 
   # Raises an error if there is a mismatch in the shakapacker gem and npm package being used
   ensure_consistent_versioning: true

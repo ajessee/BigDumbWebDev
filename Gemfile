@@ -38,7 +38,7 @@ gem 'sprockets-rails'
 # require.context-based dynamic loading (a webpack-only API this app's whole hand-rolled
 # JS load order depends on) keeps working unchanged. Functional parity only this phase -
 # the idiomatic import-map/Turbo/Stimulus rewrite is Phase 2's job.
-gem 'shakapacker', '~> 8.0'
+gem 'shakapacker', '~> 10.0'
 # Shakapacker's DevServerProxy relies on rack-proxy's old dynamic-backend-by-default
 # behavior to proxy /packs/* to the dev server, based on env["HTTP_HOST"] etc, which it
 # sets directly but never pairs with rack-proxy's own :backend/allow_dynamic_backend
