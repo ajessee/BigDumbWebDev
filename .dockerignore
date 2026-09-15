@@ -1,4 +1,6 @@
 .git
+.DS_Store
+.bundle
 log/*
 tmp/*
 !log/.keep
@@ -10,3 +12,11 @@ public/packs
 public/packs-test
 node_modules
 .byebug_history
+
+# Secrets: never let these into a build context/image layer.
+config/master.key
+config/credentials/*.key
+*.dump
+*.sql
+.env*
+!.env.example

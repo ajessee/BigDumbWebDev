@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+mkdir -p tmp/pids log
+rm -f tmp/pids/server.pid
+# Migrations are a separate release operation, never a web-start side effect
+# (matches this app's existing preference for a manual `heroku run rails db:migrate`
+# release step - see UPGRADE-PLAN.md Section 5).
+exec "$@"

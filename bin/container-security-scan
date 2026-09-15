@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+image="${1:-bigdumbwebdev-production:local}"
+docker scout cves --exit-code --only-severity critical,high "local://${image}"

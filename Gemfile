@@ -79,6 +79,13 @@ gem 'geocoder'
 # these whenever Ruby is bumped (currently Ruby 3.3.9's own bundled defaults).
 gem 'logger', '1.6.0'
 gem 'mutex_m', '0.2.0'
+# net-imap/erb: also Ruby default gems, but the opposite direction from logger/mutex_m
+# above - Ruby 3.3.9's own bundled defaults (0.4.21/4.0.3) have known CVEs
+# (CVE-2026-42246, CVE-2026-41316), found via a production Docker image's container
+# security scan (see docs/development/SECURITY-ACCEPTANCE.md). Bumped past the bundled
+# default rather than held at it.
+gem 'net-imap', '>= 0.4.24'
+gem 'erb', '>= 4.0.3.1'
 # JSON 3.0.2 (Rails 8.1's resolved default) breaks ActiveStorage blob metadata
 # deserialization here (ArgumentError: wrong number of arguments in JSON.parse) - the
 # same session/JSON-decoding regression RDJesseeBlog's identical upgrade hit at this same
@@ -106,6 +113,8 @@ group :development do
   gem 'rubocop', require: false
   # Use brakeman for git pre-push hook
   gem 'brakeman', require: false
+  # Gem-vulnerability scanning, used by bin/security-scan
+  gem 'bundler-audit', require: false
   # Used for creating fixtures from dev database, see lib/tasks/create_fixtures_from_db.rake
   # - genuinely dev-only, not referenced anywhere else in app/lib.
   gem 'humanize'

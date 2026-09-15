@@ -1,0 +1,19 @@
+#!/bin/sh
+set -eu
+
+bundle exec brakeman --no-pager --quiet --exit-on-warn --exit-on-error
+
+# GHSA-96qw-h329-v5rg (shakapacker EnvironmentPlugin leak): accepted, tracked risk -
+# see docs/development/SECURITY-ACCEPTANCE.md. Not silently hidden: still printed by
+# `check --update` without --ignore if you want to see it, this just doesn't gate on it.
+bundle exec bundler-audit check --update --ignore GHSA-96qw-h329-v5rg
+
+# --groups dependencies excludes devDependencies (webpack-dev-server and its own,
+# much larger, separate vulnerability set) - dev-server code never ships or runs
+# outside a local dev container, so it isn't part of this gate. What's left here
+# (shakapacker's other build-toolchain deps: compression-webpack-plugin etc.) is the
+# same accepted, tracked risk as the bundler-audit ignore above - see
+# docs/development/SECURITY-ACCEPTANCE.md. Yarn classic (v1) has no per-advisory
+# allowlist, so this step is informational only (not gating) until the shakapacker
+# upgrade in that doc's follow-up lands; review its output by hand for anything new.
+yarn audit --level high --groups dependencies || true

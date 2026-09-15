@@ -132,13 +132,16 @@ class User < ApplicationRecord
 
   # Get user IP address from request
   def fetch_ip(request)
-    self.ip_address = if Rails.env.production?
-                        request.remote_ip
-                      elsif Rails.env.test?
+    self.ip_address = if Rails.env.test?
                         # Avoid a live outbound call on every test run (see UPGRADE-PLAN.md).
                         '127.0.0.1'
                       else
-                        Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
+                        # Development used to make a live call to checkip.amazonaws.com here
+                        # instead of just using request.remote_ip like production - a
+                        # needless external dependency in a Docker dev environment where
+                        # that "real" IP isn't actually meaningful anyway (see UPGRADE-PLAN.md
+                        # Section 4). request.remote_ip works the same way in both environments.
+                        request.remote_ip
                       end
     save
   end

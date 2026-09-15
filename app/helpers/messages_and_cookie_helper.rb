@@ -26,7 +26,7 @@ module MessagesAndCookieHelper
 
   # Stores the URL if GET request
   def store_location
-    session[:forwarding_url] = request.original_url if request.get?
+    session[:forwarding_url] = request.original_url if request.get? || request.head?
   end
 
   # Get stored location if it exists
