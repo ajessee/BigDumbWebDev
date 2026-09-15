@@ -12,8 +12,14 @@
 # exactly if this migration is ever rolled back.
 class DropPaperTrailVersionsTables < ActiveRecord::Migration[8.1]
   def up
-    drop_table :version_associations
-    drop_table :versions
+    # if_exists: true - added 2026-09-15 after this migration failed against production:
+    # neither table actually existed there. The comment above (and the original version of
+    # this migration) claimed both were "still physically present in... dev/production
+    # databases", but that was only ever verified against the local dev database, which
+    # apparently had these as a leftover from some old data import/seed that never matched
+    # real production state. Safe either way now, regardless of which tables exist where.
+    drop_table :version_associations, if_exists: true
+    drop_table :versions, if_exists: true
   end
 
   def down
