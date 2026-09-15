@@ -23,6 +23,7 @@ Local dev runs in Docker Compose (`docker-compose.yml`/`Dockerfile.dev` — see 
 - Container image scan: `bin/container-security-scan [image]` (Docker Scout; same acceptance doc applies)
 - Pull production data into development: `rake db:pull_prod_db` — captures a real Heroku Postgres backup and restores it over the local dev database. Local dev now defaults `config.active_storage.service` to `:local` (Disk), not `:amazon`/S3 like production — set `ACTIVE_STORAGE_SERVICE=amazon` explicitly if you actually want pulled-prod media to resolve after using this task.
 - Regenerate `test/fixtures/*.yml` from the current dev database: `rake db:create_fixtures`.
+- **Deploy:** `git push heroku main:master` — GitHub's default branch was renamed `master` → `main` on 2026-09-15, but Heroku's git remote (a separate protocol, not tied to GitHub at all) still only accepts pushes to a ref literally named `master`; that has nothing to do with GitHub's default-branch setting and doesn't need to change. Migrations now run automatically as a Heroku release-phase step (`Procfile`'s `release:` line) — no separate `heroku run rails db:migrate` needed after a normal deploy.
 
 ## Architecture
 
