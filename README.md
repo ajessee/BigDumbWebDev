@@ -1,8 +1,8 @@
-![BigDumbWebDev](https://github.com/ajessee/BigDumbWebDev/blob/master/app/assets/images/BDWD_email_icon.png)
+![BigDumbWebDev](https://github.com/ajessee/BigDumbWebDev/blob/main/app/assets/images/BDWD_email_icon.png)
 
 # [BigDumbWebDev](https://www.bigdumbweb.dev/) 
 
-Documentation: [roadmap](docs/development/ROADMAP.md) · [upgrade plan](docs/development/UPGRADE-PLAN.md) · [upgrade lessons from RDJesseeBlog](docs/development/UPGRADE-LEARNINGS.md).
+Documentation: [roadmap](docs/development/ROADMAP.md) · [production Docker/deploy](docs/development/PRODUCTION-DOCKER.md) · [domain/email](docs/development/DOMAIN-AND-EMAIL.md) · [backups/restore](docs/development/BACKUP-AND-RESTORE.md) · [security acceptance](docs/development/SECURITY-ACCEPTANCE.md) · [Rails 6.1→8.1 upgrade plan (archived, complete)](docs/archive/UPGRADE-PLAN.md) · [Heroku deployment record](docs/archive/HEROKU-DEPLOYMENT.md).
 
 Welcome to Big Dumb Web Dev, a site by and for new web developers. My name is Andre, and I built this site to document my journey into learning about web development, software engineering, and technology. It's been a challenge for me - none of this stuff has come easy, and the only way I've been able to learn is by building things like this.
 
@@ -34,9 +34,9 @@ The app is written in Rails 8 and deployed in production using Heroku.
 
 ## Technical Specifications:
 
-* Written in Rails 8, Ruby 3.3
-* Hosted on Heroku
-* Uses Heroku SendGrid to deliver send user activation emails, password reset emails, or any other communication
+* Written in Rails 8.1.3.1, Ruby 3.3.9
+* Hosted on Heroku (`heroku-24` stack)
+* Uses Amazon SES to deliver user activation emails, password reset emails, or any other communication
 * Uses Heroku Postgres and PostgresQL database for data persistence to store user information
 * Uses AWS Simple Storage Service (S3) to store web application assets
 * Uses Google Analytics to monitor and analyze traffic, bounce rates, and page views

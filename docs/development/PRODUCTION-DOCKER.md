@@ -1,6 +1,6 @@
 # Production Docker image
 
-The image runs Rails 8.1.3.1 on Ruby 3.3.9 with Bundler 2.7.2 and Rails 8.1 application defaults. It is a locally validated portability candidate — production still deploys via Heroku buildpacks (see [UPGRADE-PLAN.md](UPGRADE-PLAN.md) Section 5), not this container image, mirroring the same decision already made on the sibling RDJesseeBlog app (see its own `docs/development/PRODUCTION-DOCKER.md`). Unlike RDJesseeBlog, this app has no audio/video processing (no ffmpeg) and uses ImageMagick rather than libvips for Active Storage variants (see UPGRADE-PLAN.md's `image_processing`/`variant_processor` finding), so this image is smaller and simpler.
+The image runs Rails 8.1.3.1 on Ruby 3.3.9 with Bundler 2.7.2 and Rails 8.1 application defaults. It is a locally validated portability candidate — production still deploys via Heroku buildpacks (see [UPGRADE-PLAN.md](../archive/UPGRADE-PLAN.md) Section 5), not this container image, mirroring the same decision already made on the sibling RDJesseeBlog app (see its own `docs/development/PRODUCTION-DOCKER.md`). Unlike RDJesseeBlog, this app has no audio/video processing (no ffmpeg) and uses ImageMagick rather than libvips for Active Storage variants (see [UPGRADE-PLAN.md](../archive/UPGRADE-PLAN.md)'s `image_processing`/`variant_processor` finding), so this image is smaller and simpler.
 
 ## Build
 
@@ -26,7 +26,7 @@ Inject secrets through the host's secret configuration or an untracked environme
 
 - `DATABASE_URL`: the intended PostgreSQL database.
 - `RAILS_MASTER_KEY`: decrypts `config/credentials.yml.enc`, which holds `secret_key_base`, the S3 (`aws:`) credentials, and the SES (`ses:`) credentials (see [DOMAIN-AND-EMAIL.md](DOMAIN-AND-EMAIL.md) for the SES migration).
-- `PORT`: defaults to 3000. `RAILS_MAX_THREADS` defaults to 5 (already the actual Heroku production value as of 2026-09-14 — see UPGRADE-PLAN.md Section 3); keep total connections across all dynos/instances below the Postgres Essential-0 plan's 20-connection limit.
+- `PORT`: defaults to 3000. `RAILS_MAX_THREADS` defaults to 5 (already the actual Heroku production value as of 2026-09-14 — see [UPGRADE-PLAN.md](../archive/UPGRADE-PLAN.md) Section 3); keep total connections across all dynos/instances below the Postgres Essential-0 plan's 20-connection limit.
 
 The server serves precompiled assets itself (`RAILS_SERVE_STATIC_FILES=1`, baked into the image) and logs to stdout unconditionally. HTTPS is enforced (`config.force_ssl = true`); a reverse proxy must terminate TLS and supply `X-Forwarded-Proto`. The `/up` endpoint verifies Rails can serve a request — it is not a database or S3/SES availability check.
 
@@ -46,7 +46,7 @@ docker run --rm --env-file .env.production bigdumbwebdev-production:local bundle
 
 **On the actual Heroku deployment (not this container), migrations are automated as of 2026-09-15**: the `Procfile` has a `release: bundle exec rails db:migrate` line, so every future `git push heroku` runs migrations automatically as part of the release phase, before the new dyno takes traffic — no more manual `heroku run rails db:migrate` needed. This was a deliberate change from the Phase 1 rollout's own manual step (see [../archive/HEROKU-DEPLOYMENT.md](../archive/HEROKU-DEPLOYMENT.md)), made once that first real deploy had already proven the migration path end-to-end. If a release-phase migration fails, Heroku aborts the release and keeps the previous version serving traffic — it does not silently deploy broken code.
 
-Do not use `db:seed`/`db:prepare` against production — `db/seeds.rb` uses `faker`, which is deliberately excluded from the production Gemfile group (see UPGRADE-PLAN.md Section 2) and will raise `NameError: uninitialized constant Faker` if attempted; this is a real, useful guard against accidentally seeding demo data into production, not a bug to fix.
+Do not use `db:seed`/`db:prepare` against production — `db/seeds.rb` uses `faker`, which is deliberately excluded from the production Gemfile group (see [UPGRADE-PLAN.md](../archive/UPGRADE-PLAN.md) Section 2) and will raise `NameError: uninitialized constant Faker` if attempted; this is a real, useful guard against accidentally seeding demo data into production, not a bug to fix.
 
 ## Local validation, 2026-09-14
 

@@ -1,5 +1,7 @@
 # Rails upgrade handoff: lessons from RDJesseeBlog
 
+> **Archived.** Both upgrades this doc discusses are now complete and deployed (RDJesseeBlog as of `v169`/`v171`; BigDumbWebDev as of 2026-09-15 — see [HEROKU-DEPLOYMENT.md](HEROKU-DEPLOYMENT.md)). Moved here from `docs/development/` alongside [UPGRADE-PLAN.md](UPGRADE-PLAN.md) once BigDumbWebDev's own upgrade landed, following the same convention this doc's own closing section called for.
+
 Recorded September 11, 2026. Read this together with [UPGRADE-PLAN.md](UPGRADE-PLAN.md) before starting BigDumbWebDev. This is a repository-based memory for future work, not a claim that either production upgrade is complete.
 
 ## User intent and current checkpoint
@@ -75,3 +77,15 @@ Two additional things worth carrying over that this document didn't cover:
 2. **RDJesseeBlog's docs got reorganized into `docs/development/` (living docs + a `ROADMAP.md`) and `docs/archive/` (point-in-time upgrade/rollout records), with only `README.md` staying at the repo root.** This app's docs now follow the `docs/development/` half of that convention (see `README.md`); once this app's own upgrade actually happens, the same split (moving what becomes historical into `docs/archive/`) is worth applying here too.
 
 Full detail lives in `/Users/ajessee/Personal/RDJesseeBlog/docs/archive/UPGRADE-PLAN.md` and `docs/archive/HEROKU-DEPLOYMENT.md`, or ask Claude to summarize — its memory has a `rails-upgrade-playbook` entry distilling all of this.
+
+## BigDumbWebDev final status (added 2026-09-15)
+
+BigDumbWebDev's own upgrade is now complete and deployed to production (Heroku release `v287` at the time of writing, on `heroku-24` via buildpacks). Final toolchain: Rails 8.1.3.1, Ruby 3.3.9 (not 4.x — deliberately stayed rather than following RDJesseeBlog's Ruby 4.0.6 by rote, per this document's own "recheck current stable releases" guidance), Bundler 2.7.2, Node 24.21.0, Shakapacker 10.3.2, Debian Trixie. Full detail in [UPGRADE-PLAN.md](UPGRADE-PLAN.md) and [HEROKU-DEPLOYMENT.md](HEROKU-DEPLOYMENT.md).
+
+How the playbook above actually held up in practice:
+
+1. **The "compare Heroku's deployed source commit with the checkout" step (item 1) turned out to matter enormously** — production was still running the pre-upgrade Rails 6.1 app right up until this rollout; every prior session's work had only ever touched local Docker. Worth calling out explicitly for future upgrades: don't assume earlier "done" checklist items mean anything has actually shipped.
+2. **Item 9's "validate stack/runtime support" was not just due diligence — it was a hard blocker.** `heroku-20` had gone from merely old to fully end-of-life (Heroku outright refuses to build on it) between when this app's audit was written and when the deploy happened. Recheck stack support again, immediately before deploying, not just once during planning.
+3. **A near-identical version of RDJesseeBlog's "missing migration" lesson (item 2 above) repeated in a different shape**: not a missing migration file, but a migration that assumed dev and production had the same schema drift without ever actually checking production. `DropPaperTrailVersionsTables` failed against real production because the orphaned tables it targeted only existed in the local dev database. Generalized lesson: a migration's own comments claiming "verified against dev and production" should be treated as a claim to re-verify, not a fact, when it actually matters (i.e., right before deploying it for real).
+4. **The docs/development → docs/archive split (RDJesseeBlog lesson #2 above) was applied here too**, once this app's own upgrade actually landed — this file and `UPGRADE-PLAN.md` moved to `docs/archive/` on 2026-09-15, confirming that convention is worth repeating for whatever Rails app upgrades next.
+5. **A cross-app-family lesson neither prior document had**: this app's SendGrid mail integration was fully dead (a 2019 add-on, revoked credentials, Heroku SSO into it failing outright) — and SendGrid's own free tier had been discontinued industry-wide in the interim. Migrated to Amazon SES instead. If any future sibling app also uses the old Heroku SendGrid add-on, check its actual credential validity directly (an HTTP/SMTP auth probe, not just "the add-on shows as attached") before assuming it works.

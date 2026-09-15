@@ -1,6 +1,6 @@
 # Heroku deployment record — Phase 1 rollout
 
-> **Archived.** Point-in-time record of the Phase 1 (Rails 6.1→8.1) production rollout. For current outstanding work, see [ROADMAP.md](../development/ROADMAP.md) and [UPGRADE-PLAN.md](../development/UPGRADE-PLAN.md).
+> **Archived.** Point-in-time record of the Phase 1 (Rails 6.1→8.1) production rollout. For current outstanding work, see [ROADMAP.md](../development/ROADMAP.md) and [UPGRADE-PLAN.md](UPGRADE-PLAN.md).
 
 Deployed 2026-09-15. The user explicitly authorized skipping a separate staging environment and deploying straight to production with fast rollback readiness (a fresh backup beforehand, Heroku's native `rollback` available). This authorization was for this rollout specifically; it is not standing authorization for future production mutations.
 
@@ -49,4 +49,4 @@ Required because Webpacker's auto-provisioning of Node (which the old code relie
 
 ## Outstanding follow-up work
 
-Tracked in [UPGRADE-PLAN.md](../development/UPGRADE-PLAN.md) Section 5 rather than duplicated here — check there for exact current status, not this archived record.
+Tracked in [UPGRADE-PLAN.md](UPGRADE-PLAN.md) Section 5 rather than duplicated here — check there for exact current status, not this archived record.

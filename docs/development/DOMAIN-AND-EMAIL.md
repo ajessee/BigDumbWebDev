@@ -1,6 +1,6 @@
 # Domain, DNS, and email
 
-Reference doc for how `bigdumbweb.dev` is registered, resolved, and mailed. Started 2026-09-14 while diagnosing the dead `SENDGRID_API_KEY` (see [UPGRADE-PLAN.md](UPGRADE-PLAN.md) Section 3); updated the same day once the fix landed on **Amazon SES** rather than SendGrid. Read this before touching DNS, email deliverability, or AWS SES/IAM for this app.
+Reference doc for how `bigdumbweb.dev` is registered, resolved, and mailed. Started 2026-09-14 while diagnosing the dead `SENDGRID_API_KEY` (see [UPGRADE-PLAN.md](../archive/UPGRADE-PLAN.md) Section 3); updated the same day once the fix landed on **Amazon SES** rather than SendGrid. Read this before touching DNS, email deliverability, or AWS SES/IAM for this app.
 
 ## Registrar / DNS host
 
@@ -42,6 +42,8 @@ These replaced four now-deleted, dead SendGrid domain-authentication CNAMEs that
 - [x] Production access: already enabled (`aws sesv2 get-account` → `ProductionAccessEnabled: true`) — this AWS account has been in active use since 2016 (EC2/S3), so it already had this from prior use. No sandbox request was needed.
 - [x] Rails switched to SES: `config/environments/production.rb` uses `config.action_mailer.delivery_method = :ses`, backed by `app/lib/ses_delivery_method.rb` (a small custom delivery class wrapping `Aws::SESV2::Client#send_email`). Note: `aws-sdk-rails` was tried first but its ActionMailer/SES integration has been removed from the gem entirely (5.2.0 only does SQS/Elastic Beanstalk worker middleware) — switched to the lighter `aws-sdk-sesv2` gem directly instead. Also hit and fixed a Zeitwerk timing issue: the delivery-method registration had to move into a `config.after_initialize` block, since `config/environments/production.rb` evaluates before autoloading is ready.
 - [x] Real test send confirmed working end-to-end, 2026-09-14 (delivered and visually confirmed by the user).
+- [x] **Re-confirmed in actual production, 2026-09-15**, after this code finally deployed (see [../archive/HEROKU-DEPLOYMENT.md](../archive/HEROKU-DEPLOYMENT.md)): `heroku run rails runner` against the live app confirmed `delivery_method: ses` with real credentials resolving correctly in the real Heroku runtime, not just the dev container.
+- **Leftover, not yet cleaned up:** the `sendgrid:starter` Heroku add-on itself (as opposed to its config vars, already removed) is still attached to the app — free, genuinely unused now, a small cleanup candidate. See [ROADMAP.md](ROADMAP.md)'s "Other opportunities" section.
 
 There's also a `TXT mx._domainkey` record containing an inline RSA public key (`k=rsa; p=...`) that doesn't match the naming convention of the iCloud or SES/SendGrid records — likely a leftover from some even-older mail setup, not yet identified. Harmless to leave (a DKIM TXT record only matters if some mail server actually signs outbound mail with the matching private key), but worth investigating if anything mail-related ever behaves unexpectedly.
 

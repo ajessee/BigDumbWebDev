@@ -5,7 +5,7 @@
 - **Scheduled backups:** daily at 07:00 America/New_York (`heroku pg:backups:schedules --app big-dumb-web-dev`), set up as part of the Section 5 deploy work.
 - **Manual backup on demand:** `heroku pg:backups:capture --app big-dumb-web-dev`.
 - **Continuous protection** is also enabled on the Postgres Essential-0 plan (Heroku's own WAL-based rolling protection, separate from the logical `pg:backups` snapshots above) — this is why `pg:backups:capture` prints a "Logical backups of large databases are likely to fail" warning; harmless at this app's small size (~10MB), and continuous protection itself provides fast point-in-time recovery for the last ~4 hours to few days independent of the snapshot schedule above.
-- **Restore drill: not yet done.** A schedule existing is not the same as proof a restore actually works — this doc's process below is written but not yet executed. Tracked as an open item in [UPGRADE-PLAN.md](UPGRADE-PLAN.md) Section 5.
+- **Restore drill: not yet done.** A schedule existing is not the same as proof a restore actually works — this doc's process below is written but not yet executed. Tracked as an open item in [UPGRADE-PLAN.md](../archive/UPGRADE-PLAN.md) Section 5.
 
 ## Restore drill process (TODO: execute, not yet run)
 
@@ -21,7 +21,7 @@ The goal: prove a real backup can actually be restored into a working database, 
    - Spot-check a specific known record (e.g., a specific post's content) rather than just counts.
    - Confirm `schema_migrations` in the restored DB matches the same migration version as production.
 5. **Tear down the temporary resource immediately after verifying** — this is a real, billed (prorated) Postgres instance for as long as it exists: `heroku addons:destroy RESTORE_DRILL --app big-dumb-web-dev` (or destroy the whole throwaway app if that approach was used).
-6. **Record the result** (date, backup ID tested, what was verified, any issues found) — append it to this doc as a dated entry below, the same way Section 5's other work is dated in UPGRADE-PLAN.md.
+6. **Record the result** (date, backup ID tested, what was verified, any issues found) — append it to this doc as a dated entry below, the same way Section 5's other work is dated in [UPGRADE-PLAN.md](../archive/UPGRADE-PLAN.md).
 
 **Cadence:** re-run this drill periodically (e.g., quarterly, or after any major schema change) rather than once and forgetting — a schedule that silently stopped working, or a backup format that silently became unrestorable, is exactly the kind of failure that a drill catches and a schedule alone doesn't.
 
