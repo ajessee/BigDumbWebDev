@@ -38,11 +38,13 @@ Only use this command with a correctly configured TLS proxy. Do not point an unv
 
 ## Release operation
 
-The entrypoint (`bin/docker-entrypoint`) does not run migrations — they're a separate, explicit release step, matching this app's existing preference for a manual `heroku run rails db:migrate` (see UPGRADE-PLAN.md Section 5's still-open item on this same question):
+The entrypoint (`bin/docker-entrypoint`) does not run migrations itself — for this container image, run them as a separate, explicit step:
 
 ```sh
 docker run --rm --env-file .env.production bigdumbwebdev-production:local bundle exec rails db:migrate
 ```
+
+**On the actual Heroku deployment (not this container), migrations are automated as of 2026-09-15**: the `Procfile` has a `release: bundle exec rails db:migrate` line, so every future `git push heroku` runs migrations automatically as part of the release phase, before the new dyno takes traffic — no more manual `heroku run rails db:migrate` needed. This was a deliberate change from the Phase 1 rollout's own manual step (see [../archive/HEROKU-DEPLOYMENT.md](../archive/HEROKU-DEPLOYMENT.md)), made once that first real deploy had already proven the migration path end-to-end. If a release-phase migration fails, Heroku aborts the release and keeps the previous version serving traffic — it does not silently deploy broken code.
 
 Do not use `db:seed`/`db:prepare` against production — `db/seeds.rb` uses `faker`, which is deliberately excluded from the production Gemfile group (see UPGRADE-PLAN.md Section 2) and will raise `NameError: uninitialized constant Faker` if attempted; this is a real, useful guard against accidentally seeding demo data into production, not a bug to fix.
 
